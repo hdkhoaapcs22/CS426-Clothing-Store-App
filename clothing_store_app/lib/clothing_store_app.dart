@@ -12,12 +12,12 @@ import 'Languages/appLocalizations.dart';
 
 BuildContext? applicationcontext;
 
-class BookingApp extends StatefulWidget {
+class ClothingStoreApp extends StatefulWidget {
   @override
-  _BookingAppState createState() => _BookingAppState();
+  _ClothingStoreAppState createState() => _ClothingStoreAppState();
 }
 
-class _BookingAppState extends State<BookingApp> {
+class _ClothingStoreAppState extends State<ClothingStoreApp> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(builder: (_, provider, child) {

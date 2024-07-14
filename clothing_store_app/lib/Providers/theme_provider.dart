@@ -38,29 +38,43 @@ class ThemeProvider extends ChangeNotifier {
 
 // this func is auto check theme and update them
   void checkAndSetThemeMode(Brightness systemBrightness) async {
-    bool _theLightTheme = _isLightMode;
+    bool theLightTheme = _isLightMode;
 
     // mode is selected by user
     if (_themeModeType == ThemeModeType.system) {
       // if mode is system then we add as system birtness
-      _theLightTheme = systemBrightness == Brightness.light;
+      theLightTheme = systemBrightness == Brightness.light;
     } else if (_themeModeType == ThemeModeType.dark) {
-      _theLightTheme = false;
+      theLightTheme = false;
     } else {
       //light theme selected by user
-      _theLightTheme = true;
+      theLightTheme = true;
     }
 
-    if (_isLightMode != _theLightTheme) {
-      _isLightMode = _theLightTheme;
+    if (_isLightMode != theLightTheme) {
+      _isLightMode = theLightTheme;
       _themeData = AppTheme.getThemeData;
       notifyListeners();
     }
   }
 
-  void updateLanguage(LanguageType _language) async {
-    await SharedPreferencesKeys().setLanguageType(_language);
-    _languageType = _language;
+  void updateFontType(FontFamilyType fontType) async {
+    await SharedPreferencesKeys().setFontType(fontType);
+    _fontType = fontType;
+    _themeData = AppTheme.getThemeData;
+    notifyListeners();
+  }
+
+  void updateColorType(ColorType color) async {
+    await SharedPreferencesKeys().setColorType(color);
+    _colorType = color;
+    _themeData = AppTheme.getThemeData;
+    notifyListeners();
+  }
+
+  void updateLanguage(LanguageType language) async {
+    await SharedPreferencesKeys().setLanguageType(language);
+    _languageType = language;
     _themeData = AppTheme.getThemeData;
     notifyListeners();
   }
