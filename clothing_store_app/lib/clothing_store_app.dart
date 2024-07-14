@@ -6,9 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'Providers/theme_provider.dart';
-import 'Common/common.dart';
-import 'Languages/appLocalizations.dart';
+import 'Routes/routes_name.dart';
+import 'modules/splash_screen.dart';
+import 'providers/theme_provider.dart';
+import 'common/common.dart';
+import 'languages/appLocalizations.dart';
 
 BuildContext? applicationcontext;
 
@@ -68,7 +70,9 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
   }
 
   Map<String, WidgetBuilder> _buildRoutes() {
-    return {};
+    return {
+      RoutesName.splashScreen: (context) => const SplashScreen(),
+    };
   }
 
   void _setStatusBarNavigationBarTheme(ThemeData themeData) {

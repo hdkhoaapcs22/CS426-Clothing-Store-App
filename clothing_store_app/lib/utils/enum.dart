@@ -14,6 +14,12 @@ enum ColorType {
   BilobaFlower,
 }
 
-enum LanguageType { en, fr } // english, france, arabic, japanese
+enum ThemeModeType {
+  system,
+  dark,
+  light,
+}
+
+enum LanguageType { en, fr } // english, france
 
 enum PopupTextType { no, ad, ch }

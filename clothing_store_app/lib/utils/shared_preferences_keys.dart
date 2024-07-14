@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../clothing_store_app.dart';
-import 'themes.dart';
 import 'enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

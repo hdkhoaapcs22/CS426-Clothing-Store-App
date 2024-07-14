@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'enum.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import '../clothing_store_app.dart';
-import 'enum.dart';
-import '../Providers/theme_provider.dart';
 
 class AppTheme {
   static bool get isLightMode {
@@ -115,18 +115,16 @@ class AppTheme {
     final ThemeData base = ThemeData.light();
 
     return base.copyWith(
-      colorScheme: colorScheme,
       primaryColor: primaryColor,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
-      backgroundColor: backgroundColor,
       canvasColor: scaffoldBackgroundColor,
       buttonTheme: _buttonThemeData(colorScheme),
       dialogTheme: _dialogTheme(),
       cardTheme: _cardTheme(),
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.textTheme),
-      platform: TargetPlatform.android,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
+      platform: TargetPlatform.iOS,
+      visualDensity: VisualDensity.adaptivePlatformDensity, colorScheme: colorScheme.copyWith(background: backgroundColor),
     );
   }
 
@@ -138,18 +136,16 @@ class AppTheme {
     final ThemeData base = ThemeData.dark();
 
     return base.copyWith(
-      colorScheme: colorScheme,
       primaryColor: primaryColor,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
-      backgroundColor: backgroundColor,
       canvasColor: scaffoldBackgroundColor,
       buttonTheme: _buttonThemeData(colorScheme),
       dialogTheme: _dialogTheme(),
       cardTheme: _cardTheme(),
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.textTheme),
-      platform: TargetPlatform.android,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
+      platform: TargetPlatform.iOS,
+      visualDensity: VisualDensity.adaptivePlatformDensity, colorScheme: colorScheme.copyWith(background: backgroundColor),
     );
   }
 
@@ -232,8 +228,3 @@ class AppTheme {
       );
 }
 
-enum ThemeModeType {
-  system,
-  dark,
-  light,
-}

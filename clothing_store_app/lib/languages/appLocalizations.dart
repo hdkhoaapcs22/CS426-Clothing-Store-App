@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../Common/common.dart' as common;
+import '../common/common.dart' as common;
 import '../clothing_store_app.dart';
 import '../providers/theme_provider.dart';
 import '../utils/enum.dart';

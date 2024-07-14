@@ -1,5 +1,5 @@
-import 'package:clothing_store_app/Providers/theme_provider.dart';
-import 'package:clothing_store_app/Utils/themes.dart';
+import 'package:clothing_store_app/providers/theme_provider.dart';
+import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/clothing_store_app.dart';
 import 'package:clothing_store_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
