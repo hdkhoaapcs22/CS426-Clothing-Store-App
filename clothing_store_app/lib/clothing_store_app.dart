@@ -13,6 +13,7 @@ import 'languages/appLocalizations.dart';
 
 import 'modules/Address/address_list_screen.dart';
 import 'modules/Address/edit_address_screen.dart';
+import 'modules/Address/add_new_address_screen.dart';
 import 'routes/routes_name.dart';
 
 BuildContext? applicationcontext;
@@ -74,7 +75,7 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-      RoutesName.splashScreen: (context) => EditAddressScreen(),
+      RoutesName.splashScreen: (context) => AddNewAddressScreen(),
     };
   }
 
