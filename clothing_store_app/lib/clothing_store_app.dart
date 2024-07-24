@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:clothing_store_app/modules/SplashScreen/splash_screen.dart';
-import 'package:clothing_store_app/routes/routes_name.dart';
+import 'package:clothing_store_app/modules/Address/address_list_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +10,9 @@ import 'package:provider/provider.dart';
 import 'providers/theme_provider.dart';
 import 'common/common.dart';
 import 'languages/appLocalizations.dart';
+
+import 'modules/Address/address_list_screen.dart';
+import 'routes/routes_name.dart';
 
 BuildContext? applicationcontext;
 
@@ -71,7 +73,7 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-      RoutesName.splashScreen: (context) => const SplashScreen()
+      RoutesName.splashScreen: (context) => AddressListScreen(),
     };
   }
 
