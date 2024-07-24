@@ -16,7 +16,7 @@ class CommonButton extends StatelessWidget {
   bool isVisibility;
 
   CommonButton({
-    Key? key,
+    super.key,
     this.onTap,
     this.padding,
     this.buttonText,
@@ -29,7 +29,7 @@ class CommonButton extends StatelessWidget {
     this.fontSize = 18,
     this.width = double.infinity,
     this.isVisibility = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

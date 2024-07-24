@@ -4,22 +4,22 @@ import '../utils/text_styles.dart';
 import '../utils/themes.dart';
 
 // ignore: must_be_immutable
-class CommonTextFieldView extends StatefulWidget {
+class CommonTextField extends StatefulWidget {
   final IconData? prefixIconData, suffixIconData, selectedIconData;
   final Color? initialIconColor;
   final TextInputType? keyboardType;
   final String? errorText;
   final TextStyle hintTextStyle;
-  final void Function(String) onSubmitted;
+  final TextEditingController textEditingController;
   final EdgeInsetsGeometry contentPadding;
   final EdgeInsetsGeometry textFieldPadding;
   final Color focusColor;
   final String hintText;
   bool isObscureText;
 
-  CommonTextFieldView({
+  CommonTextField({
     super.key,
-    required this.onSubmitted,
+    required this.textEditingController,
     required this.contentPadding,
     required this.hintTextStyle,
     required this.focusColor,
@@ -35,10 +35,10 @@ class CommonTextFieldView extends StatefulWidget {
   });
 
   @override
-  State<CommonTextFieldView> createState() => _CommonTextFieldViewState();
+  State<CommonTextField> createState() => _CommonTextFieldState();
 }
 
-class _CommonTextFieldViewState extends State<CommonTextFieldView> {
+class _CommonTextFieldState extends State<CommonTextField> {
   late final FocusNode _focusNode;
   late Color _iconColor;
 
@@ -75,7 +75,7 @@ class _CommonTextFieldViewState extends State<CommonTextFieldView> {
             keyboardType: widget.keyboardType,
             obscureText: widget.isObscureText,
             autocorrect: false,
-            onFieldSubmitted: widget.onSubmitted,
+            controller: widget.textEditingController,
             decoration: InputDecoration(
               contentPadding: widget.contentPadding,
               hintText: widget.hintText,
