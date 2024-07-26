@@ -1,12 +1,14 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
-import 'package:clothing_store_app/modules/new_password_page.dart';
-import 'package:clothing_store_app/modules/verification_page.dart';
+import 'package:clothing_store_app/routes/navigation_services.dart';
+import 'package:clothing_store_app/utils/loading.dart';
+import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:clothing_store_app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,8 +19,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isShowingPass = false;
-  String email = '';
-  String pass = '';
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  String error = '';
+
   @override
   Widget build(BuildContext context) {
     TextStyles textStyle = TextStyles(context);
@@ -31,12 +35,11 @@ class _LoginPageState extends State<LoginPage> {
               const Padding(padding: EdgeInsets.all(48)),
               Text(
                 AppLocalizations(context).of("login"),
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                style: textStyle.getTitleStyle(),
               ),
               const Padding(padding: EdgeInsets.all(8)),
               Text(
-                'Hi! Welcome back, you\'ve been missed',
+                AppLocalizations(context).of("welcome"),
                 style: textStyle.getDescriptionStyle(),
               ),
               const Padding(padding: EdgeInsets.all(24)),
@@ -45,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   children: [
                     Text(
-                      'Email',
+                      AppLocalizations(context).of("email"),
                       style: textStyle.getRegularStyle(),
                     ),
                     const Spacer(),
@@ -55,13 +58,11 @@ class _LoginPageState extends State<LoginPage> {
               const Padding(padding: EdgeInsets.all(2)),
               SizedBox(
                 width: 380,
-                child: CommonTextFieldView(
-                    onSubmitted: (value) {
-                      updateEmail(value);
-                    },
+                child: CommonTextField(
+                    textEditingController: emailController,
                     contentPadding: const EdgeInsets.all(14),
                     hintTextStyle: textStyle.getDescriptionStyle(),
-                    focusColor: Colors.red,
+                    focusColor: const Color.fromARGB(255, 112, 79, 56),
                     hintText: 'example@gmail.com',
                     textFieldPadding: const EdgeInsets.all(0)),
               ),
@@ -71,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   children: [
                     Text(
-                      'Password',
+                      AppLocalizations(context).of("password"),
                       style: textStyle.getRegularStyle(),
                     ),
                     const Spacer(),
@@ -82,35 +83,30 @@ class _LoginPageState extends State<LoginPage> {
               Stack(children: [
                 SizedBox(
                   width: 380,
-                  child: CommonTextFieldView(
-                      onSubmitted: (value) {
-                        updatePass(value);
-                      },
+                  child: CommonTextField(
+                      isObscureText: isShowingPass,
+                      textEditingController: passController,
                       contentPadding: const EdgeInsets.all(14),
                       hintTextStyle: textStyle.getDescriptionStyle(),
-                      focusColor: Colors.red,
+                      focusColor: const Color.fromARGB(255, 112, 79, 56),
                       hintText: '***********',
                       textFieldPadding: const EdgeInsets.all(0)),
                 ),
                 Positioned(
-                  top: 10,
-                  right: 8,
+                  top: 12,
+                  right: 12,
                   child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isShowingPass = !isShowingPass;
-                      });
-                    },
-                    child: Image.asset(
-                      isShowingPass == false
-                          ? 'assets/images/hide_pass_icon.png'
-                          : 'assets/images/show_pass_icon.png',
-                      width: 40,
-                      height: 30,
-                    ),
-                  ),
+                      onTap: () {
+                        setState(() {
+                          isShowingPass = !isShowingPass;
+                        });
+                      },
+                      child: Icon(isShowingPass == false
+                          ? Iconsax.eye
+                          : Iconsax.eye_slash)),
                 ),
               ]),
+              const Padding(padding: EdgeInsets.all(2)),
               SizedBox(
                 width: 380,
                 child: Row(
@@ -118,18 +114,14 @@ class _LoginPageState extends State<LoginPage> {
                     const Spacer(),
                     TextButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const NewPasswordPage()),
-                          );
+                          NavigationServices(context).pushEmailForNewPassPage();
                         },
                         style: TextButton.styleFrom(
                           overlayColor: Colors.transparent,
                         ),
-                        child: const Text(
-                          'Forgot Password?',
-                          style: TextStyle(
+                        child: Text(
+                          AppLocalizations(context).of("forget_pass"),
+                          style: const TextStyle(
                               decoration: TextDecoration.underline,
                               color: Color.fromARGB(255, 112, 79, 56),
                               fontSize: 16),
@@ -137,46 +129,36 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              const Padding(padding: EdgeInsets.all(8)),
+              const Padding(padding: EdgeInsets.all(2)),
+              Text(
+                error,
+                style: const TextStyle(color: Colors.red, fontSize: 16),
+              ),
+              const Padding(padding: EdgeInsets.all(2)),
               SizedBox(
                   width: 380,
                   child: CommonButton(
-                    onTap: () async {
-                      try {
-                        String? tmp = await AuthService()
-                            .signInWithEmailAndPassword(
-                                email: email, password: pass) as String?;
-
-                        if (tmp != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const VerificationPage()),
-                          );
-                        }
-                      } catch (e) {}
-                    },
-                    buttonTextWidget: const Text('Sign In',
-                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                    onTap: signIn,
+                    buttonText: "sign_in",
                     radius: 35,
                   )),
               const Padding(padding: EdgeInsets.all(18)),
-              const SizedBox(
+              SizedBox(
                 width: 380,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                         width: 100,
                         child:
                             Divider(color: Color.fromARGB(255, 114, 114, 114))),
-                    Padding(padding: EdgeInsets.all(2)),
-                    Text('Or sign in with',
-                        style: TextStyle(
+                    const Padding(padding: EdgeInsets.all(2)),
+                    Text(AppLocalizations(context).of("other_sign_in"),
+                        style: const TextStyle(
                             color: Color.fromARGB(255, 114, 114, 114),
                             fontSize: 15)),
-                    Padding(padding: EdgeInsets.all(2)),
-                    SizedBox(
+                    const Padding(padding: EdgeInsets.all(2)),
+                    const SizedBox(
                         width: 100,
                         child:
                             Divider(color: Color.fromARGB(255, 114, 114, 114))),
@@ -202,13 +184,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Positioned(
-                        top: 20,
+                        top: 22,
                         left: 22,
                         child: GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           child: IgnorePointer(
                             child: Image.asset(
-                              'assets/images/apple_icon.png',
+                              Localfiles.googleIcon,
                               width: 36,
                               height: 36,
                             ),
@@ -239,38 +221,7 @@ class _LoginPageState extends State<LoginPage> {
                           behavior: HitTestBehavior.translucent,
                           child: IgnorePointer(
                             child: Image.asset(
-                              'assets/images/google_icon.png',
-                              width: 36,
-                              height: 36,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.all(8)),
-                  Stack(
-                    children: [
-                      OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.all(0),
-                            shape: const CircleBorder(),
-                            backgroundColor: Colors.white,
-                            side: const BorderSide(color: Colors.grey)),
-                        child: const SizedBox(
-                          width: 80,
-                          height: 80,
-                        ),
-                      ),
-                      Positioned(
-                        top: 22,
-                        left: 22,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          child: IgnorePointer(
-                            child: Image.asset(
-                              'assets/images/facebook_icon.png',
+                              Localfiles.facebookIcon,
                               width: 36,
                               height: 36,
                             ),
@@ -285,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Don\'t have an account? ',
+                  Text(AppLocalizations(context).of("no_account"),
                       style: textStyle.getRegularStyle()),
                   TextButton(
                       onPressed: () {},
@@ -293,9 +244,9 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.all(0),
                         overlayColor: Colors.transparent,
                       ),
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(
+                      child: Text(
+                        AppLocalizations(context).of("sign_up"),
+                        style: const TextStyle(
                             decoration: TextDecoration.underline,
                             color: Color.fromARGB(255, 112, 79, 56),
                             fontSize: 16),
@@ -309,11 +260,43 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void updateEmail(String s) {
-    email = s;
-  }
-
-  void updatePass(String s) {
-    pass = s;
+  Future signIn() async {
+    loading(context);
+    await AuthService()
+        .signInWithEmailAndPassword(
+            email: emailController.text.trim(), password: passController.text)
+        .then((value) {
+      if (emailController.text.isEmpty) {
+        setState(() {
+          error = AppLocalizations(context).of("login_e1");
+        });
+        return;
+      } else if (passController.text.isEmpty) {
+        setState(() {
+          error = AppLocalizations(context).of("login_e2");
+        });
+        return;
+      }
+      if (value.toString() ==
+          '[firebase_auth/invalid-email] The email address is badly formatted.') {
+        setState(() {
+          error = AppLocalizations(context).of("login_e3");
+        });
+        return;
+      } else if (value.toString() ==
+          '[firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.') {
+        setState(() {
+          error = AppLocalizations(context).of("login_e4");
+        });
+        return;
+      } else if (value.toString() ==
+          '[firebase_auth/too-many-requests] Access to this account has been temporarily disabled due to many failed login attempts.') {
+        setState(() {
+          error = AppLocalizations(context).of("login_e5");
+        });
+        return;
+      }
+    });
+    Navigator.pop(context);
   }
 }

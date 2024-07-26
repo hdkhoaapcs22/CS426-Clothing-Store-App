@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "text_id": "welcomeHeader1",
         "en": "The ",
         "fr": "L'"
@@ -298,5 +299,77 @@
         "text_id": "term_and_condition_error",
         "en": "Agree with Terms and Condition.",
         "fr": "Accepter les conditions générales"
+=======
+        "text_id": "login",
+        "en": "Login"
+    },
+    {
+        "text_id": "welcome",
+        "en": "Hi! Welcome back, you've been missed"
+    },
+    {
+        "text_id": "email",
+        "en": "Email"
+    },
+    {
+        "text_id": "password",
+        "en": "Password"
+    },
+    {
+        "text_id": "forget_pass",
+        "en": "Forgot Password?"
+    },
+    {
+        "text_id": "sign_in",
+        "en": "Sign In"
+    },
+    {
+        "text_id": "other_sign_in",
+        "en": "Or sign in with"
+    },
+    {
+        "text_id": "no_account",
+        "en": "Don't have an account? "
+    },
+    {
+        "text_id": "login_e1",
+        "en": "Email is empty!"
+    },
+    {
+        "text_id": "login_e2",
+        "en": "Password is empty!"
+    },
+    {
+        "text_id": "login_e3",
+        "en": "Invalid email!"
+    },
+    {
+        "text_id": "login_e4",
+        "en": "Email or Password is incorrect!"
+    },
+    {
+        "text_id": "login_e5",
+        "en": "Failed! Reset your password or try again later."
+    },
+    {
+        "text_id": "sign_up",
+        "en": "Sign Up"
+    },
+    {
+        "text_id": "send_verification_code",
+        "en": "Send Verification Code"
+    },
+    {
+        "text_id": "pls_enter_email",
+        "en": "Please enter your email for verification"
+    },
+    {
+        "text_id": "ex_email",
+        "en": "example@gmail.com"
+    },
+    {
+        "text_id": "email_sent",
+        "en": "Email Sent!"
+>>>>>>> fbe8c9f (all_login_forgetPass)
     }
 ]

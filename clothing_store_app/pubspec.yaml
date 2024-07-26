@@ -44,11 +44,14 @@ dependencies:
     cloud_firestore: ^4.15.3
     lottie: ^2.0.0
     iconsax: ^0.0.8
+<<<<<<< HEAD
     smooth_page_indicator: ^1.1.0
     intl_phone_field: ^3.0.0
     another_flutter_splash_screen: ^1.2.1
     google_sign_in: ^6.2.1
     image_picker: ^1.1.2
+=======
+>>>>>>> fbe8c9f (all_login_forgetPass)
 
 dependency_overrides:
     intl: any

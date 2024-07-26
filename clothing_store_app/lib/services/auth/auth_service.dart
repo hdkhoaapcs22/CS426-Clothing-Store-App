@@ -81,4 +81,13 @@ class AuthService {
       return null;
     }
   }
+
+  //forget pass
+  Future sendPassResetLink(String mail) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: mail);
+    } catch (e) {
+      return e;
+    }
+  }
 }
