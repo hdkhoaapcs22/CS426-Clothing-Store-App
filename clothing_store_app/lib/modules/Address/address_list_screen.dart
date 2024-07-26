@@ -1,19 +1,11 @@
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: AddressListScreen(),
-    );
-  }
-}
+import 'add_new_address_screen.dart';
 
 class AddressListScreen extends StatefulWidget {
+  const AddressListScreen({super.key});
+
   @override
   _AddressListScreenState createState() => _AddressListScreenState();
 }
@@ -58,7 +50,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Addresses'),
+        title: const Text('Addresses'),
       ),
       body: ListView.builder(
         itemCount: addresses.length,
@@ -70,8 +62,8 @@ class _AddressListScreenState extends State<AddressListScreen> {
               });
             },
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-              padding: EdgeInsets.all(12.0),
+              margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+              padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: selectedIndex == index
                     ? Colors.blue.shade100
@@ -90,14 +82,14 @@ class _AddressListScreenState extends State<AddressListScreen> {
                   Text(
                     addresses[index]['name']!,
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
                   ),
-                  SizedBox(height: 4.0),
+                  const SizedBox(height: 4.0),
                   Text(
                     addresses[index]['phone']!,
                     style: TextStyle(color: Colors.grey.shade600),
                   ),
-                  SizedBox(height: 4.0),
+                  const SizedBox(height: 4.0),
                   Text(
                     addresses[index]['address']!,
                     style: TextStyle(color: Colors.grey.shade600),
@@ -110,9 +102,9 @@ class _AddressListScreenState extends State<AddressListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
