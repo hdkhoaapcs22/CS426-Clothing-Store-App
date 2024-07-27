@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/providers/address_model.dart';
 import 'package:clothing_store_app/providers/theme_provider.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/clothing_store_app.dart';
@@ -26,6 +27,9 @@ Widget _setAllProviders() {
           state: AppTheme.getThemeData,
         ),
       ),
+
+      // Add more providers here
+      ChangeNotifierProvider(create: (_) => AddressModel()),
     ],
     child: ClothingStoreApp(),
   );

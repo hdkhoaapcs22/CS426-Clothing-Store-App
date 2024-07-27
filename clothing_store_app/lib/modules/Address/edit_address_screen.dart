@@ -1,11 +1,10 @@
 import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart'; // Import for TextInputFormatter
 import '../../providers/address_model.dart';
 
 class EditAddressScreen extends StatefulWidget {
@@ -20,22 +19,17 @@ class EditAddressScreen extends StatefulWidget {
 
 class _EditAddressScreenState extends State<EditAddressScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   final addressModel = Provider.of<AddressModel>(context, listen: false);
-  //   addressModel.setName(widget.addressData['name']);
-  //   addressModel.setPhone(widget.addressData['phone']);
-  //   addressModel.setAddress(widget.addressData['address']);
-  //   addressModel.setSelectedProvinceCode(widget.addressData['province']);
-  //   addressModel.setSelectedDistrictCode(widget.addressData['district']);
-  //   addressModel.setSelectedWardCode(widget.addressData['ward']);
-
-  //   nameController.text = widget.addressData['name'] ?? '';
-  //   phoneController.text = widget.addressData['phone'] ?? '';
-  //   addressController.text = widget.addressData['address'] ?? '';
-  // }
+  @override
+  void dispose() {
+    nameController.dispose();
+    phoneController.dispose();
+    addressController.dispose();
+    super.dispose();
+  }
 
   Future<List<String>> _getProvinces(String query) async {
     List<String> provinces = [];
@@ -96,22 +90,43 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
     return snapshot.docs.isNotEmpty ? snapshot.docs[0]['code'] : null;
   }
 
-  final nameController = TextEditingController();
-  final phoneController = TextEditingController();
-  final addressController = TextEditingController();
-
   @override
-  void dispose() {
-    // Clean up the controller when the widget is removed from the widget tree.
-    nameController.dispose();
-    phoneController.dispose();
-    addressController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+
+    final addressModel = Provider.of<AddressModel>(context, listen: false);
+
+    addressModel.setName(widget.addressData['name']);
+    addressModel.setPhone(widget.addressData['phone']);
+    addressModel.setAddress(widget.addressData['address']);
+    addressModel.setSelectedProvinceName(widget.addressData['province']);
+    addressModel.setSelectedDistrictName(widget.addressData['district']);
+    addressModel.setSelectedWardName(widget.addressData['ward']);
+
+    _initAddressCode();
+  }
+
+  Future<void> _initAddressCode() async {
+    final addressModel = Provider.of<AddressModel>(context, listen: false);
+
+    String? provinceCode =
+        await _getProvinceCode(addressModel.selectedProvinceName!);
+    addressModel.setSelectedProvinceCode(provinceCode);
+
+    String? districtCode =
+        await _getDistrictCode(addressModel.selectedDistrictName!);
+    addressModel.setSelectedDistrictCode(districtCode);
+
+    String? wardCode = await _getWardCode(addressModel.selectedWardName!);
+    addressModel.setSelectedWardCode(wardCode);
   }
 
   @override
   Widget build(BuildContext context) {
     final addressModel = Provider.of<AddressModel>(context);
+    nameController.text = widget.addressData['name'] ?? '';
+    phoneController.text = widget.addressData['phone'] ?? '';
+    addressController.text = widget.addressData['address'] ?? '';
 
     return Scaffold(
       appBar: AppBar(
@@ -128,8 +143,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
               hintTextStyle: const TextStyle(color: Colors.grey),
               focusColor: Colors.black,
               hintText: 'Name',
-              textFieldPadding:
-                  const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+              textFieldPadding: const EdgeInsets.all(0),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -140,7 +154,14 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                 LengthLimitingTextInputFormatter(10),
               ],
               decoration: const InputDecoration(
-                hintText: 'Phone',
+                labelText: 'Phone',
+                contentPadding:
+                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                hintStyle: TextStyle(color: Colors.grey),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32)),
+                  borderSide: BorderSide(color: Colors.black),
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -151,8 +172,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
               hintTextStyle: const TextStyle(color: Colors.grey),
               focusColor: Colors.black,
               hintText: 'Address',
-              textFieldPadding:
-                  const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+              textFieldPadding: const EdgeInsets.all(0),
             ),
             const SizedBox(height: 16),
             DropdownSearch<String>(
@@ -168,17 +188,27 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                 ),
               ),
               dropdownBuilder: (context, String? item) {
-                addressModel.setSelectedProvinceName(item);
-                return Text(item ?? "Select Province");
+                if (addressModel.selectedProvinceCode == null) {
+                  return const Text('Select Province');
+                } else {
+                  return Text(addressModel.selectedProvinceName!);
+                }
               },
               onChanged: (value) async {
                 if (value != null) {
                   String? code = await _getProvinceCode(value);
-                  addressModel.setSelectedProvinceCode(code);
-                  addressModel.setSelectedDistrictCode(null);
-                  addressModel.setSelectedWardCode(null);
+                  setState(() {
+                    print('Province Code Changed: $code');
+                    addressModel.setSelectedProvinceCode(code);
+                    addressModel.setSelectedProvinceName(value);
+                    addressModel.setSelectedDistrictCode(null);
+                    addressModel.setSelectedDistrictName(null);
+                    addressModel.setSelectedWardCode(null);
+                    addressModel.setSelectedWardName(null);
+                  });
                 }
               },
+              selectedItem: addressModel.selectedProvinceCode,
             ),
             const SizedBox(height: 16),
             DropdownSearch<String>(
@@ -195,19 +225,23 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
               ),
               dropdownBuilder: (context, String? item) {
                 if (addressModel.selectedDistrictCode == null) {
-                  return const Text("Select District");
+                  return const Text('Select District');
                 } else {
-                  addressModel.setSelectedDistrictName(item);
-                  return Text(item ?? "Select District");
+                  return Text(addressModel.selectedDistrictName!);
                 }
               },
               onChanged: (value) async {
                 if (value != null) {
                   String? code = await _getDistrictCode(value);
-                  addressModel.setSelectedDistrictCode(code);
-                  addressModel.setSelectedWardCode(null);
+                  setState(() {
+                    addressModel.setSelectedDistrictCode(code);
+                    addressModel.setSelectedDistrictName(value);
+                    addressModel.setSelectedWardName(null);
+                    addressModel.setSelectedWardCode(null);
+                  });
                 }
               },
+              selectedItem: addressModel.selectedDistrictCode,
             ),
             const SizedBox(height: 16),
             DropdownSearch<String>(
@@ -224,18 +258,21 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
               ),
               dropdownBuilder: (context, String? item) {
                 if (addressModel.selectedWardCode == null) {
-                  return const Text("Select Ward");
+                  return const Text('Select Ward');
                 } else {
-                  addressModel.setSelectedWardName(item);
-                  return Text(item ?? "Select Ward");
+                  return Text(addressModel.selectedWardName!);
                 }
               },
               onChanged: (value) async {
                 if (value != null) {
                   String? code = await _getWardCode(value);
-                  addressModel.setSelectedWardCode(code);
+                  setState(() {
+                    addressModel.setSelectedWardCode(code);
+                    addressModel.setSelectedWardName(value);
+                  });
                 }
               },
+              selectedItem: addressModel.selectedWardCode,
             ),
             const SizedBox(height: 16),
             CommonButton(
@@ -263,11 +300,45 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                   );
                   return;
                 }
+
                 addressModel.setName(nameController.text);
                 addressModel.setPhone(phoneController.text);
                 addressModel.setAddress(addressController.text);
-                _updateAddress(addressModel, 'address_id');
+                _updateAddress(addressModel, widget.addressId);
                 Navigator.pop(context);
+              },
+            ),
+            CommonButton(
+              buttonText: 'Delete',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Delete Address'),
+                      content: const Text('Are you sure you want to delete?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            firestore
+                                .collection('addresses')
+                                .doc(widget.addressId)
+                                .delete();
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Delete'),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             ),
           ],
@@ -276,11 +347,9 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
     );
   }
 
-  void _updateAddress(AddressModel addressModel, String documentId) async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  void _updateAddress(AddressModel addressModel, String addressId) async {
     try {
-      await firestore.collection('addresses').doc(documentId).update({
+      await firestore.collection('addresses').doc(addressId).update({
         'name': addressModel.name,
         'phone': addressModel.phone,
         'address': addressModel.address,
