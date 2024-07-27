@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../modules/OnBoardingScreen/on_boarding_screen.dart';
+import '../modules/SignUpScreen/sign_up_screen.dart';
 
 class NavigationServices {
   final BuildContext context;
@@ -10,5 +12,13 @@ class NavigationServices {
         context,
         MaterialPageRoute(
             builder: (context) => widget, fullscreenDialog: fullscreenDialog));
+  }
+
+  Future<dynamic> pushOnBoardingScreen() async {
+    return _pushMaterialPageRoute(const OnBoardingScreen());
+  }
+
+  Future<dynamic> pushSignUpScreen() async {
+    return _pushMaterialPageRoute(const SignUpScreen());
   }
 }
