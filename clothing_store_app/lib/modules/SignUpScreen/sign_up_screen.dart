@@ -1,11 +1,12 @@
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/auth/auth_service.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
+import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../common/colors.dart';
+import '../../languages/appLocalizations.dart';
 import '../../widgets/common_button.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -25,18 +26,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _emailError = '';
   String _passwordError = '';
 
-  final TextStyle _style1 = GoogleFonts.inter(
-    fontSize: 14.0,
-    fontWeight: FontWeight.w500,
-    color: Colors.black
-  );
-
-  final TextStyle _style2 = GoogleFonts.inter(
-    fontSize: 14.0,
-    fontWeight: FontWeight.w500,
-    color: greyText
-  );
-
   bool _isNameValid(String name) {
     final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
     return nameRegExp.hasMatch(name);
@@ -55,10 +44,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
     }
     else{
-      _isNameValid(_nameController.text.trim());
-      setState(() {
-        _nameError = 'Name should not contain special characters.';
-      });
+      if(!_isNameValid(_nameController.text.trim())){
+        setState(() {
+          _nameError = 'Name should not contain special characters.';
+        });
+      }
     }
 
     if (_emailController.text.isEmpty){
@@ -73,26 +63,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
     }
 
-    if (!_isAgreed) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('You need to agree with our terms and conditions.')),
-      );
-      return;
-    }
-
     try {
       String? userId = await AuthService().registerWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
-      if (userId != null) {
+
+      if (!_isAgreed) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Registration successful!'),
-            backgroundColor: Colors.brown,
+            content: Text('You need to agree with our terms and conditions.')),
+        );
+        return;
+      }
+
+      if (userId != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Registration successful!'),
+            backgroundColor: AppTheme.brownButtonColor,
             ),
         );
+        NavigationServices(context).pushCompleteProfileScreen();
       }
+      
     } on FirebaseAuthException catch (e) {
       setState(() {
         switch (e.code) {
@@ -122,23 +116,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  'Create Account',
-                  style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 30.0,
-                  )
+                  AppLocalizations(context).of("createAccount"),
+                  style: TextStyles(context).getLargerHeaderStyle(false),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
-                  'Fill your information below or register with your social account.',
-                  style: GoogleFonts.inter(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500,
-                    color: greyText,
-                  ),
+                  AppLocalizations(context).of("createAccountDescript"),
+                  style: TextStyles(context).getInterDescriptionStyle(false, false),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -149,13 +135,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Name', style: _style1,),
+                        Text(AppLocalizations(context).of("name"), style: TextStyles(context).getLabelLargeStyle(false),),
                         const SizedBox(height: 5.0,),
                         CommonTextField(
                           textEditingController: _nameController,
                           contentPadding: const EdgeInsets.all(16.0),
-                          hintTextStyle: _style2,
-                          hintText: 'John Doe',
+                          hintTextStyle: TextStyles(context).getLabelLargeStyle(true),
+                          hintText: AppLocalizations(context).of("John Doe"),
                           focusColor: Colors.brown,
                           textFieldPadding: const EdgeInsets.all(0.0),
                           errorText: _nameError,
@@ -168,13 +154,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Email', style: _style1,),
+                        Text(AppLocalizations(context).of("email"), style: TextStyles(context).getLabelLargeStyle(false),),
                         const SizedBox(height: 5.0,),
                         CommonTextField(
                           textEditingController: _emailController,
                           contentPadding: const EdgeInsets.all(16.0),
-                          hintTextStyle: _style2,
-                          hintText: 'example@gmail.com',
+                          hintTextStyle: TextStyles(context).getLabelLargeStyle(true),
+                          hintText: AppLocalizations(context).of("example@gmail.com"),
                           focusColor: Colors.brown,
                           textFieldPadding: const EdgeInsets.all(0.0),
                           errorText: _emailError,
@@ -187,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Password', style: _style1,),
+                        Text(AppLocalizations(context).of("password"), style: TextStyles(context).getLabelLargeStyle(false),),
                         const SizedBox(height: 5.0,),
                         Stack(
                           children: [
@@ -195,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               isObscureText: _showPassword,
                               textEditingController: _passwordController,
                               contentPadding: const EdgeInsets.all(16.0),
-                              hintTextStyle: _style2,
+                              hintTextStyle: TextStyles(context).getLabelLargeStyle(true),
                               hintText: '********',
                               focusColor: Colors.brown,
                               textFieldPadding: const EdgeInsets.all(0.0),
@@ -239,15 +225,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Text.rich(
                       TextSpan(
                         children: [
-                          TextSpan(text: 'Agree with ', style: _style1),
+                          TextSpan(text: AppLocalizations(context).of("agree_with"), style: TextStyles(context).getInterDescriptionStyle(false, false)),
                           TextSpan(
-                            text: 'Terms & Condition',
-                            style: GoogleFonts.inter(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500,
-                              color: lightBrown2,
-                              decoration: TextDecoration.underline
-                            ),
+                            text: AppLocalizations(context).of("terms_and_condition"),
+                            style: TextStyles(context).getInterDescriptionStyle(true, true)
                           ),
                         ]
                       )
@@ -262,14 +243,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     _registerAccount();
                   },
                   radius: 30.0,
-                  backgroundColor: darkBrown,
-                  buttonText: 'Sign Up',
+                  backgroundColor: AppTheme.brownButtonColor,
+                  buttonText: AppLocalizations(context).of("signUp"),
                   buttonTextWidget: Text(
-                    "Sign Up",
-                    style: GoogleFonts.inter(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                    AppLocalizations(context).of("signUp"),
+                    style: TextStyles(context).getButtonTextStyle(),
                   ),
                 ),
               ),
@@ -280,18 +258,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Flexible(
+                    Flexible(
                       child: Divider(
-                        color: greyText,
+                        color: AppTheme.secondaryTextColor,
                         thickness: 0.5,
                         indent: 60,
                         endIndent: 5,
                       )
                     ),
-                    Text('Or sign up with', style: _style2,),
-                    const Flexible(
+                    Text(AppLocalizations(context).of("orSignUpWith"), style: TextStyles(context).getInterDescriptionStyle(false, false),),
+                    Flexible(
                       child: Divider(
-                        color: greyText,
+                        color: AppTheme.secondaryTextColor,
                         thickness: 0.5,
                         indent: 5,
                         endIndent: 60,
@@ -300,26 +278,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
-              //Apple, Google, Facebook
+              //Google, Facebook
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Container(
-                    //   decoration: BoxDecoration(border: Border.all(color: greyText), borderRadius: BorderRadius.circular(100)),
-                    //   child: IconButton(
-                    //     onPressed: () {},
-                    //     icon: const Image(
-                    //       width: 20,
-                    //       height: 20,
-                    //       image: AssetImage("assets/images/apple_logo.png")
-                    //     ),
-                    //   ),
-                    // ),
-                    // const SizedBox(width: 16.0,),
                     Container(
-                      decoration: BoxDecoration(border: Border.all(color: greyText), borderRadius: BorderRadius.circular(100)),
+                      decoration: BoxDecoration(border: Border.all(color: AppTheme.secondaryTextColor), borderRadius: BorderRadius.circular(100)),
                       child: IconButton(
                         onPressed: () {},
                         icon: const Image(
@@ -331,7 +297,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(width: 16.0,),
                     Container(
-                      decoration: BoxDecoration(border: Border.all(color: greyText), borderRadius: BorderRadius.circular(100)),
+                      decoration: BoxDecoration(border: Border.all(color: AppTheme.secondaryTextColor), borderRadius: BorderRadius.circular(100)),
                       child: IconButton(
                         onPressed: () {},
                         icon: const Image(
@@ -348,21 +314,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already have an account?",
-                    style: _style1,
+                    AppLocalizations(context).of("alreadyHaveAccount"),
+                    style: TextStyles(context).getInterDescriptionStyle(false, false),
                   ),
                   TextButton(
                       onPressed: () {
                         //Sign in
                       },
                       child: Text (
-                        "Sign in",
-                        style: GoogleFonts.inter(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w500,
-                          color: lightBrown2,
-                          decoration: TextDecoration.underline
-                        ),
+                        AppLocalizations(context).of("signIn"),
+                        style: TextStyles(context).getInterDescriptionStyle(true, true),
                       )
                     )
                 ],

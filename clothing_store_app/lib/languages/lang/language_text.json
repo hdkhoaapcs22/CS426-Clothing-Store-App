@@ -1,1 +1,174 @@
-[]
+[
+    {
+        "text_id": "welcomeHeader1",
+        "en": "The "
+    },
+    {
+        "text_id": "welcomeHeader2",
+        "en": "Fashion App "
+    },
+    {
+        "text_id": "welcomeHeader3",
+        "en": "That Makes You Look Your Best"
+    },
+    {
+        "text_id": "welcomeDescript",
+        "en": "Welcome to fashion app! Discover trends, shop favorite styles, and elevate your wardrobe. Let's get started"
+    },
+    {
+        "text_id": "welcomeButtonText",
+        "en": "Let's Get Started"
+    },
+    {
+        "text_id": "alreadyHaveAccount",
+        "en": "Already have an account?"
+    },
+    {
+        "text_id": "signIn",
+        "en": "Sign In"
+    },
+    {
+        "text_id": "onBoardingHeader1.1",
+        "en": "Seamless "
+    },
+    {
+        "text_id": "onBoardingHeader1.2",
+        "en": "Shopping Experience"
+    },
+    {
+        "text_id": "onBoardingHeader2.1",
+        "en": "Wishlist: Where "
+    },
+    {
+        "text_id": "onBoardingHeader2.2",
+        "en": "Fashion Dreams "
+    },
+    {
+        "text_id": "onBoardingHeader2.3",
+        "en": "Begin"
+    },
+    {
+        "text_id": "onBoardingHeader3.1",
+        "en": "Swift "
+    },
+    {
+        "text_id": "onBoardingHeader3.2",
+        "en": "and "
+    },
+    {
+        "text_id": "onBoardingHeader3.3",
+        "en": "Reliable "
+    },
+    {
+        "text_id": "onBoardingHeader3.4",
+        "en": "Delivery"
+    },
+    {
+        "text_id": "onBoardingHeader1.body",
+        "en": "Welcome to the ultimate fashion destination! Discover trends, shop your favorite styles, and elevate your wardrobe. Let's get started on your stylish journey today."
+    },
+    {
+        "text_id": "onBoardingHeader2.body",
+        "en": "Your Wishlist awaits! Curate your dream looks and save favorites for later. It's the first step to making style aspirations a reality."
+    },
+    {
+        "text_id": "onBoardingHeader3.body",
+        "en": "Standard and Express delivery services are available for most of the countries that we ship to."
+    },
+    {
+        "text_id": "skip",
+        "en": "Skip"
+    },
+    {
+        "text_id": "createAccount",
+        "en": "Create Account"
+    },
+    {
+        "text_id": "createAccountDescript",
+        "en": "Fill your information below or register with your social account."
+    },
+    {
+        "text_id": "name",
+        "en": "Name"
+    },
+    {
+        "text_id": "John Doe",
+        "en": "John Doe"
+    },
+    {
+        "text_id": "email",
+        "en": "Email"
+    },
+    {
+        "text_id": "example@gmail.com",
+        "en": "example@gmail.com"
+    },
+    {
+        "text_id": "password",
+        "en": "Password"
+    },
+    {
+        "text_id": "agree_with",
+        "en": "Agree with "
+    },
+    {
+        "text_id": "terms_and_condition",
+        "en": "Terms & Condition"
+    },
+    {
+        "text_id": "terms_and_condition",
+        "en": "Terms & Condition"
+    },
+    {
+        "text_id": "signUp",
+        "en": "Sign Up"
+    },
+    {
+        "text_id": "orSignUpWith",
+        "en": "Or sign up with"
+    },
+    {
+        "text_id": "signUp",
+        "en": "Sign Up"
+    },
+    {
+        "text_id": "phoneNumber",
+        "en": "Phone Number"
+    },
+    {
+        "text_id": "enterPhoneNumber",
+        "en": "Enter Phone Number"
+    },
+    {
+        "text_id": "gender",
+        "en": "Gender"
+    },
+    {
+        "text_id": "select",
+        "en": "Select"
+    },
+    {
+        "text_id": "male",
+        "en": "Male"
+    },
+    {
+        "text_id": "female",
+        "en": "Female"
+    },
+    {
+        "text_id": "none",
+        "en": "None"
+    },
+    {
+        "text_id": "completeProfile",
+        "en": "Complete Profile"
+    },
+    {
+        "text_id": "completeYourProfile",
+        "en": "Complete Your Profile"
+    },
+    {
+        "text_id": "completeYourProfileDescript",
+        "en": "Don't worry, only you can see your personal data. No one else will be able to see it."
+    }
+]

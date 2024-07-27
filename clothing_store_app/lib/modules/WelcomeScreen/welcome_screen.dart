@@ -1,36 +1,19 @@
-import 'package:clothing_store_app/common/colors.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../languages/appLocalizations.dart';
 import '../../routes/navigation_services.dart';
+import '../../utils/text_styles.dart';
+import '../../utils/themes.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  WelcomeScreen({super.key});
-
-  final TextStyle _headerBrownStyle = GoogleFonts.inter(
-    fontSize: 25.0,
-    fontWeight: FontWeight.w700,
-    color: lightBrown1,
-  );
-
-  final TextStyle _headerNormalStyle = GoogleFonts.inter(
-    fontSize: 25.0,
-    fontWeight: FontWeight.w700,
-    color: blackText,
-  );
-
-  final TextStyle _bodyStyle = GoogleFonts.inter(
-    fontSize: 15.0,
-    fontWeight: FontWeight.w500,
-    color: greyText,
-  );
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppTheme.backgroundColor,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -110,21 +93,24 @@ class WelcomeScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: RichText(
                     text: TextSpan(children: [
-                      TextSpan(text: "The ", style: _headerNormalStyle),
                       TextSpan(
-                          text: "Fashion App ", style: _headerBrownStyle),
+                          text: AppLocalizations(context).of("welcomeHeader1"),
+                          style: TextStyles(context).getHeaderStyle(false)),
                       TextSpan(
-                          text: "That Makes You Look Your Best",
-                          style: _headerNormalStyle),
+                          text: AppLocalizations(context).of("welcomeHeader2"),
+                          style: TextStyles(context).getHeaderStyle(true)),
+                      TextSpan(
+                          text: AppLocalizations(context).of("welcomeHeader3"),
+                          style: TextStyles(context).getHeaderStyle(false)),
                     ]),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    "Welcome to fashion app! Discover trends, shop favorite styles, and elevate your wardrobe. Let's get started",
-                    style: _bodyStyle,
+                    AppLocalizations(context).of("welcomeDescript"),
+                    style: TextStyles(context).getInterDescriptionStyle(false, false),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -137,14 +123,10 @@ class WelcomeScreen extends StatelessWidget {
                         NavigationServices(context).pushOnBoardingScreen();
                       },
                       radius: 30.0,
-                      backgroundColor: darkBrown,
-                      buttonText: 'Let\'s Get Started',
+                      backgroundColor: AppTheme.brownButtonColor,
                       buttonTextWidget: Text(
-                        "Let's Get Started",
-                        style: GoogleFonts.inter(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
+                        AppLocalizations(context).of("welcomeButtonText"),
+                        style: TextStyles(context).getButtonTextStyle(),
                       ),
                     ),
                 ),
@@ -153,20 +135,16 @@ class WelcomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Already have an account?",
-                      style: _bodyStyle,
+                      AppLocalizations(context).of("alreadyHaveAccount"),
+                      style: TextStyles(context).getInterDescriptionStyle(false, false),
                     ),
                     TextButton(
                         onPressed: () {
                           //SIGN IN
                         },
                         child: Text(
-                          "Sign in",
-                          style: GoogleFonts.inter(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w500,
-                              color: darkBrown,
-                              decoration: TextDecoration.underline),
+                          AppLocalizations(context).of("signIn"),
+                          style: TextStyles(context).getInterDescriptionStyle(true, true),
                         ))
                   ],
                 )

@@ -1,10 +1,10 @@
-import 'package:clothing_store_app/common/colors.dart';
 import 'package:clothing_store_app/modules/OnBoardingScreen/custom_curved_edges.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../utils/text_styles.dart';
+import '../../utils/themes.dart';
 
 class OnBoardingWidget extends StatelessWidget {
-  OnBoardingWidget({
+  const OnBoardingWidget({
     super.key,
     required this.imagePath,
     required this.header,
@@ -19,14 +19,9 @@ class OnBoardingWidget extends StatelessWidget {
   final PageController controller;
   final int page;
 
-  final TextStyle _bodyStyle = GoogleFonts.inter(
-    fontSize: 14.0,
-    fontWeight: FontWeight.w500,
-    color: greyText,
-  );
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -37,9 +32,9 @@ class OnBoardingWidget extends StatelessWidget {
               child: Stack(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(250),
+                    padding: EdgeInsets.all(size.height/3.5),
                     decoration: BoxDecoration(
-                      color: greyBackground,
+                      color: AppTheme.greyBackgroundColor,
                       image: DecorationImage(
                           image: AssetImage(imagePath), fit: BoxFit.fitHeight)),
                   ),
@@ -47,12 +42,12 @@ class OnBoardingWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Center(child: RichText(text: header, textAlign: TextAlign.center,)),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Center(child: Text(bodyText, style: _bodyStyle, textAlign: TextAlign.center)),
+              child: Center(child: Text(bodyText, style: TextStyles(context).getInterDescriptionStyle(false, false), textAlign: TextAlign.center)),
             ),
           ],
         ),

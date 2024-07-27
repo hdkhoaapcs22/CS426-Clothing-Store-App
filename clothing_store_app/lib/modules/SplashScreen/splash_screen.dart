@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../utils/text_styles.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -10,7 +10,6 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
@@ -23,25 +22,16 @@ class SplashScreen extends StatelessWidget {
               child: Center(
                 child: Text(
                   'f',
-                  style: GoogleFonts.dmSerifDisplay(
-                    color: Colors.white,
-                    fontSize: 35.0
-                  )
+                  style: TextStyles(context).getSplashScreenStyle(true, false),
                 )
               ),
             ),
             const SizedBox(width: 5.0,),
             Text(
               'fashion',
-            style: GoogleFonts.dmSerifDisplay(
-              color: Colors.black,
-              fontSize: 30.0
-            )),
+            style: TextStyles(context).getSplashScreenStyle(false, false)),
             Text('.',
-            style: GoogleFonts.dmSerifDisplay(
-              color: const Color.fromARGB(255, 107, 80, 59),
-              fontSize: 30.0
-            )),
+            style: TextStyles(context).getSplashScreenStyle(false, true)),
           ],
         ),
       ),

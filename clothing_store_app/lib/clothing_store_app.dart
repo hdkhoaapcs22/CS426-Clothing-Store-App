@@ -1,5 +1,9 @@
 import 'dart:io';
 
+import 'package:clothing_store_app/modules/CompleteProfileScreen/complete_profile_screen.dart';
+import 'package:clothing_store_app/modules/SplashScreen/splash_screen.dart';
+import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
+import 'package:clothing_store_app/routes/routes_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -68,7 +72,9 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
   }
 
   Map<String, WidgetBuilder> _buildRoutes() {
-    return {};
+    return {
+      RoutesName.splashScreen: (context) => const SplashScreen(),
+    };
   }
 
   void _setStatusBarNavigationBarTheme(ThemeData themeData) {

@@ -1,6 +1,7 @@
 // import 'package:booking_new_hotel/modules/profile/user.dart';
 import 'dart:async';
 
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -16,22 +17,6 @@ class AuthService {
       User? user = result.user;
       return user != null ? user.uid : null;
     } catch (e) {
-      // String message = '';
-      // switch (e.code) {
-      //   case 'weak-password':
-      //     message = 'The password is too weak';
-      //     break;
-      //   case 'email-already-in-use':
-      //     message = 'An account already exists with that email';
-      //     break;
-      //   case 'invalid-email':
-      //     message = 'Email address is not valid';
-      //     break;
-      //   default:
-      //     message = 'An undefined error occurred.';
-      // }
-      // print('Error: $message');
-      // return Future.error(message);
       return null;
     }
   }

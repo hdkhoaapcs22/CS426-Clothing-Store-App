@@ -5,6 +5,8 @@ enum FontFamilyType {
   DancingScript,
   Satisfy,
   KaushanScript,
+  Inter,
+  DmSerifDisplay,
 }
 
 enum ColorType {

@@ -1,12 +1,12 @@
-import 'package:clothing_store_app/common/colors.dart';
 import 'package:clothing_store_app/modules/OnBoardingScreen/on_boarding_widget.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import '../../languages/appLocalizations.dart';
 import '../../routes/navigation_services.dart';
+import '../../utils/text_styles.dart';
+import '../../utils/themes.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -18,24 +18,6 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _controller = PageController();
   int _currentPage = 0;
-
-  final TextStyle _headerBrownStyle = GoogleFonts.inter(
-    fontSize: 25.0,
-    fontWeight: FontWeight.w600,
-    color: lightBrown1,
-  );
-
-  final TextStyle _headerNormalStyle = GoogleFonts.inter(
-    fontSize: 25.0,
-    fontWeight: FontWeight.w600,
-    color: blackText,
-  );
-
-  final TextStyle _bodyBrownStyle = GoogleFonts.inter(
-    fontSize: 14.0,
-    fontWeight: FontWeight.w500,
-    color: lightBrown2,
-  );
 
   @override
   void initState() {
@@ -61,16 +43,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 header: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Seamless',
-                      style: _headerBrownStyle
+                      text: AppLocalizations(context).of("onBoardingHeader1.1"),
+                      style: TextStyles(context).getLargerHeaderStyle(true),
                     ),
                     TextSpan(
-                      text: ' Shopping Experience',
-                      style: _headerNormalStyle
+                      text: AppLocalizations(context).of("onBoardingHeader1.2"),
+                      style: TextStyles(context).getLargerHeaderStyle(false),
                     ),
                   ],
                 ),
-                bodyText: "Welcome to the ultimate fashion destination! Discover trends, shop your favorite styles, and elevate your wardrobe. Let's get started on your stylish journey today",
+                bodyText: AppLocalizations(context).of("onBoardingHeader1.body"),
                 page: _currentPage,
                 controller: _controller,
               ),
@@ -79,20 +61,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 header: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Wishlist: Where ',
-                      style: _headerNormalStyle
+                      text: AppLocalizations(context).of("onBoardingHeader2.1"),
+                      style: TextStyles(context).getLargerHeaderStyle(false),
                     ),
                     TextSpan(
-                      text: 'Fashion Dreams ',
-                      style: _headerBrownStyle
+                      text: AppLocalizations(context).of("onBoardingHeader2.2"),
+                      style: TextStyles(context).getLargerHeaderStyle(true),
                     ),
                     TextSpan(
-                      text: 'Begin',
-                      style: _headerNormalStyle
+                      text: AppLocalizations(context).of("onBoardingHeader2.3"),
+                      style: TextStyles(context).getLargerHeaderStyle(false),
                     ),
                   ],
                 ),
-                bodyText: "Your Wishlist awaits! Curate your dream looks and save favorites for later. It's the first step to making style aspirations a reality",
+                bodyText: AppLocalizations(context).of("onBoardingHeader2.body"),
                 page: _currentPage,
                 controller: _controller,
               ),
@@ -101,24 +83,24 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 header: TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Swift ',
-                      style: _headerBrownStyle
+                      text: AppLocalizations(context).of("onBoardingHeader3.1"),
+                      style: TextStyles(context).getLargerHeaderStyle(true),
                     ),
                     TextSpan(
-                      text: 'and ',
-                      style: _headerNormalStyle
+                      text: AppLocalizations(context).of("onBoardingHeader3.2"),
+                      style: TextStyles(context).getLargerHeaderStyle(false),
                     ),
                     TextSpan(
-                      text: 'Reliable ',
-                      style: _headerBrownStyle
+                      text: AppLocalizations(context).of("onBoardingHeader3.3"),
+                      style: TextStyles(context).getLargerHeaderStyle(true),
                     ),
                     TextSpan(
-                      text: 'Delivery',
-                      style: _headerNormalStyle
+                      text: AppLocalizations(context).of("onBoardingHeader3.4"),
+                      style: TextStyles(context).getLargerHeaderStyle(false),
                     ),
                   ],
                 ),
-                bodyText: "Standard and Express delivery services are available for most of the countries that we ship to. ",
+                bodyText: AppLocalizations(context).of("onBoardingHeader3.body"),
                 page: _currentPage,
                 controller: _controller,
               ),
@@ -136,8 +118,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           _controller.animateToPage(2, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
                         },
                         child: Text(
-                          "Skip",
-                          style: _bodyBrownStyle,
+                          AppLocalizations(context).of("skip"),
+                          style: TextStyles(context).getInterDescriptionStyle(true, false),
                         ))
                     : null,
               ),
@@ -149,14 +131,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _currentPage != 0 ? OutlinedButton(
-                  onPressed: () => _controller.previousPage(
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.easeOut,
-                  ),
+                  onPressed: () {
+                    moveBackward();},
                   style: OutlinedButton.styleFrom(
                     elevation: 0,
                     shape: const CircleBorder(),
-                    foregroundColor: darkBrown,
+                    foregroundColor: AppTheme.brownButtonColor,
                     padding: const EdgeInsets.all(16.0),
                   ),
                   child: const Icon(Iconsax.arrow_left),
@@ -173,8 +153,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 SmoothPageIndicator(
                   controller: _controller, 
                   count: 3,
-                  effect: const ColorTransitionEffect(
-                    activeDotColor: darkBrown,
+                  effect: ColorTransitionEffect(
+                    activeDotColor: AppTheme.brownButtonColor,
                     dotWidth: 14.0,
                     dotHeight: 14.0,
                     radius: 14.0,
@@ -182,21 +162,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ),
                 ElevatedButton(
                   onPressed:() {
-                    if (_currentPage == 2) {
-                      NavigationServices(context).pushSignUpScreen();
-                    }
-                    else {
-                      _controller.nextPage(
-                        duration: const Duration(milliseconds: 200), 
-                        curve: Curves.easeIn,
-                      );
-                    }
+                    moveForward(context);
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: const CircleBorder(),
-                    backgroundColor: darkBrown,
-                    foregroundColor:Colors.white,
+                    backgroundColor: AppTheme.brownButtonColor,
+                    foregroundColor:AppTheme.iconColor,
                     padding: const EdgeInsets.all(16.0),
                   ),
                   child: const Icon(Iconsax.arrow_right_1,)
@@ -207,5 +179,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ],
       ),
     );
+  }
+
+  void moveBackward() {
+    _controller.previousPage(
+    duration: const Duration(milliseconds: 200),
+    curve: Curves.easeOut,
+                      );
+  }
+
+  void moveForward(BuildContext context) {
+    if (_currentPage == 2) {
+        NavigationServices(context).pushSignUpScreen();
+      } else {
+        _controller.nextPage(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeIn,
+        );
+      }
   }
 }

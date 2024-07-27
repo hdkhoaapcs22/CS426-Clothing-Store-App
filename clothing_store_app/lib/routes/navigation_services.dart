@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/modules/CompleteProfileScreen/complete_profile_screen.dart';
 import 'package:flutter/material.dart';
 import '../modules/OnBoardingScreen/on_boarding_screen.dart';
 import '../modules/SignUpScreen/sign_up_screen.dart';
@@ -20,5 +21,9 @@ class NavigationServices {
 
   Future<dynamic> pushSignUpScreen() async {
     return _pushMaterialPageRoute(const SignUpScreen());
+  }
+
+  Future<dynamic> pushCompleteProfileScreen() async {
+    return _pushMaterialPageRoute(CompleteProfileScreen());
   }
 }
