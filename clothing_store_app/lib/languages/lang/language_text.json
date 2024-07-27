@@ -301,75 +301,102 @@
         "fr": "Accepter les conditions générales"
 =======
         "text_id": "login",
-        "en": "Login"
+        "en": "Login",
+        "fr": "Login"
     },
     {
         "text_id": "welcome",
-        "en": "Hi! Welcome back, you've been missed"
+        "en": "Hi! Welcome back, you've been missed",
+        "fr": "Salut ! Bon retour, tu nous as manqué"
     },
     {
         "text_id": "email",
-        "en": "Email"
+        "en": "Email",
+        "fr": "Email"
     },
     {
         "text_id": "password",
-        "en": "Password"
+        "en": "Password",
+        "fr": "Mot de passe"
     },
     {
         "text_id": "forget_pass",
-        "en": "Forgot Password?"
+        "en": "Forgot Password?",
+        "fr": "Mot de passe oublié?"
     },
     {
         "text_id": "sign_in",
-        "en": "Sign In"
+        "en": "Sign In",
+        "fr": "Se connecter"
     },
     {
         "text_id": "other_sign_in",
-        "en": "Or sign in with"
+        "en": "Or sign in with",
+        "fr": "Ou connectez-vous avec"
     },
     {
         "text_id": "no_account",
-        "en": "Don't have an account? "
+        "en": "Don't have an account? ",
+        "fr": "Vous n'avez pas de compte ? "
     },
     {
         "text_id": "login_e1",
-        "en": "Email is empty!"
+        "en": "Email is empty!",
+        "fr": "L'email est vide!"
     },
     {
         "text_id": "login_e2",
-        "en": "Password is empty!"
+        "en": "Password is empty!",
+        "fr": "Le mot de passe est vide!"
     },
     {
         "text_id": "login_e3",
-        "en": "Invalid email!"
+        "en": "Invalid email!",
+        "fr": "Email invalide!"
     },
     {
         "text_id": "login_e4",
-        "en": "Email or Password is incorrect!"
+        "en": "Email or Password is incorrect!",
+        "fr": "E-mail ou mot de passe incorrect!"
     },
     {
         "text_id": "login_e5",
-        "en": "Failed! Reset your password or try again later."
+        "en": "Failed! Reset your password or try again later.",
+        "fr": "Échec ! Réinitialisez votre mot de passe ou réessayez plus tard."
+    },
+    {
+        "text_id": "login_e6",
+        "en": "Invalid Login!",
+        "fr": "Identifiant invalide!"
     },
     {
         "text_id": "sign_up",
-        "en": "Sign Up"
+        "en": "Sign Up",
+        "fr": "S'inscrire"
     },
     {
         "text_id": "send_verification_code",
-        "en": "Send Verification Code"
+        "en": "Send Verification Code",
+        "fr": "Envoyer le code de vérification"
     },
     {
         "text_id": "pls_enter_email",
-        "en": "Please enter your email for verification"
+        "en": "Please enter your email for verification",
+        "fr": "Veuillez saisir votre email pour vérification"
     },
     {
         "text_id": "ex_email",
-        "en": "example@gmail.com"
+        "en": "example@gmail.com",
+        "fr": "example@gmail.com"
     },
     {
         "text_id": "email_sent",
+<<<<<<< HEAD
         "en": "Email Sent!"
 >>>>>>> fbe8c9f (all_login_forgetPass)
+=======
+        "en": "Email has been sent to ",
+        "fr": "Un e-mail a été envoyé à "
+>>>>>>> 1f58967 (repair_1)
     }
 ]

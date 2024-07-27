@@ -6,7 +6,6 @@ import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EmailForNewPassPage extends StatefulWidget {
@@ -17,117 +16,130 @@ class EmailForNewPassPage extends StatefulWidget {
 }
 
 class _EmailForNewPassPageState extends State<EmailForNewPassPage> {
-  TextEditingController emailController = TextEditingController();
-  String error = '';
+  late TextEditingController emailController;
+  late String error;
+
+  @override
+  void initState() {
+    emailController = TextEditingController();
+    error = '';
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextStyles textStyle = TextStyles(context);
     return Scaffold(
       backgroundColor: AppTheme.scaffoldBackgroundColor,
-      body: Center(
-        child: Column(
-          children: [
-            const Padding(padding: EdgeInsets.all(28)),
-            SizedBox(
-              width: 400,
-              child: Row(
-                children: [
-                  Stack(
-                    children: [
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.all(0),
-                            shape: const CircleBorder(),
-                            backgroundColor: Colors.white,
-                            side: const BorderSide(color: Colors.grey)),
-                        child: const SizedBox(
-                          width: 50,
-                          height: 50,
-                        ),
-                      ),
-                      Positioned(
-                        top: 16,
-                        left: 19,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          child: IgnorePointer(
-                            child: Image.asset(
-                              Localfiles.leftArrow,
-                              width: 20,
-                            ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(28)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 60,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                          radius: 24,
+                          backgroundColor: Colors.white,
+                          child: Image.asset(
+                            Localfiles.leftArrow,
+                            width: 20,
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.all(8)),
-                  const Spacer(),
-                ],
+                      ),
+                    ),
+                    const Spacer(),
+                  ],
+                ),
               ),
-            ),
-            const Padding(padding: EdgeInsets.all(8)),
-            Text(
-              AppLocalizations(context).of("email"),
-              style: textStyle.getTitleStyle(),
-            ),
-            const Padding(padding: EdgeInsets.all(8)),
-            Text(
-              AppLocalizations(context).of("pls_enter_email"),
-              style: textStyle.getDescriptionStyle(),
-            ),
-            Text(
-              AppLocalizations(context).of("ex_email"),
-              style: const TextStyle(
-                  color: Color.fromARGB(255, 112, 79, 56),
-                  fontWeight: FontWeight.bold),
-            ),
-            const Padding(padding: EdgeInsets.all(12)),
-            SizedBox(
-              width: 380,
-              child: CommonTextField(
-                  textEditingController: emailController,
-                  contentPadding: const EdgeInsets.all(14),
-                  hintTextStyle: textStyle.getDescriptionStyle(),
-                  focusColor: const Color.fromARGB(255, 112, 79, 56),
-                  hintText: 'example@gmail.com',
-                  textFieldPadding: const EdgeInsets.all(0)),
-            ),
-            const Padding(padding: EdgeInsets.all(4)),
-            Text(
-              error,
-              style: const TextStyle(color: Colors.red, fontSize: 16),
-            ),
-            const Padding(padding: EdgeInsets.all(2)),
-            SizedBox(
-                width: 380,
-                child: CommonButton(
-                  onTap: sendPassResetEmail,
-                  buttonText: "send_verification_code",
-                  radius: 35,
-                )),
-          ],
+              const Padding(padding: EdgeInsets.all(8)),
+              Text(
+                AppLocalizations(context).of("email"),
+                style: TextStyles(context).getTitleStyle(),
+              ),
+              const Padding(padding: EdgeInsets.all(8)),
+              Text(
+                AppLocalizations(context).of("pls_enter_email"),
+                style: TextStyles(context).getDescriptionStyle(),
+              ),
+              Text(
+                AppLocalizations(context).of("ex_email"),
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 112, 79, 56),
+                    fontWeight: FontWeight.bold),
+              ),
+              const Padding(padding: EdgeInsets.all(12)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 60,
+                child: CommonTextField(
+                    textEditingController: emailController,
+                    contentPadding: const EdgeInsets.all(14),
+                    hintTextStyle: TextStyles(context).getDescriptionStyle(),
+                    focusColor: const Color.fromARGB(255, 112, 79, 56),
+                    hintText: 'example@gmail.com',
+                    textFieldPadding: const EdgeInsets.all(0)),
+              ),
+              const Padding(padding: EdgeInsets.all(4)),
+              Text(
+                error,
+                style: const TextStyle(color: Colors.red, fontSize: 16),
+              ),
+              const Padding(padding: EdgeInsets.all(2)),
+              CommonButton(
+                onTap: sendPassResetEmail,
+                buttonText: "send_verification_code",
+                radius: 35,
+                width: MediaQuery.of(context).size.width - 60,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Future sendPassResetEmail() async {
-    loading(context);
-    await AuthService().sendPassResetLink(emailController.text).then((value) {
-      if (value is FirebaseAuthException) {
+  Future<bool> checkEmailSent(String mail) async {
+    bool res = true;
+    await AuthService().sendPassResetLink(mail).then((value) {
+      if (value.toString() == '[firebase_auth/missing-email] Error') {
+        setState(() {
+          error = AppLocalizations(context).of("login_e1");
+        });
+        res = false;
+      } else if (value.toString() ==
+          '[firebase_auth/invalid-email] The email address is badly formatted.') {
         setState(() {
           error = AppLocalizations(context).of("login_e3");
         });
-      } else {
-        setState(() {
-          error = AppLocalizations(context).of("email_sent");
-        });
+        res = false;
       }
     });
+    return res;
+  }
+
+  Future sendPassResetEmail() async {
+    loading(context);
+    bool sendMailStatus = await checkEmailSent(emailController.text.trim());
     Navigator.pop(context);
+    if (sendMailStatus == true) {
+      setState(() {
+        error = AppLocalizations(context).of("email_sent") +
+            emailController.text.trim();
+      });
+    }
   }
 }
