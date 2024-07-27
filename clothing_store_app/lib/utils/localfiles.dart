@@ -1,3 +1,13 @@
 class Localfiles {
   static const String baseImageUrl = 'assets/images/';
+  //Welcome Screen Assets
+  static const String welcomeImage1 = '${baseImageUrl}welcomeImage1.jpg';
+  static const String welcomeImage2 = '${baseImageUrl}welcomeImage2.jpg';
+  static const String welcomeImage3 = '${baseImageUrl}welcomeImage3.jpg';
+  static const String asterisk      = '${baseImageUrl}asterisk.png';
+
+  //OnBoarding Screen
+  static const String onBoarding1 = '${baseImageUrl}onboarding1.png';
+  static const String onBoarding2 = '${baseImageUrl}onboarding2.png';
+  static const String onBoarding3 = '${baseImageUrl}onboarding3.png';
 }

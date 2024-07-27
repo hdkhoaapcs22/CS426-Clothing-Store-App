@@ -32,4 +32,10 @@ class TextStyles {
           color: AppTheme.primaryTextColor,
         );
   }
+
+  TextStyle getSmallStyle() {
+    return Theme.of(context).textTheme.bodySmall!.copyWith(
+          color: AppTheme.primaryTextColor,
+        );
+  }
 }
