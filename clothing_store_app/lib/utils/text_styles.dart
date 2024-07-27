@@ -189,4 +189,10 @@ class TextStyles {
               fontWeight: FontWeight.bold,
             ));
   }
+  TextStyle getSubtitleStyle() {
+    return Theme.of(context).textTheme.bodyMedium!.copyWith(
+          fontSize: 14,
+          color: AppTheme.secondaryTextColor,
+        );
+  }
 }

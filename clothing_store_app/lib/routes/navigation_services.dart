@@ -13,6 +13,8 @@ import 'package:clothing_store_app/modules/Search/search_screen.dart';
 import 'package:clothing_store_app/modules/NotificationScreen/notification_screen.dart';
 import 'package:clothing_store_app/modules/InviteFriendsScreen/invite_friends_screen.dart';
 import 'package:clothing_store_app/modules/FriendRequestScreen/friend_request_screen.dart';
+import 'package:clothing_store_app/modules/AddNewAddressScreen/add_new_address_screen.dart';
+import 'package:clothing_store_app/modules/EditAddressScreen/edit_address_screen.dart';
 import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
 import 'package:clothing_store_app/modules/ForgotScreen/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,10 @@ class NavigationServices {
         context,
         MaterialPageRoute(
             builder: (context) => widget, fullscreenDialog: fullscreenDialog));
+  }
+
+  void pop({dynamic result}) {
+    Navigator.pop(context, result);
   }
 
   Future<dynamic> pushWelcomeScreen() async {
@@ -135,5 +141,28 @@ class NavigationServices {
 
   Future<dynamic> pushPrivacyPolicyScreen() async {
     return _pushMaterialPageRoute(const PrivacyPolicyScreen());
+  }
+  
+  Future<dynamic> pushAddNewAddressScreen(
+      Future<void> Function(dynamic result)? onResult) async {
+    final result = _pushMaterialPageRoute(const AddNewAddressScreen());
+
+    if (onResult != null) {
+      await onResult(result);
+    }
+
+    return result;
+  }
+
+  Future<dynamic> pushEditAddressScreen(ShippingInformation address, int index,
+      Future<void> Function(dynamic result)? onResult) async {
+    final result = await _pushMaterialPageRoute(
+        EditAddressScreen(address: address, index: index));
+
+    if (onResult != null) {
+      await onResult(result);
+    }
+
+    return result;
   }
 }
