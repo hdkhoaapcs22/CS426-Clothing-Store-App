@@ -1,3 +1,5 @@
+import 'package:clothing_store_app/languages/appLocalizations.dart';
+import 'package:clothing_store_app/modules/Address/add_new_address_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -10,7 +12,7 @@ class EditableAddressListScreen extends StatefulWidget {
 }
 
 class _EditableAddressListScreenState extends State<EditableAddressListScreen> {
-  int selectedIndex = -1;
+  int selectedIndex = 0;
 
   final firestore = FirebaseFirestore.instance;
 
@@ -29,7 +31,7 @@ class _EditableAddressListScreenState extends State<EditableAddressListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editable Addresses'),
+        title: Text(AppLocalizations(context).of("edit-address")),
       ),
       body: FutureBuilder(
         future: _getAddresses(),
@@ -122,7 +124,14 @@ class _EditableAddressListScreenState extends State<EditableAddressListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddNewAddressScreen(),
+            ),
+          ).then((_) {
+            setState(() {}); // Refresh the list after returning
+          });
         },
         child: Icon(Icons.add),
       ),

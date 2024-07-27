@@ -110,6 +110,16 @@
         "fr": "Remplissez vos coordonnées ci-dessous ou inscrivez-vous avec votre compte social."
     },
     {
+        "text_id": "save",
+        "en": "Save",
+        "fr": "Enregistrer"
+    },
+    {
+        "text_id": "cancel",
+        "en": "Cancel",
+        "fr": "Annuler"
+    },
+    {
         "text_id": "name",
         "en": "Name",
         "fr": "Nom"
@@ -393,5 +403,75 @@
         "text_id": "email_sent",
         "en": "Email has been sent to ",
         "fr": "Un e-mail a été envoyé à "
+    },
+    {
+        "text_id": "phone",
+        "en": "Phone",
+        "fr": "Téléphone"
+    },
+    {
+        "text_id": "address",
+        "en": "Address",
+        "fr": "Adresse"
+    },
+    {
+        "text_id": "select-district",
+        "en": "Select District",
+        "fr": "Sélectionner le district"
+    },
+    {
+        "text_id": "select-province",
+        "en": "Select Province",
+        "fr": "Sélectionner la province"
+    },
+    {
+        "text_id": "select-ward",
+        "en": "Select Ward",
+        "fr": "Sélectionner le quartier"
+    },
+    {
+        "text_id": "add-new-address",
+        "en": "Add new address",
+        "fr": "Ajouter une nouvelle adresse"
+    },
+    {
+        "text_id": "edit-address",
+        "en": "Edit address",
+        "fr": "Modifier l'adresse"
+    },
+    {
+        "text_id": "delete-address",
+        "en": "Delete address",
+        "fr": "Supprimer l'adresse"
+    },
+    {
+        "text_id": "alert-fill-all-fields",
+        "en": "Please fill in all fields",
+        "fr": "Veuillez remplir tous les champs"
+    },
+    {
+        "text_id": "alert-select-province-district-ward",
+        "en": "Please select province, district, and ward",
+        "fr": "Veuillez sélectionner la province, le district et le quartier"
+    },
+    {
+        "text_id": "use-current-location",
+        "en": "Use Current Location",
+        "fr": "Utiliser l'emplacement actuel"
+    },
+    {
+        "text_id": "address-updated-successfully",
+        "en": "Address updated successfully",
+        "fr": "Adresse mise à jour avec succès"
+    },
+    {
+        "text_id": "address-added-successfully",
+        "en": "Address added successfully",
+        "fr": "Adresse ajoutée avec succès"
+    },
+    {
+        "text_id": "address-deleted-successfully",
+        "en": "Address deleted successfully",
+        "fr": "Adresse supprimée avec succès"
     }
 ]
