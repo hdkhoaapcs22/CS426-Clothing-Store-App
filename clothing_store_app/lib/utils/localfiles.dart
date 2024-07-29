@@ -10,4 +10,8 @@ class Localfiles {
   static const String onBoarding1 = '${baseImageUrl}onboarding1.png';
   static const String onBoarding2 = '${baseImageUrl}onboarding2.png';
   static const String onBoarding3 = '${baseImageUrl}onboarding3.png';
+
+  static const String defaultAvatar = '${baseImageUrl}default_avatar.png';
+  static const String googleLogo    = '${baseImageUrl}google_logo.png';
+  static const String facebookLogo  = '${baseImageUrl}facebook_logo.png';
 }

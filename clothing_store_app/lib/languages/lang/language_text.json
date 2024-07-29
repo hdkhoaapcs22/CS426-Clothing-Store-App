@@ -160,15 +160,59 @@
         "en": "None"
     },
     {
-        "text_id": "completeProfile",
+        "text_id": "complete_profile",
         "en": "Complete Profile"
     },
     {
-        "text_id": "completeYourProfile",
+        "text_id": "complete_your_profile",
         "en": "Complete Your Profile"
     },
     {
-        "text_id": "completeYourProfileDescript",
+        "text_id": "complete_your_profile_descript",
         "en": "Don't worry, only you can see your personal data. No one else will be able to see it."
+    },
+    {
+        "text_id": "name_is_required",
+        "en": "Name is required."
+    },
+    {
+        "text_id": "name_contains_characters",
+        "en": "Name should not contain special characters."
+    },
+    {
+        "text_id": "email_is_required",
+        "en": "Email account is required."
+    },
+    {
+        "text_id": "password_is_required",
+        "en": "Password is required."
+    },
+    {
+        "text_id": "register_successfully",
+        "en": "Registration successful!"
+    },
+    {
+        "text_id": "weak_password",
+        "en": "The password is too weak."
+    },
+    {
+        "text_id": "email_already_in_use",
+        "en": "An account already exists with that email."
+    },
+    {
+        "text_id": "invalid_email",
+        "en": "Email address is not valid."
+    },
+    {
+        "text_id": "undefined_error",
+        "en": "An undefined error occurred."
+    },
+    {
+        "text_id": "phone_number_is_required",
+        "en": "Phone number is required."
+    },
+    {
+        "text_id": "gender_is_required",
+        "en": "Please select a gender."
     }
 ]

@@ -16,6 +16,8 @@ class AuthService {
           email: email, password: password);
       User? user = result.user;
       return user != null ? user.uid : null;
+    }  on FirebaseAuthException catch (e) {
+      throw e; 
     } catch (e) {
       return null;
     }

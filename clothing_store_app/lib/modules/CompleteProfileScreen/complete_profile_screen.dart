@@ -1,11 +1,12 @@
+import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-
 import '../../languages/appLocalizations.dart';
 import '../../utils/text_styles.dart';
-import '../../widgets/common_textfield.dart';
+import '../../widgets/common_dialogs.dart';
+import '../../widgets/text_field_with_header.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   const CompleteProfileScreen({super.key});
@@ -17,47 +18,19 @@ class CompleteProfileScreen extends StatefulWidget {
 class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
-
-  final List<String> genders = ["male", "female", "none"];
   int _selectedGender = -1;
   String _nameError = '';
   String _phoneError = '';
   String _genderError = '';
+  final List<String> genders = ["male", "female", "none"];
 
-  bool _isNameValid(String name) {
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
-    return nameRegExp.hasMatch(name);
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    super.dispose();
   }
 
-  void _validateAndSubmit(BuildContext context) {
-    setState(() {
-      _nameError = '';
-      _phoneError = '';
-      _genderError = '';
-    });
-
-    if (_nameController.text.isEmpty) {
-      setState(() {
-        _nameError = 'Name is required';
-      });
-    } else if (!_isNameValid(_nameController.text)) {
-      setState(() {
-        _nameError = 'Name should not contain special characters or numbers';
-      });
-    }
-
-    if (_phoneController.text.isEmpty) {
-      setState(() {
-        _phoneError = 'Phone number is required';
-      });
-    }
-
-    if (_selectedGender == -1) {
-      setState(() {
-        _genderError = 'Please select a gender';
-      });
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,14 +60,14 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    AppLocalizations(context).of("completeYourProfile"),
+                    AppLocalizations(context).of("complete_your_profile"),
                     style: TextStyles(context).getLargerHeaderStyle(false),
                   ),
                   const SizedBox(height: 5.0),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: Text(
-                      AppLocalizations(context).of("completeYourProfileDescript"),
+                      AppLocalizations(context).of("complete_your_profile_descript"),
                       style: TextStyles(context).getInterDescriptionStyle(false, false),
                       textAlign: TextAlign.center,
                     ),
@@ -110,7 +83,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                     child: ClipRRect(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20.0)),
-                      child: Image.asset('assets/images/default_avatar.png'),
+                      child: Image.asset(Localfiles.defaultAvatar),
                     ),
                   ),
                   Positioned(
@@ -136,29 +109,14 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               const SizedBox(height: 10.0,),
               Column(
                 children: [
+                  TextFieldWithHeader(
+                    controller: _nameController, 
+                    errorMessage: _nameError, 
+                    header: AppLocalizations(context).of("name"), 
+                    hintText: AppLocalizations(context).of("John Doe"),
+                    isPassword: false,),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(AppLocalizations(context).of("name"), style: TextStyles(context).getLabelLargeStyle(false),),
-                        const SizedBox(height: 5.0,),
-                        CommonTextField(
-                          textEditingController: _nameController,
-                          contentPadding: const EdgeInsets.all(16.0),
-                          hintTextStyle: TextStyles(context).getLabelLargeStyle(true),
-                          hintText: AppLocalizations(context).of("John Doe"),
-                          focusColor: Colors.brown,
-                          textFieldPadding: const EdgeInsets.all(0.0),
-                          errorText: _nameError,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -166,26 +124,18 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                           AppLocalizations(context).of("phoneNumber"),
                           style: TextStyles(context).getLabelLargeStyle(false),
                         ),
-                        const SizedBox(
-                          height: 5.0,
-                        ),
+                        const SizedBox(height: 5.0,),
                         IntlPhoneField(
                           controller: _phoneController,
                           initialCountryCode: '+84',
                           disableLengthCheck: true,
                           decoration: InputDecoration(
-                            error: 
-                            _phoneError.isNotEmpty ? Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 8),
-                                child: Text(
-                                  _phoneError ?? "",
-                                  style: TextStyles(context)
-                                      .getSmallStyle()
-                                      .copyWith(
-                                        color: AppTheme.redErrorColor,
-                                      ),
-                                ),
-                              ) : null ,
+                            error: _phoneError.isNotEmpty 
+                              ? Text(
+                                _phoneError,
+                                style: TextStyles(context).getSmallStyle().copyWith(
+                                        color: AppTheme.redErrorColor,),
+                                ) : null,
                             hintText: AppLocalizations(context).of("enterPhoneNumber"),
                             hintStyle: TextStyles(context).getLabelLargeStyle(true),
                             contentPadding: const EdgeInsets.all(16.0),
@@ -197,56 +147,49 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Text(
                           AppLocalizations(context).of("gender"),
-                          style: TextStyles(context).getLabelLargeStyle(false),
-                        ),
-                        const SizedBox(
-                          height: 5.0,
-                        ),
-                        DropdownButtonFormField(
-                          value: null,
-                          hint: Text(AppLocalizations(context).of("select"), style: TextStyles(context).getLabelLargeStyle(true),),
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(16.0),
-                            error: 
-                            _genderError.isNotEmpty ? Padding(
-                                padding: const EdgeInsets.only(top: 5, left: 8),
-                                child: Text(
-                                  _genderError ?? "",
-                                  style: TextStyles(context)
-                                      .getSmallStyle()
-                                      .copyWith(
-                                        color: AppTheme.redErrorColor,
-                                      ),
+                          style: TextStyles(context).getLabelLargeStyle(false),),
+                      ),
+                      DropdownButtonFormField(
+                        value: null,
+                        hint: Text(
+                          AppLocalizations(context).of("select"), 
+                          style: TextStyles(context).getLabelLargeStyle(true),),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(16.0),
+                          error: 
+                          _genderError.isNotEmpty ? Text(
+                            _genderError,
+                            style: TextStyles(context).getSmallStyle().copyWith(
+                                  color: AppTheme.redErrorColor,
                                 ),
-                              ) : null ,
-                            border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(40.0))
-                            ),
+                          ) : null ,
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(40.0))
                           ),
-                          items: List<DropdownMenuItem<int>>.generate(
-                            genders.length, 
-                            (index) => DropdownMenuItem<int>(
-                              value: index,
-                              child: Text(
-                                AppLocalizations(context).of(genders[index]),
-                                style: TextStyles(context).getLabelLargeStyle(false),
-                              ),
-                            ),
-                          ),
-                          onChanged: (value) {
-                            _selectedGender = value!;
-                          },
                         ),
-                      ],
-                    ),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        items: List<DropdownMenuItem<int>>.generate(
+                          genders.length, 
+                          (index) => DropdownMenuItem<int>(
+                            value: index,
+                            child: Text(
+                              AppLocalizations(context).of(genders[index]),
+                              style: TextStyles(context).getLabelLargeStyle(false),
+                            ),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          _selectedGender = value!;
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -255,8 +198,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
                 onPressed: () {
-                  //MOVE TO LOCATION PAGE
-                  _validateAndSubmit(context);
+                  if (_validateAndSubmit(context)){
+                    //MOVE TO LOCATION PAGE
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppTheme.brownButtonColor,
@@ -266,7 +210,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     child: Text(
-                      AppLocalizations(context).of("completeProfile"),
+                      AppLocalizations(context).of("complete_profile"),
                       style: TextStyles(context).getButtonTextStyle(),
                       textAlign: TextAlign.center,
                     ),
@@ -279,5 +223,52 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         ),
       ),
     );
+  }
+
+  bool _isNameValid(String name) {
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
+    return nameRegExp.hasMatch(name);
+  }
+
+  bool _validateAndSubmit(BuildContext context) {
+    setState(() {
+      _nameError = '';
+      _phoneError = '';
+      _genderError = '';
+    });
+
+    bool isValid = true;
+
+    if (_nameController.text.isEmpty) {
+      setState(() {
+        _nameError = AppLocalizations(context).of("name_is_required");
+        isValid = false;
+      });
+    } else if (!_isNameValid(_nameController.text)) {
+      setState(() {
+        _nameError = AppLocalizations(context).of("name_contains_characters");
+        isValid = false;
+      });
+    }
+
+    if (_phoneController.text.isEmpty) {
+      setState(() {
+        _phoneError = AppLocalizations(context).of("phone_number_is_required");
+        isValid = false;
+      });
+    }
+
+    if (_selectedGender == -1) {
+      setState(() {
+        _genderError = AppLocalizations(context).of("gender_is_required");
+        isValid = false;
+      });
+    }
+
+    if (isValid){
+      Dialogs(context).showAnimatedDialog(title: AppLocalizations(context).of("complete_your_profile"), content: 'Successfully complete your profile!');
+    }
+
+    return isValid;
   }
 }

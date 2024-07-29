@@ -2,12 +2,13 @@ import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/auth/auth_service.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
-import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import '../../languages/appLocalizations.dart';
+import '../../utils/localfiles.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_dialogs.dart';
+import '../../widgets/text_field_with_header.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -26,84 +27,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _emailError = '';
   String _passwordError = '';
 
-  bool _isNameValid(String name) {
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
-    return nameRegExp.hasMatch(name);
-  }
-
-  Future<void> _registerAccount() async {
-    setState(() {
-      _nameError = '';
-      _emailError = '';
-      _passwordError = '';
-    });
-
-    if (_nameController.text.isEmpty){
-      setState(() {
-        _nameError = 'Customer name is required';
-      });
-    }
-    else{
-      if(!_isNameValid(_nameController.text.trim())){
-        setState(() {
-          _nameError = 'Name should not contain special characters.';
-        });
-      }
-    }
-
-    if (_emailController.text.isEmpty){
-      setState(() {
-        _emailError = 'Email account is required';
-      });
-    }
-
-    if (_passwordController.text.isEmpty){
-      setState(() {
-        _passwordError = 'Password is required';
-      });
-    }
-
-    try {
-      String? userId = await AuthService().registerWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
-      );
-
-      if (!_isAgreed) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('You need to agree with our terms and conditions.')),
-        );
-        return;
-      }
-
-      if (userId != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Registration successful!'),
-            backgroundColor: AppTheme.brownButtonColor,
-            ),
-        );
-        NavigationServices(context).pushCompleteProfileScreen();
-      }
-      
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        switch (e.code) {
-        case 'weak-password':
-          _passwordError = 'The password is too weak';
-          break;
-        case 'email-already-in-use':
-          _emailError = 'An account already exists with that email';
-          break;
-        case 'invalid-email':
-          _emailError = 'Email address is not valid';
-          break;
-        default:
-          _emailError = _passwordError = 'An undefined error occurred.';
-      }
-      });
-    }
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _passwordController.dispose();
+    _emailController.dispose();
+    super.dispose();
   }
 
   @override
@@ -130,79 +59,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(AppLocalizations(context).of("name"), style: TextStyles(context).getLabelLargeStyle(false),),
-                        const SizedBox(height: 5.0,),
-                        CommonTextField(
-                          textEditingController: _nameController,
-                          contentPadding: const EdgeInsets.all(16.0),
-                          hintTextStyle: TextStyles(context).getLabelLargeStyle(true),
-                          hintText: AppLocalizations(context).of("John Doe"),
-                          focusColor: Colors.brown,
-                          textFieldPadding: const EdgeInsets.all(0.0),
-                          errorText: _nameError,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(AppLocalizations(context).of("email"), style: TextStyles(context).getLabelLargeStyle(false),),
-                        const SizedBox(height: 5.0,),
-                        CommonTextField(
-                          textEditingController: _emailController,
-                          contentPadding: const EdgeInsets.all(16.0),
-                          hintTextStyle: TextStyles(context).getLabelLargeStyle(true),
-                          hintText: AppLocalizations(context).of("example@gmail.com"),
-                          focusColor: Colors.brown,
-                          textFieldPadding: const EdgeInsets.all(0.0),
-                          errorText: _emailError,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(AppLocalizations(context).of("password"), style: TextStyles(context).getLabelLargeStyle(false),),
-                        const SizedBox(height: 5.0,),
-                        Stack(
-                          children: [
-                            CommonTextField(
-                              isObscureText: _showPassword,
-                              textEditingController: _passwordController,
-                              contentPadding: const EdgeInsets.all(16.0),
-                              hintTextStyle: TextStyles(context).getLabelLargeStyle(true),
-                              hintText: '********',
-                              focusColor: Colors.brown,
-                              textFieldPadding: const EdgeInsets.all(0.0),
-                              errorText: _passwordError,
-                            ),
-                            Positioned(
-                              top: 6,
-                              right: 10,
-                              child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  _showPassword = !_showPassword;
-                                });
-                              },
-                              icon: Icon(_showPassword? Iconsax.eye_slash : Iconsax.eye, size: 20),
-                            ),)
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  TextFieldWithHeader(
+                    controller: _nameController, 
+                    errorMessage: _nameError, 
+                    header: AppLocalizations(context).of("name"), 
+                    hintText: AppLocalizations(context).of("John Doe"),
+                    isPassword: false,),
+                  TextFieldWithHeader(
+                    controller: _emailController, 
+                    errorMessage: _emailError, 
+                    header: AppLocalizations(context).of("email"), 
+                    hintText: AppLocalizations(context).of("example@gmail.com"),
+                    isPassword: false,),
+                  TextFieldWithHeader(
+                    controller: _passwordController, 
+                    errorMessage: _passwordError, 
+                    header: AppLocalizations(context).of("password"), 
+                    hintText: "********",
+                    isPassword: true,),
                 ],
               ),
               Padding(
@@ -244,7 +118,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                   radius: 30.0,
                   backgroundColor: AppTheme.brownButtonColor,
-                  buttonText: AppLocalizations(context).of("signUp"),
                   buttonTextWidget: Text(
                     AppLocalizations(context).of("signUp"),
                     style: TextStyles(context).getButtonTextStyle(),
@@ -291,7 +164,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         icon: const Image(
                           width: 20,
                           height: 20,
-                          image: AssetImage("assets/images/google_logo.png")
+                          image: AssetImage(Localfiles.googleLogo)
                         ),
                       ),
                     ),
@@ -303,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         icon: const Image(
                           width: 20,
                           height: 20,
-                          image: AssetImage("assets/images/facebook_logo.png")
+                          image: AssetImage(Localfiles.facebookLogo)
                         ),
                       ),
                     ),
@@ -333,5 +206,85 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  bool _isNameValid(String name) {
+    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
+    return nameRegExp.hasMatch(name);
+  }
+
+  Future<void> _registerAccount() async {
+    setState(() {
+      _nameError = '';
+      _emailError = '';
+      _passwordError = '';
+    });
+
+    bool isValid = true;
+
+    if (_nameController.text.isEmpty){
+      setState(() {
+         _nameError = AppLocalizations(context).of("name_is_required");
+         isValid = false;
+      });
+    }
+    else{
+      if(!_isNameValid(_nameController.text.trim())){
+        setState(() {
+          _nameError = AppLocalizations(context).of("name_contains_characters");
+          isValid = false;
+        });
+      }
+    }
+
+    if (_emailController.text.isEmpty){
+      setState(() {
+        _emailError = AppLocalizations(context).of("email_is_required");
+        isValid = false;
+      });
+    }
+
+    if (_passwordController.text.isEmpty){
+      setState(() {
+        _passwordError = AppLocalizations(context).of("password_is_required");
+        isValid = false;
+      });
+    }
+
+    if (isValid && !_isAgreed) {
+      //Dialogs(context).showAlertDialog(content: 'You need to agree with our terms and conditions.');
+      await Dialogs(context).showAnimatedDialog(title: 'Sign Up', content: 'You need to agree with our terms and conditions.');
+      return;    
+    }
+
+    try {
+      String? userId = await AuthService().registerWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
+
+      if (userId != null) {
+        //await Dialogs(context).showAlertDialog(content: 'Registration successful!');
+        await Dialogs(context).showAnimatedDialog(title: AppLocalizations(context).of("signUp"), content: AppLocalizations(context).of("register_successfully"));
+        NavigationServices(context).pushCompleteProfileScreen();
+      }
+         
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        switch (e.code) {
+        case 'weak-password':
+          _passwordError = AppLocalizations(context).of("weak_password");
+          break;
+        case 'email-already-in-use':
+          _emailError = AppLocalizations(context).of("email_already_in_use");
+          break;
+        case 'invalid-email':
+          _emailError = AppLocalizations(context).of("invalid_email");
+          break;
+        default:
+          _emailError = _passwordError = AppLocalizations(context).of("undefined_error");
+      }
+      });
+    }
   }
 }

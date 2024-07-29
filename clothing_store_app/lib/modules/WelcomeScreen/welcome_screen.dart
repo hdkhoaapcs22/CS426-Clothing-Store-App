@@ -27,12 +27,7 @@ class WelcomeScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(70.0),
-                              topRight: Radius.circular(70.0),
-                              bottomRight: Radius.circular(70.0),
-                              bottomLeft: Radius.circular(70.0),
-                            ),
+                            borderRadius: const BorderRadius.all(Radius.circular(70.0)),
                             child: Align(
                               alignment: Alignment.topCenter,
                               child: Image.asset(
@@ -47,12 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                         Column(
                           children: [
                             ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(60.0),
-                                topRight: Radius.circular(60.0),
-                                bottomRight: Radius.circular(60.0),
-                                bottomLeft: Radius.circular(60.0),
-                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(70.0)),
                               child: Align(
                                 alignment: Alignment.topCenter,
                                 child: Image.asset(
