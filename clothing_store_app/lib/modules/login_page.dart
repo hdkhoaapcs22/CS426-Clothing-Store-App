@@ -1,12 +1,13 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
-import 'package:clothing_store_app/utils/loading.dart';
+import 'package:clothing_store_app/widgets/label_and_textfield.dart';
+import 'package:clothing_store_app/widgets/loading.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
-import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:clothing_store_app/services/auth/auth_service.dart';
+import 'package:clothing_store_app/widgets/sign_in_method.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,17 +18,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late bool isNotShowingPass;
   late TextEditingController emailController;
   late TextEditingController passController;
-  late String error;
+  late String passwordError, emailError;
 
   @override
   void initState() {
     emailController = TextEditingController();
     passController = TextEditingController();
-    error = '';
-    isNotShowingPass = false;
+    passwordError = '';
+    emailError = '';
     super.initState();
   }
 
@@ -43,10 +43,11 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: AppTheme.scaffoldBackgroundColor,
       body: SingleChildScrollView(
-        child: Center(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+              24, AppBar().preferredSize.height + 30, 24, 10),
           child: Column(
             children: [
-              const Padding(padding: EdgeInsets.all(28)),
               Text(
                 AppLocalizations(context).of("login"),
                 style: TextStyles(context).getTitleStyle(),
@@ -57,86 +58,37 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyles(context).getDescriptionStyle(),
               ),
               const Padding(padding: EdgeInsets.all(24)),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 60,
-                child: Row(
-                  children: [
-                    Text(
-                      AppLocalizations(context).of("email"),
-                      style: TextStyles(context).getRegularStyle(),
+              labelAndTextField(
+                  context: context,
+                  label: "email",
+                  hintText: 'example@gmail.com',
+                  controller: emailController,
+                  errorText: emailError),
+              labelAndTextField(
+                  context: context,
+                  label: "password",
+                  hintText: '***********',
+                  controller: passController,
+                  errorText: passwordError,
+                  suffixIconData: Icons.visibility_off,
+                  selectedIconData: Icons.visibility,
+                  isObscured: true),
+              Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                    onPressed: () {
+                      NavigationServices(context).pushEmailForNewPassPage();
+                    },
+                    style: TextButton.styleFrom(
+                      overlayColor: Colors.transparent,
                     ),
-                    const Spacer(),
-                  ],
-                ),
-              ),
-              const Padding(padding: EdgeInsets.all(2)),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 60,
-                child: CommonTextField(
-                    textEditingController: emailController,
-                    contentPadding: const EdgeInsets.all(14),
-                    hintTextStyle: TextStyles(context).getDescriptionStyle(),
-                    focusColor: const Color.fromARGB(255, 112, 79, 56),
-                    hintText: 'example@gmail.com',
-                    textFieldPadding: const EdgeInsets.all(0)),
-              ),
-              const Padding(padding: EdgeInsets.all(12)),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 60,
-                child: Row(
-                  children: [
-                    Text(
-                      AppLocalizations(context).of("password"),
-                      style: TextStyles(context).getRegularStyle(),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-              ),
-              const Padding(padding: EdgeInsets.all(2)),
-              Stack(children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 60,
-                  child: CommonTextField(
-                    isObscureText: !isNotShowingPass,
-                    textEditingController: passController,
-                    contentPadding: const EdgeInsets.all(14),
-                    hintTextStyle: TextStyles(context).getDescriptionStyle(),
-                    focusColor: const Color.fromARGB(255, 112, 79, 56),
-                    hintText: '***********',
-                    textFieldPadding: const EdgeInsets.all(0),
-                    suffixIconData: Icons.visibility,
-                    selectedIconData: Icons.visibility_off,
-                  ),
-                ),
-              ]),
-              const Padding(padding: EdgeInsets.all(2)),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 60,
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    TextButton(
-                        onPressed: () {
-                          NavigationServices(context).pushEmailForNewPassPage();
-                        },
-                        style: TextButton.styleFrom(
-                          overlayColor: Colors.transparent,
-                        ),
-                        child: Text(
-                          AppLocalizations(context).of("forget_pass"),
-                          style: const TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Color.fromARGB(255, 112, 79, 56),
-                              fontSize: 16),
-                        )),
-                  ],
-                ),
-              ),
-              const Padding(padding: EdgeInsets.all(2)),
-              Text(
-                error,
-                style: const TextStyle(color: Colors.red, fontSize: 16),
+                    child: Text(
+                      AppLocalizations(context).of("forget_pass"),
+                      style: const TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Color.fromARGB(255, 112, 79, 56),
+                          fontSize: 16),
+                    )),
               ),
               const Padding(padding: EdgeInsets.all(2)),
               CommonButton(
@@ -202,64 +154,31 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget signInMethod(String imageLink) {
-    return GestureDetector(
-      onTap: () {},
-      child: CircleAvatar(
-        radius: 40,
-        backgroundColor: Colors.grey,
-        child: CircleAvatar(
-          radius: 39,
-          backgroundColor: Colors.white,
-          child: Image.asset(
-            imageLink,
-            width: 36,
-            height: 36,
-          ),
-        ),
-      ),
-    );
-  }
-
   Future<bool> checkSignIn(String mail, String pass) async {
-    bool res = true;
+    bool res = false;
+    emailError = '';
+    passwordError = '';
     await AuthService()
         .signInWithEmailAndPassword(email: mail, password: pass)
         .then(
       (value) {
         if (value == null) {
-          setState(() {
-            error = AppLocalizations(context).of("login_e6");
-          });
-          res = false;
+          emailError = AppLocalizations(context).of("login_e6");
         } else if (emailController.text.isEmpty) {
-          setState(() {
-            error = AppLocalizations(context).of("login_e1");
-          });
-          res = false;
+          emailError = AppLocalizations(context).of("login_e1");
         } else if (passController.text.isEmpty) {
-          setState(() {
-            error = AppLocalizations(context).of("login_e2");
-          });
-          res = false;
+          passwordError = AppLocalizations(context).of("login_e2");
         } else if (value.toString() ==
             '[firebase_auth/invalid-email] The email address is badly formatted.') {
-          setState(() {
-            error = AppLocalizations(context).of("login_e3");
-          });
-          res = false;
+          emailError = AppLocalizations(context).of("login_e3");
         } else if (value.toString() ==
             '[firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.') {
-          setState(() {
-            error = AppLocalizations(context).of("login_e4");
-          });
-          res = false;
+          passwordError = AppLocalizations(context).of("login_e4");
         } else if (value.toString() ==
             '[firebase_auth/too-many-requests] Access to this account has been temporarily disabled due to many failed login attempts.') {
-          setState(() {
-            error = AppLocalizations(context).of("login_e5");
-          });
-          res = false;
+          emailError = AppLocalizations(context).of("login_e5");
+        } else {
+          res = true;
         }
       },
     );
@@ -270,6 +189,7 @@ class _LoginPageState extends State<LoginPage> {
     loading(context);
     bool loginStatus =
         await checkSignIn(emailController.text.trim(), passController.text);
+    setState(() {});
     Navigator.pop(context);
     if (loginStatus == true) {
       //push HomePage}

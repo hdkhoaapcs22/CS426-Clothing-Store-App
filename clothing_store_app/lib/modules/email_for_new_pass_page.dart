@@ -1,6 +1,7 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/services/auth/auth_service.dart';
-import 'package:clothing_store_app/utils/loading.dart';
+import 'package:clothing_store_app/widgets/label_and_textfield.dart';
+import 'package:clothing_store_app/widgets/loading.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
@@ -85,20 +86,14 @@ class _EmailForNewPassPageState extends State<EmailForNewPassPage> {
               const Padding(padding: EdgeInsets.all(12)),
               SizedBox(
                 width: MediaQuery.of(context).size.width - 60,
-                child: CommonTextField(
-                    textEditingController: emailController,
-                    contentPadding: const EdgeInsets.all(14),
-                    hintTextStyle: TextStyles(context).getDescriptionStyle(),
-                    focusColor: const Color.fromARGB(255, 112, 79, 56),
+                child: labelAndTextField(
+                    context: context,
+                    label: "email",
                     hintText: 'example@gmail.com',
-                    textFieldPadding: const EdgeInsets.all(0)),
+                    controller: emailController,
+                    errorText: error),
               ),
               const Padding(padding: EdgeInsets.all(4)),
-              Text(
-                error,
-                style: const TextStyle(color: Colors.red, fontSize: 16),
-              ),
-              const Padding(padding: EdgeInsets.all(2)),
               CommonButton(
                 onTap: sendPassResetEmail,
                 buttonText: "send_verification_code",
