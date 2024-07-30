@@ -21,9 +21,12 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))
   FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
 <<<<<<< HEAD
+<<<<<<< HEAD
   FLTGoogleSignInPlugin.register(with: registry.registrar(forPlugin: "FLTGoogleSignInPlugin"))
 =======
   FLTFirebaseDatabasePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseDatabasePlugin"))
+=======
+>>>>>>> f1ffce7 (load vietnamese provinces data & refractor code)
   GeolocatorPlugin.register(with: registry.registrar(forPlugin: "GeolocatorPlugin"))
 >>>>>>> e5fbd71 (add language text & geolocation manifest)
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))

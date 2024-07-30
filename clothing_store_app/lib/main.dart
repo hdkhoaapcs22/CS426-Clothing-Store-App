@@ -1,5 +1,7 @@
+import 'package:clothing_store_app/common/common.dart';
 import 'package:clothing_store_app/providers/address_model.dart';
 import 'package:clothing_store_app/providers/theme_provider.dart';
+import 'package:clothing_store_app/repositories/address_repository.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/clothing_store_app.dart';
 import 'package:clothing_store_app/firebase_options.dart';
@@ -13,6 +15,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await loadVietnameseProvinceDataFromJsonFile();
 
   await SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
@@ -30,6 +34,11 @@ Widget _setAllProviders() {
 
       // Add more providers here
       ChangeNotifierProvider(create: (_) => AddressModel()),
+
+      // Add repository providers here
+      Provider<AddressRepository>(
+        create: (_) => AddressRepository("aMPjhNJSHfscG2aYNlPA"), // userId
+      ),
     ],
     child: ClothingStoreApp(),
   );

@@ -1,88 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class AddressModel with ChangeNotifier {
-  String? _selectedProvinceCode;
-  String? _selectedDistrictCode;
-  String? _selectedWardCode;
-  String? _selectedProvinceName;
-  String? _selectedDistrictName;
-  String? _selectedWardName;
-  String? _name;
-  String? _phone;
-  String? _address;
+import '../models/address.dart';
 
-  // AddressModel({
-  //   required String? name, 
-  //   required String? phone, 
-  //   required String? address
-  // }) {
-  //   _name = name;
-  //   _phone = phone;
-  //   // 436A Dinh Bo Linh, Ward 26, Binh Thanh District, Ho Chi Minh City
-  //   List<String> parts = address?.split(", ") ?? [];
-  //   if (parts.length == 4) {
-  //     _address = parts[0];
-  //     _selectedWardName = parts[1];
-  //     _selectedDistrictName = parts[2];
-  //     _selectedProvinceName = parts[3];
-  //   }
-  // }
+class AddressModel extends ChangeNotifier {
+  String? _province, _district, _ward;
+  TextEditingController? _fullNameController;
+  TextEditingController? _phoneNumberController;
+  TextEditingController? _addressController;
 
-  String? get selectedProvinceCode => _selectedProvinceCode;
-  String? get selectedDistrictCode => _selectedDistrictCode;
-  String? get selectedWardCode => _selectedWardCode;
-  String? get selectedProvinceName => _selectedProvinceName;
-  String? get selectedDistrictName => _selectedDistrictName;
-  String? get selectedWardName => _selectedWardName;
-  String? get name => _name;
-  String? get phone => _phone;
-  String? get address => _address;
+  AddressModel() {
+    _fullNameController = TextEditingController();
+    _phoneNumberController = TextEditingController();
+    _addressController = TextEditingController();
 
-  void setName(String name) {
-    _name = name;
-    notifyListeners();
+    _phoneNumberController!.addListener(_phoneValidator);
   }
 
-  void setPhone(String phone) {
-    _phone = phone;
-    notifyListeners();
+  @override
+  void dispose() {
+    _phoneNumberController!.removeListener(_phoneValidator);
+    _fullNameController!.dispose();
+    _phoneNumberController!.dispose();
+    _addressController!.dispose();
+    super.dispose();
   }
 
-  void setAddress(String address) {
-    _address = address;
-    notifyListeners();
+  String? get province => _province;
+
+  set province(String? value) {
+    if (_province != value) {
+      _province = value;
+      notifyListeners();
+    }
   }
 
-  void setSelectedProvinceName(String? name) {
-    _selectedProvinceName = name;
-    notifyListeners();
+  String? get district => _district;
+
+  set district(String? value) {
+    if (_district != value) {
+      _district = value;
+      notifyListeners();
+    }
   }
 
-  void setSelectedDistrictName(String? name) {
-    _selectedDistrictName = name;
-    notifyListeners();
+  String? get ward => _ward;
+
+  set ward(String? value) {
+    if (_ward != value) {
+      _ward = value;
+      notifyListeners();
+    }
   }
 
-  void setSelectedWardName(String? name) {
-    _selectedWardName = name;
-    notifyListeners();
+  String? get province_district =>
+      _province != null && _district != null ? '$_district, $_province' : null;
+
+  TextEditingController? get fullNameController => _fullNameController;
+  TextEditingController? get phoneNumberController => _phoneNumberController;
+  TextEditingController? get addressController => _addressController;
+
+  void _phoneValidator() {
+    if (_phoneNumberController!.text.length > 10) {
+      _phoneNumberController!.text =
+          _phoneNumberController!.text.substring(0, 10);
+    }
   }
 
-  void setSelectedProvinceCode(String? code) {
-    _selectedProvinceCode = code;
-    _selectedDistrictCode = null; // Reset district and ward when province changes
-    _selectedWardCode = null;
-    notifyListeners(); // Notify listeners to rebuild UI
+  void setAddress(Address address) {
+    _province = address.city;
+    _district = address.district;
+    _ward = address.ward;
+    _fullNameController!.text = address.name;
+    _phoneNumberController!.text = address.phoneNumber;
+    _addressController!.text = address.street;
   }
 
-  void setSelectedDistrictCode(String? code) {
-    _selectedDistrictCode = code;
-    _selectedWardCode = null; // Reset ward when district changes
-    notifyListeners();
+  @override
+  String toString() {
+    String _fullName = _fullNameController!.text;
+    String _phoneNumber = _phoneNumberController!.text;
+    String _address = _addressController!.text;
+
+    return '$_fullName, $_phoneNumber, $_address, $_ward, $_district, $_province';
   }
 
-  void setSelectedWardCode(String? code) {
-    _selectedWardCode = code;
+  void clear() {
+    _province = null;
+    _district = null;
+    _ward = null;
+    _fullNameController!.clear();
+    _phoneNumberController!.clear();
+    _addressController!.clear();
+
     notifyListeners();
   }
 }

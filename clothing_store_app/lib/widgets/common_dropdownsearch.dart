@@ -39,9 +39,7 @@ class _CommonDropdownSearchState<T> extends State<CommonDropdownSearch<T>> {
   void didUpdateWidget(CommonDropdownSearch<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.items != oldWidget.items) {
-      setState(() {
-        _filteredItems = widget.items;
-      });
+      _filteredItems = widget.items;
     }
   }
 

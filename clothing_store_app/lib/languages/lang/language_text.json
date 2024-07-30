@@ -120,6 +120,11 @@
         "fr": "Annuler"
     },
     {
+        "text_id": "delete",
+        "en": "Delete",
+        "fr": "Supprimer"
+    },
+    {
         "text_id": "name",
         "en": "Name",
         "fr": "Nom"
@@ -410,68 +415,88 @@
         "fr": "Téléphone"
     },
     {
-        "text_id": "address",
-        "en": "Address",
-        "fr": "Adresse"
+        "text_id": "phone_number",
+        "en": "Phone Number",
+        "fr": "Numéro de téléphone"
     },
     {
-        "text_id": "select-district",
+        "text_id": "detail_address",
+        "en": "Detail Address",
+        "fr": "Adresse détaillée"
+    },
+    {
+        "text_id": "select_district",
         "en": "Select District",
         "fr": "Sélectionner le district"
     },
     {
-        "text_id": "select-province",
+        "text_id": "select_province",
         "en": "Select Province",
         "fr": "Sélectionner la province"
     },
     {
-        "text_id": "select-ward",
+        "text_id": "select_ward",
         "en": "Select Ward",
         "fr": "Sélectionner le quartier"
     },
     {
-        "text_id": "add-new-address",
+        "text_id": "add_new_address",
         "en": "Add new address",
         "fr": "Ajouter une nouvelle adresse"
     },
     {
-        "text_id": "edit-address",
+        "text_id": "edit_address",
         "en": "Edit address",
         "fr": "Modifier l'adresse"
     },
     {
-        "text_id": "delete-address",
+        "text_id": "address_list",
+        "en": "Address List",
+        "fr": "Liste d'adresses"
+    },
+    {
+        "text_id": "delete_address",
         "en": "Delete address",
         "fr": "Supprimer l'adresse"
     },
     {
-        "text_id": "alert-fill-all-fields",
+        "text_id": "please_fill_in_all_fields",
         "en": "Please fill in all fields",
         "fr": "Veuillez remplir tous les champs"
     },
     {
-        "text_id": "alert-select-province-district-ward",
-        "en": "Please select province, district, and ward",
-        "fr": "Veuillez sélectionner la province, le district et le quartier"
-    },
-    {
-        "text_id": "use-current-location",
+        "text_id": "use_current_location",
         "en": "Use Current Location",
         "fr": "Utiliser l'emplacement actuel"
     },
     {
-        "text_id": "address-updated-successfully",
+        "text_id": "are_you_sure_you_want_to_delete_this_address",
+        "en": "Are you sure you want to delete this address?",
+        "fr": "Êtes-vous sûr de vouloir supprimer cette adresse ?"
+    },
+    {
+        "text_id": "address_updated_successfully",
         "en": "Address updated successfully",
         "fr": "Adresse mise à jour avec succès"
     },
     {
-        "text_id": "address-added-successfully",
+        "text_id": "address_added_successfully",
         "en": "Address added successfully",
         "fr": "Adresse ajoutée avec succès"
     },
     {
-        "text_id": "address-deleted-successfully",
+        "text_id": "address_deleted_successfully",
         "en": "Address deleted successfully",
         "fr": "Adresse supprimée avec succès"
+    },
+    {
+        "text_id": "ok",
+        "en": "OK",
+        "fr": "OK"
+    },
+    {
+        "text_id": "notification",
+        "en": "Notification",
+        "fr": "Notification"
     }
 ]

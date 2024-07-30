@@ -9,12 +9,36 @@ class NavigationServices {
   final BuildContext context;
   NavigationServices(this.context);
 
-  Future<dynamic> _pushMaterialPageRoute(Widget widget,
+  Future<dynamic> pushMaterialPageRoute(
+    Widget widget, {
+    bool fullscreenDialog = false,
+    Future<void> Function(dynamic result)? onResult,
+  }) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => widget, fullscreenDialog: fullscreenDialog),
+    );
+
+    if (onResult != null) {
+      await onResult(result);
+    }
+
+    return result;
+  }
+
+  Future<dynamic> pushReplacementMaterialPageRoute(Widget widget,
       {bool fullscreenDialog = false}) async {
-    return Navigator.push(
+    return Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => widget, fullscreenDialog: fullscreenDialog));
+          builder: (context) => widget,
+          fullscreenDialog: fullscreenDialog,
+        ));
+  }
+
+  void pop({dynamic result}) {
+    Navigator.pop(context, result);
   }
 
   Future<dynamic> pushWelcomeScreen() async {

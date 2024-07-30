@@ -1,19 +1,19 @@
 import 'package:clothing_store_app/routes/navigation_services.dart';
-import 'package:clothing_store_app/utils/address_utils.dart';
 import 'package:flutter/material.dart';
 import '../../languages/appLocalizations.dart';
 import '../../models/address.dart';
+import '../../utils/address_utils.dart';
 import '../../utils/text_styles.dart';
-import 'add_new_address_screen.dart';
+import '../Address/add_new_address_screen.dart';
+import '../Address/edit_address_screen.dart';
 
-class AddressListScreen extends StatefulWidget {
+class EditableAddressListScreen extends StatefulWidget {
   @override
-  State<AddressListScreen> createState() => _AddressListScreenState();
+  _EditableAddressListScreenState createState() => _EditableAddressListScreenState();
 }
 
-class _AddressListScreenState extends State<AddressListScreen>
-    with AddressUtils {
-  Future<List<String>>? _addressFuture;
+class _EditableAddressListScreenState extends State<EditableAddressListScreen> with AddressUtils {
+  late Future<List<String>> _addressFuture;
   int _selectedIndex = -1;
 
   @override
@@ -40,44 +40,39 @@ class _AddressListScreenState extends State<AddressListScreen>
           }
 
           final addressList = snapshot.data ?? [];
-          return _buildAddressList(addressList);
+
+          return ListView.builder(
+            itemCount: addressList.length,
+            itemBuilder: (context, index) {
+              final address = Address.fromAddressString(addressList[index]);
+              final isSelected = _selectedIndex == index;
+
+              return GestureDetector(
+                onTap: () => _onAddressTap(index),
+                child: _buildAddressCard(address, isSelected, index),
+              );
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _onAddNewAddress();
-        },
+        onPressed: _onAddNewAddress,
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget _buildAddressList(List<String> addressList) {
-    return ListView.builder(
-      itemCount: addressList.length,
-      itemBuilder: (context, index) {
-        final addressData = addressList[index];
-        Address address = Address.fromAddressString(addressData);
-
-        return GestureDetector(
-          onTap: () => _onAddressTap(index),
-          child: _buildAddressItem(address, index),
-        );
-      },
-    );
-  }
-
-  Widget _buildAddressItem(Address address, int index) {
-    final isSelected = _selectedIndex == index;
-    final padding = MediaQuery.of(context).size.width > 800
-        ? const EdgeInsets.all(16.0)
-        : const EdgeInsets.all(8.0);
-    final margin = MediaQuery.of(context).size.width > 800
+  Widget _buildAddressCard(Address address, bool isSelected, int index) {
+    final edgeInsets = MediaQuery.of(context).size.width > 800
         ? const EdgeInsets.symmetric(horizontal: 200.0, vertical: 8.0)
         : const EdgeInsets.all(8.0);
 
+    final padding = MediaQuery.of(context).size.width > 800
+        ? const EdgeInsets.all(16.0)
+        : const EdgeInsets.all(8.0);
+
     return Container(
-      margin: margin,
+      margin: edgeInsets,
       padding: padding,
       decoration: BoxDecoration(
         color: isSelected ? Colors.blue.shade100 : Colors.white,
@@ -94,15 +89,9 @@ class _AddressListScreenState extends State<AddressListScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  address.name,
-                  style: TextStyles(context).getRegularStyle(),
-                ),
+                Text(address.name, style: TextStyles(context).getRegularStyle()),
                 const SizedBox(height: 4.0),
-                Text(
-                  address.phoneNumber,
-                  style: TextStyles(context).getSubtitleStyle(),
-                ),
+                Text(address.phoneNumber, style: TextStyles(context).getSubtitleStyle()),
                 const SizedBox(height: 4.0),
                 Text(
                   '${address.street}, ${address.ward}, ${address.district}, ${address.city}',
@@ -110,6 +99,10 @@ class _AddressListScreenState extends State<AddressListScreen>
                 ),
               ],
             ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () => _onEditAddress(address, index),
           ),
         ],
       ),
@@ -120,6 +113,13 @@ class _AddressListScreenState extends State<AddressListScreen>
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void _onEditAddress(Address address, int index) {
+    NavigationServices(context).pushMaterialPageRoute(
+      EditAddressScreen(address: address, index: index),
+      onResult: (result) async => _onLoadAddresses(),
+    );
   }
 
   void _onAddNewAddress() {
