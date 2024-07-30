@@ -10,7 +10,7 @@ class CommonTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final String? errorText;
   final TextStyle hintTextStyle;
-  final TextEditingController textEditingController;
+  final TextEditingController? textEditingController;
   final EdgeInsetsGeometry contentPadding;
   final EdgeInsetsGeometry textFieldPadding;
   final Color focusColor;
@@ -20,11 +20,11 @@ class CommonTextField extends StatefulWidget {
   CommonTextField({
     super.key,
     required this.textEditingController,
-    required this.contentPadding,
-    required this.hintTextStyle,
-    required this.focusColor,
     required this.hintText,
-    required this.textFieldPadding,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 20),
+    this.hintTextStyle = const TextStyle(color: Colors.grey),
+    this.focusColor = Colors.black,
+    this.textFieldPadding = const EdgeInsets.only(bottom: 10),
     this.initialIconColor,
     this.keyboardType,
     this.selectedIconData,
