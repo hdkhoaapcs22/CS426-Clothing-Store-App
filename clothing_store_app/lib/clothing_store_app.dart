@@ -6,13 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import 'modules/Address/screens/address_list_screen.dart';
 import 'providers/theme_provider.dart';
 import 'common/common.dart';
 import 'languages/appLocalizations.dart';
-
-import 'modules/Address/address_list_screen.dart';
-import 'modules/Address/edit_address_screen.dart';
-import 'modules/ShoppingCart/editable_address_list_screen.dart';
+import 'modules/ShoppingCart/screens/editable_address_list_screen.dart';
 import 'routes/routes_name.dart';
 
 BuildContext? applicationcontext;
