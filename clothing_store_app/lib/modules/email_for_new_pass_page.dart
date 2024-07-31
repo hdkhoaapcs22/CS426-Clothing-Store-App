@@ -6,7 +6,6 @@ import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
-import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:flutter/material.dart';
 
 class EmailForNewPassPage extends StatefulWidget {
