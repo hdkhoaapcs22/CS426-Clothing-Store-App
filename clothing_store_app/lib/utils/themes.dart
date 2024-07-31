@@ -51,6 +51,7 @@ class AppTheme {
   static Color get greyBackgroundColor =>
       isLightMode ? const Color.fromARGB(255, 238, 238, 238) : const Color.fromARGB(255, 56, 56, 56);
 
+
   static ThemeData get getThemeData =>
       isLightMode ? _buildLightTheme() : _buildDarkTheme();
 
@@ -140,7 +141,8 @@ class AppTheme {
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.textTheme),
       platform: TargetPlatform.iOS,
-      visualDensity: VisualDensity.adaptivePlatformDensity, colorScheme: colorScheme.copyWith(background: backgroundColor),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      colorScheme: colorScheme.copyWith(background: backgroundColor),
     );
   }
 
@@ -161,7 +163,8 @@ class AppTheme {
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.textTheme),
       platform: TargetPlatform.iOS,
-      visualDensity: VisualDensity.adaptivePlatformDensity, colorScheme: colorScheme.copyWith(background: backgroundColor),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      colorScheme: colorScheme.copyWith(background: backgroundColor),
     );
   }
 
@@ -243,4 +246,3 @@ class AppTheme {
         ],
       );
 }
-

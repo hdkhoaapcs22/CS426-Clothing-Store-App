@@ -8,9 +8,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import 'modules/BottomNavigation/bottom_navigation_screen.dart';
 import 'providers/theme_provider.dart';
 import 'common/common.dart';
 import 'languages/appLocalizations.dart';
+import 'routes/routes_name.dart';
+import 'test.dart';
 
 BuildContext? applicationcontext;
 
@@ -72,6 +75,8 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
       RoutesName.splashScreen: (context) => const SplashScreen(),
+      RoutesName.BottomNavigation: (BuildContext context) =>
+          const Test(),
     };
   }
 
