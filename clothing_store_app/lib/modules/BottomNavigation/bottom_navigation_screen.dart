@@ -1,12 +1,15 @@
+import 'package:clothing_store_app/modules/Home/home_screen.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../utils/enum.dart';
-import '../../utils/themes.dart';
+import '../Chat/chatting_screen.dart';
+import '../Favorite/favorite_screen.dart';
+import '../Profile/profile_screen.dart';
+import '../Shop/shopping_screen.dart';
 import 'custom_bottom_tap.dart';
-import 'switch_bottom_navigation_component.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -36,11 +39,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
     await Future.delayed(const Duration(milliseconds: 900));
     setState(() {
       isFirstTime = false;
-      indexView = SwitchBottomNavigationComponent()
-          .switchBottomNavigationComponent(
-              bottomBarType: bottomBarType,
-              animationController: animationController);
-      (animationController: animationController,);
+      indexView = HomeScreen(
+        animationController: animationController,
+      );
       animationController.forward();
     });
   }
@@ -123,16 +124,35 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
   void tabClick(BottomBarType tabType) {
     if (tabType != bottomBarType) {
       bottomBarType = tabType;
-      animationController.reverse().then(
-            (value) => setState(
-              () {
-                indexView = SwitchBottomNavigationComponent()
-                    .switchBottomNavigationComponent(
-                        bottomBarType: bottomBarType,
-                        animationController: animationController);
-              },
-            ),
-          );
+      animationController.reverse().then((value) {
+        switch (bottomBarType) {
+          case BottomBarType.Home:
+            {
+              indexView = HomeScreen(animationController: animationController);
+            }
+          case BottomBarType.Shopping:
+            {
+              indexView =
+                  ShoppingScreen(animationController: animationController);
+            }
+          case BottomBarType.Favorite:
+            {
+              indexView =
+                  FavoriteScreen(animationController: animationController);
+            }
+          case BottomBarType.Chatting:
+            {
+              indexView =
+                  ChattingScreen(animationController: animationController);
+            }
+          case BottomBarType.Profile:
+            {
+              indexView =
+                  ProfileScreen(animationController: animationController);
+            }
+        }
+        setState(() {});
+      });
     }
   }
 }
