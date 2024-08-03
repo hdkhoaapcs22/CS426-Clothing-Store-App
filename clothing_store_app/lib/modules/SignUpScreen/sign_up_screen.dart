@@ -82,7 +82,7 @@ class SignUpScreen extends StatelessWidget {
                           child: Checkbox(
                             value: notifier.isAgreed,
                             onChanged: (value) {
-                              notifier.setAgreed(value ?? false);
+                              notifier.setAgree(value ?? false);
                             },
                           ),
                         ),

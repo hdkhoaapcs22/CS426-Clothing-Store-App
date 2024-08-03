@@ -25,7 +25,7 @@ class SignUpNotifier extends ChangeNotifier {
   String get emailError => _emailError;
   String get passwordError => _passwordError;
 
-  void setAgreed(bool value) {
+  void setAgree(bool value) {
     _isAgreed = value;
     notifyListeners();
   }
