@@ -1,5 +1,6 @@
 class Localfiles {
   static const String baseImageUrl = 'assets/images/';
+  static const String baseJsonUrl = 'assets/json/';
   //Welcome Screen Assets
   static const String welcomeImage1 = '${baseImageUrl}welcomeImage1.jpg';
   static const String welcomeImage2 = '${baseImageUrl}welcomeImage2.jpg';
@@ -14,4 +15,6 @@ class Localfiles {
   static const String defaultAvatar = '${baseImageUrl}default_avatar.png';
   static const String googleLogo    = '${baseImageUrl}google_logo.png';
   static const String facebookLogo  = '${baseImageUrl}facebook_logo.png';
+
+  static const String loading       = '${baseJsonUrl}loading_lottie.json';
 }

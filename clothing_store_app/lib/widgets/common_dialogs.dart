@@ -1,6 +1,12 @@
+import 'package:clothing_store_app/languages/appLocalizations.dart';
+import 'package:clothing_store_app/utils/localfiles.dart';
+import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/set_image_provider.dart';
 import '../utils/text_styles.dart';
 import '../utils/themes.dart';
 
@@ -8,19 +14,19 @@ class Dialogs {
   final BuildContext context;
   Dialogs(this.context);
 
-  static Future<dynamic> showLoadingDialog(BuildContext context) async {
+  Future<dynamic> showLoadingDialog() async {
     return await showDialog(
       context: context, 
-      builder: (context) => Center(
+      builder: (BuildContext context) => Center(
         child: Container(
-          child: Lottie.asset('assets/json/let_start_lottie.json'),
+          child: Lottie.asset(Localfiles.loading),
         ),
       )
     );
   }
 
   Future<void> showAlertDialog(
-    {required String content}) async {
+    {required String content}) {
     return showDialog(
       context: context, 
       builder: (BuildContext context) => AlertDialog(
@@ -73,5 +79,93 @@ class Dialogs {
         );
       }
     );
+  }
+
+  Future<void> showAnimatedImagePickerDialog() {
+    return showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel: '',
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (content, animation1, animation2) {
+          return Container();
+        },
+        transitionBuilder: (context, a1, a2, widget) {
+          return ScaleTransition(
+            scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+            child: FadeTransition(
+                opacity: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+                child: AlertDialog(
+                  title: Text(
+                    AppLocalizations(context).of("upload_profile_picture"),
+                    style: TextStyles(context)
+                        .getButtonTextStyle()
+                        .copyWith(color: AppTheme.primaryTextColor),
+                  ),
+                  content: SizedBox(
+                    height: 120,
+                    child: Column(
+                      children: [
+                        CommonButton(
+                            onTap: () async {
+                              final pickImageProvider =
+                                  Provider.of<PickImageProvider>(context,
+                                      listen: false);
+                              await pickImageProvider.pickImageFromGallery();
+                            },
+                            backgroundColor: AppTheme.brownButtonColor,
+                            radius: 30,
+                            height: 50,
+                            buttonTextWidget: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  AppLocalizations(context).of("from_library"),
+                                  style: TextStyles(context)
+                                      .getLabelLargeStyle(false)
+                                      .copyWith(
+                                          color: AppTheme.backgroundColor,
+                                          fontWeight: FontWeight.w500),
+                                ),
+                                const Icon(
+                                  Iconsax.gallery_add,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            )),
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        CommonButton(
+                            onTap: () async {
+                              final pickImageProvider =
+                                  Provider.of<PickImageProvider>(context,
+                                      listen: false);
+                              await pickImageProvider.takePhoto();
+                            },
+                            radius: 30,
+                            height: 50,
+                            backgroundColor: AppTheme.brownButtonColor,
+                            buttonTextWidget: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(AppLocalizations(context).of("take_photo"),
+                                    style: TextStyles(context)
+                                        .getLabelLargeStyle(false)
+                                        .copyWith(
+                                            color: AppTheme.backgroundColor,
+                                            fontWeight: FontWeight.w500)),
+                                const Icon(
+                                  Iconsax.camera,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ))
+                      ],
+                    ),
+                  ),
+                )),
+          );
+        });
   }
 }

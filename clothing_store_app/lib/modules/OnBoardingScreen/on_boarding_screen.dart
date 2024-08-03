@@ -183,19 +183,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   void moveBackward() {
     _controller.previousPage(
-    duration: const Duration(milliseconds: 200),
-    curve: Curves.easeOut,
-                      );
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
+    );
   }
 
   void moveForward(BuildContext context) {
     if (_currentPage == 2) {
-        NavigationServices(context).pushSignUpScreen();
-      } else {
-        _controller.nextPage(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeIn,
-        );
-      }
+      NavigationServices(context).pushSignUpScreen();
+    } else {
+      _controller.nextPage(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeIn,
+      );
+    }
   }
 }

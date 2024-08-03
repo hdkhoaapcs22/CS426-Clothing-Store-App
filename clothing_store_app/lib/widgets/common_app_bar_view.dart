@@ -30,14 +30,14 @@ class CommonAppBarView extends StatelessWidget {
           SizedBox(
             height: AppBar().preferredSize.height,
             child: Padding(
-              padding: const EdgeInsets.only(left: 15, right: 10, top: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: TapEffect(
                 onClick: () {
                   onBackClick!();
                 },
                 child: Container(
-                  height: 60,
-                  width: 60,
+                  height: 50,
+                  width: 50,
                   decoration: BoxDecoration(
                     color: backgroundColor,
                     shape: BoxShape.circle,
@@ -52,13 +52,14 @@ class CommonAppBarView extends StatelessWidget {
                     child: Icon(
                       iconData,
                       color: iconColor,
-                      size: 35,
+                      size: iconSize.toDouble()
                     ),
                   ),
                 ),
               ),
             ),
           ),
+          const SizedBox(height: 10.0,)
         ],
       ),
     );

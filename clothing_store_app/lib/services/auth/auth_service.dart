@@ -1,8 +1,8 @@
 // import 'package:booking_new_hotel/modules/profile/user.dart';
 import 'dart:async';
 
-import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   // firebase auth instance
@@ -17,7 +17,7 @@ class AuthService {
       User? user = result.user;
       return user != null ? user.uid : null;
     }  on FirebaseAuthException catch (e) {
-      throw e; 
+      throw e;
     } catch (e) {
       return null;
     }
@@ -39,6 +39,45 @@ class AuthService {
       return e;
     }
   }
+  
+
+  //sign in with google
+  Future<String?> signInWithGoogle() async {
+    try{
+      await GoogleSignIn().signOut();
+      final googleUser = await GoogleSignIn().signIn();
+      final googleAuth = await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
+      UserCredential result = await _auth.signInWithCredential(credential);
+      User? user = result.user;
+      return user != null ? user.uid : null;
+    } catch (e){
+      print(e.toString());
+      return null;
+    }
+  }
+
+  // sign in with facebook
+//   Future<String?> signInWithFacebook() async {
+//   try {
+//     final LoginResult loginResult = await FacebookAuth.instance.login();
+//     if (loginResult.status == LoginStatus.success) {
+//       final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+//       UserCredential result = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+//       User? user = result.user;
+      
+//       return user != null ? user.uid : null;
+//     } else {
+//       print('Facebook login failed: ${loginResult.message}');
+//       return null;
+//     }
+//   } catch (e) {
+//     print('Error during Facebook sign-in: $e');
+//     return null;
+//   }
+// }
 
   Future updateUserPassword({required String newPassword}) async {
     try {

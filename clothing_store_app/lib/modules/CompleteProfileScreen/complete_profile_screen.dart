@@ -1,63 +1,47 @@
+import 'dart:io';
+import 'package:clothing_store_app/providers/complete_profile_provider.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
+import 'package:clothing_store_app/widgets/tap_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 import '../../languages/appLocalizations.dart';
+import '../../providers/set_image_provider.dart';
 import '../../utils/text_styles.dart';
+import '../../widgets/common_app_bar_view.dart';
+import '../../widgets/common_button.dart';
 import '../../widgets/common_dialogs.dart';
 import '../../widgets/text_field_with_header.dart';
 
-class CompleteProfileScreen extends StatefulWidget {
+class CompleteProfileScreen extends StatelessWidget {
   const CompleteProfileScreen({super.key});
-
-  @override
-  State<CompleteProfileScreen> createState() => _CompleteProfileScreenState();
-}
-
-class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
-  final _nameController = TextEditingController();
-  final _phoneController = TextEditingController();
-  int _selectedGender = -1;
-  String _nameError = '';
-  String _phoneError = '';
-  String _genderError = '';
-  final List<String> genders = ["male", "female", "none"];
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    super.dispose();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
+    final profileProvider = Provider.of<CompleteProfileNotifier>(context);
     return Scaffold(
       backgroundColor: AppTheme.backgroundColor,
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: OutlinedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            style: OutlinedButton.styleFrom(
-              elevation: 0,
-              shape: const CircleBorder(),
-              foregroundColor: Colors.black,
-              padding: const EdgeInsets.all(0.0),
-            ),
-            child: const Icon(Iconsax.arrow_left),
-          ),
-        ),
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              //Appbar
+              Align(
+                alignment: Alignment.topLeft,
+                child: CommonAppBarView(
+                  topPadding: 0.0,
+                  iconData: Iconsax.arrow_left,
+                  onBackClick: () {
+                    Navigator.pop(context);
+                  },
+                  iconSize: 20,
+                  iconColor: AppTheme.primaryTextColor,
+                ),
+              ),
+              //Title + Decription
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     AppLocalizations(context).of("complete_your_profile"),
@@ -74,47 +58,59 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20.0,),
+              const SizedBox(height: 16.0,),
+              //Profile picture
               Stack(
                 children: [
-                  SizedBox(
-                    width: 120,
-                    height: 120,
-                    child: ClipRRect(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20.0)),
-                      child: Image.asset(Localfiles.defaultAvatar),
-                    ),
+                  Consumer<PickImageProvider>(
+                    builder: (context, pickImageProvider, _) {
+                      if (pickImageProvider.selectedImage.isEmpty) {
+                        return const CircleAvatar(
+                            radius: 60,
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage(Localfiles.defaultAvatar));
+                      } else {
+                        return CircleAvatar(
+                            radius: 60,
+                            backgroundImage: FileImage(
+                                File(pickImageProvider.selectedImage)));
+                      }
+                    },
                   ),
                   Positioned(
                       bottom: 0,
                       right: 0,
-                      child: GestureDetector(
-                        onTap: () {
-                          //get image from library
+                      child: TapEffect(
+                        onClick: () {
+                          Dialogs(context).showAnimatedImagePickerDialog();
                         },
                         child: Container(
-                          width: 30,
-                          height: 30,
-                          decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
-                            color: Colors.brown,
-                          ),
-                          child: const Icon(Iconsax.image, color: Colors.white, size: 20,)
-                        ),
+                            width: 30,
+                            height: 30,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                              color: Colors.brown,
+                            ),
+                            child: const Icon(
+                              Iconsax.image,
+                              color: Colors.white,
+                              size: 20,
+                            )),
                       )),
                 ],
               ),
-              const SizedBox(height: 10.0,),
+              const SizedBox(height: 16.0,),
+              //Information fields
               Column(
                 children: [
                   TextFieldWithHeader(
-                    controller: _nameController, 
-                    errorMessage: _nameError, 
+                    controller: profileProvider.nameController, 
+                    errorMessage: profileProvider.nameError, 
                     header: AppLocalizations(context).of("name"), 
                     hintText: AppLocalizations(context).of("John Doe"),
-                    isPassword: false,),
+                    isPassword: false,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                     child: Column(
@@ -126,13 +122,13 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                         ),
                         const SizedBox(height: 5.0,),
                         IntlPhoneField(
-                          controller: _phoneController,
+                          controller: profileProvider.phoneController,
                           initialCountryCode: '+84',
                           disableLengthCheck: true,
                           decoration: InputDecoration(
-                            error: _phoneError.isNotEmpty 
+                            error: profileProvider.phoneError.isNotEmpty 
                               ? Text(
-                                _phoneError,
+                                profileProvider.phoneError,
                                 style: TextStyles(context).getSmallStyle().copyWith(
                                         color: AppTheme.redErrorColor,),
                                 ) : null,
@@ -147,128 +143,79 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ],
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
                           AppLocalizations(context).of("gender"),
                           style: TextStyles(context).getLabelLargeStyle(false),),
-                      ),
-                      DropdownButtonFormField(
-                        value: null,
-                        hint: Text(
-                          AppLocalizations(context).of("select"), 
-                          style: TextStyles(context).getLabelLargeStyle(true),),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(16.0),
-                          error: 
-                          _genderError.isNotEmpty ? Text(
-                            _genderError,
-                            style: TextStyles(context).getSmallStyle().copyWith(
-                                  color: AppTheme.redErrorColor,
-                                ),
-                          ) : null ,
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(40.0))
-                          ),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                        items: List<DropdownMenuItem<int>>.generate(
-                          genders.length, 
-                          (index) => DropdownMenuItem<int>(
-                            value: index,
-                            child: Text(
-                              AppLocalizations(context).of(genders[index]),
-                              style: TextStyles(context).getLabelLargeStyle(false),
+                        const SizedBox(height: 5.0,),
+                        DropdownButtonFormField(
+                          value: null,
+                          hint: Text(
+                            AppLocalizations(context).of("select"), 
+                            style: TextStyles(context).getLabelLargeStyle(true),),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(16.0),
+                            error: 
+                            profileProvider.genderError.isNotEmpty ? Text(
+                              profileProvider.genderError,
+                              style: TextStyles(context).getSmallStyle().copyWith(
+                                    color: AppTheme.redErrorColor,
+                                  ),
+                            ) : null ,
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(40.0))
                             ),
                           ),
+                          items: List<DropdownMenuItem<int>>.generate(
+                            profileProvider.genders.length, 
+                            (index) => DropdownMenuItem<int>(
+                              value: index,
+                              child: Text(
+                                AppLocalizations(context).of(profileProvider.genders[index]),
+                                style: TextStyles(context).getLabelLargeStyle(false),
+                              ),
+                            ),
+                          ),
+                          onChanged: (value) {
+                            profileProvider.setSelectedGender(value!);
+                          },
                         ),
-                        onChanged: (value) {
-                          _selectedGender = value!;
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 16.0),
+              //Complete Button
               Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_validateAndSubmit(context)){
-                    //MOVE TO LOCATION PAGE
-                  }
-                },
-                style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: CommonButton(
+                  onTap: () async {
+                    profileProvider.validateFields(context);
+                    if (profileProvider.isValid()){
+                      Dialogs(context).showLoadingDialog();
+                      await Future.delayed(const Duration(milliseconds: 2000));
+                      Navigator.pop(context);
+                      Dialogs(context).showAnimatedDialog(title: AppLocalizations(context).of("complete_your_profile"), content: 'Successfully complete your profile!');
+                      //MOVE TO LOCATION PAGE
+                    }
+                  },
+                  radius: 30.0,
                   backgroundColor: AppTheme.brownButtonColor,
-                ),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 14.0),
-                    child: Text(
-                      AppLocalizations(context).of("complete_profile"),
-                      style: TextStyles(context).getButtonTextStyle(),
-                      textAlign: TextAlign.center,
-                    ),
+                  buttonTextWidget: Text(
+                    AppLocalizations(context).of("complete_profile"),
+                    style: TextStyles(context).getButtonTextStyle(),
                   ),
                 ),
               ),
-            ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  bool _isNameValid(String name) {
-    final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
-    return nameRegExp.hasMatch(name);
-  }
-
-  bool _validateAndSubmit(BuildContext context) {
-    setState(() {
-      _nameError = '';
-      _phoneError = '';
-      _genderError = '';
-    });
-
-    bool isValid = true;
-
-    if (_nameController.text.isEmpty) {
-      setState(() {
-        _nameError = AppLocalizations(context).of("name_is_required");
-        isValid = false;
-      });
-    } else if (!_isNameValid(_nameController.text)) {
-      setState(() {
-        _nameError = AppLocalizations(context).of("name_contains_characters");
-        isValid = false;
-      });
-    }
-
-    if (_phoneController.text.isEmpty) {
-      setState(() {
-        _phoneError = AppLocalizations(context).of("phone_number_is_required");
-        isValid = false;
-      });
-    }
-
-    if (_selectedGender == -1) {
-      setState(() {
-        _genderError = AppLocalizations(context).of("gender_is_required");
-        isValid = false;
-      });
-    }
-
-    if (isValid){
-      Dialogs(context).showAnimatedDialog(title: AppLocalizations(context).of("complete_your_profile"), content: 'Successfully complete your profile!');
-    }
-
-    return isValid;
   }
 }

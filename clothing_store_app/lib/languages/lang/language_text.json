@@ -1,218 +1,287 @@
 [
     {
         "text_id": "welcomeHeader1",
-        "en": "The "
+        "en": "The ",
+        "fr": "L'"
     },
     {
         "text_id": "welcomeHeader2",
-        "en": "Fashion App "
+        "en": "Fashion App ",
+        "fr": "application De Mode"
     },
     {
         "text_id": "welcomeHeader3",
-        "en": "That Makes You Look Your Best"
+        "en": "That Makes You Look Your Best",
+        "fr": "Qui Vous Met En Valeur"
     },
     {
         "text_id": "welcomeDescript",
-        "en": "Welcome to fashion app! Discover trends, shop favorite styles, and elevate your wardrobe. Let's get started"
+        "en": "Welcome to fashion app! Discover trends, shop favorite styles, and elevate your wardrobe. Let's get started",
+        "fr": "Bienvenue sur l'appli mode ! Découvrez les tendances, achetez vos styles préférés et améliorez votre garde-robe. Commençons"
     },
     {
         "text_id": "welcomeButtonText",
-        "en": "Let's Get Started"
+        "en": "Let's Get Started",
+        "fr": "Commençons"
     },
     {
         "text_id": "alreadyHaveAccount",
-        "en": "Already have an account?"
+        "en": "Already have an account?",
+        "fr": "Vous avez déjà un compte ?"
     },
     {
         "text_id": "signIn",
-        "en": "Sign In"
+        "en": "Sign In",
+        "fr": "S'inscrire"
     },
     {
         "text_id": "onBoardingHeader1.1",
-        "en": "Seamless "
+        "en": "Seamless ",
+        "fr": "Une expérience d'achat"
     },
     {
         "text_id": "onBoardingHeader1.2",
-        "en": "Shopping Experience"
+        "en": "Shopping Experience",
+        "fr": "sans faille"
     },
     {
         "text_id": "onBoardingHeader2.1",
-        "en": "Wishlist: Where "
+        "en": "Wishlist: Where ",
+        "fr": "Liste De Souhaits: Là Où "
     },
     {
         "text_id": "onBoardingHeader2.2",
-        "en": "Fashion Dreams "
+        "en": "Fashion Dreams ",
+        "fr": "Les Rêves De Mode "
     },
     {
         "text_id": "onBoardingHeader2.3",
-        "en": "Begin"
+        "en": "Begin",
+        "fr": "Commencent"
     },
     {
         "text_id": "onBoardingHeader3.1",
-        "en": "Swift "
+        "en": "Swift ",
+        "fr": "Rapide "
     },
     {
         "text_id": "onBoardingHeader3.2",
-        "en": "and "
+        "en": "and ",
+        "fr": "et "
     },
     {
         "text_id": "onBoardingHeader3.3",
-        "en": "Reliable "
+        "en": "Reliable ",
+        "fr": "Fiable"
     },
     {
         "text_id": "onBoardingHeader3.4",
-        "en": "Delivery"
+        "en": "Delivery",
+        "fr": ""
     },
     {
         "text_id": "onBoardingHeader1.body",
-        "en": "Welcome to the ultimate fashion destination! Discover trends, shop your favorite styles, and elevate your wardrobe. Let's get started on your stylish journey today."
+        "en": "Welcome to the ultimate fashion destination! Discover trends, shop your favorite styles, and elevate your wardrobe. Let's get started on your stylish journey today.",
+        "fr": "Bienvenue dans la destination mode par excellence ! Découvrez les tendances, achetez vos modèles préférés et rehaussez votre garde-robe. Commencez dès aujourd'hui votre voyage stylé."
     },
     {
         "text_id": "onBoardingHeader2.body",
-        "en": "Your Wishlist awaits! Curate your dream looks and save favorites for later. It's the first step to making style aspirations a reality."
+        "en": "Your Wishlist awaits! Curate your dream looks and save favorites for later. It's the first step to making style aspirations a reality.",
+        "fr": "Votre liste de souhaits vous attend ! Créez les looks de vos rêves et sauvegardez vos favoris pour plus tard. C'est la première étape pour faire de vos aspirations stylistiques une réalité."
     },
     {
         "text_id": "onBoardingHeader3.body",
-        "en": "Standard and Express delivery services are available for most of the countries that we ship to."
+        "en": "Standard and Express delivery services are available for most of the countries that we ship to.",
+        "fr": "Les services de livraison standard et express sont disponibles pour la plupart des pays vers lesquels nous expédions des marchandises."
     },
     {
         "text_id": "skip",
-        "en": "Skip"
+        "en": "Skip",
+        "fr": "Sauter"
     },
     {
         "text_id": "createAccount",
-        "en": "Create Account"
+        "en": "Create Account",
+        "fr": "Créer Un Compte"
     },
     {
         "text_id": "createAccountDescript",
-        "en": "Fill your information below or register with your social account."
+        "en": "Fill your information below or register with your social account.",
+        "fr": "Remplissez vos coordonnées ci-dessous ou inscrivez-vous avec votre compte social."
     },
     {
         "text_id": "name",
-        "en": "Name"
+        "en": "Name",
+        "fr": "Nom"
     },
     {
         "text_id": "John Doe",
-        "en": "John Doe"
+        "en": "John Doe",
+        "fr": "Louis Pasteur"
     },
     {
         "text_id": "email",
-        "en": "Email"
+        "en": "Email",
+        "fr": "Adresse E-mail"
     },
     {
         "text_id": "example@gmail.com",
-        "en": "example@gmail.com"
+        "en": "example@gmail.com",
+        "fr": "example@gmail.com"
     },
     {
         "text_id": "password",
-        "en": "Password"
+        "en": "Password",
+        "fr": "Mot de passe"
     },
     {
         "text_id": "agree_with",
-        "en": "Agree with "
+        "en": "Agree with ",
+        "fr": "Accepter "
     },
     {
         "text_id": "terms_and_condition",
-        "en": "Terms & Condition"
-    },
-    {
-        "text_id": "terms_and_condition",
-        "en": "Terms & Condition"
+        "en": "Terms & Condition",
+        "fr": "Les Conditions Générales"
     },
     {
         "text_id": "signUp",
-        "en": "Sign Up"
+        "en": "Sign Up",
+        "fr": "S'inscrire"
     },
     {
         "text_id": "orSignUpWith",
-        "en": "Or sign up with"
-    },
-    {
-        "text_id": "signUp",
-        "en": "Sign Up"
+        "en": "Or sign up with",
+        "fr": "Ou inscrivez-vous auprès de"
     },
     {
         "text_id": "phoneNumber",
-        "en": "Phone Number"
+        "en": "Phone Number",
+        "fr": "Numéro de téléphone"
     },
     {
         "text_id": "enterPhoneNumber",
-        "en": "Enter Phone Number"
+        "en": "Enter Phone Number",
+        "fr": "Saisir le numéro de téléphone"
     },
     {
         "text_id": "gender",
-        "en": "Gender"
+        "en": "Gender",
+        "fr": "Genre"
     },
     {
         "text_id": "select",
-        "en": "Select"
+        "en": "Select",
+        "fr": "Sélectionner"
     },
     {
         "text_id": "male",
-        "en": "Male"
+        "en": "Male",
+        "fr": "Mâle"
     },
     {
         "text_id": "female",
-        "en": "Female"
+        "en": "Female",
+        "fr": "Femme"
     },
     {
         "text_id": "none",
-        "en": "None"
+        "en": "None",
+        "fr": "Aucun"
     },
     {
         "text_id": "complete_profile",
-        "en": "Complete Profile"
+        "en": "Complete Profile",
+        "fr": "Profil Complet"
     },
     {
         "text_id": "complete_your_profile",
-        "en": "Complete Your Profile"
+        "en": "Complete Your Profile",
+        "fr": "Complétez Votre Profil"
     },
     {
         "text_id": "complete_your_profile_descript",
-        "en": "Don't worry, only you can see your personal data. No one else will be able to see it."
+        "en": "Don't worry, only you can see your personal data. No one else will be able to see it.",
+        "fr": "Ne vous inquiétez pas, vous êtes le seul à pouvoir consulter vos données personnelles. Personne d'autre ne pourra les voir."
     },
     {
         "text_id": "name_is_required",
-        "en": "Name is required."
+        "en": "Name is required.",
+        "fr": "Le nom est obligatoire."
     },
     {
         "text_id": "name_contains_characters",
-        "en": "Name should not contain special characters."
+        "en": "Name should not contain special characters.",
+        "fr": "Le nom ne doit pas contenir de caractères spéciaux."
     },
     {
         "text_id": "email_is_required",
-        "en": "Email account is required."
+        "en": "Email account is required.",
+        "fr": "Un compte e-mail est nécessaire."
     },
     {
         "text_id": "password_is_required",
-        "en": "Password is required."
+        "en": "Password is required.",
+        "fr": "Le mot de passe est requis."
     },
     {
         "text_id": "register_successfully",
-        "en": "Registration successful!"
+        "en": "Registration successful!",
+        "fr": "Inscription réussie!"
+    },
+    {
+        "text_id": "success",
+        "en": "Success!",
+        "fr": "Succès!"
     },
     {
         "text_id": "weak_password",
-        "en": "The password is too weak."
+        "en": "The password is too weak.",
+        "fr": "Le mot de passe est trop faible."
     },
     {
         "text_id": "email_already_in_use",
-        "en": "An account already exists with that email."
+        "en": "An account already exists with that email.",
+        "fr": "Un compte existe déjà avec cet email."
     },
     {
         "text_id": "invalid_email",
-        "en": "Email address is not valid."
+        "en": "Email address is not valid.",
+        "fr": "L'adresse électronique n'est pas valide."
     },
     {
         "text_id": "undefined_error",
-        "en": "An undefined error occurred."
+        "en": "An undefined error occurred.",
+        "fr": "Une erreur non définie s'est produite."
     },
     {
         "text_id": "phone_number_is_required",
-        "en": "Phone number is required."
+        "en": "Phone number is required.",
+        "fr": "Le numéro de téléphone est obligatoire."
     },
     {
         "text_id": "gender_is_required",
-        "en": "Please select a gender."
+        "en": "Please select a gender.",
+        "fr": "Veuillez sélectionner un sexe."
+    },
+    {
+        "text_id": "upload_profile_picture",
+        "en": "Upload your profile picture.",
+        "fr": "Téléchargez votre photo de profil."
+    },
+    {
+        "text_id": "from_library",
+        "en": "From library",
+        "fr": "De la photothèque"
+    },
+    {
+        "text_id": "take_photo",
+        "en": "Take photo",
+        "fr": "Prendre une photo"
+    },
+    {
+        "text_id": "term_and_condition_error",
+        "en": "Agree with Terms and Condition.",
+        "fr": "Accepter les conditions générales"
     }
 ]

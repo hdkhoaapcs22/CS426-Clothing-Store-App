@@ -1,3 +1,6 @@
+import 'package:clothing_store_app/providers/complete_profile_provider.dart';
+import 'package:clothing_store_app/providers/set_image_provider.dart';
+import 'package:clothing_store_app/providers/sign_up_provider.dart';
 import 'package:clothing_store_app/providers/theme_provider.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/clothing_store_app.dart';
@@ -25,6 +28,15 @@ Widget _setAllProviders() {
         create: (_) => ThemeProvider(
           state: AppTheme.getThemeData,
         ),
+      ),
+      ChangeNotifierProvider(
+          create: (_) => PickImageProvider(),
+      ),
+      ChangeNotifierProvider(
+          create: (_) => SignUpNotifier(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => CompleteProfileNotifier(),
       ),
     ],
     child: ClothingStoreApp(),

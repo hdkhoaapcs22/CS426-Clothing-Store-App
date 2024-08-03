@@ -76,7 +76,8 @@ class WelcomeScreen extends StatelessWidget {
                         width: 80,
                         height: 80,
                         child: Image.asset(Localfiles.asterisk),
-                      ),)
+                      ),
+                    )
                   ],
                 ),
                 Padding(
@@ -105,20 +106,19 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20.0,),
-                //new button with tap effect
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CommonButton(
-                      onTap: () {
-                        NavigationServices(context).pushOnBoardingScreen();
-                      },
-                      radius: 30.0,
-                      backgroundColor: AppTheme.brownButtonColor,
-                      buttonTextWidget: Text(
-                        AppLocalizations(context).of("welcomeButtonText"),
-                        style: TextStyles(context).getButtonTextStyle(),
-                      ),
+                    onTap: () {
+                      NavigationServices(context).pushOnBoardingScreen();
+                    },
+                    radius: 30.0,
+                    backgroundColor: AppTheme.brownButtonColor,
+                    buttonTextWidget: Text(
+                      AppLocalizations(context).of("welcomeButtonText"),
+                      style: TextStyles(context).getButtonTextStyle(),
                     ),
+                  ),
                 ),
                 const SizedBox(height: 20.0,),
                 Row(
@@ -129,13 +129,13 @@ class WelcomeScreen extends StatelessWidget {
                       style: TextStyles(context).getInterDescriptionStyle(false, false),
                     ),
                     TextButton(
-                        onPressed: () {
-                          //SIGN IN
-                        },
-                        child: Text(
-                          AppLocalizations(context).of("signIn"),
-                          style: TextStyles(context).getInterDescriptionStyle(true, true),
-                        ))
+                      onPressed: () {
+                        NavigationServices(context).pushLoginScreen();
+                      },
+                      child: Text(
+                        AppLocalizations(context).of("signIn"),
+                        style: TextStyles(context).getInterDescriptionStyle(true, true),
+                      ))
                   ],
                 )
               ],
