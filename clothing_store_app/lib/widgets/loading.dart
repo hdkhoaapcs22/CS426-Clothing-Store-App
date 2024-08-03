@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,7 +11,7 @@ void loading(BuildContext context) {
       return AlertDialog(
           backgroundColor: Colors.transparent,
           content: Lottie.asset(
-            'assets/json/loading_lottie.json',
+            Localfiles.loading,
             width: lottieSize,
           ));
     },

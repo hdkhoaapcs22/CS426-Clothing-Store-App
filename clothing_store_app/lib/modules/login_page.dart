@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.topRight,
                 child: TextButton(
                     onPressed: () {
-                      NavigationServices(context).pushEmailForNewPassPage();
+                      NavigationServices(context).pushForgotPassPage();
                     },
                     style: TextButton.styleFrom(
                       overlayColor: Colors.transparent,
@@ -164,18 +164,15 @@ class _LoginPageState extends State<LoginPage> {
       (value) {
         if (value == null) {
           emailError = AppLocalizations(context).of("login_e6");
-        } else if (emailController.text.isEmpty) {
+        } else if (mail.isEmpty) {
           emailError = AppLocalizations(context).of("login_e1");
-        } else if (passController.text.isEmpty) {
+        } else if (pass.isEmpty) {
           passwordError = AppLocalizations(context).of("login_e2");
-        } else if (value.toString() ==
-            '[firebase_auth/invalid-email] The email address is badly formatted.') {
+        } else if (value.toString().contains('invalid-email')) {
           emailError = AppLocalizations(context).of("login_e3");
-        } else if (value.toString() ==
-            '[firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.') {
+        } else if (value.toString().contains('invalid-credential')) {
           passwordError = AppLocalizations(context).of("login_e4");
-        } else if (value.toString() ==
-            '[firebase_auth/too-many-requests] Access to this account has been temporarily disabled due to many failed login attempts.') {
+        } else if (value.toString().contains('too-many-requests')) {
           emailError = AppLocalizations(context).of("login_e5");
         } else {
           res = true;

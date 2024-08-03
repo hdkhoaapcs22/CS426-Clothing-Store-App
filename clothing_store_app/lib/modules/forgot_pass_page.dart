@@ -8,14 +8,14 @@ import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:flutter/material.dart';
 
-class EmailForNewPassPage extends StatefulWidget {
-  const EmailForNewPassPage({super.key});
+class ForgotPassPage extends StatefulWidget {
+  const ForgotPassPage({super.key});
 
   @override
-  State<EmailForNewPassPage> createState() => _EmailForNewPassPageState();
+  State<ForgotPassPage> createState() => _ForgotPassPageState();
 }
 
-class _EmailForNewPassPageState extends State<EmailForNewPassPage> {
+class _ForgotPassPageState extends State<ForgotPassPage> {
   late TextEditingController emailController;
   late String error;
 
@@ -40,7 +40,8 @@ class _EmailForNewPassPageState extends State<EmailForNewPassPage> {
         child: Center(
           child: Column(
             children: [
-              const Padding(padding: EdgeInsets.all(28)),
+              Padding(
+                  padding: EdgeInsets.all(AppBar().preferredSize.height - 10)),
               SizedBox(
                 width: MediaQuery.of(context).size.width - 60,
                 child: Row(
@@ -109,13 +110,12 @@ class _EmailForNewPassPageState extends State<EmailForNewPassPage> {
   Future<bool> checkEmailSent(String mail) async {
     bool res = true;
     await AuthService().sendPassResetLink(mail).then((value) {
-      if (value.toString() == '[firebase_auth/missing-email] Error') {
+      if (value.toString().contains('missing-email')) {
         setState(() {
           error = AppLocalizations(context).of("login_e1");
         });
         res = false;
-      } else if (value.toString() ==
-          '[firebase_auth/invalid-email] The email address is badly formatted.') {
+      } else if (value.toString().contains('invalid-email')) {
         setState(() {
           error = AppLocalizations(context).of("login_e3");
         });
