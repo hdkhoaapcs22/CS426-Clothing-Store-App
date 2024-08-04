@@ -1,5 +1,4 @@
 import 'package:clothing_store_app/routes/navigation_services.dart';
-import 'package:clothing_store_app/services/auth/auth_service.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/social_sign_in_buttons.dart';
@@ -7,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../languages/appLocalizations.dart';
 import '../../providers/sign_up_provider.dart';
-import '../../utils/localfiles.dart';
 import '../../widgets/common_button.dart';
-import '../../widgets/common_dialogs.dart';
 import '../../widgets/text_field_with_header.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -18,13 +15,15 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: size.height/30,),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Text(
                   AppLocalizations(context).of("createAccount"),
                   style: TextStyles(context).getLargerHeaderStyle(false),
@@ -38,19 +37,13 @@ class SignUpScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
+              SizedBox(height: size.height/30,),
               Consumer<SignUpNotifier>(
                 builder: (context, notifier, child) {
                   return Form(
                     key: notifier.formKey,
                     child: Column(
                       children: [
-                        TextFieldWithHeader(
-                          controller: notifier.nameController,
-                          errorMessage: notifier.nameError,
-                          header: AppLocalizations(context).of("name"),
-                          hintText: AppLocalizations(context).of("John Doe"),
-                          isPassword: false,
-                        ),
                         TextFieldWithHeader(
                           controller: notifier.emailController,
                           errorMessage: notifier.emailError,
@@ -63,6 +56,13 @@ class SignUpScreen extends StatelessWidget {
                           controller: notifier.passwordController,
                           errorMessage: notifier.passwordError,
                           header: AppLocalizations(context).of("password"),
+                          hintText: "********",
+                          isPassword: true,
+                        ),
+                        TextFieldWithHeader(
+                          controller: notifier.confirmPassController,
+                          errorMessage: notifier.confirmPassError,
+                          header: AppLocalizations(context).of("confirm_password"),
                           hintText: "********",
                           isPassword: true,
                         ),
@@ -85,6 +85,8 @@ class SignUpScreen extends StatelessWidget {
                             onChanged: (value) {
                               notifier.setAgreeTermsAndCondition(value ?? false);
                             },
+                            checkColor: AppTheme.backgroundColor,
+                            activeColor: AppTheme.brownColor,
                           ),
                         ),
                         const SizedBox(width: 10.0,),
@@ -101,7 +103,7 @@ class SignUpScreen extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 20.0,),
+              SizedBox(height: size.height/20,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Consumer<SignUpNotifier>(

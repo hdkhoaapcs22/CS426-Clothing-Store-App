@@ -41,7 +41,7 @@ class CompleteProfileNotifier extends ChangeNotifier {
       _nameError = AppLocalizations(context).of("name_contains_characters");
     }
 
-    if (phoneController.text.isEmpty) {
+    if (phoneController.text.trim().isEmpty) {
       _phoneError = AppLocalizations(context).of("phone_number_is_required");
     }
 

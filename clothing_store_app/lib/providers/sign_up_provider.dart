@@ -10,28 +10,23 @@ class SignUpNotifier extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _nameController = TextEditingController();
+  final _confirmPassController = TextEditingController();
   bool _isAgreed = false;
-  String _nameError = '';
   String _emailError = '';
   String _passwordError = '';
+  String _confirmPassError = '';
 
   GlobalKey<FormState> get formKey => _formKey;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
-  TextEditingController get nameController => _nameController;
+  TextEditingController get confirmPassController => _confirmPassController;
   bool get isAgreed => _isAgreed;
-  String get nameError => _nameError;
   String get emailError => _emailError;
   String get passwordError => _passwordError;
+  String get confirmPassError => _confirmPassError;
 
   void setAgreeTermsAndCondition(bool value) {
     _isAgreed = value;
-    notifyListeners();
-  }
-
-  void setNameError(String error) {
-    _nameError = error;
     notifyListeners();
   }
 
@@ -45,6 +40,11 @@ class SignUpNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setConfirmPasswordError(String error) {
+    _confirmPassError = error;
+    notifyListeners();
+  }
+
   bool isNameValid(String name) {
     final RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]+$');
     return nameRegExp.hasMatch(name);
@@ -52,16 +52,6 @@ class SignUpNotifier extends ChangeNotifier {
 
   bool validateFields(BuildContext context) {
     bool isValid = true;
-
-    if (_nameController.text.trim().isEmpty) {
-      setNameError(AppLocalizations(context).of("name_is_required"));
-      isValid = false;
-    } else if (!isNameValid(_nameController.text.trim())) {
-      setNameError(AppLocalizations(context).of("name_contains_characters"));
-      isValid = false;
-    } else {
-      setNameError('');
-    }
 
     if (_emailController.text.trim().isEmpty) {
       setEmailError(AppLocalizations(context).of("email_is_required"));
@@ -76,6 +66,16 @@ class SignUpNotifier extends ChangeNotifier {
     } else {
       setPasswordError('');
     }
+
+    if (_confirmPassController.text.isEmpty) {
+      setConfirmPasswordError(AppLocalizations(context).of("confirm_password_is_required"));
+      isValid = false;
+    } else if (_passwordController.text != _confirmPassController.text) {
+      setConfirmPasswordError(AppLocalizations(context).of("confirm_pass_not_match"));
+      isValid = false;
+    } else {
+      setConfirmPasswordError('');
+    }
     return isValid;
   }
 
@@ -87,6 +87,8 @@ class SignUpNotifier extends ChangeNotifier {
           content: AppLocalizations(context).of("term_and_condition_error"));
           return;
       }
+    }else{
+      return;
     }
 
     try {
@@ -106,12 +108,6 @@ class SignUpNotifier extends ChangeNotifier {
       Navigator.of(context).pop();
       _handleFirebaseAuthError(e);
     }
-  }
-
-  void _resetErrors() {
-    setNameError('');
-    setEmailError('');
-    setPasswordError('');
   }
 
   void _handleFirebaseAuthError(FirebaseAuthException e) {
@@ -134,7 +130,6 @@ class SignUpNotifier extends ChangeNotifier {
 
   @override
   void dispose() {
-    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();

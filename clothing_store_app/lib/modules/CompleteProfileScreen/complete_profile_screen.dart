@@ -133,7 +133,22 @@ class CompleteProfileScreen extends StatelessWidget {
                                 hintStyle: TextStyles(context).getLabelLargeStyle(true),
                                 contentPadding: const EdgeInsets.all(16.0),
                                 border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(40.0))
+                                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.brownButtonColor,
+                                  ),
+                                ),
+                                errorBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.brownButtonColor,
+                                  ),
                                 ),
                               )
                             ),
@@ -150,6 +165,7 @@ class CompleteProfileScreen extends StatelessWidget {
                               style: TextStyles(context).getLabelLargeStyle(false),),
                             const SizedBox(height: 5.0,),
                             DropdownButtonFormField(
+                              focusColor: AppTheme.brownButtonColor,
                               value: null,
                               hint: Text(
                                 AppLocalizations(context).of("select"), 
@@ -165,6 +181,21 @@ class CompleteProfileScreen extends StatelessWidget {
                                 ) : null ,
                                 border: const OutlineInputBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(40.0))
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.brownButtonColor,
+                                  ),
+                                ),
+                                errorBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.brownButtonColor,
+                                  ),
                                 ),
                               ),
                               items: List<DropdownMenuItem<int>>.generate(

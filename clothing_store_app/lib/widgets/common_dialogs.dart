@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/set_image_provider.dart';
 import '../utils/text_styles.dart';
 import '../utils/themes.dart';
@@ -166,7 +165,6 @@ class Dialogs {
                   ),
                 )),
           );
-          ;
         },
         transitionBuilder: (context, a1, a2, widget) {
           return widget;

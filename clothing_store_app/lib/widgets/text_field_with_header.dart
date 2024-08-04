@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -36,7 +37,7 @@ class TextFieldWithHeader extends StatelessWidget {
           contentPadding: const EdgeInsets.all(16.0),
           hintTextStyle: TextStyles(context).getLabelLargeStyle(true),
           hintText: hintText,
-          focusColor: Colors.brown,
+          focusColor: AppTheme.brownButtonColor,
           errorText: errorMessage,
           suffixIconData: isPassword? Iconsax.eye_slash : null,
           selectedIconData: isPassword? Iconsax.eye : null,

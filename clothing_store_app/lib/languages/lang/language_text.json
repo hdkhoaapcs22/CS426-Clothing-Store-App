@@ -135,6 +135,11 @@
         "fr": "Mot de passe"
     },
     {
+        "text_id": "confirm_password",
+        "en": "Confirm Password",
+        "fr": "Confirmer le mot de passe"
+    },
+    {
         "text_id": "agree_with",
         "en": "Agree with ",
         "fr": "Accepter "
@@ -225,6 +230,11 @@
         "fr": "Le mot de passe est requis."
     },
     {
+        "text_id": "confirm_password_is_required",
+        "en": "Confirm password is required.",
+        "fr": "La confirmation du mot de passe est requise."
+    },
+    {
         "text_id": "register_successfully",
         "en": "Registration successful!",
         "fr": "Inscription réussie!"
@@ -253,6 +263,11 @@
         "text_id": "undefined_error",
         "en": "An undefined error occurred.",
         "fr": "Une erreur non définie s'est produite."
+    },
+    {
+        "text_id": "confirm_pass_not_match",
+        "en": "Password & Confirm Password do not match.",
+        "fr": "Le mot de passe et le mot de passe de confirmation ne correspondent pas."
     },
     {
         "text_id": "phone_number_is_required",

@@ -55,7 +55,7 @@ class SocialSignInButtons extends StatelessWidget {
     ],);
   }
 
-  Future<void> googleSignIn(BuildContext context) async {
+  Future<String?> googleSignIn(BuildContext context) async {
     try {
       Dialogs(context).showLoadingDialog();
       String? userId = await AuthService().signInWithGoogle();
@@ -66,8 +66,10 @@ class SocialSignInButtons extends StatelessWidget {
             content: AppLocalizations(context).of("register_successfully"));
             NavigationServices(context).pushCompleteProfileScreen();
       }
+      return userId;
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 }
