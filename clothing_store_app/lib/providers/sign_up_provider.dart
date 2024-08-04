@@ -25,7 +25,7 @@ class SignUpNotifier extends ChangeNotifier {
   String get emailError => _emailError;
   String get passwordError => _passwordError;
 
-  void setAgree(bool value) {
+  void setAgreeTermsAndCondition(bool value) {
     _isAgreed = value;
     notifyListeners();
   }
@@ -70,22 +70,16 @@ class SignUpNotifier extends ChangeNotifier {
       setEmailError('');
     }
 
-    if (_passwordController.text.trim().isEmpty) {
+    if (_passwordController.text.isEmpty) {
       setPasswordError(AppLocalizations(context).of("password_is_required"));
       isValid = false;
     } else {
       setPasswordError('');
     }
-
-    notifyListeners();
     return isValid;
   }
 
   Future<void> registerAccount(BuildContext context) async {
-    // if (!validateFields(context)) {
-    //   print('here');
-    //   return;
-    // }
     if (validateFields(context)) {
       if (!isAgreed){
           Dialogs(context).showAnimatedDialog(

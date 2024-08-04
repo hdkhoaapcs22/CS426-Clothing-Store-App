@@ -30,7 +30,7 @@ class TextFieldWithHeader extends StatelessWidget {
           child: Text(header, style: TextStyles(context).getLabelLargeStyle(false),),
         ),
         CommonTextField(
-          isObscureText: isPassword? true : false,
+          isObscureText: isPassword,
           textFieldPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           textEditingController: controller,
           contentPadding: const EdgeInsets.all(16.0),

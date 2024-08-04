@@ -2,6 +2,7 @@ import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/auth/auth_service.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
+import 'package:clothing_store_app/widgets/social_sign_in_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../languages/appLocalizations.dart';
@@ -82,7 +83,7 @@ class SignUpScreen extends StatelessWidget {
                           child: Checkbox(
                             value: notifier.isAgreed,
                             onChanged: (value) {
-                              notifier.setAgree(value ?? false);
+                              notifier.setAgreeTermsAndCondition(value ?? false);
                             },
                           ),
                         ),
@@ -144,60 +145,7 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppTheme.secondaryTextColor),
-                          borderRadius: BorderRadius.circular(100)),
-                      child: IconButton(
-                        onPressed: () async {
-                          String? userId = await AuthService().signInWithGoogle();
-                          if (userId != null) {
-                            await Dialogs(context).showAnimatedDialog(
-                                title: AppLocalizations(context).of("success"),
-                                content: AppLocalizations(context).of("register_successfully"));
-                            NavigationServices(context).pushCompleteProfileScreen();
-                          }
-                        },
-                        icon: const Image(
-                          width: 20,
-                          height: 20,
-                          image: AssetImage(Localfiles.googleLogo),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16.0,),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppTheme.secondaryTextColor),
-                        borderRadius: BorderRadius.circular(100)),
-                      child: IconButton(
-                        onPressed: () {
-                          // String? userId =
-                          //     await AuthService().signInWithFacebook();
-                          // if (userId != null) {
-                          //   await Dialogs(context).showAnimatedDialog(
-                          //       title: AppLocalizations(context).of("signUp"),
-                          //       content: AppLocalizations(context)
-                          //           .of("register_successfully"));
-                          //   NavigationServices(context)
-                          //       .pushCompleteProfileScreen();
-                          // }
-                        },
-                        icon: const Image(
-                          width: 20,
-                          height: 20,
-                          image: AssetImage(Localfiles.facebookLogo),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              SocialSignInButtons(context: context,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

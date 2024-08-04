@@ -9,7 +9,6 @@ class OnBoardingWidget extends StatelessWidget {
     required this.imagePath,
     required this.header,
     required this.bodyText,
-    required this.page,
     required this.controller,
   });
 
@@ -17,7 +16,6 @@ class OnBoardingWidget extends StatelessWidget {
   final TextSpan header;
   final String bodyText;
   final PageController controller;
-  final int page;
 
   @override
   Widget build(BuildContext context) {

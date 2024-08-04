@@ -30,8 +30,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   @override
+  void dispose(){
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -53,7 +58,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ],
                 ),
                 bodyText: AppLocalizations(context).of("onBoardingHeader1.body"),
-                page: _currentPage,
                 controller: _controller,
               ),
               OnBoardingWidget(
@@ -75,7 +79,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ],
                 ),
                 bodyText: AppLocalizations(context).of("onBoardingHeader2.body"),
-                page: _currentPage,
                 controller: _controller,
               ),
               OnBoardingWidget(
@@ -101,7 +104,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ],
                 ),
                 bodyText: AppLocalizations(context).of("onBoardingHeader3.body"),
-                page: _currentPage,
                 controller: _controller,
               ),
             ],

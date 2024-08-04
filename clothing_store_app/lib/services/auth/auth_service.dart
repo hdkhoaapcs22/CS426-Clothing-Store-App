@@ -18,8 +18,6 @@ class AuthService {
       return user != null ? user.uid : null;
     }  on FirebaseAuthException catch (e) {
       throw e;
-    } catch (e) {
-      return null;
     }
   }
 
@@ -53,31 +51,9 @@ class AuthService {
       User? user = result.user;
       return user != null ? user.uid : null;
     } catch (e){
-      print(e.toString());
-      return null;
+      throw e;
     }
   }
-
-  // sign in with facebook
-//   Future<String?> signInWithFacebook() async {
-//   try {
-//     final LoginResult loginResult = await FacebookAuth.instance.login();
-//     if (loginResult.status == LoginStatus.success) {
-//       final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-//       UserCredential result = await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-//       User? user = result.user;
-      
-//       return user != null ? user.uid : null;
-//     } else {
-//       print('Facebook login failed: ${loginResult.message}');
-//       return null;
-//     }
-//   } catch (e) {
-//     print('Error during Facebook sign-in: $e');
-//     return null;
-//   }
-// }
 
   Future updateUserPassword({required String newPassword}) async {
     try {

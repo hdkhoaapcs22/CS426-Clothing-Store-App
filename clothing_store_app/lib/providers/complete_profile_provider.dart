@@ -30,7 +30,7 @@ class CompleteProfileNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void validateFields(BuildContext context) {
+  bool validateFields(BuildContext context) {
     _nameError = '';
     _phoneError = '';
     _genderError = '';
@@ -50,9 +50,6 @@ class CompleteProfileNotifier extends ChangeNotifier {
     }
 
     notifyListeners();
-  }
-
-  bool isValid() {
     return _nameError.isEmpty && _phoneError.isEmpty && _genderError.isEmpty;
   }
 
