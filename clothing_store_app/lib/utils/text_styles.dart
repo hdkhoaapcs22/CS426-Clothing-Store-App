@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'themes.dart';
 
@@ -31,5 +32,72 @@ class TextStyles {
           fontSize: 14,
           color: AppTheme.primaryTextColor,
         );
+  }
+
+  TextStyle getSmallStyle() {
+    return Theme.of(context).textTheme.bodySmall!.copyWith(
+          color: AppTheme.primaryTextColor,
+        );
+  }
+
+  TextStyle getSplashScreenStyle(bool isIcon, bool isDot) {
+    return AppTheme.getTextStyle(
+      FontFamilyType.DmSerifDisplay, 
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+        color: isIcon? const Color(0xFFFFFFFF) : (isDot? AppTheme.brownColor : AppTheme.fontcolor)
+      )
+    );
+  }
+
+  TextStyle getHeaderStyle(bool isBrown) {
+    return AppTheme.getTextStyle(
+      FontFamilyType.Inter, 
+      Theme.of(context).textTheme.headlineSmall!.copyWith(
+        color: isBrown? AppTheme.brownColor : AppTheme.fontcolor,
+        fontWeight: FontWeight.bold,
+      )
+    );
+  }
+
+  TextStyle getLargerHeaderStyle(bool isBrown) {
+    return AppTheme.getTextStyle(
+      FontFamilyType.Inter, 
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+        color: isBrown? AppTheme.brownColor : AppTheme.fontcolor,
+        fontWeight: FontWeight.bold,
+      )
+    );
+  }
+
+  TextStyle getInterDescriptionStyle(bool isBrown, bool isUnderlined) {
+    return AppTheme.getTextStyle(
+      FontFamilyType.Inter, 
+      Theme.of(context).textTheme.bodyLarge!.copyWith(
+        color: isBrown? AppTheme.brownColor : AppTheme.secondaryTextColor,
+        fontWeight: FontWeight.w500,
+        decoration: isUnderlined? TextDecoration.underline : null
+      )
+    );
+  }
+
+  TextStyle getLabelLargeStyle(bool isGrey) {
+    return AppTheme.getTextStyle(
+      FontFamilyType.Inter, 
+      Theme.of(context).textTheme.labelLarge!.copyWith(
+        color: isGrey? AppTheme.secondaryTextColor : AppTheme.primaryTextColor,
+        fontWeight: FontWeight.w500,
+      )
+    );
+  }
+
+  TextStyle getButtonTextStyle() {
+    return AppTheme.getTextStyle(
+      FontFamilyType.Inter, 
+      Theme.of(context).textTheme.bodyLarge!.copyWith(
+        fontSize: 18,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      )
+    );
   }
 }

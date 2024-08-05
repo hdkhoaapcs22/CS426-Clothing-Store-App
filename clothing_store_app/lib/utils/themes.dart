@@ -39,6 +39,18 @@ class AppTheme {
   static Color get fontcolor =>
       isLightMode ? const Color(0xFF1A1A1A) : const Color(0xFFF7F7F7);
 
+  static Color get brownColor =>
+      isLightMode ? const Color.fromARGB(255, 121, 90, 68) : const Color(0xFFF7F7F7);
+
+  static Color get brownButtonColor =>
+      isLightMode ? const Color.fromARGB(255, 112, 79, 56) : const Color(0xFFF7F7F7);
+
+  static Color get iconColor =>
+      isLightMode ? const Color(0xFFFFFFFF) : const Color(0xFF000000);
+  
+  static Color get greyBackgroundColor =>
+      isLightMode ? const Color.fromARGB(255, 238, 238, 238) : const Color.fromARGB(255, 56, 56, 56);
+
   static ThemeData get getThemeData =>
       isLightMode ? _buildLightTheme() : _buildDarkTheme();
 
@@ -102,6 +114,10 @@ class AppTheme {
         return GoogleFonts.dancingScript(textStyle: textStyle);
       case FontFamilyType.KaushanScript:
         return GoogleFonts.kaushanScript(textStyle: textStyle);
+      case FontFamilyType.Inter:
+        return GoogleFonts.inter(textStyle: textStyle);
+      case FontFamilyType.DmSerifDisplay:
+        return GoogleFonts.dmSerifDisplay(textStyle: textStyle);
       default:
         return GoogleFonts.roboto(textStyle: textStyle);
     }

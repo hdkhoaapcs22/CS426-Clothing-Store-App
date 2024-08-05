@@ -2,21 +2,22 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   // firebase auth instance
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // register with email and password
-  Future registerWithEmailAndPassword(
+  Future<String?> registerWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
       return user != null ? user.uid : null;
-    } catch (e) {
-      return null;
+    }  on FirebaseAuthException catch (e) {
+      throw e;
     }
   }
 
@@ -34,6 +35,23 @@ class AuthService {
       return user != null ? user.uid : null;
     } catch (e) {
       return e;
+    }
+  }
+  
+
+  //sign in with google
+  Future<String?> signInWithGoogle() async {
+    try{
+      await GoogleSignIn().signOut();
+      final googleUser = await GoogleSignIn().signIn();
+      final googleAuth = await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
+      UserCredential result = await _auth.signInWithCredential(credential);
+      User? user = result.user;
+      return user != null ? user.uid : null;
+    } catch (e){
+      throw e;
     }
   }
 

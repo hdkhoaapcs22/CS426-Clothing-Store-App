@@ -68,12 +68,14 @@ class _CommonTextFieldState extends State<CommonTextField> {
     return Padding(
       padding: widget.textFieldPadding,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
             textAlign: TextAlign.left,
             focusNode: _focusNode,
             keyboardType: widget.keyboardType,
             obscureText: widget.isObscureText,
+            obscuringCharacter: '*',
             autocorrect: false,
             controller: widget.textEditingController,
             decoration: InputDecoration(
@@ -110,10 +112,10 @@ class _CommonTextFieldState extends State<CommonTextField> {
           ),
           if (widget.errorText != null && widget.errorText!.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 5),
+              padding: const EdgeInsets.only(top: 5, left: 8),
               child: Text(
                 widget.errorText ?? "",
-                style: TextStyles(context).getDescriptionStyle().copyWith(
+                style: TextStyles(context).getSmallStyle().copyWith(
                       color: AppTheme.redErrorColor,
                     ),
               ),
