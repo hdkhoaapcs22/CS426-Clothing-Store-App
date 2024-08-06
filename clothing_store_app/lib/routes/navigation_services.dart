@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import 'package:clothing_store_app/modules/CompleteProfileScreen/complete_profile_screen.dart';
 import 'package:clothing_store_app/modules/LoginOrSignUpScreen/login_or_signup_screen.dart';
 import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
-=======
-import 'package:clothing_store_app/modules/email_for_new_pass_page.dart';
->>>>>>> fbe8c9f (all_login_forgetPass)
-=======
 import 'package:clothing_store_app/modules/forgot_pass_page.dart';
->>>>>>> d29fcfa (repair_4)
 import 'package:flutter/material.dart';
 import '../modules/OnBoardingScreen/on_boarding_screen.dart';
 
@@ -24,8 +17,6 @@ class NavigationServices {
             builder: (context) => widget, fullscreenDialog: fullscreenDialog));
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   Future<dynamic> pushWelcomeScreen() async {
     return _pushMaterialPageRoute(const WelcomeScreen());
   }
@@ -44,13 +35,9 @@ class NavigationServices {
 
   Future<dynamic> pushCompleteProfileScreen() async {
     return _pushMaterialPageRoute(const CompleteProfileScreen());
-=======
-  Future<dynamic> pushEmailForNewPassPage() async {
-    return _pushMaterialPageRoute(const EmailForNewPassPage());
->>>>>>> fbe8c9f (all_login_forgetPass)
-=======
+  }
+
   Future<dynamic> pushForgotPassPage() async {
     return _pushMaterialPageRoute(const ForgotPassPage());
->>>>>>> d29fcfa (repair_4)
   }
 }

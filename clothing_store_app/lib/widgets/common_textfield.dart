@@ -65,7 +65,6 @@ class _CommonTextFieldState extends State<CommonTextField> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Padding(
       padding: widget.textFieldPadding,
       child: Column(
@@ -102,50 +101,15 @@ class _CommonTextFieldState extends State<CommonTextField> {
                 borderSide: BorderSide(
                   color: widget.focusColor,
                 ),
-=======
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextFormField(
-          textAlign: TextAlign.left,
-          focusNode: _focusNode,
-          keyboardType: widget.keyboardType,
-          obscureText: widget.isObscureText,
-          autocorrect: false,
-          controller: widget.textEditingController,
-          decoration: InputDecoration(
-            contentPadding: widget.contentPadding,
-            hintText: widget.hintText,
-            hintStyle: widget.hintTextStyle,
-            prefixIcon: widget.prefixIconData != null
-                ? Icon(widget.prefixIconData, color: _iconColor)
-                : null,
-            suffixIcon: widget.suffixIconData != null
-                ? IconButton(
-                    isSelected: !widget.isObscureText,
-                    icon: Icon(widget.suffixIconData, color: _iconColor),
-                    selectedIcon:
-                        Icon(widget.selectedIconData, color: _iconColor),
-                    onPressed: () => setState(() {
-                      widget.isObscureText = !widget.isObscureText;
-                    }),
-                  )
-                : null,
-            border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(32)),
-              borderSide: BorderSide(
-                color: widget.focusColor,
->>>>>>> 267504c (repair_2)
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(32)),
-              borderSide: BorderSide(
-                color: widget.focusColor,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(32)),
+                borderSide: BorderSide(
+                  color: widget.focusColor,
+                ),
               ),
             ),
           ),
-<<<<<<< HEAD
           if (widget.errorText != null && widget.errorText!.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 5, left: 8),
@@ -158,17 +122,6 @@ class _CommonTextFieldState extends State<CommonTextField> {
             ),
         ],
       ),
-=======
-        ),
-        if (widget.errorText != null && widget.errorText!.isNotEmpty)
-          Text(
-            widget.errorText ?? "",
-            style: TextStyles(context).getDescriptionStyle().copyWith(
-                  color: AppTheme.redErrorColor,
-                ),
-          ),
-      ],
->>>>>>> 267504c (repair_2)
     );
   }
 }

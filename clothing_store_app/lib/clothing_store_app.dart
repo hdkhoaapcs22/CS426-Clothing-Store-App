@@ -1,10 +1,6 @@
 import 'dart:io';
 
-<<<<<<< HEAD
 import 'package:clothing_store_app/modules/SplashScreen/splash_screen.dart';
-=======
-import 'package:clothing_store_app/modules/login_page.dart';
->>>>>>> fbe8c9f (all_login_forgetPass)
 import 'package:clothing_store_app/routes/routes_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -75,11 +71,7 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-<<<<<<< HEAD
       RoutesName.splashScreen: (context) => const SplashScreen(),
-=======
-      RoutesName.splashScreen: (context) => const LoginPage(),
->>>>>>> fbe8c9f (all_login_forgetPass)
     };
   }
 
