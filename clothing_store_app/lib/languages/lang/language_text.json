@@ -1,6 +1,5 @@
 [
     {
-<<<<<<< HEAD
         "text_id": "welcomeHeader1",
         "en": "The ",
         "fr": "L'"
@@ -299,7 +298,8 @@
         "text_id": "term_and_condition_error",
         "en": "Agree with Terms and Condition.",
         "fr": "Accepter les conditions générales"
-=======
+    },
+    {
         "text_id": "login",
         "en": "Login",
         "fr": "Login"
@@ -391,12 +391,7 @@
     },
     {
         "text_id": "email_sent",
-<<<<<<< HEAD
-        "en": "Email Sent!"
->>>>>>> fbe8c9f (all_login_forgetPass)
-=======
         "en": "Email has been sent to ",
         "fr": "Un e-mail a été envoyé à "
->>>>>>> 1f58967 (repair_1)
     }
 ]

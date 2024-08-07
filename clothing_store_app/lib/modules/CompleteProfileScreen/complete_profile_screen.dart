@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:clothing_store_app/providers/complete_profile_provider.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
+import 'package:clothing_store_app/widgets/label_and_textfield.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -13,11 +14,10 @@ import '../../utils/text_styles.dart';
 import '../../widgets/common_app_bar_view.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_dialogs.dart';
-import '../../widgets/text_field_with_header.dart';
 
 class CompleteProfileScreen extends StatelessWidget {
   const CompleteProfileScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CompleteProfileNotifier>(
@@ -50,12 +50,16 @@ class CompleteProfileScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: Text(
-                      AppLocalizations(context).of("complete_your_profile_descript"),
-                      style: TextStyles(context).getInterDescriptionStyle(false, false),
+                      AppLocalizations(context)
+                          .of("complete_your_profile_descript"),
+                      style: TextStyles(context)
+                          .getInterDescriptionStyle(false, false),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 16.0,),
+                  const SizedBox(
+                    height: 16.0,
+                  ),
                   //Profile picture
                   Stack(
                     children: [
@@ -86,7 +90,8 @@ class CompleteProfileScreen extends StatelessWidget {
                                 width: 30,
                                 height: 30,
                                 decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0)),
                                   color: Colors.brown,
                                 ),
                                 child: const Icon(
@@ -97,114 +102,150 @@ class CompleteProfileScreen extends StatelessWidget {
                           )),
                     ],
                   ),
-                  const SizedBox(height: 16.0,),
+                  const SizedBox(
+                    height: 16.0,
+                  ),
                   //Information fields
                   Column(
                     children: [
-                      TextFieldWithHeader(
-                        controller: profileProvider.nameController, 
-                        errorMessage: profileProvider.nameError, 
-                        header: AppLocalizations(context).of("name"), 
-                        hintText: AppLocalizations(context).of("John Doe"),
-                        isPassword: false,
-                      ),
+                      // TextFieldWithHeader(
+                      //   controller: profileProvider.nameController,
+                      //   errorMessage: profileProvider.nameError,
+                      //   header: AppLocalizations(context).of("name"),
+                      //   hintText: AppLocalizations(context).of("John Doe"),
+                      //   isPassword: false,
+                      // ),
+                      labelAndTextField(
+                          context: context,
+                          label: AppLocalizations(context).of("name"),
+                          hintText: AppLocalizations(context).of("John Doe"),
+                          controller: profileProvider.nameController,
+                          errorText: profileProvider.nameError),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               AppLocalizations(context).of("phoneNumber"),
-                              style: TextStyles(context).getLabelLargeStyle(false),
+                              style:
+                                  TextStyles(context).getLabelLargeStyle(false),
                             ),
-                            const SizedBox(height: 5.0,),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
                             IntlPhoneField(
-                              controller: profileProvider.phoneController,
-                              initialCountryCode: '+84',
-                              disableLengthCheck: true,
-                              decoration: InputDecoration(
-                                error: profileProvider.phoneError.isNotEmpty 
-                                  ? Text(
-                                    profileProvider.phoneError,
-                                    style: TextStyles(context).getSmallStyle().copyWith(
-                                            color: AppTheme.redErrorColor,),
-                                    ) : null,
-                                hintText: AppLocalizations(context).of("enterPhoneNumber"),
-                                hintStyle: TextStyles(context).getLabelLargeStyle(true),
-                                contentPadding: const EdgeInsets.all(16.0),
-                                border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
-                                  borderSide: BorderSide(
-                                    color: AppTheme.brownButtonColor,
+                                controller: profileProvider.phoneController,
+                                initialCountryCode: '+84',
+                                disableLengthCheck: true,
+                                decoration: InputDecoration(
+                                  error: profileProvider.phoneError.isNotEmpty
+                                      ? Text(
+                                          profileProvider.phoneError,
+                                          style: TextStyles(context)
+                                              .getSmallStyle()
+                                              .copyWith(
+                                                color: AppTheme.redErrorColor,
+                                              ),
+                                        )
+                                      : null,
+                                  hintText: AppLocalizations(context)
+                                      .of("enterPhoneNumber"),
+                                  hintStyle: TextStyles(context)
+                                      .getLabelLargeStyle(true),
+                                  contentPadding: const EdgeInsets.all(16.0),
+                                  border: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(40.0)),
                                   ),
-                                ),
-                                errorBorder: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
-                                  borderSide: BorderSide(
-                                    color: AppTheme.brownButtonColor,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(40.0)),
+                                    borderSide: BorderSide(
+                                      color: AppTheme.brownButtonColor,
+                                    ),
                                   ),
-                                ),
-                              )
-                            ),
+                                  errorBorder: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(40.0)),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(40.0)),
+                                    borderSide: BorderSide(
+                                      color: AppTheme.brownButtonColor,
+                                    ),
+                                  ),
+                                )),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               AppLocalizations(context).of("gender"),
-                              style: TextStyles(context).getLabelLargeStyle(false),),
-                            const SizedBox(height: 5.0,),
+                              style:
+                                  TextStyles(context).getLabelLargeStyle(false),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
                             DropdownButtonFormField(
                               focusColor: AppTheme.brownButtonColor,
                               value: null,
                               hint: Text(
-                                AppLocalizations(context).of("select"), 
-                                style: TextStyles(context).getLabelLargeStyle(true),),
+                                AppLocalizations(context).of("select"),
+                                style: TextStyles(context)
+                                    .getLabelLargeStyle(true),
+                              ),
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.all(16.0),
-                                error: 
-                                profileProvider.genderError.isNotEmpty ? Text(
-                                  profileProvider.genderError,
-                                  style: TextStyles(context).getSmallStyle().copyWith(
-                                        color: AppTheme.redErrorColor,
-                                      ),
-                                ) : null ,
+                                error: profileProvider.genderError.isNotEmpty
+                                    ? Text(
+                                        profileProvider.genderError,
+                                        style: TextStyles(context)
+                                            .getSmallStyle()
+                                            .copyWith(
+                                              color: AppTheme.redErrorColor,
+                                            ),
+                                      )
+                                    : null,
                                 border: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(40.0))
-                                ),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(40.0))),
                                 focusedBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(40.0)),
                                   borderSide: BorderSide(
                                     color: AppTheme.brownButtonColor,
                                   ),
                                 ),
                                 errorBorder: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(40.0)),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(Radius.circular(40.0)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(40.0)),
                                   borderSide: BorderSide(
                                     color: AppTheme.brownButtonColor,
                                   ),
                                 ),
                               ),
                               items: List<DropdownMenuItem<int>>.generate(
-                                profileProvider.genders.length, 
+                                profileProvider.genders.length,
                                 (index) => DropdownMenuItem<int>(
                                   value: index,
                                   child: Text(
-                                    AppLocalizations(context).of(profileProvider.genders[index]),
-                                    style: TextStyles(context).getLabelLargeStyle(false),
+                                    AppLocalizations(context)
+                                        .of(profileProvider.genders[index]),
+                                    style: TextStyles(context)
+                                        .getLabelLargeStyle(false),
                                   ),
                                 ),
                               ),
@@ -223,11 +264,15 @@ class CompleteProfileScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: CommonButton(
                       onTap: () async {
-                        if (profileProvider.validateFields(context)){
+                        if (profileProvider.validateFields(context)) {
                           Dialogs(context).showLoadingDialog();
-                          await Future.delayed(const Duration(milliseconds: 2000));
+                          await Future.delayed(
+                              const Duration(milliseconds: 2000));
                           Navigator.pop(context);
-                          Dialogs(context).showAnimatedDialog(title: AppLocalizations(context).of("complete_your_profile"), content: 'Successfully complete your profile!');
+                          Dialogs(context).showAnimatedDialog(
+                              title: AppLocalizations(context)
+                                  .of("complete_your_profile"),
+                              content: 'Successfully complete your profile!');
                           //MOVE TO LOCATION PAGE
                         }
                       },

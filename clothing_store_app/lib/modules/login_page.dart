@@ -11,7 +11,8 @@ import 'package:clothing_store_app/widgets/sign_in_method.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, required this.onTap});
+  final Function() onTap;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -50,12 +51,14 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Text(
                 AppLocalizations(context).of("login"),
-                style: TextStyles(context).getTitleStyle(),
+                style: TextStyles(context).getLargerHeaderStyle(false),
               ),
               const Padding(padding: EdgeInsets.all(8)),
               Text(
                 AppLocalizations(context).of("welcome"),
-                style: TextStyles(context).getDescriptionStyle(),
+                style:
+                    TextStyles(context).getInterDescriptionStyle(false, false),
+                textAlign: TextAlign.center,
               ),
               const Padding(padding: EdgeInsets.all(24)),
               labelAndTextField(
@@ -93,58 +96,70 @@ class _LoginPageState extends State<LoginPage> {
               const Padding(padding: EdgeInsets.all(2)),
               CommonButton(
                 onTap: signIn,
-                buttonText: "sign_in",
-                radius: 35,
-                width: MediaQuery.of(context).size.width - 60,
+                radius: 30.0,
+                backgroundColor: AppTheme.brownButtonColor,
+                buttonTextWidget: Text(
+                  AppLocalizations(context).of("sign_in"),
+                  style: TextStyles(context).getButtonTextStyle(),
+                ),
               ),
               const Padding(padding: EdgeInsets.all(18)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                      width: 100,
-                      child:
-                          Divider(color: Color.fromARGB(255, 114, 114, 114))),
-                  const Padding(padding: EdgeInsets.all(2)),
-                  Text(AppLocalizations(context).of("other_sign_in"),
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 114, 114, 114),
-                          fontSize: 15)),
-                  const Padding(padding: EdgeInsets.all(2)),
-                  const SizedBox(
-                      width: 100,
-                      child:
-                          Divider(color: Color.fromARGB(255, 114, 114, 114))),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                        child: Divider(
+                      color: AppTheme.secondaryTextColor,
+                      thickness: 0.5,
+                      indent: 60,
+                      endIndent: 5,
+                    )),
+                    Text(
+                      AppLocalizations(context).of("other_sign_in"),
+                      style: TextStyles(context)
+                          .getInterDescriptionStyle(false, false),
+                    ),
+                    Flexible(
+                        child: Divider(
+                      color: AppTheme.secondaryTextColor,
+                      thickness: 0.5,
+                      indent: 5,
+                      endIndent: 60,
+                    ))
+                  ],
+                ),
               ),
-              const Padding(padding: EdgeInsets.all(16)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  signInMethod(Localfiles.googleIcon),
+                  signInMethod(Localfiles.googleIcon, context),
                   const Padding(padding: EdgeInsets.all(8)),
-                  signInMethod(Localfiles.facebookIcon),
+                  signInMethod(Localfiles.facebookIcon, context),
                 ],
               ),
-              const Padding(padding: EdgeInsets.all(16)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(AppLocalizations(context).of("no_account"),
-                      style: TextStyles(context).getRegularStyle()),
+                  Text(
+                    AppLocalizations(context).of("no_account"),
+                    style: TextStyles(context)
+                        .getInterDescriptionStyle(false, false),
+                  ),
                   TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.all(0),
-                        overlayColor: Colors.transparent,
-                      ),
-                      child: Text(
-                        AppLocalizations(context).of("sign_up"),
-                        style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Color.fromARGB(255, 112, 79, 56),
-                            fontSize: 16),
-                      )),
+                    onPressed: () {
+                      widget.onTap();
+                    },
+                    style: TextButton.styleFrom(
+                      overlayColor: Colors.transparent,
+                    ),
+                    child: Text(
+                      AppLocalizations(context).of("sign_up"),
+                      style: TextStyles(context)
+                          .getInterDescriptionStyle(true, true),
+                    ),
+                  ),
                 ],
               )
             ],

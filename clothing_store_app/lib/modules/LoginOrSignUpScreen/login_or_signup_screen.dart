@@ -1,4 +1,5 @@
 import 'package:clothing_store_app/modules/SignUpScreen/sign_up_screen.dart';
+import 'package:clothing_store_app/modules/login_page.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -27,7 +28,7 @@ class _LoginOrSignUpScreenState extends State<LoginOrSignUpScreen> {
   Widget build(BuildContext context) {
     if (showLoginScreen) {
       //Sign in screen
-      return SignUpScreen(
+      return LoginPage(
         onTap: toggleScreen,
       );
     } else {

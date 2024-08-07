@@ -16,7 +16,7 @@ class AuthService {
           email: email, password: password);
       User? user = result.user;
       return user != null ? user.uid : null;
-    }  on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       throw e;
     }
   }
@@ -37,20 +37,19 @@ class AuthService {
       return e;
     }
   }
-  
 
   //sign in with google
   Future<String?> signInWithGoogle() async {
-    try{
+    try {
       await GoogleSignIn().signOut();
       final googleUser = await GoogleSignIn().signIn();
       final googleAuth = await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
-        idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
+          idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
       UserCredential result = await _auth.signInWithCredential(credential);
       User? user = result.user;
-      return user != null ? user.uid : null;
-    } catch (e){
+      return user?.uid;
+    } catch (e) {
       throw e;
     }
   }

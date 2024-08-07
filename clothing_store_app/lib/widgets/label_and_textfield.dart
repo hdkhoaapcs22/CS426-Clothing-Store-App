@@ -31,7 +31,7 @@ Widget labelAndTextField(
         hintTextStyle: TextStyles(context).getDescriptionStyle(),
         focusColor: const Color.fromARGB(255, 112, 79, 56),
         hintText: hintText,
-        textFieldPadding: const EdgeInsets.only(top: 5, bottom: 30),
+        textFieldPadding: const EdgeInsets.only(top: 5, bottom: 2),
         errorText: errorText,
         suffixIconData: suffixIconData,
         selectedIconData: selectedIconData,
