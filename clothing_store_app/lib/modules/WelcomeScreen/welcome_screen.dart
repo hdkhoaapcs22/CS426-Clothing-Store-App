@@ -27,7 +27,8 @@ class WelcomeScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(70.0)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(70.0)),
                             child: Align(
                               alignment: Alignment.topCenter,
                               child: Image.asset(
@@ -42,7 +43,8 @@ class WelcomeScreen extends StatelessWidget {
                         Column(
                           children: [
                             ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(70.0)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(70.0)),
                               child: Align(
                                 alignment: Alignment.topCenter,
                                 child: Image.asset(
@@ -71,7 +73,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     Positioned(
                       left: 8.0,
-                      top: size.height/3,
+                      top: size.height / 3,
                       child: SizedBox(
                         width: 80,
                         height: 80,
@@ -101,11 +103,14 @@ class WelcomeScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     AppLocalizations(context).of("welcomeDescript"),
-                    style: TextStyles(context).getInterDescriptionStyle(false, false),
+                    style: TextStyles(context)
+                        .getInterDescriptionStyle(false, false),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(height: 20.0,),
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CommonButton(
@@ -120,22 +125,29 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20.0,),
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       AppLocalizations(context).of("alreadyHaveAccount"),
-                      style: TextStyles(context).getInterDescriptionStyle(false, false),
+                      style: TextStyles(context)
+                          .getInterDescriptionStyle(false, false),
                     ),
                     TextButton(
-                      onPressed: () {
-                        NavigationServices(context).pushLoginScreen();
-                      },
-                      child: Text(
-                        AppLocalizations(context).of("signIn"),
-                        style: TextStyles(context).getInterDescriptionStyle(true, true),
-                      ))
+                        onPressed: () {
+                          NavigationServices(context).pushLoginScreen();
+                        },
+                        style: TextButton.styleFrom(
+                          overlayColor: Colors.transparent,
+                        ),
+                        child: Text(
+                          AppLocalizations(context).of("signIn"),
+                          style: TextStyles(context)
+                              .getInterDescriptionStyle(true, true),
+                        ))
                   ],
                 )
               ],

@@ -30,7 +30,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _controller.dispose();
     super.dispose();
   }
@@ -57,7 +57,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                   ],
                 ),
-                bodyText: AppLocalizations(context).of("onBoardingHeader1.body"),
+                bodyText:
+                    AppLocalizations(context).of("onBoardingHeader1.body"),
                 controller: _controller,
               ),
               OnBoardingWidget(
@@ -78,7 +79,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                   ],
                 ),
-                bodyText: AppLocalizations(context).of("onBoardingHeader2.body"),
+                bodyText:
+                    AppLocalizations(context).of("onBoardingHeader2.body"),
                 controller: _controller,
               ),
               OnBoardingWidget(
@@ -103,13 +105,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                   ],
                 ),
-                bodyText: AppLocalizations(context).of("onBoardingHeader3.body"),
+                bodyText:
+                    AppLocalizations(context).of("onBoardingHeader3.body"),
                 controller: _controller,
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(top: 20.0),
             child: Align(
               alignment: Alignment.topRight,
               child: Padding(
@@ -117,11 +120,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 child: _currentPage != 2
                     ? TextButton(
                         onPressed: () {
-                          _controller.animateToPage(2, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+                          _controller.animateToPage(2,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeIn);
                         },
+                        style: TextButton.styleFrom(
+                          overlayColor: Colors.transparent,
+                        ),
                         child: Text(
                           AppLocalizations(context).of("skip"),
-                          style: TextStyles(context).getInterDescriptionStyle(true, false),
+                          style: TextStyles(context)
+                              .getInterDescriptionStyle(true, false),
                         ))
                     : null,
               ),
@@ -132,28 +141,30 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _currentPage != 0 ? OutlinedButton(
-                  onPressed: () {
-                    moveBackward();},
-                  style: OutlinedButton.styleFrom(
-                    elevation: 0,
-                    shape: const CircleBorder(),
-                    foregroundColor: AppTheme.brownButtonColor,
-                    padding: const EdgeInsets.all(16.0),
-                  ),
-                  child: const Icon(Iconsax.arrow_left),
-                ) : ElevatedButton(
-                  onPressed: () {}, 
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(16.0),
-                    backgroundColor: Colors.transparent,
-                    disabledBackgroundColor: Colors.transparent
-                  ),
-                  child: null),
+                _currentPage != 0
+                    ? OutlinedButton(
+                        onPressed: () {
+                          moveBackward();
+                        },
+                        style: OutlinedButton.styleFrom(
+                          elevation: 0,
+                          shape: const CircleBorder(),
+                          foregroundColor: AppTheme.brownButtonColor,
+                          padding: const EdgeInsets.all(16.0),
+                        ),
+                        child: const Icon(Iconsax.arrow_left),
+                      )
+                    : ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            shape: const CircleBorder(),
+                            padding: const EdgeInsets.all(16.0),
+                            backgroundColor: Colors.transparent,
+                            disabledBackgroundColor: Colors.transparent),
+                        child: null),
                 SmoothPageIndicator(
-                  controller: _controller, 
+                  controller: _controller,
                   count: 3,
                   effect: ColorTransitionEffect(
                     activeDotColor: AppTheme.brownButtonColor,
@@ -161,20 +172,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     dotHeight: 14.0,
                     radius: 14.0,
                   ),
-                  ),
-                ElevatedButton(
-                  onPressed:() {
-                    moveForward(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: const CircleBorder(),
-                    backgroundColor: AppTheme.brownButtonColor,
-                    foregroundColor:AppTheme.iconColor,
-                    padding: const EdgeInsets.all(16.0),
-                  ),
-                  child: const Icon(Iconsax.arrow_right_1,)
                 ),
+                ElevatedButton(
+                    onPressed: () {
+                      moveForward(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      shape: const CircleBorder(),
+                      backgroundColor: AppTheme.brownButtonColor,
+                      foregroundColor: AppTheme.iconColor,
+                      padding: const EdgeInsets.all(16.0),
+                    ),
+                    child: const Icon(
+                      Iconsax.arrow_right_1,
+                    )),
               ],
             ),
           )
