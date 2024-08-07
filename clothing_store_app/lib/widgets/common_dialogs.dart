@@ -15,12 +15,18 @@ class Dialogs {
 
   Future<dynamic> showLoadingDialog() async {
     return await showDialog(
-        context: context,
-        builder: (BuildContext context) => Center(
-              child: Container(
-                child: Lottie.asset(Localfiles.loading),
-              ),
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        double lottieSize = MediaQuery.of(context).size.width * 0.2;
+        return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: Lottie.asset(
+              Localfiles.loading,
+              width: lottieSize,
             ));
+      },
+    );
   }
 
   Future<void> showAlertDialog({required String content}) {
@@ -99,7 +105,8 @@ class Dialogs {
           return ScaleTransition(
             scale: Tween<double>(begin: 0.5, end: 1.0).animate(animation1),
             child: FadeTransition(
-                opacity: Tween<double>(begin: 0.5, end: 1.0).animate(animation1),
+                opacity:
+                    Tween<double>(begin: 0.5, end: 1.0).animate(animation1),
                 child: AlertDialog(
                   title: Text(
                     AppLocalizations(context).of("upload_profile_picture"),
@@ -114,7 +121,9 @@ class Dialogs {
                       children: [
                         CommonButton(
                             onTap: () async {
-                              final pickImageProvider = Provider.of<PickImageProvider>(context, listen: false);
+                              final pickImageProvider =
+                                  Provider.of<PickImageProvider>(context,
+                                      listen: false);
                               await pickImageProvider.pickImageFromGallery();
                             },
                             backgroundColor: AppTheme.brownButtonColor,
@@ -139,7 +148,9 @@ class Dialogs {
                             )),
                         CommonButton(
                             onTap: () async {
-                              final pickImageProvider = Provider.of<PickImageProvider>(context, listen: false);
+                              final pickImageProvider =
+                                  Provider.of<PickImageProvider>(context,
+                                      listen: false);
                               await pickImageProvider.takePhoto();
                             },
                             radius: 30,

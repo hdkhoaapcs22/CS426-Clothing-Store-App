@@ -1,7 +1,7 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/services/auth/auth_service.dart';
+import 'package:clothing_store_app/widgets/common_dialogs.dart';
 import 'package:clothing_store_app/widgets/label_and_textfield.dart';
-import 'package:clothing_store_app/widgets/loading.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
@@ -125,14 +125,14 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
   }
 
   Future sendPassResetEmail() async {
-    loading(context);
+    Dialogs(context).showLoadingDialog();
     bool sendMailStatus = await checkEmailSent(emailController.text.trim());
     Navigator.pop(context);
     if (sendMailStatus == true) {
-      setState(() {
-        error = AppLocalizations(context).of("email_sent") +
-            emailController.text.trim();
-      });
+      Dialogs(context).showAnimatedDialog(
+          title: AppLocalizations(context).of("success"),
+          content: AppLocalizations(context).of("email_sent") +
+              emailController.text.trim());
     }
   }
 }

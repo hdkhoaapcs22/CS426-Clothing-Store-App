@@ -13,13 +13,9 @@ class Localfiles {
   static const String onBoarding3 = '${baseImageUrl}onboarding3.png';
 
   static const String defaultAvatar = '${baseImageUrl}default_avatar.png';
-  static const String googleLogo = '${baseImageUrl}google_logo.png';
-  static const String facebookLogo = '${baseImageUrl}facebook_logo.png';
 
   static const String loading = '${baseJsonUrl}loading_lottie.json';
   static const String googleIcon = '${baseImageUrl}google_icon.png';
   static const String facebookIcon = '${baseImageUrl}facebook_icon.png';
   static const String leftArrow = '${baseImageUrl}left_arrow.png';
-
-  static const String baseLottieUrl = 'assets/json/';
 }

@@ -1,7 +1,7 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
+import 'package:clothing_store_app/widgets/common_dialogs.dart';
 import 'package:clothing_store_app/widgets/label_and_textfield.dart';
-import 'package:clothing_store_app/widgets/loading.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future signIn() async {
-    loading(context);
+    Dialogs(context).showLoadingDialog();
     bool loginStatus =
         await checkSignIn(emailController.text.trim(), passController.text);
     setState(() {});
