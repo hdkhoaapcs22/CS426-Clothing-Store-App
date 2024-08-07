@@ -1,21 +1,21 @@
-import 'package:clothing_store_app/contracts/repositories/address_repository_interface.dart';
-import 'package:clothing_store_app/models/address.dart';
+import 'package:clothing_store_app/contracts/repositories/shipping_information_repository_interface.dart';
+import 'package:clothing_store_app/models/shipping_information.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddressRepository implements AddressRepositoryInterface {
+class ShippingInformationRepository implements ShippingInformationRepositoryInterface {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String userId;
 
-  AddressRepository(this.userId);
+  ShippingInformationRepository(this.userId);
 
   @override
-  Future<List<Address>> getAll() {
+  Future<List<ShippingInformation>> getAll() {
     // TODO: implement getAll
     throw UnimplementedError();
   }
 
   @override
-  Future<void> add(Address item) async {
+  Future<void> add(ShippingInformation item) async {
     try {
       DocumentReference userDocRef = _firestore.collection('User').doc(userId);
       DocumentSnapshot userDoc = await userDocRef.get();
@@ -65,13 +65,13 @@ class AddressRepository implements AddressRepositoryInterface {
   }
 
   @override
-  Future<Address> getById(int id) {
+  Future<ShippingInformation> getById(int id) {
     // TODO: implement getById
     throw UnimplementedError();
   }
 
   @override
-  Future<void> update(Address item, int id) async {
+  Future<void> update(ShippingInformation item, int id) async {
     try {
       DocumentReference userDocRef = _firestore.collection('User').doc(userId);
       DocumentSnapshot userDoc = await userDocRef.get();
@@ -86,7 +86,7 @@ class AddressRepository implements AddressRepositoryInterface {
       int index = id;
 
       if (index == -1) {
-        throw Exception('Address to update not found');
+        throw Exception('ShippingInformation to update not found');
       }
 
       addressList[index] = item.toString();

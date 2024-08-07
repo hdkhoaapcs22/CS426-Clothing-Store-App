@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../models/address.dart';
+import '../models/shipping_information.dart';
 
-class AddressModel extends ChangeNotifier {
+class ShippingInformationModel extends ChangeNotifier {
   String? _province, _district, _ward;
   TextEditingController? _fullNameController;
   TextEditingController? _phoneNumberController;
   TextEditingController? _addressController;
 
-  AddressModel() {
+  ShippingInformationModel() {
     _fullNameController = TextEditingController();
     _phoneNumberController = TextEditingController();
     _addressController = TextEditingController();
@@ -67,7 +67,7 @@ class AddressModel extends ChangeNotifier {
     }
   }
 
-  void setAddress(Address address) {
+  void setAddress(ShippingInformation address) {
     _province = address.city;
     _district = address.district;
     _ward = address.ward;

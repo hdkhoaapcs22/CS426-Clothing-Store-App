@@ -1,6 +1,6 @@
-import 'package:clothing_store_app/providers/address_model.dart';
+import 'package:clothing_store_app/providers/shipping_information_model.dart';
 import 'package:clothing_store_app/providers/theme_provider.dart';
-import 'package:clothing_store_app/repositories/address_repository.dart';
+import 'package:clothing_store_app/repositories/shipping_information_repository.dart';
 import 'package:clothing_store_app/utils/provincedata_utils.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/clothing_store_app.dart';
@@ -33,11 +33,11 @@ Widget _setAllProviders() {
       ),
 
       // Add more providers here
-      ChangeNotifierProvider(create: (_) => AddressModel()),
+      ChangeNotifierProvider(create: (_) => ShippingInformationModel()),
 
       // Add repository providers here
-      Provider<AddressRepository>(
-        create: (_) => AddressRepository("aMPjhNJSHfscG2aYNlPA"), // userId
+      Provider<ShippingInformationRepository>(
+        create: (_) => ShippingInformationRepository("aMPjhNJSHfscG2aYNlPA"), // userId
       ),
     ],
     child: ClothingStoreApp(),

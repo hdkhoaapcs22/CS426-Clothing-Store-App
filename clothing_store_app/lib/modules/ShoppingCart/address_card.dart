@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../models/address.dart';
+import '../../models/shipping_information.dart';
 import '../../utils/text_styles.dart';
 
 class AddressCard extends StatelessWidget {
-  final Address address;
+  final ShippingInformation shippingInformation;
   final bool isSelected;
   final int index;
-  final void Function(Address, int) onEdit;
+  final void Function(ShippingInformation, int) onEdit;
 
   const AddressCard({
     Key? key,
-    required this.address,
+    required this.shippingInformation,
     required this.isSelected,
     required this.index,
     required this.onEdit,
@@ -44,14 +44,14 @@ class AddressCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(address.name,
+                Text(shippingInformation.name,
                     style: TextStyles(context).getRegularStyle()),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Text(address.phoneNumber,
+                Text(shippingInformation.phoneNumber,
                     style: TextStyles(context).getSubtitleStyle()),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Text(
-                  '${address.street}, ${address.ward}, ${address.district}, ${address.city}',
+                  '${shippingInformation.street}, ${shippingInformation.ward}, ${shippingInformation.district}, ${shippingInformation.city}',
                   style: TextStyles(context).getSubtitleStyle(),
                 ),
               ],
@@ -59,7 +59,7 @@ class AddressCard extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: () => onEdit(address, index),
+            onPressed: () => onEdit(shippingInformation, index),
           ),
         ],
       ),

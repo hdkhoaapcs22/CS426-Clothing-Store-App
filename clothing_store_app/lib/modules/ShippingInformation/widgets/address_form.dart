@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../../languages/appLocalizations.dart';
-import '../../../providers/address_model.dart';
+import '../../../providers/shipping_information_model.dart';
 import '../../../widgets/common_dropdownsearch.dart';
 import '../../../widgets/common_textfield.dart';
 
 class AddressForm extends StatelessWidget {
-  final AddressModel addressModel;
+  final ShippingInformationModel shippingInformationModel;
   final List<String> provinceList;
   final Map<String, List<String>>? districtMap;
   final Map<String, List<String>>? wardMap;
 
   AddressForm({
-    required this.addressModel,
+    required this.shippingInformationModel,
     required this.provinceList,
     required this.districtMap,
     required this.wardMap,
@@ -24,50 +24,50 @@ class AddressForm extends StatelessWidget {
       children: [
         CommonTextField(
           hintText: AppLocalizations(context).of("name"),
-          textEditingController: addressModel.fullNameController,
+          textEditingController: shippingInformationModel.fullNameController,
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         CommonTextField(
           hintText: AppLocalizations(context).of("phone_number"),
-          textEditingController: addressModel.phoneNumberController,
+          textEditingController: shippingInformationModel.phoneNumberController,
           keyboardType: TextInputType.phone,
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         CommonTextField(
           hintText: AppLocalizations(context).of("detail_address"),
-          textEditingController: addressModel.addressController,
+          textEditingController: shippingInformationModel.addressController,
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         CommonDropdownSearch<String>(
           items: provinceList,
           hintText: AppLocalizations(context).of("select_province"),
-          selectedItem: addressModel.province,
+          selectedItem: shippingInformationModel.province,
           isBottomSheet: true,
           onChanged: (item) {
-            addressModel.province = item;
-            addressModel.district = null;
-            addressModel.ward = null;
+            shippingInformationModel.province = item;
+            shippingInformationModel.district = null;
+            shippingInformationModel.ward = null;
           },
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         CommonDropdownSearch<String>(
-          items: districtMap![addressModel.province] ?? [],
+          items: districtMap![shippingInformationModel.province] ?? [],
           hintText: AppLocalizations(context).of("select_district"),
-          selectedItem: addressModel.district,
+          selectedItem: shippingInformationModel.district,
           isBottomSheet: true,
           onChanged: (item) {
-            addressModel.district = item;
-            addressModel.ward = null;
+            shippingInformationModel.district = item;
+            shippingInformationModel.ward = null;
           },
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         CommonDropdownSearch<String>(
-          items: wardMap![addressModel.province_district] ?? [],
+          items: wardMap![shippingInformationModel.province_district] ?? [],
           hintText: AppLocalizations(context).of("select_ward"),
-          selectedItem: addressModel.ward,
+          selectedItem: shippingInformationModel.ward,
           isBottomSheet: true,
           onChanged: (item) {
-            addressModel.ward = item;
+            shippingInformationModel.ward = item;
           },
         ),
       ],

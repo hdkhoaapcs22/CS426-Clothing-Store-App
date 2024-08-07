@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../languages/appLocalizations.dart';
-import '../providers/address_model.dart';
+import '../providers/shipping_information_model.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final AddressModel addressModel;
+  final ShippingInformationModel shippingInformationModel;
   final String title;
   final Function()? onPressed;
 
   const CustomAppBar({
     Key? key,
-    required this.addressModel,
+    required this.shippingInformationModel,
     required this.title,
     this.onPressed,
   }) : super(key: key);

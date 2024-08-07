@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/address.dart';
+import '../../models/shipping_information.dart';
 import 'address_card.dart';
 
 class AddressListView extends StatelessWidget {
   final List<String> addressList;
   final int selectedIndex;
   final void Function(int) onAddressTap;
-  final void Function(Address, int) onEditAddress;
+  final void Function(ShippingInformation, int) onEditAddress;
 
   const AddressListView({
     Key? key,
@@ -22,13 +22,14 @@ class AddressListView extends StatelessWidget {
     return ListView.builder(
       itemCount: addressList.length,
       itemBuilder: (context, index) {
-        final address = Address.fromAddressString(addressList[index]);
+        final shippingInformation =
+            ShippingInformation.fromAddressString(addressList[index]);
         final isSelected = selectedIndex == index;
 
         return GestureDetector(
           onTap: () => onAddressTap(index),
           child: AddressCard(
-            address: address,
+            shippingInformation: shippingInformation,
             isSelected: isSelected,
             index: index,
             onEdit: onEditAddress,

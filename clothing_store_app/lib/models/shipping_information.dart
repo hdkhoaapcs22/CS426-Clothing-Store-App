@@ -1,4 +1,4 @@
-class Address {
+class ShippingInformation {
   String? _name;
   String? _phoneNumber;
   String? _street;
@@ -6,7 +6,7 @@ class Address {
   String? _district;
   String? _city;
 
-  Address({
+  ShippingInformation({
     required String? name,
     required String? phoneNumber,
     required String? street,
@@ -20,7 +20,7 @@ class Address {
         _phoneNumber = phoneNumber,
         _name = name;
 
-  Address.fromAddressString(String addressString) {
+  ShippingInformation.fromAddressString(String addressString) {
     List<String> addressList = addressString.split(', ');
     _name = addressList[0];
     _phoneNumber = addressList[1];
@@ -37,8 +37,8 @@ class Address {
   String get district => _district!;
   String get city => _city!;
 
-  factory Address.fromMap(Map<String, dynamic> map) {
-    return Address(
+  factory ShippingInformation.fromMap(Map<String, dynamic> map) {
+    return ShippingInformation(
       name: map['name'],
       phoneNumber: map['phoneNumber'],
       street: map['street'],

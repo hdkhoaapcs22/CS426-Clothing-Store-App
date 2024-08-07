@@ -1,21 +1,18 @@
+import 'package:clothing_store_app/modules/ShippingInformation/widgets/address_list.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
+import 'package:clothing_store_app/utils/address_utils.dart';
 import 'package:flutter/material.dart';
 import '../../../languages/appLocalizations.dart';
-import '../../../models/address.dart';
-import '../../../utils/address_utils.dart';
-import '../../Address/screens/add_new_address_screen.dart';
-import '../../Address/screens/edit_address_screen.dart';
-import '../address_list_view.dart';
+import 'add_new_address_screen.dart';
 
-class EditableAddressListScreen extends StatefulWidget {
+class ShippingInformationScreen extends StatefulWidget {
   @override
-  _EditableAddressListScreenState createState() =>
-      _EditableAddressListScreenState();
+  State<ShippingInformationScreen> createState() =>
+      _ShippingInformationScreenState();
 }
 
-class _EditableAddressListScreenState extends State<EditableAddressListScreen>
-    with AddressUtils {
-  late Future<List<String>> _addressFuture;
+class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
+  Future<List<String>>? _addressFuture;
   int _selectedIndex = -1;
 
   @override
@@ -36,13 +33,6 @@ class _EditableAddressListScreenState extends State<EditableAddressListScreen>
     });
   }
 
-  void _onEditAddress(Address address, int index) {
-    NavigationServices(context).pushMaterialPageRoute(
-      EditAddressScreen(address: address, index: index),
-      onResult: (result) async => _loadAddresses(),
-    );
-  }
-
   void _onAddNewAddress() {
     NavigationServices(context).pushMaterialPageRoute(
       AddNewAddressScreen(),
@@ -54,7 +44,7 @@ class _EditableAddressListScreenState extends State<EditableAddressListScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations(context).of("address_list")),
+        title: Text(AppLocalizations(context).of("shipping_information")),
       ),
       body: FutureBuilder<List<String>>(
         future: _addressFuture,
@@ -68,16 +58,15 @@ class _EditableAddressListScreenState extends State<EditableAddressListScreen>
           }
 
           final addressList = snapshot.data ?? [];
-
-          return AddressListView(
+          return AddressList(
               addressList: addressList,
-              selectedIndex: _selectedIndex,
               onAddressTap: _onAddressTap,
-              onEditAddress: _onEditAddress);
+              selectedIndex: _selectedIndex);
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onAddNewAddress,
+        backgroundColor: Color.fromRGBO(88, 57, 39, 1),
         child: const Icon(Icons.add),
       ),
     );

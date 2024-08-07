@@ -1,17 +1,17 @@
-import 'package:clothing_store_app/models/address.dart';
-import 'package:clothing_store_app/modules/Address/widgets/address_form.dart';
-import 'package:clothing_store_app/modules/Address/widgets/delete_button.dart';
-import 'package:clothing_store_app/modules/Address/widgets/save_button.dart';
+import 'package:clothing_store_app/models/shipping_information.dart';
+import 'package:clothing_store_app/modules/ShippingInformation/widgets/address_form.dart';
+import 'package:clothing_store_app/modules/ShippingInformation/widgets/delete_button.dart';
+import 'package:clothing_store_app/modules/ShippingInformation/widgets/save_button.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/utils/provincedata_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../providers/address_model.dart';
+import '../../../providers/shipping_information_model.dart';
 import '../../../utils/enum.dart';
 import '../../../widgets/custom_app_bar.dart';
 
 class EditAddressScreen extends StatefulWidget {
-  final Address address;
+  final ShippingInformation address;
   final int index;
 
   EditAddressScreen({super.key, required this.address, required this.index});
@@ -24,25 +24,26 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeAddressModel();
+    _initializeShippingInformationModel();
   }
 
-  void _initializeAddressModel() {
-    final addressModel = Provider.of<AddressModel>(context, listen: false);
-    addressModel.setAddress(widget.address);
+  void _initializeShippingInformationModel() {
+    final shippingInformationModel =
+        Provider.of<ShippingInformationModel>(context, listen: false);
+    shippingInformationModel.setAddress(widget.address);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddressModel>(
-      builder: (context, addressModel, child) {
+    return Consumer<ShippingInformationModel>(
+      builder: (context, ShippingInformationModel, child) {
         return Scaffold(
           appBar: CustomAppBar(
-            addressModel: addressModel,
+            shippingInformationModel: ShippingInformationModel,
             title: "edit_address",
             onPressed: () {
               NavigationServices(context).pop();
-              addressModel.clear();
+              ShippingInformationModel.clear();
             },
           ),
           body: SingleChildScrollView(
@@ -50,15 +51,17 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
             child: Column(
               children: [
                 AddressForm(
-                    addressModel: addressModel,
+                    shippingInformationModel: ShippingInformationModel,
                     provinceList: ProvincedataUtils.provinceList,
                     districtMap: ProvincedataUtils.districtMap,
                     wardMap: ProvincedataUtils.wardMap),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                DeleteButton(addressModel: addressModel, index: widget.index),
+                DeleteButton(
+                    shippingInformationModel: ShippingInformationModel,
+                    index: widget.index),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 SaveButton(
-                    addressModel: addressModel,
+                    shippingInformationModel: ShippingInformationModel,
                     actionType: ActionType.update,
                     index: widget.index),
               ],

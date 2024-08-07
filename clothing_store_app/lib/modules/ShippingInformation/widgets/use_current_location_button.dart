@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../providers/address_model.dart';
+import '../../../providers/shipping_information_model.dart';
 import '../../../widgets/common_button.dart';
 
 class UseCurrentLocationButton extends StatelessWidget {
-  final AddressModel addressModel;
+  final ShippingInformationModel shippingInformationModel;
 
   const UseCurrentLocationButton({
     Key? key,
-    required this.addressModel,
+    required this.shippingInformationModel,
   }) : super(key: key);
 
   Future<Placemark?> _useCurrentLocation() async {
@@ -55,10 +55,13 @@ class UseCurrentLocationButton extends StatelessWidget {
         Placemark? placemark = await _useCurrentLocation();
 
         if (placemark != null) {
-          addressModel.addressController!.text = placemark.street ?? '';
-          addressModel.province = placemark.administrativeArea ?? '';
-          addressModel.district = placemark.subAdministrativeArea ?? '';
-          addressModel.ward = placemark.locality ?? '';
+          shippingInformationModel.addressController!.text =
+              placemark.street ?? '';
+          shippingInformationModel.province =
+              placemark.administrativeArea ?? '';
+          shippingInformationModel.district =
+              placemark.subAdministrativeArea ?? '';
+          shippingInformationModel.ward = placemark.locality ?? '';
         }
       },
     );

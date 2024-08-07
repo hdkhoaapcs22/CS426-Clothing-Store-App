@@ -450,9 +450,9 @@
         "fr": "Modifier l'adresse"
     },
     {
-        "text_id": "address_list",
-        "en": "Address List",
-        "fr": "Liste d'adresses"
+        "text_id": "shipping_information",
+        "en": "Shipping Information",
+        "fr": "Informations de livraison"
     },
     {
         "text_id": "delete_address",

@@ -5,7 +5,7 @@ import '../routes/navigation_services.dart';
 import '../widgets/common_OK_dialog.dart';
 import '../widgets/common_two_options_dialog.dart';
 
-mixin NotificationUtils {
+class NotificationUtils {
   static void showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(AppLocalizations(context).of(message)),

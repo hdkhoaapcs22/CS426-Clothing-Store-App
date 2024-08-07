@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../models/address.dart';
+import '../../../models/shipping_information.dart';
 import 'address_item.dart';
 
 class AddressList extends StatelessWidget {
@@ -20,10 +20,10 @@ class AddressList extends StatelessWidget {
       itemCount: addressList.length,
       itemBuilder: (context, index) {
         final addressData = addressList[index];
-        Address address = Address.fromAddressString(addressData);
+        ShippingInformation address = ShippingInformation.fromAddressString(addressData);
 
         return AddressItem(
-          address: address,
+          shippingInformation: address,
           index: index,
           selectedIndex: selectedIndex,
           onSelect: onAddressTap,

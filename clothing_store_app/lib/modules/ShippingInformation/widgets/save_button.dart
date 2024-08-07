@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-import '../../../providers/address_model.dart';
+import '../../../providers/shipping_information_model.dart';
 import '../../../utils/enum.dart';
 import '../../../utils/notification_utils.dart';
 import '../../../widgets/common_button.dart';
 import '../../../utils/address_utils.dart';
 
 class SaveButton extends StatelessWidget {
-  final AddressModel addressModel;
+  final ShippingInformationModel shippingInformationModel;
   final ActionType actionType;
   final int? index;
 
   const SaveButton({
     Key? key,
-    required this.addressModel,
+    required this.shippingInformationModel,
     required this.actionType,
     this.index,
   }) : super(key: key);
 
   bool isFormValid() {
-    return addressModel.fullNameController!.text.isNotEmpty &&
-        addressModel.phoneNumberController!.text.isNotEmpty &&
-        addressModel.addressController!.text.isNotEmpty &&
-        addressModel.province != null &&
-        addressModel.district != null &&
-        addressModel.ward != null;
+    return shippingInformationModel.fullNameController!.text.isNotEmpty &&
+        shippingInformationModel.phoneNumberController!.text.isNotEmpty &&
+        shippingInformationModel.addressController!.text.isNotEmpty &&
+        shippingInformationModel.province != null &&
+        shippingInformationModel.district != null &&
+        shippingInformationModel.ward != null;
   }
 
   @override
@@ -32,7 +32,8 @@ class SaveButton extends StatelessWidget {
       buttonText: "save",
       onTap: () {
         if (isFormValid()) {
-          AddressUtils.onChanged(context, addressModel, actionType, index);
+          AddressUtils.onChanged(
+              context, shippingInformationModel, actionType, index);
 
           if (actionType == ActionType.add) {
             NotificationUtils.showOKDialog(
