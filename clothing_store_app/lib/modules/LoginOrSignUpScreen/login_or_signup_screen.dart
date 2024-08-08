@@ -1,5 +1,5 @@
 import 'package:clothing_store_app/modules/SignUpScreen/sign_up_screen.dart';
-import 'package:clothing_store_app/modules/login_page.dart';
+import 'package:clothing_store_app/modules/LoginScreen/login_page.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

@@ -25,3 +25,5 @@ enum ThemeModeType {
 enum LanguageType { en, fr } // english, france
 
 enum PopupTextType { no, ad, ch }
+
+enum BottomBarType { Home, Shopping, Favorite, Chatting, Profile }
