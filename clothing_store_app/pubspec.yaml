@@ -49,6 +49,7 @@ dependencies:
     another_flutter_splash_screen: ^1.2.1
     google_sign_in: ^6.2.1
     image_picker: ^1.1.2
+    ticket_widget: ^0.0.1
     firebase_storage: ^11.1.0
 
 dependency_overrides:
