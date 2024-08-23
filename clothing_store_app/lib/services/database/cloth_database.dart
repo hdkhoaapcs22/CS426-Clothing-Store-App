@@ -6,7 +6,7 @@ import '../../global/global_var.dart';
 class ClothService {
   void getAllClothItems() async {
     QuerySnapshot<Map<String, dynamic>> value =
-        await FirebaseFirestore.instance.collection("clothItem").get();
+        await FirebaseFirestore.instance.collection("ClothItem").get();
 
     GlobalVar.listAllClothItems = value.docs
         .map((doc) => ClothItem(
@@ -18,7 +18,6 @@ class ClothService {
               price: doc['price'],
               review: doc['review'],
               quantity: doc['quantity'],
-              isAvailable: doc['isAvailable'],
             ))
         .toList();
   }

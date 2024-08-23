@@ -7,7 +7,7 @@ class FavoriteClothService extends UserService {
   void addFavoriteCloth({required String clothItemID}) async {
     await userCollection
         .doc(uid)
-        .collection("favoriteCloth")
+        .collection("FavoriteCloth")
         .doc(clothItemID)
         .set({
       'clothItemID': clothItemID,
@@ -17,7 +17,7 @@ class FavoriteClothService extends UserService {
   void removeFavoriteCloth({required String clothItemID}) async {
     await userCollection
         .doc(uid)
-        .collection("favoriteCloth")
+        .collection("FavoriteCloth")
         .doc(clothItemID)
         .delete();
   }
@@ -25,7 +25,7 @@ class FavoriteClothService extends UserService {
   Stream<DocumentSnapshot<Map<String, dynamic>>> getFavoriteClothStream() {
     return userCollection
         .doc(uid)
-        .collection("favoriteCloth")
+        .collection("FavoriteCloth")
         .doc()
         .snapshots();
   }

@@ -7,7 +7,6 @@ class ClothItem {
   double price;
   double review;
   int quantity;
-  bool isAvailable;
 
   ClothItem({
     required this.type,
@@ -18,6 +17,5 @@ class ClothItem {
     required this.price,
     required this.review,
     required this.quantity,
-    this.isAvailable = true,
   });
 }

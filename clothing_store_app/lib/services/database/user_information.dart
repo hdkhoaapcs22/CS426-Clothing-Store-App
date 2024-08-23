@@ -21,7 +21,7 @@ class UserInformationService extends UserService {
   Future<String> uploadImageToStorage(String fileName, Uint8List image) async {
     final Reference storageRef = FirebaseStorage.instance.ref();
 
-    final Reference imageFolderRef = storageRef.child("user");
+    final Reference imageFolderRef = storageRef.child("User");
     Reference fileImageRef = imageFolderRef.child(fileName);
 
     TaskSnapshot taskSnapshot = await fileImageRef.putData(image);

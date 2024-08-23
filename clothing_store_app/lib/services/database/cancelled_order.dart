@@ -8,7 +8,7 @@ class CancelledOrderService extends UserService {
   void addCancelledOrder({required String orderID}) async {
     await userCollection
         .doc(uid)
-        .collection("cancelledOrder")
+        .collection("CancelledOrder")
         .doc(orderID)
         .set({
       'orderID': orderID,
@@ -18,7 +18,7 @@ class CancelledOrderService extends UserService {
   void removeCancelledOrder({required String orderID}) async {
     await userCollection
         .doc(uid)
-        .collection("cancelledOrder")
+        .collection("CancelledOrder")
         .doc(orderID)
         .delete();
   }
@@ -26,7 +26,7 @@ class CancelledOrderService extends UserService {
   Stream<DocumentSnapshot<Map<String, dynamic>>> getCancelledOrderStream() {
     return userCollection
         .doc(uid)
-        .collection("cancelledOrder")
+        .collection("CancelledOrder")
         .doc()
         .snapshots();
   }
