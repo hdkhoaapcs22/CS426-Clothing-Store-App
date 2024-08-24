@@ -10,14 +10,15 @@ class ClothService {
 
     GlobalVar.listAllClothItems = value.docs
         .map((doc) => ClothItem(
+              name: doc['name'],
+              description: doc['description'],
               type: doc['type'],
-              size: doc['size'],
+              sizeWithQuantity: doc['sizeWithQuantity'],
               gender: doc['gender'],
               brand: doc['brand'],
               clothImageURL: doc['clothImageURL'],
               price: doc['price'],
               review: doc['review'],
-              quantity: doc['quantity'],
             ))
         .toList();
   }
