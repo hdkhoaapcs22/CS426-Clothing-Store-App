@@ -5,10 +5,13 @@ import 'package:clothing_store_app/providers/theme_provider.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/clothing_store_app.dart';
 import 'package:clothing_store_app/firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import 'services/database/cloth_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +25,9 @@ void main() async {
 }
 
 Widget _setAllProviders() {
+        var tmp = FirebaseFirestore.instance.collection("Cloth");
+      ClothService clothService = ClothService(tmp);
+      clothService.getAllClothes();
   return MultiProvider(
     providers: [
       ChangeNotifierProvider(

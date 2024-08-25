@@ -4,22 +4,39 @@ import '../../class/cloth_item.dart';
 import '../../global/global_var.dart';
 
 class ClothService {
-  void getAllClothItems() async {
-    QuerySnapshot<Map<String, dynamic>> value =
-        await FirebaseFirestore.instance.collection("ClothItem").get();
+  CollectionReference<Map<String, dynamic>> collection;
+  ClothService(this.collection);
 
-    GlobalVar.listAllClothItems = value.docs
+  void getAllClothes() async {
+    QuerySnapshot<Map<String, dynamic>> value = await collection.get();
+
+    for (var doc in value.docs) {
+      GlobalVar.listAllCloth[doc.reference.id] = ClothBase(
+        name: doc['name'],
+        description: doc['description'],
+        type: doc['type'],
+        gender: doc['gender'],
+        brand: doc['brand'],
+        clothItems: getClothItems(id: doc.reference.id),
+      );
+    }
+  }
+
+  Future<List<ClothItem>> getClothItems({required String id}) async {
+    QuerySnapshot<Map<String, dynamic>> value =
+        await collection.doc(id).collection('ClothItem').get();
+
+    List<ClothItem> listClothItems = [];
+    listClothItems = value.docs
         .map((doc) => ClothItem(
-              name: doc['name'],
-              description: doc['description'],
-              type: doc['type'],
-              sizeWithQuantity: doc['sizeWithQuantity'],
-              gender: doc['gender'],
-              brand: doc['brand'],
+              color: doc['color'],
               clothImageURL: doc['clothImageURL'],
-              price: doc['price'],
-              review: doc['review'],
+              sizeWithQuantity: doc['sizeWithQuantity'],
+              price: double.parse(doc['price']),
+              review: double.parse(doc['review']),
             ))
         .toList();
+
+    return listClothItems;
   }
 }
