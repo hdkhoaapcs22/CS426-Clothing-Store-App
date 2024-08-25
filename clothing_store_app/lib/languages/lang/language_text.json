@@ -448,5 +448,175 @@
         "text_id": "proceed_to_checkout",
         "en": "Proceed to Checkout",
         "fr": "Passer à la caisse"
+    },
+    {
+        "text_id": "checkout",
+        "en": "Checkout",
+        "fr": "Check-out"
+    },
+    {
+        "text_id": "shipping_address",
+        "en": "Shipping Address",
+        "fr": "Adresse de Livraison"
+    },
+    {
+        "text_id": "choose_shipping_type",
+        "en": "Choose Shipping Type",
+        "fr": "Choisissez le Type de Livraison"
+    },
+    {
+        "text_id": "order_list",
+        "en": "Order List",
+        "fr": "Liste de Commandes"
+    },
+    {
+        "text_id": "continue_to_payment",
+        "en": "Continue to Payment",
+        "fr": "Continuer au Paiement"
+    },
+    {
+        "text_id": "add_new_shipping_address",
+        "en": "Add New Shipping Address",
+        "fr": "Ajouter une Nouvelle Adresse de Livraison"
+    },
+    {
+        "text_id": "apply",
+        "en": "Apply",
+        "fr": "Appliquer"
+    },
+    {
+        "text_id": "choose_shipping",
+        "en": "Choose Shipping",
+        "fr": "Choisir la Livraison"
+    },
+    {
+        "text_id": "economy",
+        "en": "Economy",
+        "fr": "Économie"
+    },
+    {
+        "text_id": "regular",
+        "en": "Regular",
+        "fr": "Régulier"
+    },
+    {
+        "text_id": "cargo",
+        "en": "Cargo",
+        "fr": "Cargo"
+    },
+    {
+        "text_id": "friend_house",
+        "en": "Friend's House",
+        "fr": "Chez un Ami"
+    },
+    {
+        "text_id": "apply",
+        "en": "Apply",
+        "fr": "Appliquer"
+    },
+    {
+        "text_id": "payment_methods",
+        "en": "Payment Methods",
+        "fr": "Méthodes de Paiement"
+    },
+    {
+        "text_id": "credit_and_debit_card",
+        "en": "Credit & Debit Card",
+        "fr": "Carte de Crédit et de Débit"
+    },
+    {
+        "text_id": "more_payment_options",
+        "en": "More Payment Options",
+        "fr": "Plus d'Options de Paiement"
+    },
+    {
+        "text_id": "paypal",
+        "en": "Paypal",
+        "fr": "Paypal"
+    },
+    {
+        "text_id": "apple_pay",
+        "en": "Apple Pay",
+        "fr": "Apple Pay"
+    },
+    {
+        "text_id": "google_pay",
+        "en": "Google Pay",
+        "fr": "Google Pay"
+    },
+    {
+        "text_id": "confirm_payment",
+        "en": "Confirm Payment",
+        "fr": "Confirmer le Paiement"
+    },
+    {
+        "text_id": "card_holder_name",
+        "en": "Card Holder Name",
+        "fr": "Nom du Titulaire de la Carte"
+    },
+    {
+        "text_id": "card_number",
+        "en": "Card Number",
+        "fr": "Numéro de Carte"
+    },
+    {
+        "text_id": "expiration_date",
+        "en": "Expiration Date",
+        "fr": "Date d'Expiration"
+    },
+    {
+        "text_id": "cvv",
+        "en": "CVV",
+        "fr": "CVV"
+    },
+    {
+        "text_id": "add_card",
+        "en": "Add Card",
+        "fr": "Ajouter une Carte"
+    },
+    {
+        "text_id": "expiry_date",
+        "en": "Expiry Date",
+        "fr": "Date d'Expiration"
+    },
+    {
+        "text_id": "save_card",
+        "en": "Save Card",
+        "fr": "Enregistrer la Carte"
+    },
+    {
+        "text_id": "payment",
+        "en": "Payment",
+        "fr": "Paiement"
+    },
+    {
+        "text_id": "payment_successful",
+        "en": "Payment Successful",
+        "fr": "Paiement Réussi"
+    },
+    {
+        "text_id": "thank_you_for_your_purchase",
+        "en": "Thank you for your purchase",
+        "fr": "Merci pour votre achat"
+    },
+    {
+        "text_id": "view_order",
+        "en": "View Order",
+        "fr": "Voir la Commande"
+    },
+    {
+        "text_id": "view_e_receipt",
+        "en": "View E-Receipt",
+        "fr": "Voir le Reçu Électronique"
+    },
+    {
+        "text_id": "home",
+        "en": "Home",
+        "fr": "Accueil"
+    },
+    {
+        "text_id": "change",
+        "en": "Change",
+        "fr": "Changer"
     }
 ]

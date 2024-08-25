@@ -42,62 +42,108 @@ class TextStyles {
 
   TextStyle getSplashScreenStyle(bool isIcon, bool isDot) {
     return AppTheme.getTextStyle(
-      FontFamilyType.DmSerifDisplay, 
-      Theme.of(context).textTheme.headlineMedium!.copyWith(
-        color: isIcon? const Color(0xFFFFFFFF) : (isDot? AppTheme.brownColor : AppTheme.fontcolor)
-      )
-    );
+        FontFamilyType.DmSerifDisplay,
+        Theme.of(context).textTheme.headlineMedium!.copyWith(
+            color: isIcon
+                ? const Color(0xFFFFFFFF)
+                : (isDot ? AppTheme.brownColor : AppTheme.fontcolor)));
   }
 
   TextStyle getHeaderStyle(bool isBrown) {
     return AppTheme.getTextStyle(
-      FontFamilyType.Inter, 
-      Theme.of(context).textTheme.headlineSmall!.copyWith(
-        color: isBrown? AppTheme.brownColor : AppTheme.fontcolor,
-        fontWeight: FontWeight.bold,
-      )
-    );
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: isBrown ? AppTheme.brownColor : AppTheme.fontcolor,
+              fontWeight: FontWeight.bold,
+            ));
   }
 
   TextStyle getLargerHeaderStyle(bool isBrown) {
     return AppTheme.getTextStyle(
-      FontFamilyType.Inter, 
-      Theme.of(context).textTheme.headlineMedium!.copyWith(
-        color: isBrown? AppTheme.brownColor : AppTheme.fontcolor,
-        fontWeight: FontWeight.bold,
-      )
-    );
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.headlineMedium!.copyWith(
+              color: isBrown ? AppTheme.brownColor : AppTheme.fontcolor,
+              fontWeight: FontWeight.bold,
+            ));
   }
 
   TextStyle getInterDescriptionStyle(bool isBrown, bool isUnderlined) {
     return AppTheme.getTextStyle(
-      FontFamilyType.Inter, 
-      Theme.of(context).textTheme.bodyLarge!.copyWith(
-        color: isBrown? AppTheme.brownColor : AppTheme.secondaryTextColor,
-        fontWeight: FontWeight.w500,
-        decoration: isUnderlined? TextDecoration.underline : null
-      )
-    );
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: isBrown ? AppTheme.brownColor : AppTheme.secondaryTextColor,
+            fontWeight: FontWeight.w500,
+            decoration: isUnderlined ? TextDecoration.underline : null));
   }
 
   TextStyle getLabelLargeStyle(bool isGrey) {
     return AppTheme.getTextStyle(
-      FontFamilyType.Inter, 
-      Theme.of(context).textTheme.labelLarge!.copyWith(
-        color: isGrey? AppTheme.secondaryTextColor : AppTheme.primaryTextColor,
-        fontWeight: FontWeight.w500,
-      )
-    );
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.labelLarge!.copyWith(
+              color: isGrey
+                  ? AppTheme.secondaryTextColor
+                  : AppTheme.primaryTextColor,
+              fontWeight: FontWeight.w500,
+            ));
   }
 
   TextStyle getButtonTextStyle() {
     return AppTheme.getTextStyle(
-      FontFamilyType.Inter, 
-      Theme.of(context).textTheme.bodyLarge!.copyWith(
-        fontSize: 18,
-        color: Colors.white,
-        fontWeight: FontWeight.w500,
-      )
-    );
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 18,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getButtonTextStyle2() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 18,
+              color: Colors.brown,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getButtonTextStyle3() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 14,
+              color: Colors.brown,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getCreditCardTextStyle() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 24,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getCreditCardTextStyle2() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 16,
+              color: Colors.brown,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getCreditCardTextStyle3() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ));
   }
 }

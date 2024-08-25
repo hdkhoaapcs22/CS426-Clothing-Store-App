@@ -52,3 +52,4 @@ Widget _setAllProviders() {
     child: ClothingStoreApp(),
   );
 }
+

@@ -1,6 +1,12 @@
 import 'dart:io';
 
-import 'package:clothing_store_app/modules/SplashScreen/splash_screen.dart';
+import 'package:clothing_store_app/modules/CheckoutScreen/checkout_screen.dart';
+import 'package:clothing_store_app/modules/ChooseShippingScreen/choose_shipping_screen.dart';
+import 'package:clothing_store_app/modules/PaymentMethodsScreen/payment_methods_screen.dart';
+import 'package:clothing_store_app/modules/PaymentSuccessfulScreen/payment_successful_screen.dart';
+import 'package:clothing_store_app/modules/ShippingAddressScreen/shipping_address_screen.dart';
+import 'package:clothing_store_app/modules/AddCardScreen/add_card_screen.dart';
+// import 'package:clothing_store_app/modules/SplashScreen/splash_screen.dart';
 import 'package:clothing_store_app/routes/routes_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +77,7 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-      RoutesName.splashScreen: (context) => const SplashScreen(),
+      RoutesName.splashScreen: (context) => CheckoutScreen(),
     };
   }
 
