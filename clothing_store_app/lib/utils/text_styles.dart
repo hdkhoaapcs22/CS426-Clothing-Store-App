@@ -189,6 +189,57 @@ class TextStyles {
               fontWeight: FontWeight.bold,
             ));
   }
+
+  TextStyle getButtonTextStyle2() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 16,
+              color: Colors.brown,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getButtonTextStyle3() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 14,
+              color: Colors.brown,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getCreditCardTextStyle() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 24,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getCreditCardTextStyle2() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 16,
+              color: Colors.brown,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
+  TextStyle getCreditCardTextStyle3() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ));
+  }
+
   TextStyle getSubtitleStyle() {
     return Theme.of(context).textTheme.bodyMedium!.copyWith(
           fontSize: 14,

@@ -14,6 +14,9 @@ class UserInformationService extends UserService {
     List<Map<String, dynamic>>? notifications,
     List<String>? friends,
     List<String>? friendRequests,
+    List<String>? shippingInfoList,
+    String? defaultShippingInfo,
+    String? cardNumber,
     Uint8List? image,
   }) async {
     String imageUrl = '';
@@ -55,6 +58,36 @@ class UserInformationService extends UserService {
     return await userCollection.doc(uid).update({
       'name': name,
       'phone': phone,
+    });
+  }
+
+  Future addShippingInfo(String shippingInfo) async {
+    return await userCollection.doc(uid).update({
+      'shippingInfoList': FieldValue.arrayUnion([shippingInfo]),
+    });
+  }
+
+  Future setDefaultShippingInfo(String? shippingInfo) async {
+    return await userCollection.doc(uid).update({
+      'defaultShippingInfo': shippingInfo,
+    });
+  }
+
+  Future deleteShippingInfo(String shippingInfo) async {
+    return await userCollection.doc(uid).update({
+      'shippingInfoList': FieldValue.arrayRemove([shippingInfo]),
+    });
+  }
+
+  Future addCardNumber(String cardNumber) async {
+    return await userCollection.doc(uid).update({
+      'cardNumber': cardNumber,
+    });
+  }
+
+  Future deleteCardNumber() async {
+    return await userCollection.doc(uid).update({
+      'cardNumber': FieldValue.delete(),
     });
   }
 

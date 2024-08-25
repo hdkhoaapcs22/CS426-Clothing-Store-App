@@ -173,7 +173,8 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                                 disableLengthCheck: true,
                                 onChanged: (phone) {
                                   String countryCode = phone.countryCode;
-                                  phoneNumber = '(${countryCode}) ${profileProvider.phoneController.text.trim()}';
+                                  phoneNumber =
+                                      '(${countryCode}) ${profileProvider.phoneController.text.trim()}';
                                 },
                                 decoration: InputDecoration(
                                   error: profileProvider.phoneError.isNotEmpty
@@ -317,7 +318,8 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                               content: AppLocalizations(context)
                                   .of("complete_profile_successfully"));
                           //MOVE TO LOCATION PAGE
-                          NavigationServices(context).pushAndRemoveUntilLoginScreen();
+                          NavigationServices(context)
+                              .pushAndRemoveUntilLoginScreen();
                         }
                       },
                       radius: 30.0,

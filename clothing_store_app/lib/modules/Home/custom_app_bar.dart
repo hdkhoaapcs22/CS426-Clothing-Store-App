@@ -33,26 +33,33 @@ class _CustomAppBarState extends State<CustomAppBar> {
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data!.data() != null) {
               var userData = snapshot.data!.data()!;
+
+              Iterable<dynamic> notificationData =
+                  userData['notifications'] == null
+                      ? []
+                      : userData['notifications'];
+
               List<Map<String, dynamic>> notificationMap =
-                  List<Map<String, dynamic>>.from(userData['notifications']);
+                  List<Map<String, dynamic>>.from(notificationData);
               List<NotificationInfo> notifications = notificationMap
                   .map((map) => NotificationInfo.fromMap(map))
                   .toList();
+
               int nonReadCount = notifications
                   .where((notification) => !notification.isRead)
                   .length;
 
               var defaultAddress = userData['defaultShippingInfo'];
 
-              List<String> addressParts = defaultAddress.split(', ');
-
-              if (addressParts.length < 3) {
-                return const SizedBox.shrink();
-              }
-
-              String address = addressParts[2].trim();
               bool hasDefaultAddress =
                   defaultAddress != null && defaultAddress.isNotEmpty;
+
+              List<String> addressParts =
+                  hasDefaultAddress ? defaultAddress.split(", ") : [];
+
+              String address = hasDefaultAddress
+                  ? addressParts[2].trim()
+                  : AppLocalizations(context).of("please_select_your_location");
 
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,12 +84,17 @@ class _CustomAppBarState extends State<CustomAppBar> {
                             width: 5,
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              if (hasDefaultAddress) {
+                                NavigationServices(context)
+                                    .pushShippingAddressScreen();
+                              } else {
+                                NavigationServices(context)
+                                    .pushAddNewShippingAddressScreen();
+                              }
+                            },
                             child: Text(
-                              hasDefaultAddress
-                                  ? address
-                                  : AppLocalizations(context)
-                                      .of("please_select_your_location"),
+                              address,
                               style: TextStyles(context)
                                   .getLabelLargeStyle(false)
                                   .copyWith(fontSize: 14),

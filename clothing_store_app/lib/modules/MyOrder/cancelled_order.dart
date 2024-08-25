@@ -27,7 +27,14 @@ class _CancelledOrderState extends State<CancelledOrder> {
     return StreamBuilder(
       stream: CancelledOrderService().getCancelledOrderStream(),
       builder: (context, snapshot) {
-        if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return AlertDialog(
+              backgroundColor: Colors.transparent,
+              content: Lottie.asset(
+                Localfiles.loading,
+                width: MediaQuery.of(context).size.width * 0.2,
+              ));
+        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
           List<DocumentSnapshot<Object?>> dc = snapshot.data!.docs;
           List<dynamic> listOrders = [];
           for (int i = 0; i < dc.length; ++i) {
@@ -48,12 +55,7 @@ class _CancelledOrderState extends State<CancelledOrder> {
                 ),
               ));
         } else {
-          return AlertDialog(
-              backgroundColor: Colors.transparent,
-              content: Lottie.asset(
-                Localfiles.loading,
-                width: MediaQuery.of(context).size.width * 0.2,
-              ));
+          return const SizedBox();
         }
       },
     );

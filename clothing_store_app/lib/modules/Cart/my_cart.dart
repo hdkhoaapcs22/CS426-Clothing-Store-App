@@ -1,4 +1,5 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../class/ordered_item.dart';
+import '../../class/order_info.dart';
 import '../../services/database/cart.dart';
 import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
@@ -27,6 +29,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
   late double subTotalPrice, discount, totalPrice;
   final double deliveryFee = 0.8;
   late List<dynamic> orderedItems;
+  List<String>? appliedCouponIDs;
 
   @override
   void initState() {
@@ -335,32 +338,22 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                           .copyWith(fontSize: 16),
                     ),
                   )),
-
               const SizedBox(height: 13),
-
               titlePrice(title: "sub_total", price: subTotalPrice),
               const SizedBox(height: 8),
-
               titlePrice(title: "delivery_fee", price: deliveryFee),
               const SizedBox(height: 8),
-
               titlePrice(title: "discount", price: discount),
-
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
                 child: DottedLine(
                   dashColor: Colors.grey[400]!,
                 ),
               ),
-
               titlePrice(title: "total_price", price: totalPrice),
               const SizedBox(height: 12),
-
-              // commonButton
               CommonButton(
-                onTap: () {
-                  // Proceed to checkout
-                },
+                onTap: proceedToPayment,
                 radius: 30.0,
                 backgroundColor: AppTheme.brownButtonColor,
                 buttonTextWidget: Text(
@@ -398,11 +391,13 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
 
   void getTotalDiscount(chosenTicket) {
     discount = 0.0;
+    appliedCouponIDs = null;
     List<String> promoCodes = [];
     RegExp regExp = RegExp(r'\d+%?');
     for (int i = 0; i < chosenTicket.length; ++i) {
       String? tmpDiscount = regExp.firstMatch(chosenTicket[i])?.group(0);
       promoCodes.add(tmpDiscount!);
+      appliedCouponIDs!.add(chosenTicket[i]);
     }
 
     for (int i = 0; i < promoCodes.length; ++i) {
@@ -425,5 +420,30 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
 
   void calculateTotalPrice() {
     totalPrice = subTotalPrice + deliveryFee - discount;
+  }
+
+  void proceedToPayment() {
+    final List<Map<String, dynamic>> clothesSold = [];
+
+    for (int i = 0; i < orderedItems.length; ++i) {
+      clothesSold.add({
+        'clothItemID': orderedItems[i].clothBaseID,
+        'name': orderedItems[i].name,
+        'imageURL': orderedItems[i].imageURL,
+        'size': orderedItems[i].size,
+        'price': orderedItems[i].price,
+        'orderQuantity': orderedItems[i].orderQuantity,
+      });
+    }
+
+    NavigationServices(context).pushCheckoutScreen(OrderInfo(
+      clothesSold: clothesSold,
+      subTotalPrice: "\$" + subTotalPrice.toString(),
+      totalPrice: "\$" + totalPrice.toString(),
+      deliveryFee: "\$" + deliveryFee.toString(),
+      discount: "\$" + discount.toString(),
+      couponID: appliedCouponIDs,
+      totalItems: orderedItems.length,
+    ));
   }
 }
