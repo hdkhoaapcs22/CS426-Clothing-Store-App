@@ -87,7 +87,7 @@ Widget couponTicket(BuildContext context, int index) {
                         bottomRight: Radius.circular(20))),
                 child: const Center(
                     child: Text(
-                  'COPY CODE',
+                  'APPLY',
                   style: TextStyle(
                       fontSize: 22, color: Color.fromARGB(255, 112, 79, 56)),
                 )),
