@@ -15,9 +15,11 @@ class TextStyles {
   }
 
   TextStyle getDescriptionStyle() {
-    return Theme.of(context).textTheme.bodyLarge!.copyWith(
-          color: AppTheme.secondaryTextColor,
-        );
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: AppTheme.secondaryTextColor,
+            ));
   }
 
   TextStyle getRegularStyle() {
