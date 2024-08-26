@@ -1,0 +1,18 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+class ChooseCouponProvider extends ChangeNotifier {
+  bool initialized = false;
+  List<bool> chosenCoupon = [];
+
+  void updateChosenCoupon(int i) {
+    chosenCoupon[i] = !chosenCoupon[i];
+    initialized = true;
+    notifyListeners();
+  }
+
+  void initializeCoupon(int num) {
+    chosenCoupon = List<bool>.filled(num, false);
+    notifyListeners();
+  }
+}

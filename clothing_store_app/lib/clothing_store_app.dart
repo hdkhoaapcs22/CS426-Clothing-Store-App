@@ -70,7 +70,9 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
   }
 
   Map<String, WidgetBuilder> _buildRoutes() {
-    return {RoutesName.splashScreen: (context) => const CouponScreen()};
+    return {
+      RoutesName.splashScreen: (context) => CouponScreen(totalAmount: 150)
+    };
   }
 
   void _setStatusBarNavigationBarTheme(ThemeData themeData) {
