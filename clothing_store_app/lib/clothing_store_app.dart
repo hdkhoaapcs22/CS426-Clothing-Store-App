@@ -1,5 +1,9 @@
 import 'dart:io';
 import 'package:clothing_store_app/modules/SplashScreen/splash_screen.dart';
+import 'package:clothing_store_app/modules/HelpCenterScreen/help_center_screen.dart';
+import 'package:clothing_store_app/modules/PrivacyPolicyScreen/privacy_policy_screen.dart';
+import 'package:clothing_store_app/modules/InviteFriendsScreen/invite_friends_screen.dart';
+import 'package:clothing_store_app/modules/NotificationScreen/notification_screen.dart';
 import 'package:clothing_store_app/routes/routes_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

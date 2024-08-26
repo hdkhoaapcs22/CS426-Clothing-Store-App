@@ -1055,9 +1055,24 @@
         "fr": "AUJOURD'HUI"
     },
     {
-        "text_id": "Yesterday",
+        "text_id": "yesterday",
         "en": "YESTERDAY",
         "fr": "HIER"
+    },
+    {
+        "text_id": "a_week_ago",
+        "en": "A WEEK AGO",
+        "fr": "IL Y A UNE SEMAINE"
+    },
+    {
+        "text_id": "a_month_ago",
+        "en": "A MONTH AGO",
+        "fr": "IL Y A UN MOIS"
+    },
+    {
+        "text_id": "just_now",
+        "en": "Just now",
+        "fr": "À l'instant"
     },
     {
         "text_id": "mark_all_as_read",
