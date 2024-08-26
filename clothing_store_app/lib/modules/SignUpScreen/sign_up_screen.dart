@@ -175,7 +175,7 @@ class SignUpScreen extends StatelessWidget {
                         onTap();
                       },
                       style: TextButton.styleFrom(
-                        overlayColor: Colors.transparent,
+                        //overlayColor: Colors.transparent,
                       ),
                       child: Text(
                         AppLocalizations(context).of("signIn"),
