@@ -52,6 +52,7 @@ dependencies:
     ticket_widget: ^0.0.1
     firebase_storage: ^11.1.0
     flutter_slidable: ^3.0.0
+    dotted_line: ^3.2.2
 
 dependency_overrides:
     intl: any
