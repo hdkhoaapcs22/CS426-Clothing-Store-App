@@ -59,6 +59,29 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final List<BannerContent> slides = _initSlides(context);
     final List<CustomCircleButton> buttons = _initializeButtons(context);
     final size = MediaQuery.of(context).size;
+
+    final List<ProductCard> allProducts = [
+      const ProductCard(
+          image: Localfiles.welcomeImage2,
+          productName: 'Brown Jacket Home Body Love',
+          productReviews: 4.9,
+          price: 80),
+      const ProductCard(
+          image: Localfiles.welcomeImage2,
+          productName: 'Black T-shirt',
+          productReviews: 4.5,
+          price: 50),
+      // Add more products here
+    ];
+
+    final List<ProductCard> manProducts = allProducts
+        .where((product) => product.productName.contains("Man"))
+        .toList();
+
+    final List<ProductCard> newestProducts = allProducts
+        .where((product) => product.productReviews > 4.0)
+        .toList();
+
     return BottomMoveTopAnimation(
         animationController: widget.animationController,
         child: Scaffold(
@@ -123,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                 ),
                 HomeTab(tabController: _tabController),
-                const SizedBox(height: 16,),
+                SizedBox(height: 16,),
                 GridView.builder(
                     itemCount: 7,
                     shrinkWrap: true,
@@ -264,3 +287,19 @@ Widget searchAndSetting(BuildContext context) {
 }
 
 List<String> homeTabs = ['All', 'Newest', 'Popular', 'Man', 'Woman', 'Kids'];
+
+Widget _buildProductGrid(List<ProductCard> products, Size size) {
+    return GridView.builder(
+      itemCount: products.length,
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 0.0,
+              crossAxisSpacing: 0.0,
+              mainAxisExtent: size.height / 4 + 10),
+      itemBuilder: (_, index) => products[index],
+    );
+  }

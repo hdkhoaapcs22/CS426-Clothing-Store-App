@@ -7,7 +7,7 @@ class ClothService {
   CollectionReference<Map<String, dynamic>> collection;
   ClothService(this.collection);
 
-  void getAllClothes() async {
+  Future<void> getAllClothes() async {
     QuerySnapshot<Map<String, dynamic>> value = await collection.get();
 
     for (var doc in value.docs) {

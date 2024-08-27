@@ -54,6 +54,7 @@ dependencies:
     flutter_slidable: ^3.0.0
     dotted_line: ^3.2.2
     flutter_image_slideshow: ^0.1.6
+    readmore: ^3.0.0
 
 
 dependency_overrides:

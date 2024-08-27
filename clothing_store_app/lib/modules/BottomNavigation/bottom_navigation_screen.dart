@@ -7,6 +7,7 @@ import '../../providers/theme_provider.dart';
 import '../../utils/enum.dart';
 import '../Chat/chatting_screen.dart';
 import '../Favorite/favorite_screen.dart';
+import '../Home/home_screen1.dart';
 import '../Profile/profile_screen.dart';
 import '../Shop/shopping_screen.dart';
 import 'custom_bottom_tap.dart';
@@ -128,7 +129,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
         switch (bottomBarType) {
           case BottomBarType.Home:
             {
-              indexView = HomeScreen(animationController: animationController);
+              indexView = HomeScreen(animationController: animationController,);
             }
           case BottomBarType.Shopping:
             {
