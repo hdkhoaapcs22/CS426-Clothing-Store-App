@@ -26,19 +26,19 @@ class CartService extends UserService {
     await userCollection.doc(uid).collection("Cart").doc(clothItemID).delete();
   }
 
-  void increaseQuantityOrderItemInCart({required String clothItemID}) async{
+  void increaseQuantityOrderItemInCart({required String clothItemID}) async {
     await userCollection.doc(uid).collection("Cart").doc(clothItemID).update({
       'orderQuantity': FieldValue.increment(1),
     });
   }
 
-  void decreaseQuantityOrderItemInCart({required String clothItemID}) async{
+  void decreaseQuantityOrderItemInCart({required String clothItemID}) async {
     await userCollection.doc(uid).collection("Cart").doc(clothItemID).update({
-      'orderQuantity': FieldValue.increment(-1),  
+      'orderQuantity': FieldValue.increment(-1),
     });
   }
 
-  Future<Stream<QuerySnapshot>> getItemInCartStream() async {
-    return FirebaseFirestore.instance.collection("User").doc(uid).collection("Cart").snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getItemInCartStream() {
+    return userCollection.doc(uid).collection("Cart").snapshots();
   }
 }

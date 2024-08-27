@@ -23,21 +23,11 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
   late SlidableController controller;
   late TextEditingController promoCodeController;
   late double subTotalPrice, discount, deliveryFee, totalPrice;
-  Stream cartStream = UserService()
-      .userCollection
-      .doc(UserService().uid)
-      .collection("Cart")
-      .snapshots();
   late List<dynamic> orderedItems;
-
-  // void featchOrderedItemStream() async {
-  //   cartStream = await CartService().getItemInCartStream();
-  //   setState(() {});
-  // }
 
   @override
   void initState() {
-    // featchOrderedItemStream();
+    super.initState();
     controller = SlidableController(this);
     promoCodeController = TextEditingController();
     discount = 0.0;
@@ -45,7 +35,6 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
     totalPrice = 0.0;
     orderedItems = [];
     // calculateSubtotalPrice();
-    super.initState();
   }
 
   @override
@@ -58,10 +47,10 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: cartStream,
+        stream: CartService().getItemInCartStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-            orderedItems = snapshot.data.docs
+            orderedItems = snapshot.data!.docs
                 .map((doc) => OrderedItem(
                       clothBaseID: doc['clothItemID'],
                       name: doc['name'],
@@ -72,10 +61,9 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                       // quantity: doc['quantity'],
                     ))
                 .toList();
-            print('jjj' + orderedItems[0].orderQuantity.toString());
             return Scaffold(
               bottomNavigationBar: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.34,
                 child: getBottomBarUI(),
               ),
               body: Padding(
@@ -157,8 +145,6 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
               ),
             ],
           ),
-          // The child of the Slidable is what the user sees when the
-          // component is not dragged.
           child: Card(child: detailActiveOrder(index))),
     );
   }
@@ -194,10 +180,9 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                 children: <Widget>[
                   Text(
                     orderedItems[index].name,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyles(context).getBoldStyle().copyWith(
+                          fontSize: 16,
+                        ),
                   ),
                   Text(
                     'Size: ${orderedItems[index].size}',
@@ -208,10 +193,9 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                   ),
                   Text(
                     '\$${orderedItems[index].price}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyles(context).getBoldStyle().copyWith(
+                          fontSize: 16,
+                        ),
                   ),
                 ],
               ),
@@ -246,7 +230,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                   orderedItems[index]
                       .orderQuantity
                       .toString(), // Current quantity
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
                 const SizedBox(
                   width: 8,
@@ -269,7 +253,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                         color: Colors.brown,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Icon(Icons.add, color: Colors.white),
+                      child: const Icon(Icons.add, color: Colors.white),
                     )),
               ],
             ),
@@ -287,14 +271,13 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
         children: <Widget>[
           Text(
             'Remove from Cart?',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyles(context).getBoldStyle().copyWith(
+                  fontSize: 18,
+                ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           detailActiveOrder(index, false),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             children: [
               Expanded(
@@ -306,10 +289,10 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                     foregroundColor: Colors.brown,
                     backgroundColor: Colors.grey[300],
                   ),
-                  child: Text('Cancel', style: TextStyle(fontSize: 16)),
+                  child: const Text('Cancel', style: TextStyle(fontSize: 16)),
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: TextButton(
                   onPressed: () {
@@ -319,7 +302,8 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.brown,
                   ),
-                  child: Text('Yes, Remove', style: TextStyle(fontSize: 16)),
+                  child:
+                      const Text('Yes, Remove', style: TextStyle(fontSize: 16)),
                 ),
               ),
             ],
@@ -357,7 +341,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                     ),
                   )),
 
-              const SizedBox(height: 18),
+              const SizedBox(height: 13),
 
               titlePrice(title: "Sub-Total", price: totalPrice),
               const SizedBox(height: 8),
