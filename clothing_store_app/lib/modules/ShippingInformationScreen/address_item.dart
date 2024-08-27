@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../models/shipping_information.dart';
-import '../../../utils/text_styles.dart';
+import '../../models/shipping_information.dart';
+import '../../utils/text_styles.dart';
 
 class AddressItem extends StatelessWidget {
   final ShippingInformation shippingInformation;

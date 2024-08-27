@@ -1,10 +1,10 @@
 import 'package:clothing_store_app/utils/notification_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../../../providers/shipping_information_model.dart';
-import '../../../utils/address_utils.dart';
-import '../../../utils/enum.dart';
-import '../../../widgets/common_button.dart';
+import '../../providers/shipping_information_model.dart';
+import '../../utils/address_utils.dart';
+import '../../utils/enum.dart';
+import '../../widgets/common_button.dart';
 
 class DeleteButton extends StatelessWidget {
   final ShippingInformationModel shippingInformationModel;

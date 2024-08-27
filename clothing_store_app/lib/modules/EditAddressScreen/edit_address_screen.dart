@@ -1,20 +1,20 @@
 import 'package:clothing_store_app/models/shipping_information.dart';
-import 'package:clothing_store_app/modules/ShippingInformation/widgets/address_form.dart';
-import 'package:clothing_store_app/modules/ShippingInformation/widgets/delete_button.dart';
-import 'package:clothing_store_app/modules/ShippingInformation/widgets/save_button.dart';
+import 'package:clothing_store_app/modules/ShippingInformationScreen/address_form.dart';
+import 'package:clothing_store_app/modules/EditAddressScreen/delete_button.dart';
+import 'package:clothing_store_app/modules/AddNewAddressScreen/save_button.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/utils/provincedata_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../providers/shipping_information_model.dart';
-import '../../../utils/enum.dart';
-import '../../../widgets/custom_app_bar.dart';
+import '../../providers/shipping_information_model.dart';
+import '../../utils/enum.dart';
+import '../../widgets/custom_app_bar.dart';
 
 class EditAddressScreen extends StatefulWidget {
   final ShippingInformation address;
   final int index;
 
-  EditAddressScreen({super.key, required this.address, required this.index});
+  const EditAddressScreen({super.key, required this.address, required this.index});
 
   @override
   _EditAddressScreenState createState() => _EditAddressScreenState();

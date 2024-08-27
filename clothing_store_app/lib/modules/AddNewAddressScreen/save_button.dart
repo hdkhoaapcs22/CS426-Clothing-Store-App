@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../providers/shipping_information_model.dart';
-import '../../../utils/enum.dart';
-import '../../../utils/notification_utils.dart';
-import '../../../widgets/common_button.dart';
-import '../../../utils/address_utils.dart';
+import '../../providers/shipping_information_model.dart';
+import '../../utils/enum.dart';
+import '../../utils/notification_utils.dart';
+import '../../widgets/common_button.dart';
+import '../../utils/address_utils.dart';
 
 class SaveButton extends StatelessWidget {
   final ShippingInformationModel shippingInformationModel;

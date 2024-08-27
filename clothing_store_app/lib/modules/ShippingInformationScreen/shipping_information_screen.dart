@@ -1,26 +1,23 @@
+import 'package:clothing_store_app/modules/ShippingInformationScreen/address_list.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
+import 'package:clothing_store_app/utils/address_utils.dart';
 import 'package:flutter/material.dart';
-import '../../../languages/appLocalizations.dart';
-import '../../../models/shipping_information.dart';
-import '../../../utils/address_utils.dart';
-import '../../ShippingInformation/screens/add_new_address_screen.dart';
-import '../../ShippingInformation/screens/edit_address_screen.dart';
-import '../address_list_view.dart';
+import '../../languages/appLocalizations.dart';
 
-class EditableShippingInformationScreen extends StatefulWidget {
+class ShippingInformationScreen extends StatefulWidget {
   @override
-  _EditableShippingInformationScreenState createState() =>
-      _EditableShippingInformationScreenState();
+  State<ShippingInformationScreen> createState() =>
+      _ShippingInformationScreenState();
 }
 
-class _EditableShippingInformationScreenState
-    extends State<EditableShippingInformationScreen> {
-  late Future<List<String>> _addressFuture;
-  int _selectedIndex = -1;
+class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
+  Future<List<String>>? _addressFuture;
+  late int _selectedIndex;
 
   @override
   void initState() {
     super.initState();
+    _selectedIndex = -1;
     _addressFuture = AddressUtils.loadAddresses(context);
   }
 
@@ -36,18 +33,10 @@ class _EditableShippingInformationScreenState
     });
   }
 
-  void _onEditAddress(ShippingInformation address, int index) {
-    NavigationServices(context).pushMaterialPageRoute(
-      EditAddressScreen(address: address, index: index),
-      onResult: (result) async => _loadAddresses(),
-    );
-  }
-
   void _onAddNewAddress() {
-    NavigationServices(context).pushMaterialPageRoute(
-      AddNewAddressScreen(),
-      onResult: (result) async => _loadAddresses(),
-    );
+    NavigationServices(context).pushAddNewAddressScreen((result) async {
+      _loadAddresses();
+    });
   }
 
   @override
@@ -68,17 +57,15 @@ class _EditableShippingInformationScreenState
           }
 
           final addressList = snapshot.data ?? [];
-
-          return AddressListView(
+          return AddressList(
               addressList: addressList,
-              selectedIndex: _selectedIndex,
               onAddressTap: _onAddressTap,
-              onEditAddress: _onEditAddress);
+              selectedIndex: _selectedIndex);
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onAddNewAddress,
-        backgroundColor: Color.fromRGBO(88, 57, 39, 1),
+        backgroundColor: const Color.fromRGBO(88, 57, 39, 1),
         child: const Icon(Icons.add),
       ),
     );

@@ -1,13 +1,13 @@
-import 'package:clothing_store_app/modules/ShippingInformation/widgets/address_form.dart';
+import 'package:clothing_store_app/modules/ShippingInformationScreen/address_form.dart';
 import 'package:clothing_store_app/widgets/custom_app_bar.dart';
-import 'package:clothing_store_app/modules/ShippingInformation/widgets/save_button.dart';
-import 'package:clothing_store_app/modules/ShippingInformation/widgets/use_current_location_button.dart';
+import 'package:clothing_store_app/modules/AddNewAddressScreen/save_button.dart';
+import 'package:clothing_store_app/modules/AddNewAddressScreen/use_current_location_button.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../providers/shipping_information_model.dart';
-import '../../../utils/enum.dart';
-import '../../../utils/provincedata_utils.dart';
+import '../../providers/shipping_information_model.dart';
+import '../../utils/enum.dart';
+import '../../utils/provincedata_utils.dart';
 
 class AddNewAddressScreen extends StatefulWidget {
   const AddNewAddressScreen({super.key});

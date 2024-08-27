@@ -1,5 +1,8 @@
+import 'package:clothing_store_app/models/shipping_information.dart';
 import 'package:clothing_store_app/modules/CompleteProfileScreen/complete_profile_screen.dart';
 import 'package:clothing_store_app/modules/LoginOrSignUpScreen/login_or_signup_screen.dart';
+import 'package:clothing_store_app/modules/AddNewAddressScreen/add_new_address_screen.dart';
+import 'package:clothing_store_app/modules/EditAddressScreen/edit_address_screen.dart';
 import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
 import 'package:clothing_store_app/modules/ForgotScreen/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
@@ -9,32 +12,12 @@ class NavigationServices {
   final BuildContext context;
   NavigationServices(this.context);
 
-  Future<dynamic> pushMaterialPageRoute(
-    Widget widget, {
-    bool fullscreenDialog = false,
-    Future<void> Function(dynamic result)? onResult,
-  }) async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => widget, fullscreenDialog: fullscreenDialog),
-    );
-
-    if (onResult != null) {
-      await onResult(result);
-    }
-
-    return result;
-  }
-
-  Future<dynamic> pushReplacementMaterialPageRoute(Widget widget,
+  Future<dynamic> _pushMaterialPageRoute(Widget widget,
       {bool fullscreenDialog = false}) async {
-    return Navigator.pushReplacement(
+    return Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => widget,
-          fullscreenDialog: fullscreenDialog,
-        ));
+            builder: (context) => widget, fullscreenDialog: fullscreenDialog));
   }
 
   void pop({dynamic result}) {
@@ -63,5 +46,28 @@ class NavigationServices {
 
   Future<dynamic> pushForgotPassPage() async {
     return _pushMaterialPageRoute(const ForgotPassPage());
+  }
+
+  Future<dynamic> pushAddNewAddressScreen(
+      Future<void> Function(dynamic result)? onResult) async {
+    final result = _pushMaterialPageRoute(const AddNewAddressScreen());
+
+    if (onResult != null) {
+      await onResult(result);
+    }
+
+    return result;
+  }
+
+  Future<dynamic> pushEditAddressScreen(ShippingInformation address, int index,
+      Future<void> Function(dynamic result)? onResult) async {
+    final result = await _pushMaterialPageRoute(
+        EditAddressScreen(address: address, index: index));
+
+    if (onResult != null) {
+      await onResult(result);
+    }
+
+    return result;
   }
 }

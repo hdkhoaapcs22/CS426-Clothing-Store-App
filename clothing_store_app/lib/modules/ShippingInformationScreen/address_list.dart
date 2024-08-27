@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../models/shipping_information.dart';
+import '../../models/shipping_information.dart';
 import 'address_item.dart';
 
 class AddressList extends StatelessWidget {

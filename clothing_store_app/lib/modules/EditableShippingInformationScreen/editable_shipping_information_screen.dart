@@ -1,23 +1,26 @@
-import 'package:clothing_store_app/modules/ShippingInformation/widgets/address_list.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
-import 'package:clothing_store_app/utils/address_utils.dart';
 import 'package:flutter/material.dart';
-import '../../../languages/appLocalizations.dart';
-import 'add_new_address_screen.dart';
+import '../../languages/appLocalizations.dart';
+import '../../models/shipping_information.dart';
+import '../../utils/address_utils.dart';
+import 'address_list_view.dart';
 
-class ShippingInformationScreen extends StatefulWidget {
+class EditableShippingInformationScreen extends StatefulWidget {
   @override
-  State<ShippingInformationScreen> createState() =>
-      _ShippingInformationScreenState();
+  _EditableShippingInformationScreenState createState() =>
+      _EditableShippingInformationScreenState();
 }
 
-class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
-  Future<List<String>>? _addressFuture;
-  int _selectedIndex = -1;
+class _EditableShippingInformationScreenState
+    extends State<EditableShippingInformationScreen> {
+  late Future<List<String>> _addressFuture;
+  late int _selectedIndex;
+  int i = 0;
 
   @override
   void initState() {
     super.initState();
+    _selectedIndex = -1;
     _addressFuture = AddressUtils.loadAddresses(context);
   }
 
@@ -33,15 +36,21 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
     });
   }
 
+  void _onEditAddress(ShippingInformation address, int index) {
+    NavigationServices(context).pushEditAddressScreen(
+        address, index, (result) async => _loadAddresses());
+  }
+
   void _onAddNewAddress() {
-    NavigationServices(context).pushMaterialPageRoute(
-      AddNewAddressScreen(),
-      onResult: (result) async => _loadAddresses(),
-    );
+    NavigationServices(context).pushAddNewAddressScreen((result) async {
+      _loadAddresses();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print("build EditableShippingInformationScreen" + i.toString());
+    i++;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations(context).of("shipping_information")),
@@ -49,6 +58,7 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
       body: FutureBuilder<List<String>>(
         future: _addressFuture,
         builder: (context, snapshot) {
+          print("build FutureBuilder");
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -58,10 +68,12 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
           }
 
           final addressList = snapshot.data ?? [];
-          return AddressList(
+
+          return AddressListView(
               addressList: addressList,
+              selectedIndex: _selectedIndex,
               onAddressTap: _onAddressTap,
-              selectedIndex: _selectedIndex);
+              onEditAddress: _onEditAddress);
         },
       ),
       floatingActionButton: FloatingActionButton(

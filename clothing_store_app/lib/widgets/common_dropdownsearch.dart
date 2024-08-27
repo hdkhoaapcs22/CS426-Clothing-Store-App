@@ -15,7 +15,7 @@ class CommonDropdownSearch<T> extends StatefulWidget {
     this.selectedItem,
     this.onChanged,
     this.itemAsString,
-    this.isBottomSheet = false, // Default mode is dropdown menu
+    this.isBottomSheet = false,
   });
 
   @override
@@ -25,13 +25,13 @@ class CommonDropdownSearch<T> extends StatefulWidget {
 
 class _CommonDropdownSearchState<T> extends State<CommonDropdownSearch<T>> {
   late TextEditingController _searchController;
-  late List<T> _filteredItems;
+  late ValueNotifier<List<T>> _filteredItems;
 
   @override
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-    _filteredItems = widget.items;
+    _filteredItems = ValueNotifier<List<T>>(widget.items);
     _searchController.addListener(_filterItems);
   }
 
@@ -39,7 +39,8 @@ class _CommonDropdownSearchState<T> extends State<CommonDropdownSearch<T>> {
   void didUpdateWidget(CommonDropdownSearch<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.items != oldWidget.items) {
-      _filteredItems = widget.items;
+      _filteredItems.value = widget.items;
+      _filterItems();
     }
   }
 
@@ -52,12 +53,11 @@ class _CommonDropdownSearchState<T> extends State<CommonDropdownSearch<T>> {
 
   void _filterItems() {
     final query = _searchController.text.toLowerCase();
-    setState(() {
-      _filteredItems = widget.items.where((item) {
-        final itemString = widget.itemAsString?.call(item) ?? item.toString();
-        return itemString.toLowerCase().contains(query);
-      }).toList();
-    });
+    print(query);
+    _filteredItems.value = widget.items.where((item) {
+      final itemString = widget.itemAsString?.call(item) ?? item.toString();
+      return itemString.toLowerCase().contains(query);
+    }).toList();
   }
 
   void _showDropdown(BuildContext context) {
@@ -81,39 +81,46 @@ class _CommonDropdownSearchState<T> extends State<CommonDropdownSearch<T>> {
   }
 
   Widget _buildDropdownList() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: TextField(
-            controller: _searchController,
-            decoration: InputDecoration(
-              labelText: 'Search',
-              border: OutlineInputBorder(),
-            ),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: _filteredItems.length,
-            itemBuilder: (context, index) {
-              final item = _filteredItems[index];
-              return ListTile(
-                title: Text(widget.itemAsString?.call(item) ?? item.toString()),
-                onTap: () {
-                  if (widget.onChanged != null) {
-                    widget.onChanged!(item);
-                  }
-
-                  _searchController.clear();
-                  _filteredItems = widget.items;
-                  Navigator.of(context).pop();
+    return ValueListenableBuilder<List<T>>(
+      valueListenable: _filteredItems,
+      builder: (context, items, child) {
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  labelText: 'Search',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) {
+                  _filterItems();
                 },
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  final item = items[index];
+                  return ListTile(
+                    title: Text(
+                        widget.itemAsString?.call(item) ?? item.toString()),
+                    onTap: () {
+                      if (widget.onChanged != null) {
+                        widget.onChanged!(item);
+                      }
+
+                      Navigator.of(context).pop();
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

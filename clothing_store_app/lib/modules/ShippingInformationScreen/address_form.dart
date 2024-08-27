@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../languages/appLocalizations.dart';
-import '../../../providers/shipping_information_model.dart';
-import '../../../widgets/common_dropdownsearch.dart';
-import '../../../widgets/common_textfield.dart';
+import '../../languages/appLocalizations.dart';
+import '../../providers/shipping_information_model.dart';
+import '../../widgets/common_dropdownsearch.dart';
+import '../../widgets/common_textfield.dart';
 
 class AddressForm extends StatelessWidget {
   final ShippingInformationModel shippingInformationModel;
@@ -42,7 +42,6 @@ class AddressForm extends StatelessWidget {
           items: provinceList,
           hintText: AppLocalizations(context).of("select_province"),
           selectedItem: shippingInformationModel.province,
-          isBottomSheet: true,
           onChanged: (item) {
             shippingInformationModel.province = item;
             shippingInformationModel.district = null;
@@ -54,7 +53,6 @@ class AddressForm extends StatelessWidget {
           items: districtMap![shippingInformationModel.province] ?? [],
           hintText: AppLocalizations(context).of("select_district"),
           selectedItem: shippingInformationModel.district,
-          isBottomSheet: true,
           onChanged: (item) {
             shippingInformationModel.district = item;
             shippingInformationModel.ward = null;
@@ -65,7 +63,6 @@ class AddressForm extends StatelessWidget {
           items: wardMap![shippingInformationModel.province_district] ?? [],
           hintText: AppLocalizations(context).of("select_ward"),
           selectedItem: shippingInformationModel.ward,
-          isBottomSheet: true,
           onChanged: (item) {
             shippingInformationModel.ward = item;
           },

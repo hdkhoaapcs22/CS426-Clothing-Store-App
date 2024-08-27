@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../providers/shipping_information_model.dart';
-import '../../../widgets/common_button.dart';
+import '../../providers/shipping_information_model.dart';
+import '../../widgets/common_button.dart';
 
 class UseCurrentLocationButton extends StatelessWidget {
   final ShippingInformationModel shippingInformationModel;

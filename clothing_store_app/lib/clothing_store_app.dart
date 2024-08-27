@@ -6,11 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'modules/ShippingInformation/screens/shipping_information_screen.dart';
+import 'modules/ShippingInformationScreen/shipping_information_screen.dart';
 import 'providers/theme_provider.dart';
 import 'common/common.dart';
 import 'languages/appLocalizations.dart';
-import 'modules/ShoppingCart/screens/editable_shipping_information_screen.dart';
+import 'modules/EditableShippingInformationScreen/editable_shipping_information_screen.dart';
+import 'modules/AddNewAddressScreen/add_new_address_screen.dart';
 import 'routes/routes_name.dart';
 
 BuildContext? applicationcontext;
@@ -72,7 +73,7 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-      // RoutesName.splashScreen: (context) => ShippingInformationScreen(),
+      // RoutesName.splashScreen: (context) => AddNewAddressScreen(),
       RoutesName.splashScreen: (context) => EditableShippingInformationScreen(),
     };
   }
