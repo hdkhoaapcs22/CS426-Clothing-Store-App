@@ -72,7 +72,7 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-      RoutesName.splashScreen: (context) => const MyCart(),
+      RoutesName.splashScreen: (context) => const SplashScreen(),
     };
   }
 

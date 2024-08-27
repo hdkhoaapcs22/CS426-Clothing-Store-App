@@ -1,5 +1,6 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lottie/lottie.dart';
@@ -345,7 +346,9 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                     backgroundColor: AppTheme.brownButtonColor,
                     buttonTextWidget: Text(
                       AppLocalizations(context).of("promo_code"),
-                      style: TextStyles(context).getButtonTextStyle(),
+                      style: TextStyles(context)
+                          .getButtonTextStyle()
+                          .copyWith(fontSize: 16),
                     ),
                   )),
 
@@ -358,7 +361,13 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
               const SizedBox(height: 8),
 
               titlePrice(title: "discount", price: discount),
-              const SizedBox(height: 8),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                child: DottedLine(
+                  dashColor: Colors.grey[300]!,
+                ),
+              ),
 
               titlePrice(title: "total_price", price: totalPrice),
               const SizedBox(height: 12),
@@ -381,6 +390,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
   }
 
   Widget titlePrice({required String title, required double price}) {
+    String negativeSign = title == "discount" ? "-" : "";
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
@@ -393,7 +403,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              '\$${price.toStringAsFixed(2)}',
+              '${negativeSign}\$${price.toStringAsFixed(2)}',
               style: TextStyles(context).getBoldStyle().copyWith(fontSize: 18),
             ),
           ),
