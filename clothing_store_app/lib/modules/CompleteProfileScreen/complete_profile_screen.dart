@@ -115,8 +115,12 @@ class CompleteProfileScreen extends StatelessWidget {
                   Column(
                     children: [
                       Padding(
+<<<<<<< HEAD
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 8.0),
+=======
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+>>>>>>> 7868e08 (Minor update)
                         child: labelAndTextField(
                             context: context,
                             label: "name",

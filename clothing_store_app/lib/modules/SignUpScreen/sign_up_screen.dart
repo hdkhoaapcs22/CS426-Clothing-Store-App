@@ -21,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-                24, AppBar().preferredSize.height + 30, 24, 10),
+                24, AppBar().preferredSize.height, 24, 10),
             child: Column(
               children: [
                 Text(

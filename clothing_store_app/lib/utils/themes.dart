@@ -54,6 +54,8 @@ class AppTheme {
   static Color get beigeBackgroundColor =>
       isLightMode ? const Color.fromARGB(255, 247, 238, 211) : const Color.fromARGB(255, 112, 79, 56);
 
+  static Color get yellowColor =>
+      isLightMode ? const Color.fromARGB(255, 255, 178, 44) : const Color.fromARGB(255, 255, 178, 44);
 
   static ThemeData get getThemeData =>
       isLightMode ? _buildLightTheme() : _buildDarkTheme();

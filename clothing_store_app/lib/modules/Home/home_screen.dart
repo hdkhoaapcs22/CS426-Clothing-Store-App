@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/modules/Home/common_product_widget.dart';
 import 'package:clothing_store_app/modules/Home/custom_app_bar.dart';
 import 'package:clothing_store_app/modules/Home/custom_circle_button.dart';
 import 'package:clothing_store_app/modules/Home/home_tab.dart';
@@ -55,93 +56,115 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final List<SlideShowContent> slides = _initSlides(context);
+    final List<BannerContent> slides = _initSlides(context);
     final List<CustomCircleButton> buttons = _initializeButtons(context);
+    final size = MediaQuery.of(context).size;
     return BottomMoveTopAnimation(
         animationController: widget.animationController,
-        child: Column(
-          children: [
-            const CustomAppBar(),
-            const SizedBox(
-              height: 20,
-            ),
-            searchAndSetting(context),
-            const SizedBox(
-              height: 20,
-            ),
-            ImageSlideshow(
-              indicatorColor: AppTheme.brownColor,
-              autoPlayInterval: 5000,
-              isLoop: true,
-              children: slides,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                const CustomAppBar(),
+                const SizedBox(
+                  height: 20,
+                ),
+                searchAndSetting(context),
+                const SizedBox(
+                  height: 20,
+                ),
+                ImageSlideshow(
+                  indicatorColor: AppTheme.brownColor,
+                  autoPlayInterval: 5000,
+                  isLoop: true,
+                  children: slides,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
                     children: [
-                      Text(
-                        'Categories',
-                        style: TextStyles(context)
-                            .getHeaderStyle(false)
-                            .copyWith(fontSize: 16),
-                      ),
-                      TapEffect(
-                          onClick: () {},
-                          child: Text(
-                            'See all',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Categories',
                             style: TextStyles(context)
-                                .getDescriptionStyle()
-                                .copyWith(fontSize: 14),
-                          ))
+                                .getHeaderStyle(false)
+                                .copyWith(fontSize: 16),
+                          ),
+                          TapEffect(
+                              onClick: () {},
+                              child: Text(
+                                'See all',
+                                style: TextStyles(context)
+                                    .getDescriptionStyle()
+                                    .copyWith(fontSize: 14),
+                              ))
+                        ],
+                      ),
+                      const SizedBox(height: 20,),
+                      SizedBox(
+                        height: 90,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: buttons.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: buttons[index],
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 20,),
-                  SizedBox(
-                    height: 90,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: buttons.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: buttons[index],
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                HomeTab(tabController: _tabController),
+                const SizedBox(height: 16,),
+                GridView.builder(
+                    itemCount: 7,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 0.0,
+                            crossAxisSpacing: 0.0,
+                            mainAxisExtent: size.height/4 + 10),
+                    itemBuilder: (_, index) => const ProductCard(
+                        image: Localfiles.welcomeImage2,
+                        productName: 'Brown Jacket Home Body Love',
+                        productReviews: 4.9,
+                        price: 80))
+              ],
             ),
-            HomeTab(tabController: _tabController)
-          ],
+          ),
         ));
   }
 }
 
-List<SlideShowContent> _initSlides(BuildContext context) {
+List<BannerContent> _initSlides(BuildContext context) {
   return [
-    SlideShowContent(
+    BannerContent(
       imagePath: Localfiles.homeImage1,
       title: AppLocalizations(context).of("new_collection"),
       description: AppLocalizations(context).of("new_collection_description"),
     ),
-    SlideShowContent(
+    BannerContent(
       imagePath: Localfiles.homeImage2,
       title: AppLocalizations(context).of("summer_sale"),
       description: AppLocalizations(context).of("summer_sale_description"),
     ),
-    SlideShowContent(
+    BannerContent(
       imagePath: Localfiles.homeImage3,
       title: AppLocalizations(context).of("exclusive_offer"),
       description: AppLocalizations(context).of("exclusive_offer_description"),
     ),
-    SlideShowContent(
+    BannerContent(
       imagePath: Localfiles.homeImage4,
       title: AppLocalizations(context).of("trending_now"),
       description: AppLocalizations(context).of("trending_now_description"),

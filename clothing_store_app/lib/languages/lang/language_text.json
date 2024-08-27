@@ -573,5 +573,10 @@
         "text_id": "Kids",
         "en": "Kids",
         "fr": "Les enfants"
+    },
+    {
+        "text_id": "add_to_cart",
+        "en": "Add to Cart",
+        "fr": "Ajouter au panier"
     }
 ]
