@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/providers/choose_coupon_provider.dart';
 import 'package:clothing_store_app/providers/complete_profile_provider.dart';
 import 'package:clothing_store_app/providers/set_image_provider.dart';
 import 'package:clothing_store_app/providers/sign_up_provider.dart';
@@ -25,9 +26,9 @@ void main() async {
 }
 
 Widget _setAllProviders() {
-        var tmp = FirebaseFirestore.instance.collection("Cloth");
-      ClothService clothService = ClothService(tmp);
-      clothService.getAllClothes();
+  var tmp = FirebaseFirestore.instance.collection("Cloth");
+  ClothService clothService = ClothService(tmp);
+  clothService.getAllClothes();
   return MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -36,13 +37,16 @@ Widget _setAllProviders() {
         ),
       ),
       ChangeNotifierProvider(
-          create: (_) => PickImageProvider(),
+        create: (_) => PickImageProvider(),
       ),
       ChangeNotifierProvider(
-          create: (_) => SignUpNotifier(),
+        create: (_) => SignUpNotifier(),
       ),
       ChangeNotifierProvider(
         create: (context) => CompleteProfileNotifier(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ChooseCouponProvider(),
       ),
     ],
     child: ClothingStoreApp(),

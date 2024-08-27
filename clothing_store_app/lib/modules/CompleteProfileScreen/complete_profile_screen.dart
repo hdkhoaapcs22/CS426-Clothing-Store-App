@@ -1,22 +1,28 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:clothing_store_app/providers/complete_profile_provider.dart';
+import 'package:clothing_store_app/services/database/user.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/label_and_textfield.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import '../../languages/appLocalizations.dart';
 import '../../providers/set_image_provider.dart';
+import '../../providers/sign_up_provider.dart';
 import '../../utils/text_styles.dart';
 import '../../widgets/common_app_bar_view.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_dialogs.dart';
 
+// ignore: must_be_immutable
 class CompleteProfileScreen extends StatelessWidget {
-  const CompleteProfileScreen({super.key});
+  Uint8List? image;
+  CompleteProfileScreen({super.key, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +71,7 @@ class CompleteProfileScreen extends StatelessWidget {
                     children: [
                       Consumer<PickImageProvider>(
                         builder: (context, pickImageProvider, _) {
+                          image = pickImageProvider.selectedImageBytes;
                           if (pickImageProvider.selectedImage.isEmpty) {
                             return const CircleAvatar(
                                 radius: 60,
@@ -108,19 +115,16 @@ class CompleteProfileScreen extends StatelessWidget {
                   //Information fields
                   Column(
                     children: [
-                      // TextFieldWithHeader(
-                      //   controller: profileProvider.nameController,
-                      //   errorMessage: profileProvider.nameError,
-                      //   header: AppLocalizations(context).of("name"),
-                      //   hintText: AppLocalizations(context).of("John Doe"),
-                      //   isPassword: false,
-                      // ),
-                      labelAndTextField(
-                          context: context,
-                          label: AppLocalizations(context).of("name"),
-                          hintText: AppLocalizations(context).of("John Doe"),
-                          controller: profileProvider.nameController,
-                          errorText: profileProvider.nameError),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        child: labelAndTextField(
+                            context: context,
+                            label: "name",
+                            hintText: AppLocalizations(context).of("John Doe"),
+                            controller: profileProvider.nameController,
+                            errorText: profileProvider.nameError),
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 8.0),
@@ -266,6 +270,16 @@ class CompleteProfileScreen extends StatelessWidget {
                       onTap: () async {
                         if (profileProvider.validateFields(context)) {
                           Dialogs(context).showLoadingDialog();
+                          String uid = FirebaseAuth.instance.currentUser!.uid;
+                          // var tmp = FirebaseFirestore.instance
+                          //         .collection('User');
+                          UserService userService = UserService();
+                          userService.userInformationService.setUserInformation(
+                            name: profileProvider.nameController.text.trim(),
+                            phone: profileProvider.phoneController.text.trim(),
+                            fileImageName: uid,
+                            image: image,
+                          );
                           await Future.delayed(
                               const Duration(milliseconds: 2000));
                           Navigator.pop(context);

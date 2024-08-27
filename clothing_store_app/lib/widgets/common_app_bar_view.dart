@@ -29,37 +29,33 @@ class CommonAppBarView extends StatelessWidget {
         children: [
           SizedBox(
             height: AppBar().preferredSize.height,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: TapEffect(
-                onClick: () {
-                  onBackClick!();
-                },
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    shape: BoxShape.circle,
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.3),
-                          offset: const Offset(2.0, 3.5),
-                          blurRadius: 8),
-                    ],
-                  ),
-                  child: Center(
-                    child: Icon(
-                      iconData,
-                      color: iconColor,
-                      size: iconSize.toDouble()
-                    ),
-                  ),
+            child: TapEffect(
+              onClick: () {
+                onBackClick!();
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  shape: BoxShape.circle,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        offset: const Offset(2.0, 3.5),
+                        blurRadius: 8),
+                  ],
+                ),
+                child: Center(
+                  child: Icon(iconData,
+                      color: iconColor, size: iconSize.toDouble()),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 10.0,)
+          const SizedBox(
+            height: 10.0,
+          )
         ],
       ),
     );

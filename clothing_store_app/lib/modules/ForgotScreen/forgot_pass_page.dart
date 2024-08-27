@@ -1,8 +1,8 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/services/auth/auth_service.dart';
+import 'package:clothing_store_app/widgets/common_app_bar_view.dart';
 import 'package:clothing_store_app/widgets/common_dialogs.dart';
 import 'package:clothing_store_app/widgets/label_and_textfield.dart';
-import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
@@ -43,23 +43,11 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
             children: [
               Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Colors.grey,
-                      child: CircleAvatar(
-                        radius: 24,
-                        backgroundColor: Colors.white,
-                        child: Image.asset(
-                          Localfiles.leftArrow,
-                          width: 20,
-                        ),
-                      ),
-                    ),
-                  ),
+                  CommonAppBarView(
+                      iconData: Icons.arrow_back,
+                      onBackClick: () {
+                        Navigator.pop(context);
+                      }),
                   const Spacer(),
                 ],
               ),

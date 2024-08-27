@@ -35,7 +35,7 @@ class NavigationServices {
   }
 
   Future<dynamic> pushCompleteProfileScreen() async {
-    return _pushMaterialPageRoute(const CompleteProfileScreen());
+    return _pushMaterialPageRoute(CompleteProfileScreen());
   }
 
   Future<dynamic> pushForgotPassPage() async {
