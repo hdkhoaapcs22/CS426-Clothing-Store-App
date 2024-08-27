@@ -50,8 +50,8 @@ dependencies:
     google_sign_in: ^6.2.1
     image_picker: ^1.1.2
     ticket_widget: ^0.0.1
-    firebase_storage: ^11.1.0  
-
+    firebase_storage: ^11.1.0
+    flutter_slidable: ^3.0.0
 
 dependency_overrides:
     intl: any

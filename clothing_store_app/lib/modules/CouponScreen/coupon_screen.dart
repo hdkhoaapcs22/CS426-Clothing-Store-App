@@ -57,10 +57,10 @@ class CouponScreen extends StatelessWidget {
                     CommonAppBarView(
                       iconData: Icons.arrow_back,
                       onBackClick: () {
-                        List<Map<String, dynamic>> detailedChosenCoupon = [];
+                        List<String> detailedChosenCoupon = [];
                         for (int i = 0; i < data.length; ++i) {
                           if (chosenCouponProvider.chosenCoupon[i] == true) {
-                            detailedChosenCoupon.add(data[i]);
+                            detailedChosenCoupon.add(data[i]['title']);
                           }
                         }
                         Navigator.pop(context, detailedChosenCoupon);
@@ -81,10 +81,7 @@ class CouponScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const Padding(padding: EdgeInsets.all(8)),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height -
-                        AppBar().preferredSize.height -
-                        164,
+                 Expanded(
                     child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (context, index) {

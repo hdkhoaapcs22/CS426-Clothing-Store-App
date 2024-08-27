@@ -12,6 +12,7 @@ class ClothService {
 
     for (var doc in value.docs) {
       GlobalVar.listAllCloth[doc.reference.id] = ClothBase(
+        id: doc.reference.id,
         name: doc['name'],
         description: doc['description'],
         type: doc['type'],

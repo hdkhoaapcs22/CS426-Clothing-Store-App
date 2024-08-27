@@ -205,7 +205,8 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pop(context);
     if (loginStatus == true) {
       //push HomePage}
-      NavigationServices(context).gotoBottomTapScreen();
+      // NavigationServices(context).gotoBottomTapScreen();
+      NavigationServices(context).gotoCartScreen();
     }
   }
 }

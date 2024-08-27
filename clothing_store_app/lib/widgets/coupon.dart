@@ -8,6 +8,10 @@ Widget couponTicket(BuildContext context, ChooseCouponProvider pvd,
     List<Map<String, dynamic>> data, double total, int index) {
   bool isClickable =
       total < double.parse(data[index]['minimumTotalPrice']) ? false : true;
+  String requirementOfCoupon = isClickable
+      ? 'It can be applied'
+      : 'Add items worth ${double.parse(data[index]['minimumTotalPrice']) - total}';
+
   return TapEffect(
     isClickable: isClickable,
     onClick: () => pvd.updateChosenCoupon(index),
@@ -30,7 +34,7 @@ Widget couponTicket(BuildContext context, ChooseCouponProvider pvd,
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     const Padding(padding: EdgeInsets.all(2)),
-                    Text(data[index]['requirement'],
+                    Text(requirementOfCoupon,
                         style: TextStyles(context).getRegularStyle()),
                     const Padding(padding: EdgeInsets.all(2)),
                     Row(

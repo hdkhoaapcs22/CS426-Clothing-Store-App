@@ -4,6 +4,7 @@ import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
 import 'package:clothing_store_app/modules/ForgotScreen/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
 import '../modules/BottomNavigation/bottom_navigation_screen.dart';
+import '../modules/Cart/my_cart.dart';
 import '../modules/OnBoardingScreen/on_boarding_screen.dart';
 
 class NavigationServices {
@@ -44,5 +45,9 @@ class NavigationServices {
 
   void gotoBottomTapScreen() async {
     return _pushMaterialPageRoute(const BottomNavigationScreen());
+  }
+
+  void gotoCartScreen() async {
+    return _pushMaterialPageRoute(const MyCart());
   }
 }
