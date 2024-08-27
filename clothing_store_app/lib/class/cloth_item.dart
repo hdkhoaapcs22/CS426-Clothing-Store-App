@@ -1,4 +1,5 @@
 class ClothBase {
+  String id;
   String name;
   String description;
   String type;
@@ -7,6 +8,7 @@ class ClothBase {
   Future<List<ClothItem>> clothItems;
 
   ClothBase({
+    required this.id,
     required this.name,
     required this.description,
     required this.type,

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:clothing_store_app/modules/CouponScreen/coupon_screen.dart';
 import 'package:clothing_store_app/routes/routes_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import 'modules/SplashScreen/splash_screen.dart';
 import 'providers/theme_provider.dart';
 import 'common/common.dart';
 import 'languages/appLocalizations.dart';
