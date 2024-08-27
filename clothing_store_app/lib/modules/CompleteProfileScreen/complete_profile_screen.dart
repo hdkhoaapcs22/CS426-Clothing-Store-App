@@ -13,7 +13,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import '../../languages/appLocalizations.dart';
 import '../../providers/set_image_provider.dart';
-import '../../providers/sign_up_provider.dart';
 import '../../utils/text_styles.dart';
 import '../../widgets/common_app_bar_view.dart';
 import '../../widgets/common_button.dart';

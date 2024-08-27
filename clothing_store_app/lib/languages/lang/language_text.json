@@ -393,5 +393,60 @@
         "text_id": "email_sent",
         "en": "Email has been sent to ",
         "fr": "Un e-mail a été envoyé à "
+    },
+    {
+        "text_id": "my_cart",
+        "en": "My Cart",
+        "fr": "Mon Panier"
+    },
+    {
+        "text_id": "size",
+        "en": "Size",
+        "fr": "Taille"
+    },
+    {
+        "text_id": "remove_from_cart",
+        "en": "Remove from Cart",
+        "fr": "Retirer du panier"
+    },
+    {
+        "text_id": "cancel",
+        "en": "Cancel",
+        "fr": "Annuler"
+    },
+    {
+        "text_id": "yes_remove",
+        "en": "Yes, Remove",
+        "fr": "Oui, Retirer"
+    },
+    {
+        "text_id": "promo_code",
+        "en": "Promo Code",
+        "fr": "Code Promo"
+    },
+    {
+        "text_id": "sub_total",
+        "en": "Sub Total",
+        "fr": "Sous-total"
+    },
+    {
+        "text_id": "delivery_fee",
+        "en": "Delivery Fee",
+        "fr": "Frais de Livraison"
+    },
+    {
+        "text_id": "discount",
+        "en": "Discount",
+        "fr": "Remise"
+    },
+    {
+        "text_id": "total_price",
+        "en": "Total Price",
+        "fr": "Prix Total"
+    },
+    {
+        "text_id": "proceed_to_checkout",
+        "en": "Proceed to Checkout",
+        "fr": "Passer à la caisse"
     }
 ]

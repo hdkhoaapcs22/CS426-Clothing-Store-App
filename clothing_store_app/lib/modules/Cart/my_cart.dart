@@ -1,6 +1,5 @@
-import 'package:clothing_store_app/services/database/user.dart';
+import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lottie/lottie.dart';
@@ -11,6 +10,7 @@ import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
 import '../../widgets/common_app_bar_view.dart';
+import '../CouponScreen/coupon_screen.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({super.key});
@@ -22,7 +22,8 @@ class MyCart extends StatefulWidget {
 class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
   late SlidableController controller;
   late TextEditingController promoCodeController;
-  late double subTotalPrice, discount, deliveryFee, totalPrice;
+  late double subTotalPrice, discount, totalPrice;
+  final double deliveryFee = 0.8;
   late List<dynamic> orderedItems;
 
   @override
@@ -31,10 +32,8 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
     controller = SlidableController(this);
     promoCodeController = TextEditingController();
     discount = 0.0;
-    deliveryFee = 0.0;
     totalPrice = 0.0;
     orderedItems = [];
-    // calculateSubtotalPrice();
   }
 
   @override
@@ -58,9 +57,11 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                       size: doc['size'],
                       price: double.parse(doc['price']),
                       orderQuantity: doc['orderQuantity'],
-                      // quantity: doc['quantity'],
+                      quantity: doc['quantity'],
                     ))
                 .toList();
+            calculateSubTotalPrice();
+            calculateTotalPrice();
             return Scaffold(
               bottomNavigationBar: SizedBox(
                 height: MediaQuery.of(context).size.height * 0.34,
@@ -70,18 +71,21 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                 padding: EdgeInsets.only(
                     top: AppBar().preferredSize.height, left: 5, right: 5),
                 child: Column(children: [
-                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    CommonAppBarView(
-                      topPadding: 0,
-                      iconData: Icons.arrow_back,
-                      onBackClick: () {
-                        Navigator.pop(context);
-                      },
+                  Row(children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 5),
+                      child: CommonAppBarView(
+                        topPadding: 0,
+                        iconData: Icons.arrow_back,
+                        onBackClick: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 70),
+                      padding: const EdgeInsets.only(left: 80),
                       child: Text(
-                        'My Cart',
+                        AppLocalizations(context).of("my_cart"),
                         style: TextStyles(context).getBoldStyle().copyWith(
                               fontSize: 28,
                             ),
@@ -104,6 +108,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
               backgroundColor: Colors.transparent,
               content: Lottie.asset(
                 Localfiles.loading,
+                width: MediaQuery.of(context).size.width * 0.2,
               ));
         });
   }
@@ -131,11 +136,8 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                   if (!tmp) {
                     controller.openEndActionPane();
                   } else {
-                    // Remove item from cart
                     CartService().removeItemFromCart(
                         clothItemID: orderedItems[index].clothBaseID);
-                    // Update total price
-                    calculateTotalPrice();
                   }
                 },
                 backgroundColor: const Color.fromARGB(255, 249, 182, 182),
@@ -185,7 +187,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                         ),
                   ),
                   Text(
-                    'Size: ${orderedItems[index].size}',
+                    '${AppLocalizations(context).of("size")}: ${orderedItems[index].size}',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[600],
@@ -239,11 +241,8 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                     onTap: () {
                       if (orderedItems[index].orderQuantity <
                           orderedItems[index].quantity) {
-                        setState(() {
-                          orderedItems[index].orderQuantity += 1;
-                          // calculateSubtotalPrice(),
-                          // calculateTotalPrice(),
-                        });
+                        CartService().increaseQuantityOrderItemInCart(
+                            clothItemID: orderedItems[index].clothBaseID);
                       }
                     },
                     child: Container(
@@ -270,7 +269,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
-            'Remove from Cart?',
+            AppLocalizations(context).of("remove_from_cart"),
             style: TextStyles(context).getBoldStyle().copyWith(
                   fontSize: 18,
                 ),
@@ -279,31 +278,29 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
           detailActiveOrder(index, false),
           const SizedBox(height: 16),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: TextButton(
-                  onPressed: () {
+                child: CommonButton(
+                  onTap: () {
                     Navigator.pop(context, false); // Cancel deletion
                   },
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.brown,
-                    backgroundColor: Colors.grey[300],
-                  ),
-                  child: const Text('Cancel', style: TextStyle(fontSize: 16)),
+                  radius: 30.0,
+                  backgroundColor: Colors.grey[300],
+                  textColor: const Color.fromRGBO(88, 57, 39, 1),
+                  buttonTextWidget: Text(AppLocalizations(context).of("cancel"),
+                      style: const TextStyle(fontSize: 16)),
                 ),
               ),
-              const SizedBox(width: 16),
               Expanded(
-                child: TextButton(
-                  onPressed: () {
+                child: CommonButton(
+                  onTap: () {
                     Navigator.pop(context, true); // Confirm deletion
                   },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.brown,
-                  ),
-                  child:
-                      const Text('Yes, Remove', style: TextStyle(fontSize: 16)),
+                  radius: 30.0,
+                  buttonTextWidget: Text(
+                      AppLocalizations(context).of("yes_remove"),
+                      style: const TextStyle(fontSize: 16)),
                 ),
               ),
             ],
@@ -330,29 +327,40 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                     padding: const EdgeInsets.only(top: 5, right: 10),
                     height: MediaQuery.of(context).size.height * 0.05,
                     width: MediaQuery.of(context).size.width * 0.3,
-                    onTap: () {
+                    onTap: () async {
                       // Apply promo code
+                      var chosenTicket = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CouponScreen(
+                                  totalAmount: subTotalPrice,
+                                )),
+                      );
+                      setState(() {
+                        getTotalDiscount(chosenTicket);
+                        calculateTotalPrice();
+                      });
                     },
                     radius: 30.0,
                     backgroundColor: AppTheme.brownButtonColor,
                     buttonTextWidget: Text(
-                      'Promo Code',
+                      AppLocalizations(context).of("promo_code"),
                       style: TextStyles(context).getButtonTextStyle(),
                     ),
                   )),
 
               const SizedBox(height: 13),
 
-              titlePrice(title: "Sub-Total", price: totalPrice),
+              titlePrice(title: "sub_total", price: subTotalPrice),
               const SizedBox(height: 8),
 
-              titlePrice(title: "Delivery Fee", price: 0.0),
+              titlePrice(title: "delivery_fee", price: deliveryFee),
               const SizedBox(height: 8),
 
-              titlePrice(title: "Discount", price: 0.0),
+              titlePrice(title: "discount", price: discount),
               const SizedBox(height: 8),
 
-              titlePrice(title: "Total", price: totalPrice),
+              titlePrice(title: "total_price", price: totalPrice),
               const SizedBox(height: 12),
 
               // commonButton
@@ -363,7 +371,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                 radius: 30.0,
                 backgroundColor: AppTheme.brownButtonColor,
                 buttonTextWidget: Text(
-                  'Proceed to Checkout',
+                  AppLocalizations(context).of("proceed_to_checkout"),
                   style: TextStyles(context).getButtonTextStyle(),
                 ),
               ),
@@ -378,14 +386,14 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
       child: Row(
         children: [
           Expanded(
-              child: Text(title,
+              child: Text(AppLocalizations(context).of(title),
                   style: TextStyles(context)
                       .getDescriptionStyle()
                       .copyWith(fontSize: 18))),
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              '\$$price',
+              '\$${price.toStringAsFixed(2)}',
               style: TextStyles(context).getBoldStyle().copyWith(fontSize: 18),
             ),
           ),
@@ -394,16 +402,34 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
     );
   }
 
-  void calculateSubtotalPrice() {
-    setState(() {
-      subTotalPrice = 0.0;
-      for (var item in orderedItems) {
-        subTotalPrice += item.price * item.orderQuantity;
+  void getTotalDiscount(chosenTicket) {
+    discount = 0.0;
+    List<String> promoCodes = [];
+    RegExp regExp = RegExp(r'\d+%?');
+    for (int i = 0; i < chosenTicket.length; ++i) {
+      String? tmpDiscount = regExp.firstMatch(chosenTicket[i])?.group(0);
+      promoCodes.add(tmpDiscount!);
+    }
+
+    for (int i = 0; i < promoCodes.length; ++i) {
+      if (promoCodes[i].contains('%')) {
+        discount += subTotalPrice *
+            double.parse(promoCodes[i].substring(0, promoCodes[i].length - 1)) /
+            100;
+      } else {
+        discount += double.parse(promoCodes[i]);
       }
-    });
+    }
+  }
+
+  void calculateSubTotalPrice() {
+    subTotalPrice = 0.0;
+    for (int i = 0; i < orderedItems.length; ++i) {
+      subTotalPrice += orderedItems[i].price * orderedItems[i].orderQuantity;
+    }
   }
 
   void calculateTotalPrice() {
-    setState(() {});
+    totalPrice = subTotalPrice + deliveryFee - discount;
   }
 }

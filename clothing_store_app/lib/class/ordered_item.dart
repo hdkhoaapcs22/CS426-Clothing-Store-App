@@ -5,7 +5,7 @@ class OrderedItem {
   String size;
   double price;
   int orderQuantity;
-  // int quantity;
+  int quantity;
 
   OrderedItem({
     required this.clothBaseID,
@@ -14,6 +14,6 @@ class OrderedItem {
     required this.size,
     required this.price,
     required this.orderQuantity,
-    // required this.quantity,
+    required this.quantity,
   });
 }
