@@ -17,4 +17,12 @@ class Localfiles {
   static const String loading = '${baseJsonUrl}loading_lottie.json';
   static const String googleIcon = '${baseImageUrl}google_icon.png';
   static const String facebookIcon = '${baseImageUrl}facebook_icon.png';
+<<<<<<< HEAD
+=======
+  static const String leftArrow = '${baseImageUrl}left_arrow.png';
+
+  //Wishlist screen
+  static const String yellowStar = '${baseImageUrl}star_symbol.png';
+  static const String wishlistHeart = '${baseImageUrl}wishlist_heart.png';
+>>>>>>> d70dd42 (finish wishlist)
 }
