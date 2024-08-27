@@ -11,11 +11,18 @@ class UserInformationService extends UserService {
   Future setUserInformation({
     required String name,
     required String phone,
-    required String email,
+    required String fileImageName,
+    Uint8List? image,
   }) async {
-    return await userCollection
-        .doc(uid)
-        .set({'name': name, 'phone': phone, 'mail': email, 'imageUrl': ''});
+    String imageUrl = '';
+    if (image != null) {
+      imageUrl = await uploadImageToStorage(fileImageName, image);
+    }
+    return await userCollection.doc(uid).set({
+      'name': name,
+      'phone': phone,
+      'imageUrl': imageUrl,
+    });
   }
 
   Future<String> uploadImageToStorage(String fileName, Uint8List image) async {
@@ -32,7 +39,6 @@ class UserInformationService extends UserService {
   Future updateUserInformation({
     required String name,
     required String phone,
-    required String email,
     required String fileImageName,
     Uint8List? image,
   }) async {
@@ -41,14 +47,12 @@ class UserInformationService extends UserService {
       return await userCollection.doc(uid).update({
         'name': name,
         'phone': phone,
-        'mail': email,
         'imageUrl': imageUrl,
       });
     }
     return await userCollection.doc(uid).update({
       'name': name,
       'phone': phone,
-      'mail': email,
     });
   }
 

@@ -18,10 +18,9 @@ class CouponScreen extends StatelessWidget {
       .where('quantity', isGreaterThan: 0)
       .snapshots();
 
-  get lottieSize => null;
-
   @override
   Widget build(BuildContext context) {
+    double lottieSize = MediaQuery.of(context).size.width * 0.2;
     return Consumer<ChooseCouponProvider>(
         builder: (context, chosenCouponProvider, _) {
       return StreamBuilder<QuerySnapshot>(
@@ -64,6 +63,7 @@ class CouponScreen extends StatelessWidget {
                             detailedChosenCoupon.add(data[i]);
                           }
                         }
+                        Navigator.pop(context, detailedChosenCoupon);
                       },
                     ),
                     Expanded(
@@ -88,13 +88,8 @@ class CouponScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (context, index) {
-                        return couponTicket(
-                            context,
-                            chosenCouponProvider,
-                            data,
-                            chosenCouponProvider.chosenCoupon,
-                            totalAmount,
-                            index);
+                        return couponTicket(context, chosenCouponProvider, data,
+                            totalAmount, index);
                       },
                     ),
                   )

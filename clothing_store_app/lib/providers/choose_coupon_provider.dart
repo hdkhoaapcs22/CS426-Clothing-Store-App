@@ -7,12 +7,11 @@ class ChooseCouponProvider extends ChangeNotifier {
 
   void updateChosenCoupon(int i) {
     chosenCoupon[i] = !chosenCoupon[i];
-    initialized = true;
     notifyListeners();
   }
 
   void initializeCoupon(int num) {
     chosenCoupon = List<bool>.filled(num, false);
-    notifyListeners();
+    initialized = true;
   }
 }

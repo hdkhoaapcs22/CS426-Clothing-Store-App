@@ -4,23 +4,17 @@ import 'package:clothing_store_app/widgets/tap_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
-Widget couponTicket(
-    BuildContext context,
-    ChooseCouponProvider pvd,
-    List<Map<String, dynamic>> data,
-    List<bool> chosenCoupon,
-    double total,
-    int index) {
+Widget couponTicket(BuildContext context, ChooseCouponProvider pvd,
+    List<Map<String, dynamic>> data, double total, int index) {
+  bool isClickable =
+      total < double.parse(data[index]['minimumTotalPrice']) ? false : true;
   return TapEffect(
-    isClickable:
-        total < double.parse(data[index]['minimumTotalPrice']) ? false : true,
+    isClickable: isClickable,
     onClick: () => pvd.updateChosenCoupon(index),
     child: Column(
       children: [
         TicketWidget(
-          color: total < double.parse(data[index]['minimumTotalPrice'])
-              ? Colors.grey
-              : Colors.white,
+          color: !isClickable ? Colors.grey : Colors.white,
           isCornerRounded: true,
           width: MediaQuery.of(context).size.width - 48,
           height: 180,
@@ -56,17 +50,16 @@ Widget couponTicket(
                 width: MediaQuery.of(context).size.width - 48,
                 height: 50,
                 decoration: BoxDecoration(
-                    color:
-                        total < double.parse(data[index]['minimumTotalPrice'])
-                            ? Colors.grey
-                            : chosenCoupon[index] == true
-                                ? const Color.fromARGB(255, 112, 79, 56)
-                                : const Color.fromARGB(255, 222, 222, 222),
+                    color: !isClickable
+                        ? Colors.grey
+                        : pvd.chosenCoupon[index] == true
+                            ? const Color.fromARGB(255, 112, 79, 56)
+                            : const Color.fromARGB(255, 222, 222, 222),
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20))),
                 child: Center(
-                    child: chosenCoupon[index] == true
+                    child: pvd.chosenCoupon[index] == true
                         ? const Text(
                             'APPLIED',
                             style: TextStyle(fontSize: 22, color: Colors.white),
