@@ -7,6 +7,8 @@ import 'package:clothing_store_app/modules/PaymentMethodsScreen/payment_methods_
 import 'package:clothing_store_app/modules/AddCardScreen/add_card_screen.dart';
 import 'package:clothing_store_app/modules/ShippingAddressScreen/shipping_address_screen.dart';
 import 'package:clothing_store_app/modules/PaymentSuccessfulScreen/payment_successful_screen.dart';
+import 'package:clothing_store_app/modules/CheckoutScreen/checkout_screen.dart';
+import 'package:clothing_store_app/class/order.dart';
 import 'package:flutter/material.dart';
 import '../modules/BottomNavigation/bottom_navigation_screen.dart';
 import '../modules/Cart/my_cart.dart';
@@ -75,4 +77,9 @@ class NavigationServices {
   Future<dynamic> pushPaymentSuccessfulScreen() async {
     return _pushMaterialPageRoute(const PaymentSuccessfulScreen());
   }
+
+  Future<dynamic> pushCheckoutScreen(Order order) async {
+    return _pushMaterialPageRoute(CheckoutScreen(order: order));
+  }
+
 }

@@ -4,8 +4,20 @@ import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:flutter/material.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
+import '../../class/order.dart';
+import 'order_item_view.dart';
+import 'divider.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
+  final Order order;
+
+  CheckoutScreen({required this.order});
+
+  @override
+  _CheckoutScreenState createState() => _CheckoutScreenState();
+}
+
+class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +51,7 @@ class CheckoutScreen extends StatelessWidget {
                 },
               ),
             ),
-            Divider(
-              height: 16.0,
-              indent: 16.0,
-              endIndent: 16.0,
-              thickness: 0.2,
-            ),
+            CustomDivider(),
             MediaQuery.of(context).size.width > 360
                 ? SizedBox(height: 16)
                 : SizedBox(height: 8),
@@ -62,12 +69,7 @@ class CheckoutScreen extends StatelessWidget {
                 },
               ),
             ),
-            Divider(
-              height: 16.0,
-              indent: 16.0,
-              endIndent: 16.0,
-              thickness: 0.2,
-            ),
+            CustomDivider(),
             MediaQuery.of(context).size.width > 360
                 ? SizedBox(height: 16)
                 : SizedBox(height: 8),
@@ -77,26 +79,14 @@ class CheckoutScreen extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
-                children: [
-                  OrderItem(
-                    imageUrl: 'https://via.placeholder.com/150',
-                    title: 'Brown Jacket',
-                    size: 'XL',
-                    price: 83.97,
-                  ),
-                  OrderItem(
-                    imageUrl: 'https://via.placeholder.com/150',
-                    title: 'Brown Suite',
-                    size: 'XL',
-                    price: 120.00,
-                  ),
-                  OrderItem(
-                    imageUrl: 'https://via.placeholder.com/150',
-                    title: 'Brown Jacket',
-                    size: 'XL',
-                    price: 83.97,
-                  ),
-                ],
+                children: widget.order.clothesSold.map((item) {
+                  return OrderItemView(
+                    imageUrl: item['imageURL'],
+                    title: item['name'],
+                    size: item['size'],
+                    price: item['price'],
+                  );
+                }).toList(),
               ),
             ),
           ],
@@ -109,41 +99,6 @@ class CheckoutScreen extends StatelessWidget {
             NavigationServices(context).pushPaymentMethodsScreen();
           },
         ),
-      ),
-    );
-  }
-}
-
-class OrderItem extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final String size;
-  final double price;
-
-  OrderItem({
-    required this.imageUrl,
-    required this.title,
-    required this.size,
-    required this.price,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.network(imageUrl),
-      title: Text(title),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Size: $size'),
-          MediaQuery.of(context).size.width > 360
-              ? SizedBox(height: 10)
-              : SizedBox(height: 6),
-          Text(
-            '\$$price',
-            style: TextStyles(context).getRegularStyle(),
-          ),
-        ],
       ),
     );
   }

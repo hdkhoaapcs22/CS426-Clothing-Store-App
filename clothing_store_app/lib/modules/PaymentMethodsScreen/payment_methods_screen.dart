@@ -1,5 +1,8 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/modules/PaymentMethodsScreen/confirm_payment_button.dart';
+import 'package:clothing_store_app/services/database/active_order.dart';
+import 'package:clothing_store_app/services/database/cart.dart';
+import 'package:clothing_store_app/services/database/coupon.dart';
 import 'package:flutter/material.dart';
 import '../../routes/navigation_services.dart';
 import '../../utils/text_styles.dart';
@@ -119,7 +122,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             ? const EdgeInsets.all(16.0)
             : const EdgeInsets.all(8.0),
         child: ConfirmPaymentButton(
-          onPressed: () {
+          onPressed: () async {
             if (_selectedPaymentMethod != null) {
               NavigationServices(context).pushPaymentSuccessfulScreen();
             }

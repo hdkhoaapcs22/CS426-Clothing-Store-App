@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
-import '../../utils/text_styles.dart';
-import '../../widgets/common_button.dart';
 
 class ChangeButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -20,7 +18,7 @@ class ChangeButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       ),
       child: Text(
-        'CHANGE',
+        AppLocalizations(context).of('change'),
         style: TextStyle(
           color: Colors.brown,
           fontSize: 16,

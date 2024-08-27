@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CouponService {
-  void deleteCoupon({required String couponID}) async {
+  Future<void> deleteCoupon({required String couponID}) async {
     await FirebaseFirestore.instance
         .collection("Coupon")
         .doc(couponID)
