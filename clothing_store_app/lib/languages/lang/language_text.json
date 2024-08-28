@@ -448,5 +448,10 @@
         "text_id": "proceed_to_checkout",
         "en": "Proceed to Checkout",
         "fr": "Passer à la caisse"
+    },
+    {
+        "text_id": "wishlist_title",
+        "en": "My Wishlist        ",
+        "fr": "My Wishlist        "
     }
 ]

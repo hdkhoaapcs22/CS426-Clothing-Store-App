@@ -2,8 +2,6 @@ import 'package:clothing_store_app/services/database/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartService extends UserService {
-  CartService() : super.defaultContructor();
-
   void addItemIntoCart({
     required String clothItemID,
     required String name,

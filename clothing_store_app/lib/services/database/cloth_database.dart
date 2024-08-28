@@ -18,6 +18,7 @@ class ClothService {
         type: doc['type'],
         gender: doc['gender'],
         brand: doc['brand'],
+        review: double.parse(doc['review']),
         clothItems: getClothItems(id: doc.reference.id),
       );
     }
@@ -34,7 +35,6 @@ class ClothService {
               clothImageURL: doc['clothImageURL'],
               sizeWithQuantity: doc['sizeWithQuantity'],
               price: double.parse(doc['price']),
-              review: double.parse(doc['review']),
             ))
         .toList();
 

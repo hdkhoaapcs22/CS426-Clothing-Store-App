@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:clothing_store_app/providers/complete_profile_provider.dart';
-import 'package:clothing_store_app/services/database/user.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/label_and_textfield.dart';
@@ -13,6 +12,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import '../../languages/appLocalizations.dart';
 import '../../providers/set_image_provider.dart';
+import '../../services/database/user_information.dart';
 import '../../utils/text_styles.dart';
 import '../../widgets/common_app_bar_view.dart';
 import '../../widgets/common_button.dart';
@@ -270,10 +270,7 @@ class CompleteProfileScreen extends StatelessWidget {
                         if (profileProvider.validateFields(context)) {
                           Dialogs(context).showLoadingDialog();
                           String uid = FirebaseAuth.instance.currentUser!.uid;
-                          // var tmp = FirebaseFirestore.instance
-                          //         .collection('User');
-                          UserService userService = UserService();
-                          userService.userInformationService.setUserInformation(
+                          UserInformationService().setUserInformation(
                             name: profileProvider.nameController.text.trim(),
                             phone: profileProvider.phoneController.text.trim(),
                             fileImageName: uid,
