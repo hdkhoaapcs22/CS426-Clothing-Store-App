@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:clothing_store_app/providers/complete_profile_provider.dart';
-import 'package:clothing_store_app/services/database/user.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/label_and_textfield.dart';

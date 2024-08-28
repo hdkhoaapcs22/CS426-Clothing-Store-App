@@ -1,5 +1,4 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
-import 'package:clothing_store_app/modules/Wishlist/wishlist_page.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/widgets/common_dialogs.dart';
 import 'package:clothing_store_app/widgets/label_and_textfield.dart';
@@ -205,11 +204,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {});
     Navigator.pop(context);
     if (loginStatus == true) {
-      //push HomePage}
-      // NavigationServices(context).gotoBottomTapScreen();
-      // NavigationServices(context).gotoCartScreen();
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => WishlistPage()));
+      NavigationServices(context).gotoBottomTapScreen();
     }
   }
 }
