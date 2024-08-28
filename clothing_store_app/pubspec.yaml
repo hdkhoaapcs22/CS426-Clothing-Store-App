@@ -59,6 +59,7 @@ dependencies:
     google_generative_ai: ^0.4.3
     flutter_markdown: ^0.7.2
     font_awesome_flutter: ^10.6.0
+    tflite_flutter: ^0.10.4
 
 dependency_overrides:
     intl: any
@@ -89,6 +90,7 @@ flutter:
         - assets/images/
         - assets/json/
         - lib/languages/lang/language_text.json
+        - assets/
     #   - images/a_dot_ham.jpeg
 
     # An image asset can refer to one or more resolution-specific "variants", see
