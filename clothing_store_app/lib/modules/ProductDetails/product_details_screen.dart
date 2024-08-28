@@ -1,22 +1,32 @@
-import 'package:clothing_store_app/class/cloth_item.dart';
+import 'package:clothing_store_app/common/helper_funtion.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/modules/ProductDetails/custom_choice_chip.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
+import '../../class/cloth_item.dart';
 import '../../utils/themes.dart';
 import '../../widgets/common_detailed_app_bar.dart';
 
-// ignore: must_be_immutable
 class ProductDetailsScreen extends StatefulWidget {
-  late bool isFavorite;
-  ProductDetailsScreen({super.key, required this.isFavorite});
+  final bool isFavorite;
+  final String productName;
+  final String productDescription;
+  final String gender;
+  final List<ClothItem> clothes;
+
+  const ProductDetailsScreen({
+    super.key, 
+    required this.isFavorite, 
+    required this.productName,
+    required this.productDescription,
+    required this.gender,
+    required this.clothes
+  });
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -26,33 +36,31 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int selectedID = 0;
   int selectedSize = 0;
   int selectedColor = 0;
+  late List<String> allSizes;
 
-  List<String> allproducts = [
-    'assets/images/tshirt1.jpg',
-    'assets/images/tshirt1.1.jpg',
-    'assets/images/tshirt1.2.jpg',
-    'assets/images/tshirt1.4.jpg',
-    'assets/images/tshirt1.5.jpg',
-    'assets/images/tshirt1.2.jpg',
-    'assets/images/tshirt1.4.jpg',
-    'assets/images/tshirt1.5.jpg',
-  ];
+  String getGender(String key){
+    switch (key) {
+      case 'M':
+        return 'Man';
+      case 'F':
+        return 'Woman';
+      default:
+        return 'Kids';
+    }
+  }
 
-  List<String> sizes = [
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL',
-    'XXXL'
-  ];
+  void _getAllSizes() {
+    allSizes = widget.clothes[selectedColor].sizeWithQuantity.keys.toList();
+    allSizes = HelperFunction.sortListOfSizes(allSizes);
+  }
 
-  List<String> colors = [
-    'green',
-    'yellow',
-    'orange',
-    'blue'
-  ];
+  @override
+  void initState() {
+    setState(() {
+      _getAllSizes();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +75,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   width: double.infinity,
                   child: Center(
                     child:
-                      Image(image: AssetImage(allproducts[selectedID]),),
+                      Image(image: NetworkImage(widget.clothes[selectedID].clothImageURL),)
                   ),
                 ),
                 Positioned(
@@ -103,14 +111,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                                   child: Image(
-                                    image: AssetImage(allproducts[index]),
+                                    image: NetworkImage(widget.clothes[index].clothImageURL)
                                   ),
                                 ),
                               ),
                             );
                           }, 
                           separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 8.0,), 
-                          itemCount: allproducts.length
+                          itemCount: widget.clothes.length
                         ),
                       ),
                     ),
@@ -124,6 +132,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     Navigator.pop(context);
                   },
                   onSuffixIconClick: () {
+                    //add to favorite list
                     widget.isFavorite != widget.isFavorite;
                   },
                 ),
@@ -139,7 +148,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       Flexible(
                         child: Text(
-                          'Female\'s Style',
+                          '${getGender(widget.gender)}\'s Style',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyles(context).getDescriptionStyle(),
@@ -156,7 +165,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             width: 3,
                           ),
                           Text(
-                            '4.9',
+                            widget.clothes[selectedColor].review.toString(),
                             style: TextStyles(context)
                                 .getDescriptionStyle()
                                 .copyWith(fontSize: 14),
@@ -167,13 +176,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   const SizedBox(height: 8.0,),
                   //------------------  Name of product ----------------------
-                  Text('Light T-Shirt',  style: TextStyles(context).getLargerHeaderStyle(false),),
+                  Text(widget.productName,  style: TextStyles(context).getLargerHeaderStyle(false),),
                   const SizedBox(height: 8.0,),
                   //------------------  Product Details ----------------------
                   Text('Product Details',  style: TextStyles(context).getLabelLargeStyle(false).copyWith(fontSize: 16),),
                   const SizedBox(height: 8.0,),
                   ReadMoreText(
-                    'The shorts offer a clean and casual look, perfect for warm weather. They feature a straight-leg design with a comfortable fit that pairs well with both casual and sporty outfits. Made from a lightweight material, they provide ease of movement and are ideal for everyday wear.',
+                    widget.productDescription,
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Read more',
@@ -210,14 +219,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       : AppTheme.backgroundColor,
                                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                               ),
-                              child: Center(child: Text(sizes[index], style: TextStyles(context).getButtonTextStyle().copyWith(color: selectedSize == index ? AppTheme.backgroundColor : AppTheme.primaryTextColor, fontSize: 16),))),
+                                child: Center(
+                                  child: Text(
+                                    allSizes[index],
+                                    style: TextStyles(context)
+                                      .getButtonTextStyle()
+                                      .copyWith(
+                                          color: selectedSize == index
+                                              ? AppTheme.backgroundColor
+                                              : AppTheme.primaryTextColor,
+                                          fontSize: 16),
+                                ))),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) =>
                             const SizedBox(
                               width: 8.0,
                             ),
-                        itemCount: sizes.length),
+                        itemCount: widget.clothes[selectedColor].sizeWithQuantity.length),
                   ),
                   const SizedBox(height: 8.0,),
                   //------------------  Select Color ----------------------
@@ -229,7 +248,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           style: TextStyles(context).getLabelLargeStyle(false).copyWith(fontSize: 16)
                         ),
                         TextSpan(
-                          text: colors[selectedColor],
+                          text: widget.clothes[selectedColor].color,
                           style: TextStyles(context).getDescriptionStyle()
                         )
                       ])
@@ -243,13 +262,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         physics: const AlwaysScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           return TapEffect(
-                            onClick: () {
-                              // setState(() {
-                              //   selectedColor = index;
-                              // });
-                            },
+                            onClick: () {},
                             child: CustomChoiceChip(
-                              text: colors[index],
+                              text: widget.clothes[index].color,
                               isSelected: selectedColor == index,
                               onSelected: (value) {
                                 setState(() {
@@ -263,7 +278,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             const SizedBox(
                               width: 8.0,
                             ),
-                        itemCount: colors.length),
+                        itemCount: widget.clothes.length),
                   ),
                 ],
               ),
@@ -297,7 +312,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Total Price', style: TextStyles(context).getDescriptionStyle().copyWith(fontSize: 14),),
-                    Text('\$83.97', style: TextStyles(context).getDescriptionStyle().copyWith(fontWeight: FontWeight.w500, color: AppTheme.primaryTextColor),)
+                    Text('\$ ${widget.clothes[selectedColor].price}', style: TextStyles(context).getDescriptionStyle().copyWith(fontWeight: FontWeight.w500, color: AppTheme.primaryTextColor),)
                   ],
                 ),
                 const SizedBox(width: 16.0,),

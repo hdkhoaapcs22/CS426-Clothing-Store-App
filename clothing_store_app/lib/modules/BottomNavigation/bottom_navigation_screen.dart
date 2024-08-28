@@ -7,7 +7,7 @@ import '../../providers/theme_provider.dart';
 import '../../utils/enum.dart';
 import '../Chat/chatting_screen.dart';
 import '../Favorite/favorite_screen.dart';
-import '../Home/home_screen1.dart';
+import '../Home/home_screen.dart';
 import '../Profile/profile_screen.dart';
 import '../Shop/shopping_screen.dart';
 import 'custom_bottom_tap.dart';

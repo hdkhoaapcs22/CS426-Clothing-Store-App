@@ -3,18 +3,22 @@ import 'package:clothing_store_app/modules/Home/custom_app_bar.dart';
 import 'package:clothing_store_app/modules/Home/custom_circle_button.dart';
 import 'package:clothing_store_app/modules/Home/home_tab.dart';
 import 'package:clothing_store_app/modules/Home/slideshow_content.dart';
-import 'package:clothing_store_app/providers/home_tab_provider.dart';
-import 'package:clothing_store_app/utils/localfiles.dart';
-import 'package:clothing_store_app/widgets/tap_effect.dart';
+import 'package:clothing_store_app/widgets/bottom_move_top_animation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
+import '../../class/cloth_item.dart';
+import '../../global/global_var.dart';
 import '../../languages/appLocalizations.dart';
+import '../../providers/home_tab_provider.dart';
+import '../../services/database/cloth_database.dart';
+import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
-import '../../widgets/bottom_move_top_animation.dart';
+import '../../widgets/tap_effect.dart';
 
 class HomeScreen extends StatefulWidget {
   final AnimationController animationController;
@@ -22,18 +26,31 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.animationController});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreen1State();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _HomeScreen1State extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
+  late Map<String, ClothBase> allClothes = {};
   int _curId = 0;
 
   @override
-  void initState(){
+  void initState() {
     _tabController = TabController(length: homeTabs.length, vsync: this);
     _tabController.addListener(_handleSelection);
+    initializeClothData();
     super.initState();
+  }
+
+  Future<void> initializeClothData() async {
+    try {
+      await ClothService(FirebaseFirestore.instance.collection('Cloth')).getAllClothes();
+      setState(() {
+        allClothes = GlobalVar.listAllCloth;
+      });
+    } catch (e) {
+      return;
+    }
   }
 
   void _handleSelection() {
@@ -60,113 +77,113 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final List<CustomCircleButton> buttons = _initializeButtons(context);
     final size = MediaQuery.of(context).size;
 
-    final List<ProductCard> allProducts = [
-      const ProductCard(
-          image: Localfiles.welcomeImage2,
-          productName: 'Brown Jacket Home Body Love',
-          productReviews: 4.9,
-          price: 80),
-      const ProductCard(
-          image: Localfiles.welcomeImage2,
-          productName: 'Black T-shirt',
-          productReviews: 4.5,
-          price: 50),
-      // Add more products here
-    ];
-
-    final List<ProductCard> manProducts = allProducts
-        .where((product) => product.productName.contains("Man"))
-        .toList();
-
-    final List<ProductCard> newestProducts = allProducts
-        .where((product) => product.productReviews > 4.0)
-        .toList();
+    final Map<String, ClothBase> allClothes = GlobalVar.listAllCloth;
 
     return BottomMoveTopAnimation(
-        animationController: widget.animationController,
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                const CustomAppBar(),
-                const SizedBox(
-                  height: 20,
-                ),
-                searchAndSetting(context),
-                const SizedBox(
-                  height: 20,
-                ),
-                ImageSlideshow(
-                  indicatorColor: AppTheme.brownColor,
-                  autoPlayInterval: 5000,
-                  isLoop: true,
-                  children: slides,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      animationController: widget.animationController,
+      child: Scaffold(
+        body: SafeArea(
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  pinned: true,
+                  floating: true,
+                  expandedHeight: size.height / 2 + 80,
+                  automaticallyImplyLeading: false,
+                  backgroundColor: AppTheme.backgroundColor,
+                  flexibleSpace: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        const CustomAppBar(),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        searchAndSetting(context),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ImageSlideshow(
+                          indicatorColor: AppTheme.brownColor,
+                          autoPlayInterval: 5000,
+                          isLoop: true,
+                          children: slides,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column(
                         children: [
-                          Text(
-                            'Categories',
-                            style: TextStyles(context)
-                                .getHeaderStyle(false)
-                                .copyWith(fontSize: 16),
-                          ),
-                          TapEffect(
-                              onClick: () {},
-                              child: Text(
-                                'See all',
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Categories',
                                 style: TextStyles(context)
-                                    .getDescriptionStyle()
-                                    .copyWith(fontSize: 14),
-                              ))
+                                    .getHeaderStyle(false)
+                                    .copyWith(fontSize: 16),
+                              ),
+                              TapEffect(
+                                  onClick: () {},
+                                  child: Text(
+                                    'See all',
+                                    style: TextStyles(context)
+                                        .getDescriptionStyle()
+                                        .copyWith(fontSize: 14),
+                                  ))
+                            ],
+                          ),
+                          const SizedBox(height: 20,),
+                          SizedBox(
+                            height: 90,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: buttons.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                  child: buttons[index],
+                                );
+                              },
+                            ),
+                          ),
                         ],
                       ),
-                      const SizedBox(height: 20,),
-                      SizedBox(
-                        height: 90,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: buttons.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: buttons[index],
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
+                      ],
+                    ),
                   ),
-                ),
-                HomeTab(tabController: _tabController),
-                SizedBox(height: 16,),
-                GridView.builder(
-                    itemCount: 7,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 0.0,
-                            crossAxisSpacing: 0.0,
-                            mainAxisExtent: size.height/4 + 10),
-                    itemBuilder: (_, index) => const ProductCard(
-                        image: Localfiles.welcomeImage2,
-                        productName: 'Brown Jacket Home Body Love',
-                        productReviews: 4.9,
-                        price: 80))
-              ],
+                  bottom: HomeTab(tabController: _tabController),
+                )
+              ];
+            },
+            body: Container(
+              color: AppTheme.backgroundColor,
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _buildProductGrid(allClothes, size),
+                  _buildProductGrid(
+                          _filterClothesByType(allClothes, type: 'shirt'), size),
+                  _buildProductGrid(
+                          _filterClothesByType(allClothes, type: 'shirt'), size),
+                  _buildProductGrid(
+                          _filterClothesByGender(allClothes, gender: 'M'), size),
+                  _buildProductGrid(
+                          _filterClothesByGender(allClothes, gender: 'F'), size),
+                  _buildProductGrid(allClothes, size),
+                ],
+              ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -288,18 +305,59 @@ Widget searchAndSetting(BuildContext context) {
 
 List<String> homeTabs = ['All', 'Newest', 'Popular', 'Man', 'Woman', 'Kids'];
 
-Widget _buildProductGrid(List<ProductCard> products, Size size) {
-    return GridView.builder(
-      itemCount: products.length,
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 0.0,
-              crossAxisSpacing: 0.0,
-              mainAxisExtent: size.height / 4 + 10),
-      itemBuilder: (_, index) => products[index],
-    );
-  }
+Widget _buildProductGrid(Map<String, ClothBase> clothes, Size size) {
+  return GridView.builder(
+    itemCount: clothes.length,
+    shrinkWrap: true,
+    padding: EdgeInsets.zero,
+    physics: const NeverScrollableScrollPhysics(),
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      mainAxisSpacing: 0.0,
+      crossAxisSpacing: 0.0,
+      mainAxisExtent: size.height / 4 + 10,
+    ),
+    itemBuilder: (_, index) {
+      final clothKey = clothes.keys.elementAt(index);
+      final clothBase = clothes[clothKey]!;
+      return FutureBuilder<List<ClothItem>>(
+        future: clothBase.clothItems,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: Text('Loading'));
+          } else if (snapshot.hasError) {
+            return const Center(child: Text('Error loading product'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No products found'));
+          } else {
+            final clothItem = snapshot.data!.first;
+            return ProductCard(
+              image: clothItem.clothImageURL,
+              productReviews: clothItem.review,
+              price: clothItem.price,
+              cloth: clothBase,
+            );
+          }
+        },
+      );
+    },
+  );
+}
+
+Map<String, ClothBase> _filterClothesByType(
+    Map<String, ClothBase> clothes, {
+      required String type,
+    }) {
+  return Map.fromEntries(
+    clothes.entries.where((entry) => entry.value.type == type),
+  );
+}
+
+Map<String, ClothBase> _filterClothesByGender(
+    Map<String, ClothBase> clothes, {
+      required String gender,
+    }) {
+  return Map.fromEntries(
+    clothes.entries.where((entry) => entry.value.gender == gender),
+  );
+}

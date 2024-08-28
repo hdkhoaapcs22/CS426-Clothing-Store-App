@@ -1,24 +1,26 @@
+import 'package:clothing_store_app/class/cloth_item.dart';
 import 'package:clothing_store_app/modules/ProductDetails/product_details_screen.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
+import '../../services/database/cloth_database.dart';
 import '../../utils/text_styles.dart';
 
 class ProductCard extends StatefulWidget {
   final String image;
-  final String productName;
   final double productReviews;
   final double price;
   final bool isFavorite;
+  final ClothBase cloth;
 
   const ProductCard({
     super.key,
     required this.image,
-    required this.productName,
     required this.productReviews,
     required this.price,
+    required this.cloth,
     this.isFavorite = false
   });
 
@@ -33,14 +35,24 @@ class _ProductCardState extends State<ProductCard> {
   void initState() {
     super.initState();
     isFavorite = widget.isFavorite;
+    
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return TapEffect(
-      onClick: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(isFavorite: isFavorite,)));
+      onClick: () async {
+        ClothService clothService = ClothService(FirebaseFirestore.instance.collection('Cloth'));
+        List<ClothItem> allItems = await clothService.getClothItems(id: widget.cloth.id);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => 
+        ProductDetailsScreen(
+                      isFavorite: isFavorite,
+                      productName: widget.cloth.name,
+                      productDescription: widget.cloth.description,
+                      gender: widget.cloth.gender,
+                      clothes: allItems,
+                    )));
       },
       child: Container(
         width: size.width / 2 - 40,
@@ -90,7 +102,7 @@ class _ProductCardState extends State<ProductCard> {
                   children: [
                     Flexible(
                       child: Text(
-                        widget.productName,
+                        widget.cloth.name,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyles(context).getLabelLargeStyle(false),

@@ -33,4 +33,20 @@ class HelperFunction{
         return null;
     }
   }
+
+  static List<String> sortListOfSizes(List<String> allSizes) {
+    final List<String> logicalSizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+    allSizes.sort((a, b) {
+      int indexA = logicalSizeOrder.indexOf(a);
+      int indexB = logicalSizeOrder.indexOf(b);
+
+      if (indexA == -1) indexA = logicalSizeOrder.length;
+      if (indexB == -1) indexB = logicalSizeOrder.length;
+
+      return indexA.compareTo(indexB);
+    });
+
+    return allSizes;
+  }
 }
