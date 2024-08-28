@@ -21,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
-                24, AppBar().preferredSize.height + 30, 24, 10),
+                24, AppBar().preferredSize.height, 24, 10),
             child: Column(
               children: [
                 Text(
@@ -175,7 +175,7 @@ class SignUpScreen extends StatelessWidget {
                         onTap();
                       },
                       style: TextButton.styleFrom(
-                        overlayColor: Colors.transparent,
+                        //overlayColor: Colors.transparent,
                       ),
                       child: Text(
                         AppLocalizations(context).of("signIn"),

@@ -14,15 +14,17 @@ Widget signInMethod(String imageLink, BuildContext context) {
       }
     },
     child: CircleAvatar(
-      radius: 40,
+      radius: 30,
       backgroundColor: Colors.grey,
       child: CircleAvatar(
-        radius: 39,
+        radius: 30,
         backgroundColor: Colors.white,
-        child: Image.asset(
-          imageLink,
-          width: 36,
-          height: 36,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Image.asset(
+            imageLink,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     ),

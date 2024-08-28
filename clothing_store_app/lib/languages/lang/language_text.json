@@ -453,5 +453,130 @@
         "text_id": "wishlist_title",
         "en": "My Wishlist        ",
         "fr": "My Wishlist        "
+    },
+    {
+        "text_id": "product_details_title",
+        "en": "Product Details",
+        "fr": "Détails du produit"
+    },
+    {
+        "text_id": "shop_now",
+        "en": "Shop Now",
+        "fr": "Faire Des Achats"
+    },
+    {
+        "text_id": "new_collection",
+        "en": "New Collection",
+        "fr": "Nouvelle Collection"
+    },
+    {
+        "text_id": "new_collection_description",
+        "en": "Discover our latest arrivals",
+        "fr": "Découvrez nos derniers arrivages"
+    },
+    {
+        "text_id": "summer_sale",
+        "en": "Summer Sale",
+        "fr": "Soldes d'été"
+    },
+    {
+        "text_id": "summer_sale_description",
+        "en": "Up to 50% off",
+        "fr": "Jusqu'à 50% de réduction"
+    },
+    {
+        "text_id": "exclusive_offer",
+        "en": "Exclusive Offers",
+        "fr": "Offres Exclusives"
+    },
+    {
+        "text_id": "exclusive_offer_description",
+        "en": "Only for a limited time",
+        "fr": "Pour une durée limitée"
+    },
+    {
+        "text_id": "trending_now",
+        "en": "Trending Now",
+        "fr": "Tendance Actuelle"
+    },
+    {
+        "text_id": "trending_now_description",
+        "en": "The latest fashion trends",
+        "fr": "Les dernières tendances de la mode"
+    },
+    {
+        "text_id": "search",
+        "en": "Search",
+        "fr": "Recherche"
+    },
+    {
+        "text_id": "location",
+        "en": "Location",
+        "fr": "Emplacement"
+    },
+    {
+        "text_id": "tshirt",
+        "en": "T-shirt",
+        "fr": "T-shirt"
+    },
+    {
+        "text_id": "pant",
+        "en": "Pant",
+        "fr": "Pantalon"
+    },
+    {
+        "text_id": "dress",
+        "en": "Dress",
+        "fr": "Robe"
+    },
+    {
+        "text_id": "jacket",
+        "en": "Jacket",
+        "fr": "Veste"
+    },
+    {
+        "text_id": "shoes",
+        "en": "Shoes",
+        "fr": "Chaussures"
+    },
+    {
+        "text_id": "accessory",
+        "en": "Accessory",
+        "fr": "Accessoire"
+    },
+    {
+        "text_id": "All",
+        "en": "All",
+        "fr": "Tous"
+    },
+    {
+        "text_id": "Newest",
+        "en": "Newest",
+        "fr": "Le plus récent"
+    },
+    {
+        "text_id": "Popular",
+        "en": "Popular",
+        "fr": "Populaire"
+    },
+    {
+        "text_id": "Man",
+        "en": "Man",
+        "fr": "L'homme"
+    },
+    {
+        "text_id": "Woman",
+        "en": "Woman",
+        "fr": "Femme"
+    },
+    {
+        "text_id": "Kids",
+        "en": "Kids",
+        "fr": "Les enfants"
+    },
+    {
+        "text_id": "add_to_cart",
+        "en": "Add to Cart",
+        "fr": "Ajouter au panier"
     }
 ]

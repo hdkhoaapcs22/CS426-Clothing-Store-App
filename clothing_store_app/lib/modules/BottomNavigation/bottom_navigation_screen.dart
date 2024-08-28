@@ -128,7 +128,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
         switch (bottomBarType) {
           case BottomBarType.Home:
             {
-              indexView = HomeScreen(animationController: animationController);
+              indexView = HomeScreen(animationController: animationController,);
             }
           case BottomBarType.Shopping:
             {

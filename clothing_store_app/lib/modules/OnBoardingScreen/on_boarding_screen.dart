@@ -112,7 +112,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 25.0),
             child: Align(
               alignment: Alignment.topRight,
               child: Padding(
@@ -125,7 +125,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               curve: Curves.easeIn);
                         },
                         style: TextButton.styleFrom(
-                          overlayColor: Colors.transparent,
+                          //overlayColor: Colors.transparent,
                         ),
                         child: Text(
                           AppLocalizations(context).of("skip"),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../languages/appLocalizations.dart';
 import '../utils/text_styles.dart';
+import '../utils/themes.dart';
 import 'tap_effect.dart';
 
 // ignore: must_be_immutable
@@ -14,6 +15,7 @@ class CommonButton extends StatelessWidget {
   final double radius;
   double height, width, fontSize;
   bool isVisibility;
+  final IconData? icon;
 
   CommonButton({
     super.key,
@@ -29,6 +31,7 @@ class CommonButton extends StatelessWidget {
     this.fontSize = 18,
     this.width = double.infinity,
     this.isVisibility = true,
+    this.icon
   });
 
   @override
@@ -38,31 +41,32 @@ class CommonButton extends StatelessWidget {
       child: TapEffect(
         isClickable: isClickable,
         onClick: onTap ?? () {},
-        child: SizedBox(
+        child: Container(
           height: height,
           width: width,
-          child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius),
-              ),
-              color: backgroundColor ?? Theme.of(context).primaryColor,
-              shadowColor: Colors.black12.withOpacity(
-                  Theme.of(context).brightness == Brightness.light ? 0.6 : 0.2),
-              child: isVisibility
-                  ? Center(
-                      child: buttonTextWidget ??
-                          Text(
-                            buttonText != null
-                                ? AppLocalizations(context).of(buttonText!)
-                                : "",
-                            style:
-                                TextStyles(context).getRegularStyle().copyWith(
-                                      color: textColor,
-                                      fontSize: fontSize,
-                                    ),
-                          ),
-                    )
-                  : const SizedBox()),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius),
+            color: backgroundColor ?? Theme.of(context).primaryColor,
+          ),
+          child: isVisibility
+              ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  icon!=null ? Icon(icon, color: AppTheme.backgroundColor,) : const SizedBox(),
+                  icon!=null ? const SizedBox(width: 16.0,) : const SizedBox(),
+                  buttonTextWidget ??
+                      Text(
+                        buttonText != null
+                            ? AppLocalizations(context).of(buttonText!)
+                            : "",
+                        style: TextStyles(context).getRegularStyle().copyWith(
+                              color: textColor,
+                              fontSize: fontSize,
+                            ),
+                      ),
+                ],
+              )
+              : const SizedBox(),
         ),
       ),
     );

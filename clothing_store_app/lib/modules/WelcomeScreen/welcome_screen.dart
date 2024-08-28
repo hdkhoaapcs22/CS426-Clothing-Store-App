@@ -141,7 +141,7 @@ class WelcomeScreen extends StatelessWidget {
                           NavigationServices(context).pushLoginScreen();
                         },
                         style: TextButton.styleFrom(
-                          overlayColor: Colors.transparent,
+                          //overlayColor: Colors.transparent,
                         ),
                         child: Text(
                           AppLocalizations(context).of("signIn"),
