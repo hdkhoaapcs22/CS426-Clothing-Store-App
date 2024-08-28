@@ -21,11 +21,7 @@ class CancelledOrderService extends UserService {
         .delete();
   }
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getCancelledOrderStream() {
-    return userCollection
-        .doc(uid)
-        .collection("CancelledOrder")
-        .doc()
-        .snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getCancelledOrderStream() {
+    return userCollection.doc(uid).collection("CancelledOrder").snapshots();
   }
 }

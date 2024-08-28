@@ -808,5 +808,35 @@
         "text_id": "cannot_change_email_address",
         "en": "Cannot change email address!",
         "fr": "Impossible de modifier l'adresse électronique!"
+    },
+    {
+        "text_id": "my_order",
+        "en": "My Order",
+        "fr": "Ma Commande"
+    },
+    {
+        "text_id": "active_order",
+        "en": "Active Order",
+        "fr": "Commande Active"
+    },
+    {
+        "text_id": "completed_order",
+        "en": "Completed Order",
+        "fr": "Commande Terminée"
+    },
+    {
+        "text_id": "cancelled_order",
+        "en": "Cancelled Order",
+        "fr": "Commande Annulée"
+    },
+    {
+        "text_id": "track_order",
+        "en": "Track Order",
+        "fr": "Suivre La Commande"
+    },
+    {
+        "text_id": "re_order",
+        "en": "Re-Order",
+        "fr": "Recommander"
     }
 ]

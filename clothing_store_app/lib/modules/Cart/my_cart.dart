@@ -22,7 +22,6 @@ class MyCart extends StatefulWidget {
 
 class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
   late SlidableController controller;
-  late TextEditingController promoCodeController;
   late double subTotalPrice, discount, totalPrice;
   final double deliveryFee = 0.8;
   late List<dynamic> orderedItems;
@@ -31,7 +30,6 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     controller = SlidableController(this);
-    promoCodeController = TextEditingController();
     discount = 0.0;
     totalPrice = 0.0;
     orderedItems = [];
@@ -40,7 +38,6 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
   @override
   void dispose() {
     controller.dispose();
-    promoCodeController.dispose();
     super.dispose();
   }
 

@@ -16,7 +16,7 @@ class ActiveOrderService extends UserService {
         .delete();
   }
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getUserActiveOrder() {
-    return userCollection.doc(uid).collection("ActiveOrder").doc().snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getUserActiveOrderStream() {
+    return userCollection.doc(uid).collection("ActiveOrder").snapshots();
   }
 }

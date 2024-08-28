@@ -6,12 +6,13 @@ import '../languages/appLocalizations.dart';
 import '../utils/text_styles.dart';
 
 // ignore: must_be_immutable
-class DetailOrderWidget extends StatelessWidget {
+class DetailClothItem extends StatelessWidget {
   dynamic itemCloth;
   CommonButton? button;
-  DetailOrderWidget({
+  DetailClothItem({
     super.key,
     required this.itemCloth,
+    this.button,
   });
 
   @override
