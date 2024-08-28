@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:clothing_store_app/modules/SplashScreen/splash_screen.dart';
 import 'package:clothing_store_app/routes/routes_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class _ClothingStoreAppState extends State<ClothingStoreApp> {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-      RoutesName.splashScreen: (context) => const BottomNavigationScreen()
+      RoutesName.splashScreen: (context) => const SplashScreen()
     };
   }
 

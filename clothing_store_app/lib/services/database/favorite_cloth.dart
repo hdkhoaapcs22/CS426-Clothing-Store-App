@@ -3,7 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FavoriteClothService extends UserService {
   void addFavoriteCloth({required String clothItemID}) async {
-    await userCollection.doc(uid).collection("Wishlist").doc(clothItemID).set({
+    await userCollection
+        .doc(uid)
+        .collection("Wishlist")
+        .doc(clothItemID)
+        .set({
       'clothItemID': clothItemID,
     });
   }
@@ -17,6 +21,9 @@ class FavoriteClothService extends UserService {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getFavoriteClothStream() {
-    return userCollection.doc(uid).collection("Wishlist").snapshots();
+    return userCollection
+        .doc(uid)
+        .collection("Wishlist")
+        .snapshots();
   }
 }

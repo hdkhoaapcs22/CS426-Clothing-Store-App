@@ -1,6 +1,7 @@
 import 'package:clothing_store_app/common/helper_funtion.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/modules/ProductDetails/custom_choice_chip.dart';
+import 'package:clothing_store_app/services/database/favorite_cloth.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
@@ -9,22 +10,20 @@ import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../class/cloth_item.dart';
+import '../../services/database/user.dart';
 import '../../utils/themes.dart';
 import '../../widgets/common_detailed_app_bar.dart';
 
+// ignore: must_be_immutable
 class ProductDetailsScreen extends StatefulWidget {
-  final bool isFavorite;
-  final String productName;
-  final String productDescription;
-  final String gender;
+  late bool isFavorite;
+  final ClothBase clothBase;
   final List<ClothItem> clothes;
 
-  const ProductDetailsScreen({
-    super.key, 
+  ProductDetailsScreen({
+    super.key,
     required this.isFavorite, 
-    required this.productName,
-    required this.productDescription,
-    required this.gender,
+    required this.clothBase,
     required this.clothes
   });
 
@@ -45,7 +44,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       case 'F':
         return 'Woman';
       default:
-        return 'Kids';
+        return 'Man';
     }
   }
 
@@ -56,9 +55,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   void initState() {
-    setState(() {
-      _getAllSizes();
-    });
+    _getAllSizes();
     super.initState();
   }
 
@@ -96,6 +93,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               onClick: () {
                                 setState(() {
                                   selectedID = index;
+                                  selectedColor = selectedID;
                                 });
                               },
                               child: Container(
@@ -128,12 +126,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   title: AppLocalizations(context).of("product_details_title"),
                   prefixIconData: Iconsax.arrow_left,
                   suffixIconData: widget.isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                  iconColor: AppTheme.brownButtonColor,
                   onPrefixIconClick: () {
                     Navigator.pop(context);
                   },
                   onSuffixIconClick: () {
-                    //add to favorite list
-                    widget.isFavorite != widget.isFavorite;
+                    setState(() {
+                      widget.isFavorite = !widget.isFavorite;
+                      FavoriteClothService favoriteList = FavoriteClothService();
+                      if (widget.isFavorite) {
+                        favoriteList.addFavoriteCloth(clothItemID: widget.clothBase.id);
+                      } else {
+                        favoriteList.removeFavoriteCloth(clothItemID: widget.clothBase.id);
+                      }
+                    });
                   },
                 ),
               ],
@@ -148,7 +154,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       Flexible(
                         child: Text(
-                          '${getGender(widget.gender)}\'s Style',
+                          '${getGender(widget.clothBase.gender)}\'s Style',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: TextStyles(context).getDescriptionStyle(),
@@ -165,7 +171,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             width: 3,
                           ),
                           Text(
-                            widget.clothes[selectedColor].review.toString(),
+                            widget.clothBase.review.toStringAsFixed(1),
                             style: TextStyles(context)
                                 .getDescriptionStyle()
                                 .copyWith(fontSize: 14),
@@ -176,13 +182,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   const SizedBox(height: 8.0,),
                   //------------------  Name of product ----------------------
-                  Text(widget.productName,  style: TextStyles(context).getLargerHeaderStyle(false),),
+                  Text(widget.clothBase.name,  style: TextStyles(context).getLargerHeaderStyle(false),),
                   const SizedBox(height: 8.0,),
                   //------------------  Product Details ----------------------
                   Text('Product Details',  style: TextStyles(context).getLabelLargeStyle(false).copyWith(fontSize: 16),),
                   const SizedBox(height: 8.0,),
                   ReadMoreText(
-                    widget.productDescription,
+                    widget.clothBase.description,
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Read more',
@@ -269,6 +275,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               onSelected: (value) {
                                 setState(() {
                                   selectedColor = index;
+                                  _getAllSizes();
                                 });
                               },
                             ),

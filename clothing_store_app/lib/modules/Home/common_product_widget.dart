@@ -6,19 +6,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../services/database/cloth_database.dart';
+import '../../services/database/favorite_cloth.dart';
 import '../../utils/text_styles.dart';
 
+// ignore: must_be_immutable
 class ProductCard extends StatefulWidget {
   final String image;
-  final double productReviews;
   final double price;
-  final bool isFavorite;
+  late bool isFavorite;
   final ClothBase cloth;
 
-  const ProductCard({
+  ProductCard({
     super.key,
     required this.image,
-    required this.productReviews,
     required this.price,
     required this.cloth,
     this.isFavorite = false
@@ -29,13 +29,9 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-  late bool isFavorite;
-
   @override
   void initState() {
-    super.initState();
-    isFavorite = widget.isFavorite;
-    
+    super.initState();  
   }
 
   @override
@@ -43,14 +39,16 @@ class _ProductCardState extends State<ProductCard> {
     final size = MediaQuery.of(context).size;
     return TapEffect(
       onClick: () async {
-        ClothService clothService = ClothService(FirebaseFirestore.instance.collection('Cloth'));
-        List<ClothItem> allItems = await clothService.getClothItems(id: widget.cloth.id);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => 
-        ProductDetailsScreen(
-                      isFavorite: isFavorite,
-                      productName: widget.cloth.name,
-                      productDescription: widget.cloth.description,
-                      gender: widget.cloth.gender,
+        ClothService clothService =
+            ClothService(FirebaseFirestore.instance.collection('Cloth'));
+        List<ClothItem> allItems =
+            await clothService.getClothItems(id: widget.cloth.id);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductDetailsScreen(
+                      clothBase: widget.cloth,
+                      isFavorite: widget.isFavorite,
                       clothes: allItems,
                     )));
       },
@@ -79,13 +77,21 @@ class _ProductCardState extends State<ProductCard> {
                     child: TapEffect(
                       onClick: () {
                         setState(() {
-                          isFavorite = !isFavorite;
+                          widget.isFavorite = !widget.isFavorite;
+                          FavoriteClothService favoriteList = FavoriteClothService();
+                          if (widget.isFavorite) {
+                            favoriteList.addFavoriteCloth(
+                                clothItemID: widget.cloth.id);
+                          } else {
+                            favoriteList.removeFavoriteCloth(
+                                clothItemID: widget.cloth.id);
+                          }
                         });
                       },
                       child: CircleAvatar(
                         backgroundColor:
                             const Color.fromARGB(200, 247, 238, 211),
-                        child: Icon(isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                        child: Icon(widget.isFavorite ? Iconsax.heart5 : Iconsax.heart,
                             color: AppTheme.brownButtonColor, size: 20),
                       ),
                     ))
@@ -119,7 +125,7 @@ class _ProductCardState extends State<ProductCard> {
                           width: 3,
                         ),
                         Text(
-                          widget.productReviews.toStringAsFixed(1),
+                          widget.cloth.review.toStringAsFixed(1),
                           style: TextStyles(context)
                               .getDescriptionStyle()
                               .copyWith(fontSize: 13),

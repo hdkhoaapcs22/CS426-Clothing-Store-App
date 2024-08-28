@@ -25,6 +25,7 @@ class ClothItem {
   String clothImageURL;
   Map<String, dynamic> sizeWithQuantity;
   double price;
+  
 
   ClothItem({
     required this.color,
