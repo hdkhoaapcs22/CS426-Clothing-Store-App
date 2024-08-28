@@ -5,11 +5,7 @@ class FavoriteClothService extends UserService {
   FavoriteClothService() : super.defaultContructor();
 
   void addFavoriteCloth({required String clothItemID}) async {
-    await userCollection
-        .doc(uid)
-        .collection("FavoriteCloth")
-        .doc(clothItemID)
-        .set({
+    await userCollection.doc(uid).collection("Wishlist").doc(clothItemID).set({
       'clothItemID': clothItemID,
     });
   }
@@ -17,16 +13,12 @@ class FavoriteClothService extends UserService {
   void removeFavoriteCloth({required String clothItemID}) async {
     await userCollection
         .doc(uid)
-        .collection("FavoriteCloth")
+        .collection("Wishlist")
         .doc(clothItemID)
         .delete();
   }
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getFavoriteClothStream() {
-    return userCollection
-        .doc(uid)
-        .collection("FavoriteCloth")
-        .doc()
-        .snapshots();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFavoriteClothStream() {
+    return userCollection.doc(uid).collection("Wishlist").snapshots();
   }
 }
