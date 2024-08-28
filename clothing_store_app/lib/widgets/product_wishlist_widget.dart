@@ -1,7 +1,7 @@
 import 'package:clothing_store_app/services/database/favorite_cloth.dart';
-import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 Widget productWishlistWidget(BuildContext context, Map<String, dynamic> data) {
   return Column(
@@ -21,11 +21,8 @@ Widget productWishlistWidget(BuildContext context, Map<String, dynamic> data) {
               style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                   backgroundColor: const Color.fromARGB(100, 255, 255, 255)),
-              child: Column(
-                children: [
-                  const Padding(padding: EdgeInsets.all(1)),
-                  Image.asset(Localfiles.wishlistHeart),
-                ],
+              child: const Column(
+                children: [Icon(Iconsax.heart5, color: Colors.brown, size: 20)],
               ),
             ))
       ]),
@@ -38,7 +35,7 @@ Widget productWishlistWidget(BuildContext context, Map<String, dynamic> data) {
               data['name'],
             ),
             const Spacer(),
-            Image.asset(Localfiles.yellowStar),
+            const Icon(Iconsax.star1, color: Colors.yellow, size: 14),
             Text(data['review'],
                 style: TextStyles(context).getDescriptionStyle()),
           ],
