@@ -6,8 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'user.dart';
 
 class UserInformationService extends UserService {
-  UserInformationService() : super.defaultContructor();
-
   Future setUserInformation({
     required String name,
     required String phone,

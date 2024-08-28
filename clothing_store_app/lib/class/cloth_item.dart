@@ -5,6 +5,7 @@ class ClothBase {
   String type;
   String gender;
   String brand;
+  double review;
   Future<List<ClothItem>> clothItems;
 
   ClothBase({
@@ -14,6 +15,7 @@ class ClothBase {
     required this.type,
     required this.gender,
     required this.brand,
+    required this.review,
     required this.clothItems,
   });
 }
@@ -23,13 +25,11 @@ class ClothItem {
   String clothImageURL;
   Map<String, dynamic> sizeWithQuantity;
   double price;
-  double review;
 
   ClothItem({
     required this.color,
     required this.sizeWithQuantity,
     required this.clothImageURL,
     required this.price,
-    required this.review,
   });
 }

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'providers/wishlist_provider.dart';
 import 'services/database/cloth_database.dart';
 
 void main() async {
@@ -47,6 +48,9 @@ Widget _setAllProviders() {
       ),
       ChangeNotifierProvider(
         create: (context) => ChooseCouponProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => WishlistProvider(),
       ),
     ],
     child: ClothingStoreApp(),
