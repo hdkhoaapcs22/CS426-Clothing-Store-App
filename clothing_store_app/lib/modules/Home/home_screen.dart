@@ -79,21 +79,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ));
             }
             List<DocumentSnapshot<Object?>> dc = snapshot.data!.docs;
-            List<Map<String, dynamic>> data = [];
-            List<Map<String, dynamic>> subData = [];
-            subData.clear();
-            for (int i = 0; i < dc.length; ++i) {
-              data.add(dc[i].data()! as Map<String, dynamic>);
-            }
-
-            GlobalVar.listAllCloth.forEach((key, clothBase) {
-            bool isFavorite = data.any((fav) => fav['id'] == clothBase.id);
-
-            if (!isFavorite) {
-              subData.add({'id': clothBase.id, 'clothBase': clothBase});
-            }
-          });
-          List<String> favoriteIds = dc.map((doc) => doc.id).toList();
+            List<String> favoriteIds = dc.map((doc) => doc.id).toList();
       return BottomMoveTopAnimation(
         animationController: widget.animationController,
         child: Scaffold(

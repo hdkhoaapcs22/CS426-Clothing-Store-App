@@ -9,14 +9,16 @@ class CartService extends UserService {
     required String size,
     required double price,
     required int orderQuantity,
+    required int quantity
   }) async {
     await userCollection.doc(uid).collection("Cart").doc(clothItemID).set({
       'clothItemID': clothItemID,
       'name': name,
-      'imageURl': imageURl,
+      'imageURL': imageURl,
       'size': size,
-      'price': price,
+      'price': price.toString(),
       'orderQuantity': orderQuantity,
+      'quantity': quantity
     });
   }
 

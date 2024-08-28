@@ -1,6 +1,8 @@
 import 'package:clothing_store_app/common/helper_funtion.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/modules/ProductDetails/custom_choice_chip.dart';
+import 'package:clothing_store_app/routes/navigation_services.dart';
+import 'package:clothing_store_app/services/database/cart.dart';
 import 'package:clothing_store_app/services/database/favorite_cloth.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/widgets/common_button.dart';
@@ -323,7 +325,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ],
                 ),
                 const SizedBox(width: 16.0,),
-                Expanded(child: CommonButton(
+                Expanded(child: 
+                CommonButton(
+                  onTap: () {
+                    CartService().addItemIntoCart(
+                        clothItemID: widget.clothBase.id,
+                        name: widget.clothBase.name,
+                        imageURl: widget.clothes[selectedColor].clothImageURL,
+                        size: allSizes[selectedSize],
+                        price: widget.clothes[selectedColor].price,
+                        orderQuantity: 1,
+                        quantity: widget.clothes[selectedColor].sizeWithQuantity[allSizes[selectedSize]]
+                    );
+                    NavigationServices(context).gotoCartScreen();
+                  },    
                   buttonText: 'add_to_cart',
                   icon: Iconsax.shopping_bag5,
                   radius: 40,)),
