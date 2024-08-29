@@ -1,12 +1,10 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
-import 'package:clothing_store_app/widgets/common_app_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/themes.dart';
 import 'active_order.dart';
 import 'cancelled_order.dart';
-import 'completed_order.dart';
 
 // ignore: must_be_immutable
 class MyOrder extends StatelessWidget {
@@ -16,40 +14,30 @@ class MyOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
-          leading: Row(children: [
-            const CommonAppBarView(iconData: Icons.arrow_back),
-            Expanded(
-              child: Center(
-                child: Text(
-                  AppLocalizations(context).of("my_order"),
-                  style: TextStyles(context).getTitleStyle(),
-                ),
-              ),
-            ),
-          ]),
+          automaticallyImplyLeading: false,
+          title: Text(AppLocalizations(context).of("my_order"),
+              style: TextStyles(context).getHeaderStyle(false)),
           bottom: TabBar(
             indicatorColor: AppTheme.brownColor,
             labelColor: AppTheme.brownColor,
             tabs: [
               Tab(
-                  child: Text(AppLocalizations(context).of("active_order"),
-                      style: TextStyles(context).getDescriptionStyle())),
-              Tab(
-                  child: Text(AppLocalizations(context).of("completed_order"),
-                      style: TextStyles(context).getDescriptionStyle())),
+                  child: Text(
+                AppLocalizations(context).of("active_order"),
+                style: const TextStyle(fontSize: 18),
+              )),
               Tab(
                   child: Text(AppLocalizations(context).of("cancelled_order"),
-                      style: TextStyles(context).getDescriptionStyle())),
+                      style: const TextStyle(fontSize: 18))),
             ],
           ),
         ),
         body: TabBarView(
           children: [
             ActiveOrder(animationController: animationController),
-            CompletedOrder(animationController: animationController),
             CancelledOrder(animationController: animationController),
           ],
         ),

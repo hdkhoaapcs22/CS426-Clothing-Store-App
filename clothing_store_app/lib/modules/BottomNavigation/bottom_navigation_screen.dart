@@ -1,4 +1,5 @@
 import 'package:clothing_store_app/modules/Home/home_screen.dart';
+import 'package:clothing_store_app/modules/MyOrder/my_order.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -133,7 +134,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
           case BottomBarType.Shopping:
             {
               indexView =
-                  ShoppingScreen(animationController: animationController);
+                  MyOrder(animationController: animationController);
             }
           case BottomBarType.Favorite:
             {

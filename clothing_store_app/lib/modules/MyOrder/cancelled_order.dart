@@ -1,15 +1,10 @@
-import 'package:clothing_store_app/class/ordered_item.dart';
 import 'package:clothing_store_app/services/database/cancelled_order.dart';
-import 'package:clothing_store_app/widgets/common_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
-import '../../languages/appLocalizations.dart';
 import '../../utils/localfiles.dart';
-import '../../utils/text_styles.dart';
-import '../../utils/themes.dart';
 import '../../widgets/bottom_move_top_animation.dart';
-import '../../widgets/ordered_cloth_item.dart';
+import 'order_ui.dart';
 
 class CancelledOrder extends StatefulWidget {
   final AnimationController animationController;
@@ -33,41 +28,24 @@ class _CancelledOrderState extends State<CancelledOrder> {
       stream: CancelledOrderService().getCancelledOrderStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-          List<OrderedItem> listItems = snapshot.data!.docs
-              .map((doc) => OrderedItem(
-                    clothBaseID: doc['clothItemID'],
-                    name: doc['name'],
-                    imageURL: doc['imageURL'],
-                    size: doc['size'],
-                    price: double.parse(doc['price']),
-                    orderQuantity: doc['orderQuantity'],
-                    quantity: doc['quantity'],
-                  ))
-              .toList();
+          List<DocumentSnapshot<Object?>> dc = snapshot.data!.docs;
+          List<dynamic> listOrders = [];
+          for (int i = 0; i < dc.length; ++i) {
+            listOrders.add(dc[i].data()! as Map<String, dynamic>);
+          }
           return BottomMoveTopAnimation(
               animationController: widget.animationController,
-              child: ListView.builder(
-                itemCount: listItems.length,
-                itemBuilder: (context, index) {
-                  return DetailClothItem(
-                      itemCloth: listItems[index],
-                      button: CommonButton(
-                        padding: const EdgeInsets.only(top: 5, right: 10),
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        width: MediaQuery.of(context).size.width * 0.3,
-                        onTap: () async {
-                          // 
-                        },
-                        radius: 30.0,
-                        backgroundColor: AppTheme.brownButtonColor,
-                        buttonTextWidget: Text(
-                          AppLocalizations(context).of("re_order"),
-                          style: TextStyles(context)
-                              .getButtonTextStyle()
-                              .copyWith(fontSize: 16),
-                        ),
-                      ));
-                },
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: ListView.builder(
+                  itemCount: listOrders.length,
+                  itemBuilder: (context, index) {
+                    return orderUI(
+                      context: context,
+                      order: listOrders[index],
+                    );
+                  },
+                ),
               ));
         } else {
           return AlertDialog(

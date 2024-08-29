@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../modules/BottomNavigation/bottom_navigation_screen.dart';
 import '../modules/Cart/my_cart.dart';
 import '../modules/OnBoardingScreen/on_boarding_screen.dart';
+import '../widgets/ordered_cloth_item.dart';
 
 class NavigationServices {
   final BuildContext context;
@@ -82,5 +83,9 @@ class NavigationServices {
 
   void gotoCartScreen() async {
     return _pushMaterialPageRoute(const MyCart());
+  }
+
+  void gotoDetailOrderScreen(String orderID) async {
+    return _pushMaterialPageRoute(DetailClothItem(orderID: orderID));
   }
 }

@@ -10,6 +10,8 @@ import 'package:clothing_store_app/services/auth/auth_service.dart';
 import 'package:clothing_store_app/widgets/sign_in_method.dart';
 import 'package:flutter/material.dart';
 
+import '../MyOrder/my_order.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.onTap});
   final Function() onTap;
@@ -83,8 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                       NavigationServices(context).pushForgotPassPage();
                     },
                     style: TextButton.styleFrom(
-                      //overlayColor: Colors.transparent,
-                    ),
+                        //overlayColor: Colors.transparent,
+                        ),
                     child: Text(
                       AppLocalizations(context).of("forget_pass"),
                       style: const TextStyle(
@@ -152,8 +154,8 @@ class _LoginPageState extends State<LoginPage> {
                       widget.onTap();
                     },
                     style: TextButton.styleFrom(
-                     // overlayColor: Colors.transparent,
-                    ),
+                        // overlayColor: Colors.transparent,
+                        ),
                     child: Text(
                       AppLocalizations(context).of("sign_up"),
                       style: TextStyles(context)

@@ -816,27 +816,53 @@
     },
     {
         "text_id": "active_order",
-        "en": "Active Order",
-        "fr": "Commande Active"
+        "en": "Active",
+        "fr": "Actif"
     },
     {
         "text_id": "completed_order",
-        "en": "Completed Order",
-        "fr": "Commande Terminée"
+        "en": "Completed",
+        "fr": "Terminé"
     },
     {
         "text_id": "cancelled_order",
-        "en": "Cancelled Order",
-        "fr": "Commande Annulée"
-    },
-    {
-        "text_id": "track_order",
-        "en": "Track Order",
-        "fr": "Suivre La Commande"
+        "en": "Cancelled",
+        "fr": "Annulé"
     },
     {
         "text_id": "re_order",
         "en": "Re-Order",
         "fr": "Recommander"
+    },
+    {
+        "text_id": "ordered_quantity",
+        "en": "Qty",
+        "fr": "Qté"
+    },
+    {
+        "text_id": "order_id",
+        "en": "Order ID",
+        "fr": "ID de commande"
+    },
+    {
+        "text_id": "order_date",
+        "en": "Order Date",
+        "fr": "Date de commande"
+    },
+    {
+        "text_id": "quantity_item",
+        "en": "Quantity of Items",
+        "fr": "Quantité d'articles"
+    },
+    {
+        "text_id": "total_price",
+        "en": "Total Price",
+        "fr": "Prix Total"
+    },
+    {
+        "text_id": "detail_order",
+        "en": "Detail Order",
+        "fr": "Détail de la commande"
     }
+    
 ]
