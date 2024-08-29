@@ -10,8 +10,6 @@ import 'package:clothing_store_app/services/auth/auth_service.dart';
 import 'package:clothing_store_app/widgets/sign_in_method.dart';
 import 'package:flutter/material.dart';
 
-import '../MyOrder/my_order.dart';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.onTap});
   final Function() onTap;
