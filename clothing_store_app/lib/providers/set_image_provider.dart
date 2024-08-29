@@ -33,4 +33,10 @@ class PickImageProvider with ChangeNotifier {
       //
     }
   }
+
+  void reset() {
+    _selectedImage = '';
+    _selectedImageBytes = null;
+    notifyListeners();
+  }
 }

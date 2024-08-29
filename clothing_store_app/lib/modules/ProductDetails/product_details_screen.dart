@@ -12,7 +12,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../class/cloth_item.dart';
-import '../../services/database/user.dart';
 import '../../utils/themes.dart';
 import '../../widgets/common_detailed_app_bar.dart';
 

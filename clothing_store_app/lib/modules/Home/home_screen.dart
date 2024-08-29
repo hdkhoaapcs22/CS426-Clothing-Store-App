@@ -16,7 +16,6 @@ import '../../class/cloth_item.dart';
 import '../../global/global_var.dart';
 import '../../languages/appLocalizations.dart';
 import '../../providers/home_tab_provider.dart';
-import '../../services/database/cloth_database.dart';
 import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
@@ -70,119 +69,125 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return StreamBuilder(
       stream: FavoriteClothService().getFavoriteClothStream(),
       builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return AlertDialog(
-                  backgroundColor: Colors.transparent,
-                  content: Lottie.asset(
-                    Localfiles.loading,
-                    width: lottieSize,
-                  ));
-            }
-            List<DocumentSnapshot<Object?>> dc = snapshot.data!.docs;
-            List<String> favoriteIds = dc.map((doc) => doc.id).toList();
-      return BottomMoveTopAnimation(
-        animationController: widget.animationController,
-        child: Scaffold(
-          body: SafeArea(
-            child: NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [
-                  SliverAppBar(
-                    pinned: true,
-                    floating: true,
-                    expandedHeight: size.height / 2 + 80,
-                    automaticallyImplyLeading: false,
-                    backgroundColor: AppTheme.backgroundColor,
-                    flexibleSpace: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          const CustomAppBar(),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          searchAndSetting(context),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          ImageSlideshow(
-                            indicatorColor: AppTheme.brownColor,
-                            autoPlayInterval: 5000,
-                            isLoop: true,
-                            children: slides,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Categories',
-                                  style: TextStyles(context)
-                                      .getHeaderStyle(false)
-                                      .copyWith(fontSize: 16),
-                                ),
-                                TapEffect(
-                                    onClick: () {},
-                                    child: Text(
-                                      'See all',
-                                      style: TextStyles(context)
-                                          .getDescriptionStyle()
-                                          .copyWith(fontSize: 14),
-                                    ))
-                              ],
-                            ),
-                            const SizedBox(height: 20,),
-                            SizedBox(
-                              height: 90,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: buttons.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                    child: buttons[index],
-                                  );
-                                },
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return AlertDialog(
+                backgroundColor: Colors.transparent,
+                content: Lottie.asset(
+                  Localfiles.loading,
+                  width: lottieSize,
+                ));
+          }
+          List<DocumentSnapshot<Object?>> dc = snapshot.data!.docs;
+          List<String> favoriteIds = dc.map((doc) => doc.id).toList();
+          return BottomMoveTopAnimation(
+            animationController: widget.animationController,
+            child: Scaffold(
+              body: SafeArea(
+                child: NestedScrollView(
+                  headerSliverBuilder: (context, innerBoxIsScrolled) {
+                    return [
+                      SliverAppBar(
+                        pinned: true,
+                        floating: true,
+                        expandedHeight: size.height / 2 + 80,
+                        automaticallyImplyLeading: false,
+                        backgroundColor: AppTheme.backgroundColor,
+                        flexibleSpace: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListView(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              const CustomAppBar(),
+                              const SizedBox(
+                                height: 20,
                               ),
-                            ),
-                          ],
+                              searchAndSetting(context),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ImageSlideshow(
+                                indicatorColor: AppTheme.brownColor,
+                                autoPlayInterval: 5000,
+                                isLoop: true,
+                                children: slides,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Categories',
+                                          style: TextStyles(context)
+                                              .getHeaderStyle(false)
+                                              .copyWith(fontSize: 16),
+                                        ),
+                                        TapEffect(
+                                            onClick: () {},
+                                            child: Text(
+                                              'See all',
+                                              style: TextStyles(context)
+                                                  .getDescriptionStyle()
+                                                  .copyWith(fontSize: 14),
+                                            ))
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    SizedBox(
+                                      height: 90,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: buttons.length,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16.0),
+                                            child: buttons[index],
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                        ],
-                      ),
-                    ),
-                    bottom: HomeTab(tabController: _tabController),
-                  )
-                ];
-              },
-              body: Container(
-                color: AppTheme.backgroundColor,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _buildProductGrid(GlobalVar.listAllCloth, size, favoriteIds),
-                    _buildProductGrid(
+                        bottom: HomeTab(tabController: _tabController),
+                      )
+                    ];
+                  },
+                  body: Container(
+                    color: AppTheme.backgroundColor,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildProductGrid(
+                            GlobalVar.listAllCloth, size, favoriteIds),
+                        _buildProductGrid(
                             _filterClothesByReviews(GlobalVar.listAllCloth, minReview: 4.5), size, favoriteIds),
-                    _buildProductGrid(
+                        _buildProductGrid(
                             _filterClothesByGender(GlobalVar.listAllCloth, gender: 'M'), size, favoriteIds),
-                    _buildProductGrid(
+                        _buildProductGrid(
                             _filterClothesByGender(GlobalVar.listAllCloth, gender: 'F'), size, favoriteIds),
-                  ],
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      );
-      }
+          );
+        }
     );
   }
 }

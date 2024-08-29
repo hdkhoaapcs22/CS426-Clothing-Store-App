@@ -578,5 +578,105 @@
         "text_id": "add_to_cart",
         "en": "Add to Cart",
         "fr": "Ajouter au panier"
+    },
+    {
+        "text_id": "categories",
+        "en": "Categories",
+        "fr": "Catégories"
+    },
+    {
+        "text_id": "see_all",
+        "en": "See all",
+        "fr": "Voir tous"
+    },
+    {
+        "text_id": "select_location",
+        "en": "Please select a location",
+        "fr": "Veuillez sélectionner un lieu"
+    },
+    {
+        "text_id": "categories",
+        "en": "Categories",
+        "fr": "Catégories"
+    },
+    {
+        "text_id": "your_profile",
+        "en": "Your Profile",
+        "fr": "Votre profil"
+    },
+    {
+        "text_id": "payment_methods",
+        "en": "Payment Methods",
+        "fr": "Modes de paiement"
+    },
+    {
+        "text_id": "my_orders",
+        "en": "My Orders",
+        "fr": "Mes commandes"
+    },
+    {
+        "text_id": "settings",
+        "en": "Settings",
+        "fr": "Paramètres"
+    },
+    {
+        "text_id": "help_center",
+        "en": "Help Center",
+        "fr": "Centre d'aide"
+    },
+    {
+        "text_id": "privacy_policy",
+        "en": "Privacy Policy",
+        "fr": "Politique de confidentialité"
+    },
+    {
+        "text_id": "invite_friends",
+        "en": "Invite Friends",
+        "fr": "Inviter des amis"
+    },
+    {
+        "text_id": "log_out",
+        "en": "Log out",
+        "fr": "Déconnexion"
+    },
+    {
+        "text_id": "notification_setting",
+        "en": "Notification Setting",
+        "fr": "Réglage de la notification"
+    },
+    {
+        "text_id": "password_manager",
+        "en": "Password Manager",
+        "fr": "Gestionnaire de mots de passe"
+    },
+    {
+        "text_id": "delete_account",
+        "en": "Delete Account",
+        "fr": "Supprimer le compte"
+    },
+    {
+        "text_id": "are_you_sure_to_log_out",
+        "en": "Are you sure you want to log out?",
+        "fr": "Êtes-vous sûr de vouloir vous déconnecter?"
+    },
+    {
+        "text_id": "cancel",
+        "en": "Cancel",
+        "fr": "Annuler"
+    },
+    {
+        "text_id": "yes_logout",
+        "en": "Yes, Logout",
+        "fr": "Oui, Déconnexion"
+    },
+    {
+        "text_id": "dark_mode",
+        "en": "Dark Mode",
+        "fr": "Mode Sombre"
+    },
+    {
+        "text_id": "language",
+        "en": "Language",
+        "fr": "Langue"
     }
 ]

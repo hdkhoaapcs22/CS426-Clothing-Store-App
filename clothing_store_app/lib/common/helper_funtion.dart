@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HelperFunction{
   static Color? getColor(String value) {
@@ -49,4 +50,40 @@ class HelperFunction{
 
     return allSizes;
   }
+
+  static IconData getIconForProfileServices(int index) {
+    switch (index) {
+      case 0:
+        return Iconsax.user;
+      case 1:
+        return Iconsax.card;
+      case 2:
+        return Iconsax.clipboard_text;
+      case 3:
+        return Iconsax.setting_2;
+      case 4:
+        return Iconsax.info_circle;
+      case 5:
+        return Iconsax.lock4;
+      case 6:
+        return Iconsax.user_add;
+      case 7:
+        return Iconsax.logout_1;
+      default:
+        return Iconsax.user;
+    }
+  }
+
+  static IconData getIconForSettingServices(int index) {
+    switch (index) {
+      case 0:
+        return Iconsax.user;
+      case 1:
+        return Iconsax.key;
+      case 2:
+        return Iconsax.profile_remove;
+      default:
+        return Iconsax.user;
+    }
+  } 
 }

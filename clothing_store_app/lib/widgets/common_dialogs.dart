@@ -129,23 +129,10 @@ class Dialogs {
                             backgroundColor: AppTheme.brownButtonColor,
                             radius: 30,
                             height: size.height / 18,
-                            buttonTextWidget: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  AppLocalizations(context).of("from_library"),
-                                  style: TextStyles(context)
-                                      .getLabelLargeStyle(false)
-                                      .copyWith(
-                                          color: AppTheme.backgroundColor,
-                                          fontWeight: FontWeight.w500),
-                                ),
-                                const Icon(
-                                  Iconsax.gallery_add,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            )),
+                            icon: Iconsax.gallery_add,
+                            buttonText: "from_library",
+                            fontSize: 16,
+                            textColor: AppTheme.backgroundColor,),
                         CommonButton(
                             onTap: () async {
                               final pickImageProvider =
@@ -156,21 +143,10 @@ class Dialogs {
                             radius: 30,
                             height: size.height / 18,
                             backgroundColor: AppTheme.brownButtonColor,
-                            buttonTextWidget: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(AppLocalizations(context).of("take_photo"),
-                                    style: TextStyles(context)
-                                        .getLabelLargeStyle(false)
-                                        .copyWith(
-                                            color: AppTheme.backgroundColor,
-                                            fontWeight: FontWeight.w500)),
-                                const Icon(
-                                  Iconsax.camera,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ))
+                            icon: Iconsax.camera,
+                            buttonText: "take_photo",
+                            fontSize: 16,
+                            textColor: AppTheme.backgroundColor,)
                       ],
                     ),
                   ),
