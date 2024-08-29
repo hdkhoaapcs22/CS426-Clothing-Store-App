@@ -312,6 +312,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tflite:
+    dependency: "direct main"
+    description:
+      name: flutter_tflite
+      sha256: "0d6b622af0fe90d92bd4d9bd28b98c3b213217f36ccb7b444d7104a742b03363"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -414,21 +422,21 @@ packages:
     source: hosted
     version: "0.0.8"
   image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: image
-      sha256: "2237616a36c0d69aef7549ab439b833fb7f9fb9fc861af2cc9ac3eedddd69ca8"
+      sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.0"
+    version: "3.3.0"
   image_picker:
     dependency: "direct main"
     description:
       name: image_picker
-      sha256: "021834d9c0c3de46bf0fe40341fa07168407f694d9b2bb18d532dc1261867f7a"
+      sha256: b6951e25b795d053a6ba03af5f710069c99349de9341af95155d52665cb4607c
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2"
+    version: "0.8.9"
   image_picker_android:
     dependency: transitive
     description:
@@ -441,10 +449,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_for_web
-      sha256: e2423c53a68b579a7c37a1eda967b8ae536c3d98518e5db95ca1fe5719a730a3
+      sha256: "869fe8a64771b7afbc99fc433a5f7be2fea4d1cb3d7c11a48b6b579eb9c797f0"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
+    version: "2.2.0"
   image_picker_ios:
     dependency: transitive
     description:
@@ -686,6 +694,7 @@ packages:
     source: hosted
     version: "6.1.2"
 <<<<<<< HEAD
+<<<<<<< HEAD
   readmore:
     dependency: "direct main"
     description:
@@ -704,6 +713,8 @@ packages:
     source: hosted
     version: "3.2.1"
 >>>>>>> 6329436 (finish ai model)
+=======
+>>>>>>> 1dbb7e1 (finish ai)
   shared_preferences:
     dependency: "direct main"
     description:
@@ -827,6 +838,7 @@ packages:
     version: "0.6.1"
 =======
     version: "0.7.2"
+<<<<<<< HEAD
   tflite_flutter:
     dependency: "direct main"
     description:
@@ -836,7 +848,12 @@ packages:
     source: hosted
     version: "0.10.4"
 >>>>>>> 6329436 (finish ai model)
+<<<<<<< HEAD
 >>>>>>> f89ebca (finish ai model)
+=======
+=======
+>>>>>>> 1dbb7e1 (finish ai)
+>>>>>>> 7eeee1a (finish ai)
   ticket_widget:
     dependency: "direct main"
     description:
