@@ -36,26 +36,39 @@ class AppTheme {
   static Color get secondaryTextColor =>
       isLightMode ? const Color(0xFFADADAD) : const Color(0xFF6D6D6D);
 
+  static Color get userMessageColor => isLightMode
+      ? const Color.fromARGB(255, 204, 203, 203)
+      : const Color.fromARGB(255, 153, 152, 152);
+
+  static Color get aiMessageColor => isLightMode
+      ? const Color.fromARGB(255, 159, 158, 158)
+      : const Color.fromARGB(255, 125, 124, 124);
+
   static Color get fontcolor =>
       isLightMode ? const Color(0xFF1A1A1A) : const Color(0xFFF7F7F7);
 
-  static Color get brownColor =>
-      isLightMode ? const Color.fromARGB(255, 121, 90, 68) : const Color(0xFFF7F7F7);
+  static Color get brownColor => isLightMode
+      ? const Color.fromARGB(255, 121, 90, 68)
+      : const Color(0xFFF7F7F7);
 
-  static Color get brownButtonColor =>
-      isLightMode ? const Color.fromARGB(255, 112, 79, 56) : const Color(0xFFF7F7F7);
+  static Color get brownButtonColor => isLightMode
+      ? const Color.fromARGB(255, 112, 79, 56)
+      : const Color(0xFFF7F7F7);
 
   static Color get iconColor =>
       isLightMode ? const Color(0xFFFFFFFF) : const Color(0xFF000000);
-  
-  static Color get greyBackgroundColor =>
-      isLightMode ? const Color.fromARGB(255, 238, 238, 238) : const Color.fromARGB(255, 56, 56, 56);
 
-  static Color get beigeBackgroundColor =>
-      isLightMode ? const Color.fromARGB(255, 247, 238, 211) : const Color.fromARGB(255, 112, 79, 56);
+  static Color get greyBackgroundColor => isLightMode
+      ? const Color.fromARGB(255, 238, 238, 238)
+      : const Color.fromARGB(255, 56, 56, 56);
 
-  static Color get yellowColor =>
-      isLightMode ? const Color.fromARGB(255, 255, 178, 44) : const Color.fromARGB(255, 255, 178, 44);
+  static Color get beigeBackgroundColor => isLightMode
+      ? const Color.fromARGB(255, 247, 238, 211)
+      : const Color.fromARGB(255, 112, 79, 56);
+
+  static Color get yellowColor => isLightMode
+      ? const Color.fromARGB(255, 255, 178, 44)
+      : const Color.fromARGB(255, 255, 178, 44);
 
   static ThemeData get getThemeData =>
       isLightMode ? _buildLightTheme() : _buildDarkTheme();

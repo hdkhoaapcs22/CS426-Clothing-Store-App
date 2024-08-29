@@ -32,32 +32,25 @@ class Dialogs {
     );
   }
 
-  Future<void> showAlertDialog({required String content}) {
+  Future<void> showErrorDialog({required String message}) {
     return showDialog(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
-              actions: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.brownButtonColor,
-                    ),
-                    child: Text(
-                      'Close',
-                      style: TextStyles(context)
-                          .getRegularStyle()
-                          .copyWith(color: AppTheme.backgroundColor),
-                    ))
-              ],
-              contentPadding: const EdgeInsets.all(20.0),
-              content: Text(
-                content,
-                style: TextStyles(context).getLabelLargeStyle(false).copyWith(
-                    color: AppTheme.redErrorColor, fontWeight: FontWeight.w400),
+        builder: (context) {
+          return AlertDialog(
+              title: const Text("Error"),
+              scrollable: true,
+              content: SingleChildScrollView(
+                child: Text(message),
               ),
-            ));
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                )
+              ]);
+        });
   }
 
   Future<void> showAnimatedDialog(
