@@ -678,5 +678,20 @@
         "text_id": "language",
         "en": "Language",
         "fr": "Langue"
+    },
+    {
+        "text_id": "english",
+        "en": "English",
+        "fr": "Anglais"
+    },
+    {
+        "text_id": "french",
+        "en": "French",
+        "fr": "Français"
+    },
+    {
+        "text_id": "profile",
+        "en": "Profile",
+        "fr": "Profil"
     }
 ]

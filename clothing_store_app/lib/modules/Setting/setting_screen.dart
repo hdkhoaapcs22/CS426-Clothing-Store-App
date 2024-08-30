@@ -1,9 +1,14 @@
 import 'package:clothing_store_app/common/helper_funtion.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/modules/Home/custom_circle_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/theme_provider.dart';
+import '../../utils/enum.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
 import '../../widgets/common_detailed_app_bar.dart';
@@ -22,7 +27,12 @@ class _SettingScreenState extends State<SettingScreen> {
     'delete_account',
   ];
 
-  bool isInDarkMode = false;
+  final List<String> languages = [
+    'english', 'french'
+  ];
+  String _selectedLanguage = 'english';
+
+  late bool isInLightMode;
 
   final MaterialStateProperty<Icon?> thumbIcon =
       MaterialStateProperty.resolveWith<Icon?>(
@@ -34,123 +44,180 @@ class _SettingScreenState extends State<SettingScreen> {
     },
   );
 
+  late ThemeProvider themeProvider;
+
+  @override
+  void initState(){
+    
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    themeProvider = Provider.of<ThemeProvider>(context);
+    isInLightMode = themeProvider.isLightMode;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             CommonDetailedAppBarView(
-              title: 'Settings',
+              title: AppLocalizations(context).of("settings"),
               prefixIconData: Iconsax.arrow_left,
               onPrefixIconClick: () {
                 Navigator.pop(context);
               },
+              iconColor: AppTheme.primaryTextColor,
+              backgroundColor: AppTheme.backgroundColor,
             ),
             const SizedBox(height: 16.0,),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    children: [
-                      CustomCircleButton(
-                          icon: Iconsax.user_tag,
-                          backgroundColor: AppTheme.brownButtonColor,
-                          radius: 20,
-                      ),
-                      const SizedBox(width: 16.0,),
-                      Text(
-                        'Account Setting',
-                        style: TextStyles(context)
-                            .getLabelLargeStyle(false)
-                            .copyWith(
-                                fontSize: 18, color: AppTheme.brownButtonColor),
-                      ),
-                    ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  CustomCircleButton(
+                      icon: Iconsax.user_tag,
+                      backgroundColor: AppTheme.brownButtonColor,
+                      radius: 20,
                   ),
-                ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: accountSettingServices.length,
-                    itemBuilder: (context, index) {
-                      return ProfileServiceCard(
-                        icon: HelperFunction.getIconForSettingServices(index),
-                        title: accountSettingServices[index],
-                        onClick: () {},
-                        isLastService:
-                            index == accountSettingServices.length - 1,
-                      );
-                    })
-              ],
+                  const SizedBox(width: 16.0,),
+                  Text(
+                    'Account Setting',
+                    style: TextStyles(context)
+                        .getLabelLargeStyle(false)
+                        .copyWith(
+                            fontSize: 18, color: AppTheme.brownButtonColor),
+                  ),
+                ],
+              ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
+            const SizedBox(height: 16,),
+            ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
+                itemCount: accountSettingServices.length,
+                itemBuilder: (context, index) {
+                  return ProfileServiceCard(
+                    icon: HelperFunction.getIconForSettingServices(index),
+                    title: accountSettingServices[index],
+                    onClick: () {},
+                    isLastService:
+                        index == accountSettingServices.length - 1,
+                  );
+                }),
+            SizedBox(height: MediaQuery.of(context).size.height / 15,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  CustomCircleButton(
+                      icon: Iconsax.setting_34,
+                      backgroundColor: AppTheme.brownButtonColor,
+                      radius: 20,
+                  ),
+                  const SizedBox(width: 16.0,),
+                  Text(
+                    'Other Setting',
+                    style: TextStyles(context)
+                        .getLabelLargeStyle(false)
+                        .copyWith(
+                            fontSize: 18, color: AppTheme.brownButtonColor),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      CustomCircleButton(
-                          icon: Iconsax.setting_34,
-                          backgroundColor: AppTheme.brownButtonColor,
-                          radius: 20,
-                      ),
-                      const SizedBox(width: 16.0,),
+                      Icon(Iconsax.sun_1, color: AppTheme.brownButtonColor,),
+                      const SizedBox(width: 8.0,),
                       Text(
-                        'Other Setting',
+                        AppLocalizations(context).of("dark_mode"),
                         style: TextStyles(context)
                             .getLabelLargeStyle(false)
-                            .copyWith(
-                                fontSize: 18, color: AppTheme.brownButtonColor),
+                            .copyWith(fontSize: 18),
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Switch(
+                    thumbIcon: thumbIcon,
+                    value: !isInLightMode, 
+                    activeColor: AppTheme.brownButtonColor,
+                    onChanged: (value) {
+                        setState(() {
+                          isInLightMode = value;
+                          ThemeModeType type =
+                              value ? ThemeModeType.dark : ThemeModeType.light;
+                          themeProvider.updateThemeMode(type);
+                        });
+                      }
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Icon(Iconsax.sun_1, color: AppTheme.brownButtonColor,),
-                          const SizedBox(width: 8.0,),
-                          Text(
-                            AppLocalizations(context).of("dark_mode"),
-                            style: TextStyles(context)
-                                .getLabelLargeStyle(false)
-                                .copyWith(fontSize: 18),
-                          ),
-                        ],
+                      Icon(
+                        Iconsax.language_square,
+                        color: AppTheme.brownButtonColor,
                       ),
-                      Switch(
-                        thumbIcon: thumbIcon,
-                        value: isInDarkMode, 
-                        activeColor: AppTheme.brownButtonColor,
-                        onChanged: (value) {
-                          setState(() {
-                              isInDarkMode = value;
-                            });
-                        }
-                      )
+                      const SizedBox(width: 8.0,),
+                      Text(
+                        AppLocalizations(context).of("language"),
+                        style: TextStyles(context)
+                            .getLabelLargeStyle(false)
+                            .copyWith(fontSize: 18),
+                      ),
                     ],
                   ),
-                ),
-                Divider(
-                  indent: 16,
-                  endIndent: 16,
-                  thickness: 0.5,
-                  color: AppTheme.secondaryTextColor.withAlpha(100),
-                ),
-                Text(
-                  AppLocalizations(context).of("language"),
-                  style: TextStyles(context)
-                      .getLabelLargeStyle(false)
-                      .copyWith(fontSize: 18),
-                ),
-              ],
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
+                      border: Border.all(color: AppTheme.brownButtonColor)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: DropdownButton(
+                        value: _selectedLanguage,
+                        items: languages.map((String item) {
+                          return DropdownMenuItem(
+                            value: item,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                    AppLocalizations(context).of(item),
+                                    style: TextStyles(context)
+                                        .getLabelLargeStyle(false),
+                                  ),
+                              ),
+                          ); 
+                        }).toList(),
+                        onChanged: (String? value) {
+                          LanguageType tmp;
+                          value! == 'english' ? tmp = LanguageType.en : tmp = LanguageType.fr;
+                          context.read<ThemeProvider>().updateLanguage(tmp);
+                          setState(() {
+                            _selectedLanguage = value;
+                          });
+                        },
+                        icon: Icon(Iconsax.arrow_down_1, color: AppTheme.brownButtonColor,),
+                        alignment: AlignmentDirectional.bottomCenter,
+                        underline: Container()
+                      ),
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ),

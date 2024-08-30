@@ -71,11 +71,13 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
             children: [
               //App Bar
               CommonDetailedAppBarView(
-                title: 'Profile',
+                title: AppLocalizations(context).of("profile"),
                 prefixIconData: Iconsax.arrow_left,
                 onPrefixIconClick: () {
                   Navigator.pop(context);
                 },
+                iconColor: AppTheme.primaryTextColor,
+                backgroundColor: AppTheme.backgroundColor,
               ),
               //Profile Picture
               Stack(
