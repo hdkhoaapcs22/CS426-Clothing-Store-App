@@ -1,10 +1,10 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
-import 'package:clothing_store_app/modules/Chat/model.dart';
 import 'package:clothing_store_app/widgets/common_dialogs.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
+import '../../class/gemini.dart';
 import '../../utils/text_styles.dart';
 import '../../widgets/common_button.dart';
 import 'message.dart';
@@ -31,7 +31,7 @@ class _ChattingScreenState extends State<ChattingScreen>
     // TODO: implement initState
     super.initState();
     _model = GenerativeModel(
-        model: ModelGemini.geminiModel, apiKey: ModelGemini.apiKey);
+        model: GeminiModel().chatModel, apiKey: GeminiModel().apiKey);
     _scrollController = ScrollController();
     _textController = TextEditingController();
     _focusNode = FocusNode();
