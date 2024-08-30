@@ -10,6 +10,7 @@ class UserInformationService extends UserService {
     required String name,
     required String phone,
     required String fileImageName,
+    List<Map<String, dynamic>>? notifications,
     Uint8List? image,
   }) async {
     String imageUrl = '';
@@ -51,6 +52,26 @@ class UserInformationService extends UserService {
     return await userCollection.doc(uid).update({
       'name': name,
       'phone': phone,
+    });
+  }
+
+  Future addNotificationWithPos(
+      Map<String, dynamic> notification, int pos) async {
+    DocumentSnapshot<Map<String, dynamic>> userData =
+        await userCollection.doc(uid).get();
+
+    List<dynamic> notifications = List.from(userData['notifications']);
+
+    notifications.insert(pos, notification);
+
+    return await userCollection.doc(uid).update({
+      'notifications': notifications,
+    });
+  }
+
+  Future deleteNotification(Map<String, dynamic> notification) async {
+    return await userCollection.doc(uid).update({
+      'notifications': FieldValue.arrayRemove([notification]),
     });
   }
 

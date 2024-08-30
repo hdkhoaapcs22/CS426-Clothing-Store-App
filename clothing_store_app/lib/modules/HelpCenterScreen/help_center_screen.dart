@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
-import 'category_button.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
+import 'package:clothing_store_app/class/expanded_item.dart';
 
 class HelpCenterScreen extends StatefulWidget {
   @override
@@ -9,50 +9,50 @@ class HelpCenterScreen extends StatefulWidget {
 }
 
 class _HelpCenterScreenState extends State<HelpCenterScreen> {
-  late List<Item> _data;
+  late List<ExpandedItem> _data;
   late String _selectedCategory;
   late TextEditingController _searchController;
   String _searchTerm = '';
 
-  List<Item> generateItems() {
+  List<ExpandedItem> generateItems() {
     return [
-      Item(
+      ExpandedItem(
         headerValue: AppLocalizations(context).of('question01'),
         expandedValue:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         category: 'General',
       ),
-      Item(
+      ExpandedItem(
         headerValue: AppLocalizations(context).of('question02'),
         expandedValue:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         category: 'General',
       ),
-      Item(
+      ExpandedItem(
         headerValue: AppLocalizations(context).of('question03'),
         expandedValue:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         category: 'Account',
       ),
-      Item(
+      ExpandedItem(
         headerValue: AppLocalizations(context).of('question04'),
         expandedValue:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         category: 'Notification',
       ),
-      Item(
+      ExpandedItem(
         headerValue: AppLocalizations(context).of('question05'),
         expandedValue:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         category: 'General',
       ),
-      Item(
+      ExpandedItem(
         headerValue: AppLocalizations(context).of('question06'),
         expandedValue:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         category: 'Account',
       ),
-      Item(
+      ExpandedItem(
         headerValue: AppLocalizations(context).of('question07'),
         expandedValue:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -150,7 +150,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
   }
 
   Widget _buildFaqList() {
-    List<Item> filteredItems = _data.where((item) {
+    List<ExpandedItem> filteredItems = _data.where((item) {
       bool matchesCategory =
           _selectedCategory == AppLocalizations(context).of("all") ||
               item.category == _selectedCategory;
@@ -170,7 +170,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  CategoryButton(
+                  _buildCategoryButton(
                     category: AppLocalizations(context).of("all"),
                     selectedCategory: _selectedCategory,
                     onPressed: () {
@@ -178,11 +178,12 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                         _selectedCategory = AppLocalizations(context).of("all");
                       });
                     },
+                    context: context,
                   ),
                   MediaQuery.of(context).size.width > 360
                       ? SizedBox(width: 8.0)
                       : SizedBox(width: 4.0),
-                  CategoryButton(
+                  _buildCategoryButton(
                     category: AppLocalizations(context).of("general"),
                     selectedCategory: _selectedCategory,
                     onPressed: () {
@@ -191,11 +192,12 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                             AppLocalizations(context).of("general");
                       });
                     },
+                    context: context,
                   ),
                   MediaQuery.of(context).size.width > 360
                       ? SizedBox(width: 8.0)
                       : SizedBox(width: 4.0),
-                  CategoryButton(
+                  _buildCategoryButton(
                     category: AppLocalizations(context).of("account"),
                     selectedCategory: _selectedCategory,
                     onPressed: () {
@@ -204,11 +206,12 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                             AppLocalizations(context).of("account");
                       });
                     },
+                    context: context,
                   ),
                   MediaQuery.of(context).size.width > 360
                       ? SizedBox(width: 8.0)
                       : SizedBox(width: 4.0),
-                  CategoryButton(
+                  _buildCategoryButton(
                     category: AppLocalizations(context).of("notification"),
                     selectedCategory: _selectedCategory,
                     onPressed: () {
@@ -217,6 +220,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                             AppLocalizations(context).of("notification");
                       });
                     },
+                    context: context,
                   ),
                 ],
               ),
@@ -243,7 +247,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                       });
                     },
                     elevation: 0,
-                    children: filteredItems.map<ExpansionPanel>((Item item) {
+                    children:
+                        filteredItems.map<ExpansionPanel>((ExpandedItem item) {
                       return ExpansionPanel(
                         backgroundColor: Colors.white,
                         headerBuilder: (BuildContext context, bool isExpanded) {
@@ -358,18 +363,24 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
       ),
     );
   }
-}
 
-class Item {
-  Item({
-    required this.expandedValue,
-    required this.headerValue,
-    this.isExpanded = false,
-    required this.category,
-  });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
-  String category;
+  Widget _buildCategoryButton({
+    required String category,
+    required String selectedCategory,
+    required VoidCallback onPressed,
+    required BuildContext context,
+  }) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor:
+            selectedCategory == category ? Colors.brown : Colors.grey,
+      ),
+      child: Text(
+        category,
+        style: TextStyles(context)
+            .getCategoryButtonStyle(selectedCategory == category),
+      ),
+    );
+  }
 }

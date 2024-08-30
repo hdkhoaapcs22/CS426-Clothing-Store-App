@@ -7,6 +7,7 @@ import 'package:clothing_store_app/modules/Profile/UpdateProfile/update_profile_
 import 'package:clothing_store_app/modules/Search/filter.dart';
 import 'package:clothing_store_app/modules/Search/search_result.dart';
 import 'package:clothing_store_app/modules/Search/search_screen.dart';
+import 'package:clothing_store_app/modules/NotificationScreen/notification_screen.dart';
 import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
 import 'package:clothing_store_app/modules/ForgotScreen/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
@@ -105,4 +106,9 @@ class NavigationServices {
   void gotoFilterScreen() async {
     return _pushMaterialPageRoute(const FilterScreen());
   }
+  
+  Future<dynamic> pushNotificationScreen() async {
+    return _pushMaterialPageRoute(const NotificationScreen());
+  }
+  
 }

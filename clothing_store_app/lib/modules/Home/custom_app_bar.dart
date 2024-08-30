@@ -1,4 +1,5 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -37,7 +38,9 @@ class CustomAppBar extends StatelessWidget {
                         size: 20,
                         color: AppTheme.brownColor,
                       ),
-                      const SizedBox(width: 5,),
+                      const SizedBox(
+                        width: 5,
+                      ),
                       Text(
                         AppLocalizations(context).of("select_location"),
                         style: TextStyles(context)
@@ -49,14 +52,16 @@ class CustomAppBar extends StatelessWidget {
                 ],
               ),
               TapEffect(
-                onClick: () {},
+                onClick: () {
+                  NavigationServices(context).pushNotificationScreen();
+                },
                 child: CircleAvatar(
                   backgroundColor: AppTheme.greyBackgroundColor,
                   child: Badge(
                     label: const Text('4'),
                     child: Icon(
                       Iconsax.notification,
-                      color: AppTheme.primaryTextColor,  
+                      color: AppTheme.primaryTextColor,
                     ),
                   ),
                 ),
