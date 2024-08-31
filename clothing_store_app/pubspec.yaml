@@ -48,7 +48,7 @@ dependencies:
     intl_phone_field: ^3.0.0
     another_flutter_splash_screen: ^1.2.1
     google_sign_in: ^6.2.1
-    image_picker: ^1.1.2
+    image_picker: ^0.8.5+3
     ticket_widget: ^0.0.1
     firebase_storage: ^11.1.0
     flutter_slidable: ^3.0.0
@@ -64,6 +64,8 @@ dependencies:
     flutter_tflite: ^1.0.1
     tflite_flutter: ^0.10.4
     image: ^4.2.0
+    flutter_tflite: ^1.0.1
+
 
 
 dependency_overrides:

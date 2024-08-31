@@ -4,6 +4,9 @@ import 'package:clothing_store_app/modules/Profile/PaymentMethod/payment_method_
 import 'package:clothing_store_app/modules/Setting/password_manager_screen.dart';
 import 'package:clothing_store_app/modules/Setting/setting_screen.dart';
 import 'package:clothing_store_app/modules/Profile/UpdateProfile/update_profile_screen.dart';
+import 'package:clothing_store_app/modules/Search/filter.dart';
+import 'package:clothing_store_app/modules/Search/search_result.dart';
+import 'package:clothing_store_app/modules/Search/search_screen.dart';
 import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
 import 'package:clothing_store_app/modules/ForgotScreen/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +59,8 @@ class NavigationServices {
     return _pushMaterialPageRoute(const PassWordManagerScreen());
   }
 
-  Future<dynamic> pushUpdateProfileScreen(String username, String email, String phoneNumber) async {
+  Future<dynamic> pushUpdateProfileScreen(
+      String username, String email, String phoneNumber) async {
     return _pushMaterialPageRoute(UpdateProfileScreen(
       username: username,
       email: email,
@@ -87,5 +91,17 @@ class NavigationServices {
 
   void gotoDetailOrderScreen(String orderID) async {
     return _pushMaterialPageRoute(DetailClothItem(orderID: orderID));
+  }
+
+  void gotoSearchScreen() async {
+    return _pushMaterialPageRoute(const SearchScreen());
+  }
+
+  void gotoResultScreen(String searchText) async {
+    return _pushMaterialPageRoute(SearchResultScreen(searchText: searchText));
+  }
+
+  void gotoFilterScreen() async {
+    return _pushMaterialPageRoute(const FilterScreen());
   }
 }

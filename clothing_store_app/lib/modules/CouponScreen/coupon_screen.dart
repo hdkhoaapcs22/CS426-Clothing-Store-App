@@ -81,7 +81,7 @@ class CouponScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const Padding(padding: EdgeInsets.all(8)),
-                 Expanded(
+                  Expanded(
                     child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (context, index) {

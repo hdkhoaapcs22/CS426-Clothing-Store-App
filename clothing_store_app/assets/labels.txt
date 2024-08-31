@@ -1,4 +1,4 @@
-0 tshirt
-1 shirt
-2 pant
-3 jacket
+t-shirt
+shirt
+pant
+jacket

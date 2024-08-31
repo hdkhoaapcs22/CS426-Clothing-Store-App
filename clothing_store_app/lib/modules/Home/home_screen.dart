@@ -3,6 +3,7 @@ import 'package:clothing_store_app/modules/Home/custom_app_bar.dart';
 import 'package:clothing_store_app/modules/Home/custom_circle_button.dart';
 import 'package:clothing_store_app/modules/Home/home_tab.dart';
 import 'package:clothing_store_app/modules/Home/slideshow_content.dart';
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/database/favorite_cloth.dart';
 import 'package:clothing_store_app/widgets/bottom_move_top_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -67,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final size = MediaQuery.of(context).size;
     double lottieSize = MediaQuery.of(context).size.width * 0.2;
     return StreamBuilder(
-      stream: FavoriteClothService().getFavoriteClothStream(),
-      builder: (context, snapshot) {
+        stream: FavoriteClothService().getFavoriteClothStream(),
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return AlertDialog(
                 backgroundColor: Colors.transparent,
@@ -175,11 +176,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         _buildProductGrid(
                             GlobalVar.listAllCloth, size, favoriteIds),
                         _buildProductGrid(
-                            _filterClothesByReviews(GlobalVar.listAllCloth, minReview: 4.5), size, favoriteIds),
+                            _filterClothesByReviews(GlobalVar.listAllCloth,
+                                minReview: 4.5),
+                            size,
+                            favoriteIds),
                         _buildProductGrid(
-                            _filterClothesByGender(GlobalVar.listAllCloth, gender: 'M'), size, favoriteIds),
+                            _filterClothesByGender(GlobalVar.listAllCloth,
+                                gender: 'M'),
+                            size,
+                            favoriteIds),
                         _buildProductGrid(
-                            _filterClothesByGender(GlobalVar.listAllCloth, gender: 'F'), size, favoriteIds),
+                            _filterClothesByGender(GlobalVar.listAllCloth,
+                                gender: 'F'),
+                            size,
+                            favoriteIds),
                       ],
                     ),
                   ),
@@ -187,8 +197,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             ),
           );
-        }
-    );
+        });
   }
 }
 
@@ -235,14 +244,6 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
       imagePath: Localfiles.jacketIcon,
       title: AppLocalizations(context).of("jacket"),
     ),
-    CustomCircleButton(
-      imagePath: Localfiles.shoesIcon,
-      title: AppLocalizations(context).of("shoes"),
-    ),
-    CustomCircleButton(
-      imagePath: Localfiles.accessoryIcon,
-      title: AppLocalizations(context).of("accessory"),
-    ),
   ];
 }
 
@@ -253,9 +254,11 @@ Widget searchAndSetting(BuildContext context) {
       children: [
         Expanded(
           child: TextField(
-            controller: TextEditingController(),
-            onChanged: (value) => {},
-            cursorColor: AppTheme.brownColor,
+            onTap: () {
+              NavigationServices(context).gotoSearchScreen();
+            },
+            showCursor: false,
+            readOnly: true,
             decoration: InputDecoration(
               fillColor: AppTheme.backgroundColor,
               filled: true,
@@ -293,7 +296,9 @@ Widget searchAndSetting(BuildContext context) {
           width: 16,
         ),
         TapEffect(
-          onClick: () {},
+          onClick: () {
+            NavigationServices(context).gotoFilterScreen();
+          },
           child: CircleAvatar(
             backgroundColor: AppTheme.brownButtonColor,
             child: Icon(
@@ -310,7 +315,8 @@ Widget searchAndSetting(BuildContext context) {
 
 List<String> homeTabs = ['All', 'Popular', 'Man', 'Woman'];
 
-Widget _buildProductGrid(Map<String, ClothBase> clothes, Size size, List<String> favoriteList) {
+Widget _buildProductGrid(
+    Map<String, ClothBase> clothes, Size size, List<String> favoriteList) {
   return GridView.builder(
       itemCount: clothes.length,
       shrinkWrap: true,
@@ -349,18 +355,18 @@ Widget _buildProductGrid(Map<String, ClothBase> clothes, Size size, List<String>
 }
 
 Map<String, ClothBase> _filterClothesByGender(
-    Map<String, ClothBase> clothes, {
-      required String gender,
-    }) {
+  Map<String, ClothBase> clothes, {
+  required String gender,
+}) {
   return Map.fromEntries(
     clothes.entries.where((entry) => entry.value.gender == gender),
   );
 }
 
 Map<String, ClothBase> _filterClothesByReviews(
-    Map<String, ClothBase> clothes, {
-      required double minReview,
-    }) {
+  Map<String, ClothBase> clothes, {
+  required double minReview,
+}) {
   return Map.fromEntries(
     clothes.entries.where((entry) => entry.value.review >= minReview),
   );
