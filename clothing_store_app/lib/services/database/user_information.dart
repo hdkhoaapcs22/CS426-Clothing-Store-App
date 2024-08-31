@@ -37,11 +37,11 @@ class UserInformationService extends UserService {
   Future updateUserInformation({
     required String name,
     required String phone,
-    required String fileImageName,
+    String? fileImageName,
     Uint8List? image,
   }) async {
     if (image != null) {
-      String imageUrl = await uploadImageToStorage(fileImageName, image);
+      String imageUrl = await uploadImageToStorage(fileImageName!, image);
       return await userCollection.doc(uid).update({
         'name': name,
         'phone': phone,
@@ -56,5 +56,9 @@ class UserInformationService extends UserService {
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getUserInfomationStream() {
     return userCollection.doc(uid).snapshots();
+  }
+
+  Future deleteUser() async {
+    return await userCollection.doc(uid).delete();
   }
 }

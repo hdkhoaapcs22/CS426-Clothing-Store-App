@@ -1,10 +1,7 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../utils/text_styles.dart';
-import '../../utils/themes.dart';
 import '../../widgets/common_button.dart';
 
 class BannerContent extends StatelessWidget {

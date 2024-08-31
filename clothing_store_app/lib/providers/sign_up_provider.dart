@@ -102,6 +102,7 @@ class SignUpNotifier extends ChangeNotifier {
         await Dialogs(context).showAnimatedDialog(
             title: AppLocalizations(context).of("signUp"),
             content: AppLocalizations(context).of("register_successfully"));
+        clearFields();
         NavigationServices(context).pushCompleteProfileScreen();
       }
     } on FirebaseAuthException catch (e) {
@@ -128,10 +129,21 @@ class SignUpNotifier extends ChangeNotifier {
     }
   }
 
+  void clearFields() {
+    _emailController.clear();
+    _passwordController.clear();
+    _confirmPassController.clear();
+    setEmailError('');
+    setPasswordError('');
+    setConfirmPasswordError('');
+    _isAgreed = false;
+  }
+
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    _confirmPassController.dispose();
     super.dispose();
   }
 }

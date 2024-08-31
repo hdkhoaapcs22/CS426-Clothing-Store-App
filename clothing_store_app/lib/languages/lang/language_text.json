@@ -693,5 +693,70 @@
         "text_id": "profile",
         "en": "Profile",
         "fr": "Profil"
+    },
+    {
+        "text_id": "are_you_sure_to_delete_account",
+        "en": "Are you sure you want to delete account?",
+        "fr": "Êtes-vous sûr de vouloir supprimer le compte?"
+    },
+    {
+        "text_id": "yes_delete",
+        "en": "Yes, Delete",
+        "fr": "Oui, Supprimer"
+    },
+    {
+        "text_id": "delete_account_successfully",
+        "en": "Successfully Delete Account",
+        "fr": "Suppression Réussie Du Compte"
+    },
+    {
+        "text_id": "current_password",
+        "en": "Current Password",
+        "fr": "Mot De Passe Actuel"
+    },
+    {
+        "text_id": "new_password",
+        "en": "New Password",
+        "fr": "Nouveau Mot De Passe"
+    },
+    {
+        "text_id": "confirm_new_password",
+        "en": "Confirm New Password",
+        "fr": "Confirmer Le Nouveau Mot De Passe"
+    },
+    {
+        "text_id": "change_password",
+        "en": "Change Password",
+        "fr": "Modifier Le Mot De Passe"
+    },
+    {
+        "text_id": "password_change_success",
+        "en": "Successfully Change Password",
+        "fr": "Modification Réussie Du Mot De Passe"
+    },
+    {
+        "text_id": "save",
+        "en": "Save",
+        "fr": "Sauver"
+    },
+    {
+        "text_id": "update_profile",
+        "en": "Update Profile",
+        "fr": "Mise à jour du profil"
+    },
+    {
+        "text_id": "credit_and_debit_card",
+        "en": "Credit & Debit Card",
+        "fr": "Carte De Crédit et De Débit"
+    },
+    {
+        "text_id": "more_payment_options",
+        "en": "More Payment Options",
+        "fr": "Plus d'options de Paiement"
+    },
+    {
+        "text_id": "update_profile_successfully",
+        "en": "Your profile is updated!",
+        "fr": "Votre profil est mis à jour !"
     }
 ]

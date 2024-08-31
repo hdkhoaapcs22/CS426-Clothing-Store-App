@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:clothing_store_app/providers/complete_profile_provider.dart';
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/label_and_textfield.dart';
@@ -21,6 +22,7 @@ import '../../widgets/common_dialogs.dart';
 // ignore: must_be_immutable
 class CompleteProfileScreen extends StatelessWidget {
   Uint8List? image;
+  String phoneNumber = '';
   CompleteProfileScreen({super.key, this.image});
 
   @override
@@ -140,8 +142,12 @@ class CompleteProfileScreen extends StatelessWidget {
                             ),
                             IntlPhoneField(
                                 controller: profileProvider.phoneController,
-                                initialCountryCode: '+84',
+                                initialCountryCode: 'VN',
                                 disableLengthCheck: true,
+                                onChanged: (phone) {
+                                  String countryCode = phone.countryCode;
+                                  phoneNumber = '(${countryCode}) ${profileProvider.phoneController.text.trim()}';
+                                },
                                 decoration: InputDecoration(
                                   error: profileProvider.phoneError.isNotEmpty
                                       ? Text(
@@ -272,18 +278,19 @@ class CompleteProfileScreen extends StatelessWidget {
                           String uid = FirebaseAuth.instance.currentUser!.uid;
                           UserInformationService().setUserInformation(
                             name: profileProvider.nameController.text.trim(),
-                            phone: profileProvider.phoneController.text.trim(),
+                            phone: phoneNumber,
                             fileImageName: uid,
                             image: image,
                           );
                           await Future.delayed(
                               const Duration(milliseconds: 2000));
                           Navigator.pop(context);
-                          Dialogs(context).showAnimatedDialog(
+                          await Dialogs(context).showAnimatedDialog(
                               title: AppLocalizations(context)
                                   .of("complete_your_profile"),
                               content: 'Successfully complete your profile!');
                           //MOVE TO LOCATION PAGE
+                          NavigationServices(context).pushAndRemoveUntilLoginScreen();
                         }
                       },
                       radius: 30.0,

@@ -1,8 +1,15 @@
 // import 'package:booking_new_hotel/modules/profile/user.dart';
 import 'dart:async';
 
+import 'package:clothing_store_app/routes/routes_name.dart';
+import 'package:clothing_store_app/services/database/user_information.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../languages/appLocalizations.dart';
+import '../../routes/navigation_services.dart';
+import '../../widgets/common_dialogs.dart';
 
 class AuthService {
   // firebase auth instance
@@ -59,7 +66,7 @@ class AuthService {
       return await FirebaseAuth.instance.currentUser!
           .updatePassword(newPassword);
     } catch (e) {
-      return e;
+      rethrow;
     }
   }
 
@@ -87,6 +94,28 @@ class AuthService {
       await _auth.sendPasswordResetEmail(email: mail);
     } catch (e) {
       return e;
+    }
+  }
+
+  Future<void> deleteAccount(BuildContext context) async {
+    try {
+      await UserInformationService().deleteUser();
+      await _auth.currentUser!.delete();
+      if (_auth.currentUser == null) {
+        await Dialogs(context).showAnimatedDialog(
+            title: AppLocalizations(context).of("delete_account"),
+            content:
+                AppLocalizations(context).of("delete_account_successfully"));
+        Navigator.popUntil(
+          context,
+          ModalRoute.withName(RoutesName.splashScreen),
+        );
+        NavigationServices(context).pushSignUpScreen();
+      } else {
+        throw Exception("Account deletion failed.");
+      }
+    } on FirebaseAuthException catch (e) {
+      await Dialogs(context).showAlertDialog(content: e.toString());
     }
   }
 }

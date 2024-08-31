@@ -35,6 +35,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateMixin {
   String? image;
   String username = '';
+  String userPhoneNum = '';
+  final userEmail = FirebaseAuth.instance.currentUser?.email ?? '';
   final UserInformationService userInformation = UserInformationService();
   List<String> listOfProfileServices = [
     'your_profile',
@@ -51,139 +53,167 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     double lottieSize = MediaQuery.of(context).size.width * 0.2;
-    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-              stream: userInformation.getUserInfomationStream(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return AlertDialog(
-                      backgroundColor: Colors.transparent,
-                      content: Lottie.asset(
-                        Localfiles.loading,
-                        width: lottieSize,
-                      ));
-                }
-                Map<String, dynamic> userData = snapshot.data!.data()!;
-                image = userData['imageUrl'] ?? '';
-                username = userData['name'];
-      return Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              //App Bar
-              CommonDetailedAppBarView(
-                title: AppLocalizations(context).of("profile"),
-                prefixIconData: Iconsax.arrow_left,
-                onPrefixIconClick: () {
-                  Navigator.pop(context);
-                },
-                iconColor: AppTheme.primaryTextColor,
-                backgroundColor: AppTheme.backgroundColor,
-              ),
-              //Profile Picture
-              Stack(
+    return StreamBuilder(
+        stream: userInformation.getUserInfomationStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return AlertDialog(
+                backgroundColor: Colors.transparent,
+                content: Lottie.asset(
+                  Localfiles.loading,
+                  width: lottieSize,
+                ));
+          } else if (!snapshot.hasData || snapshot.data?.data() == null) {
+            return const Center(child: Text('User data not found'));
+          }
+
+          Map<String, dynamic>? userData = snapshot.data!.data();
+          image = userData?['imageUrl'] ?? '';
+          username = userData?['name'] ?? '';
+          userPhoneNum = userData?['phone'] ?? '';
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
                 children: [
-                  Consumer<PickImageProvider>(
-                      builder: (context, pickImageProvider, _) {
-                    Uint8List? imageBytes = pickImageProvider.selectedImageBytes;
-                    if (pickImageProvider.selectedImage.isNotEmpty) {
-                      String uid = FirebaseAuth.instance.currentUser!.uid;
-                      userInformation.uploadImageToStorage(uid, imageBytes!);
-                      return CircleAvatar(
-                          radius: 60,
-                          backgroundImage:
-                              FileImage(File(pickImageProvider.selectedImage)));
-                    } else {
-                      if (image!.isEmpty) {
-                        return const CircleAvatar(
-                            radius: 60,
-                            backgroundColor: Colors.white,
-                            backgroundImage:
-                                AssetImage(Localfiles.defaultAvatar));
-                      } else {
-                        print('image get from here!');
-                        return CircleAvatar(
-                            radius: 60,
-                            backgroundColor: Colors.white,
-                            backgroundImage: NetworkImage(image!));
-                      }
-                    }
-                  }),
-                  Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: TapEffect(
-                        onClick: () {
-                          Dialogs(context).showAnimatedImagePickerDialog();
-                        },
-                        child: Container(
-                            width: 30,
-                            height: 30,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0)),
-                              color: Colors.brown,
-                            ),
-                            child: const Icon(
-                              Iconsax.image,
-                              color: Colors.white,
-                              size: 20,
-                            )),
-                      )),
+                  //App Bar
+                  CommonDetailedAppBarView(
+                    title: AppLocalizations(context).of("profile"),
+                    prefixIconData: Iconsax.arrow_left,
+                    onPrefixIconClick: () {
+                      Navigator.pop(context);
+                    },
+                    iconColor: AppTheme.primaryTextColor,
+                    backgroundColor: AppTheme.backgroundColor,
+                  ),
+                  //Profile Picture
+                  Stack(
+                    children: [
+                      Consumer<PickImageProvider>(
+                          builder: (context, pickImageProvider, _) {
+                        if (pickImageProvider.selectedImage.isNotEmpty) {
+                          uploadImageAndReturnAvatar(pickImageProvider);
+                          return CircleAvatar(
+                              radius: 60,
+                              backgroundImage: FileImage(
+                                  File(pickImageProvider.selectedImage)));
+                        } else {
+                          if (image!.isEmpty) {
+                            return const CircleAvatar(
+                                radius: 60,
+                                backgroundColor: Colors.white,
+                                backgroundImage:
+                                    AssetImage(Localfiles.defaultAvatar));
+                          } else {
+                            return CircleAvatar(
+                                radius: 60,
+                                backgroundColor: Colors.white,
+                                backgroundImage: NetworkImage(image!));
+                          }
+                        }
+                      }),
+                      Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: TapEffect(
+                            onClick: () {
+                              Dialogs(context).showAnimatedImagePickerDialog();
+                            },
+                            child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0)),
+                                  color: Colors.brown,
+                                ),
+                                child: const Icon(
+                                  Iconsax.image,
+                                  color: Colors.white,
+                                  size: 20,
+                                )),
+                          )),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16.0,
+                  ),
+                  //Username
+                  Text(
+                    username,
+                    style: TextStyles(context)
+                        .getLargerHeaderStyle(false)
+                        .copyWith(fontSize: 20),
+                  ),
+                  //List of profile services
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: listOfProfileServices.length,
+                      itemBuilder: (context, index) {
+                        return ProfileServiceCard(
+                          icon: HelperFunction.getIconForProfileServices(index),
+                          title: listOfProfileServices[index],
+                          onClick: getServicesFunction(context, index),
+                          isLastService:
+                              index == listOfProfileServices.length - 1,
+                        );
+                      })
                 ],
               ),
-              const SizedBox(height: 16.0,),
-              //Username
-              Text(
-                username,
-                style: TextStyles(context)
-                    .getLargerHeaderStyle(false)
-                    .copyWith(fontSize: 20),
-              ),
-              //List of profile services
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: listOfProfileServices.length,
-                itemBuilder: (context, index) {
-                  return ProfileServiceCard(
-                    icon: HelperFunction.getIconForProfileServices(index),
-                    title: listOfProfileServices[index],
-                    onClick: getServicesFunction(context, index),
-                    isLastService: index == listOfProfileServices.length - 1,
-                  );
-                })
-            ],
-          ),
-        ),
-      );
-  });
+            ),
+          );
+        });
+  }
+
+  Future<void> uploadImageAndReturnAvatar(PickImageProvider pickImageProvider) async {
+  try {
+    Uint8List? imageBytes = pickImageProvider.selectedImageBytes;
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    String imageUrl = await userInformation.uploadImageToStorage(uid, imageBytes!);
+
+    await FirebaseFirestore.instance.collection('User').doc(uid).update({
+      'imageUrl': imageUrl,
+    });
+
+    setState(() {
+      image = imageUrl;
+    });
+    
+  } catch (e) {
+    print('Failed to upload image: $e');
   }
 }
 
-VoidCallback getServicesFunction(BuildContext context, int index) {
-  switch (index) {
-    case 0:
-      return () {};
-    case 1:
-      return () {};
-    case 2:
-      return () {};
-    case 3:
-      return () {
-        NavigationServices(context).pushSettingScreen();
-      };
-    case 4:
-      return () {};
-    case 5:
-      return () {};
-    case 6:
-      return () {};
-    case 7:
-      return () async {
-        await logOutBottomSheet(context);
-      };
-    default:
-      return () {};
+  VoidCallback getServicesFunction(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        return () {
+          NavigationServices(context).pushUpdateProfileScreen(username, userEmail, userPhoneNum);
+        };
+      case 1:
+        return () {
+          NavigationServices(context).pushPaymentMethodScreen();
+        };
+      case 2:
+        return () {};
+      case 3:
+        return () {
+          NavigationServices(context).pushSettingScreen();
+        };
+      case 4:
+        return () {};
+      case 5:
+        return () {};
+      case 6:
+        return () {};
+      case 7:
+        return () async {
+          await logOutBottomSheet(context);
+        };
+      default:
+        return () {};
+    }
   }
 }
 
@@ -246,11 +276,10 @@ Future<dynamic> logOutBottomSheet(BuildContext context) {
                       textColor: AppTheme.backgroundColor,
                       fontSize: 16,
                       radius: 30,
-                      onTap: () {
+                      onTap: () async {
                         final auth = AuthService();
-                        auth.signOutAccount();
-                        Navigator.pop(context);
-                        NavigationServices(context).pushLoginScreen();
+                        await auth.signOutAccount();
+                        NavigationServices(context).pushAndRemoveUntilLoginScreen();
                       },
                     )
                   )

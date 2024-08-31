@@ -1,16 +1,17 @@
 import 'package:clothing_store_app/common/helper_funtion.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/modules/Home/custom_circle_button.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme_provider.dart';
+import '../../services/auth/auth_service.dart';
 import '../../utils/enum.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
+import '../../widgets/common_button.dart';
 import '../../widgets/common_detailed_app_bar.dart';
 import '../Profile/profile_service_card.dart';
 
@@ -100,7 +101,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   return ProfileServiceCard(
                     icon: HelperFunction.getIconForSettingServices(index),
                     title: accountSettingServices[index],
-                    onClick: () {},
+                    onClick: getSettingServicesFunction(context, index),
                     isLastService:
                         index == accountSettingServices.length - 1,
                   );
@@ -224,4 +225,93 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
   }
+}
+
+VoidCallback getSettingServicesFunction(BuildContext context, int index) {
+  switch (index) {
+    case 0:
+      return () {
+        NavigationServices(context).pushPasswordManagerScreen();
+      };
+    case 1:
+      return () async {
+        await deleteAccountBottomSheet(context);
+      };
+    default:
+      return () {};
+  }
+}
+
+Future<dynamic> deleteAccountBottomSheet(BuildContext context) {
+  return showModalBottomSheet(
+    context: context, 
+    builder: (context) {
+      return Container(
+        height: 200,
+        decoration: BoxDecoration(
+          color: AppTheme.backgroundColor,
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                  AppLocalizations(context).of("delete_account"),
+                  style: TextStyles(context)
+                      .getLabelLargeStyle(false)
+                      .copyWith(fontSize: 18),
+                ),
+            ),
+            Divider(
+              indent: 32,
+              endIndent: 32,
+              thickness: 0.5,
+              color: AppTheme.secondaryTextColor.withAlpha(200),
+            ),
+            Text(
+                AppLocalizations(context).of("are_you_sure_to_delete_account"),
+                style:
+                    TextStyles(context).getInterDescriptionStyle(false, false),
+              ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CommonButton(
+                      backgroundColor: AppTheme.backgroundColor,
+                      buttonText: "cancel",
+                      textColor: AppTheme.brownButtonColor,
+                      bordeColor: AppTheme.brownButtonColor,
+                      fontSize: 16,
+                      radius: 30,
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ),
+                  const SizedBox(width: 16,),
+                  Expanded(
+                    child: CommonButton(
+                      backgroundColor: AppTheme.brownButtonColor,
+                      buttonText: "yes_delete",
+                      textColor: AppTheme.backgroundColor,
+                      fontSize: 16,
+                      radius: 30,
+                      onTap: () {
+                        final auth = AuthService();
+                        auth.deleteAccount(context);
+                      },
+                    )
+                  )
+                ],
+              ),
+            )
+          ],),
+      );
+    }
+  );
 }
