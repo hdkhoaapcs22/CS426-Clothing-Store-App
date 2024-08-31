@@ -123,10 +123,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> with TickerPr
   Future<void> handleUpdateProfile() async {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
-      await FirebaseFirestore.instance.collection('User').doc(uid).update({
-        'name': widget.username,
-        'phone': widget.phoneNumber,
-      });
+      
+      await UserInformationService().updateUserInformation(
+          name: widget.username, phone: widget.phoneNumber, fileImageName: uid);
       
       await Dialogs(context).showAnimatedDialog(
         title: AppLocalizations(context).of("update_profile"), 

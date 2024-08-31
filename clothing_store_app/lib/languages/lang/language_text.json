@@ -758,5 +758,15 @@
         "text_id": "update_profile_successfully",
         "en": "Your profile is updated!",
         "fr": "Votre profil est mis à jour !"
+    },
+    {
+        "text_id": "account_setting",
+        "en": "Account Setting",
+        "fr": "Paramétrage du Compte"
+    },
+    {
+        "text_id": "other_setting",
+        "en": "Other Setting",
+        "fr": "Autre Cadre"
     }
 ]

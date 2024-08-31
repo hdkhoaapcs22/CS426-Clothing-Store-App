@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../languages/appLocalizations.dart';
-import '../../routes/navigation_services.dart';
 import '../../services/auth/auth_service.dart';
-import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_detailed_app_bar.dart';
@@ -37,6 +35,8 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
   @override
   void dispose() {
     oldPassController.dispose();
+    newPassController.dispose();
+    confirmPassController.dispose();
     super.dispose();
   }
 
@@ -59,31 +59,15 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
             SizedBox(height: size.height / 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Stack(
-                children: [
-                  labelAndTextField(
-                      context: context,
-                      label: "current_password",
-                      hintText: '********',
-                      controller: oldPassController,
-                      errorText: oldPasswordError,
-                      suffixIconData: Iconsax.eye_slash,
-                      selectedIconData: Iconsax.eye,
-                      isObscured: true),
-                  Positioned(
-                    right: 0,
-                    top: 70,
-                    child: TextButton(
-                        onPressed: () {
-                          NavigationServices(context).pushForgotPassPage();
-                        },
-                        child: Text(
-                          AppLocalizations(context).of("forget_pass"),
-                          style: TextStyles(context).getInterDescriptionStyle(true, true).copyWith(fontSize: 14)
-                        )),
-                  ),
-                ],
-              ),
+              child: labelAndTextField(
+                  context: context,
+                  label: "current_password",
+                  hintText: '********',
+                  controller: oldPassController,
+                  errorText: oldPasswordError,
+                  suffixIconData: Iconsax.eye_slash,
+                  selectedIconData: Iconsax.eye,
+                  isObscured: true),
             ),
             const SizedBox(height: 16,),
             Padding(
@@ -193,15 +177,19 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       print(e.toString());
-      if (e.toString() == 'wrong-password') {
+      if (e.code == 'wrong-password') {
         setState(() {
           oldPasswordError = 'Old password is incorrect';
         });
       }  
-      else if (e.toString() == 'weak-password') {
+      else if (e.code == 'weak-password') {
         setState(() {
-          newPasswordError =
-              'New password is too weak';
+          newPasswordError = 'New password is too weak';
+        });
+      }
+      else if (e.code == 'invalid-credential'){
+        setState(() {
+          oldPasswordError = 'Invalid password';
         });
       }
       else {

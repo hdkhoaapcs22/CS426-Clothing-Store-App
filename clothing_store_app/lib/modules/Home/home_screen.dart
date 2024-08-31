@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:clothing_store_app/modules/Home/common_product_widget.dart';
 import 'package:clothing_store_app/modules/Home/custom_app_bar.dart';
 import 'package:clothing_store_app/modules/Home/custom_circle_button.dart';
@@ -81,7 +79,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           }
           List<DocumentSnapshot<Object?>> dc = snapshot.data!.docs;
           List<String> favoriteIds = dc.map((doc) => doc.id).toList();
-        
           return BottomMoveTopAnimation(
             animationController: widget.animationController,
             child: Scaffold(

@@ -82,7 +82,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   const SizedBox(width: 16.0,),
                   Text(
-                    'Account Setting',
+                    AppLocalizations(context).of("account_setting"),
                     style: TextStyles(context)
                         .getLabelLargeStyle(false)
                         .copyWith(
@@ -118,7 +118,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   const SizedBox(width: 16.0,),
                   Text(
-                    'Other Setting',
+                    AppLocalizations(context).of("other_setting"),
                     style: TextStyles(context)
                         .getLabelLargeStyle(false)
                         .copyWith(
@@ -146,18 +146,15 @@ class _SettingScreenState extends State<SettingScreen> {
                     ],
                   ),
                   Switch(
-                    thumbIcon: thumbIcon,
-                    value: !isInLightMode, 
-                    activeColor: AppTheme.brownButtonColor,
-                    onChanged: (value) {
-                        setState(() {
-                          isInLightMode = value;
-                          ThemeModeType type =
-                              value ? ThemeModeType.dark : ThemeModeType.light;
-                          themeProvider.updateThemeMode(type);
-                        });
-                      }
-                  )
+                      thumbIcon: thumbIcon,
+                      value: !isInLightMode,
+                      activeColor: AppTheme.brownButtonColor,
+                      onChanged: (value) {
+                        isInLightMode = value;
+                        ThemeModeType type =
+                            value ? ThemeModeType.dark : ThemeModeType.light;
+                        themeProvider.updateThemeMode(type);
+                      })
                 ],
               ),
             ),
@@ -206,10 +203,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         onChanged: (String? value) {
                           LanguageType tmp;
                           value! == 'english' ? tmp = LanguageType.en : tmp = LanguageType.fr;
+                           _selectedLanguage = value;
                           context.read<ThemeProvider>().updateLanguage(tmp);
-                          setState(() {
-                            _selectedLanguage = value;
-                          });
                         },
                         icon: Icon(Iconsax.arrow_down_1, color: AppTheme.brownButtonColor,),
                         alignment: AlignmentDirectional.bottomCenter,
