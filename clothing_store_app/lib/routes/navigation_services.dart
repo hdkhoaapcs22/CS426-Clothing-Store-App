@@ -97,8 +97,9 @@ class NavigationServices {
     return _pushMaterialPageRoute(const SearchScreen());
   }
 
-  void gotoResultScreen(String searchText) async {
-    return _pushMaterialPageRoute(SearchResultScreen(searchText: searchText));
+  void gotoResultScreen(String searchText, RangeValues priceRange) async {
+    return _pushMaterialPageRoute(
+        SearchResultScreen(searchText: searchText, priceRange: priceRange));
   }
 
   void gotoFilterScreen() async {

@@ -16,7 +16,7 @@ class FilterScreen extends StatefulWidget {
 class _FilterScreenState extends State<FilterScreen> {
   List<String> brands = ['All', 'Uniqlo', 'Nike', 'Addidas', 'Puma'];
   List<String> genders = ['All', 'Men', 'Women'];
-  List<String> sortbys = ['Popular', 'Price High'];
+  List<String> sortbys = ['Popular', 'Low Price'];
 
   @override
   Widget build(BuildContext context) {

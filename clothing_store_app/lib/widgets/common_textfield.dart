@@ -7,6 +7,7 @@ import '../utils/themes.dart';
 class CommonTextField extends StatefulWidget {
   final IconData? prefixIconData, suffixIconData, selectedIconData;
   final Color? initialIconColor;
+  final Color? cursorColor;
   final TextInputType? keyboardType;
   final String? errorText;
   final TextStyle hintTextStyle;
@@ -15,6 +16,7 @@ class CommonTextField extends StatefulWidget {
   final EdgeInsetsGeometry textFieldPadding;
   final Color focusColor;
   final String hintText;
+  final double radius;
   bool isObscureText;
 
   CommonTextField({
@@ -31,6 +33,8 @@ class CommonTextField extends StatefulWidget {
     this.errorText,
     this.suffixIconData,
     this.prefixIconData,
+    this.cursorColor,
+    this.radius = 32,
     this.isObscureText = false,
   });
 
@@ -75,6 +79,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
             focusNode: _focusNode,
             keyboardType: widget.keyboardType,
             obscureText: widget.isObscureText,
+            cursorColor: widget.cursorColor,
             obscuringCharacter: '*',
             autocorrect: false,
             cursorColor: const Color.fromARGB(255, 112, 79, 56),
@@ -98,13 +103,13 @@ class _CommonTextFieldState extends State<CommonTextField> {
                     )
                   : null,
               border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(32)),
+                borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
                 borderSide: BorderSide(
                   color: widget.focusColor,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(32)),
+                borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
                 borderSide: BorderSide(
                   color: widget.focusColor,
                 ),

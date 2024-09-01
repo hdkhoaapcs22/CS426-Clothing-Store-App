@@ -18,7 +18,9 @@ import 'package:provider/provider.dart';
 
 class SearchResultScreen extends StatefulWidget {
   final String searchText;
-  const SearchResultScreen({super.key, required this.searchText});
+  final RangeValues priceRange;
+  const SearchResultScreen(
+      {super.key, required this.searchText, required this.priceRange});
 
   @override
   State<SearchResultScreen> createState() => _SearchResultScreenState();
@@ -26,12 +28,14 @@ class SearchResultScreen extends StatefulWidget {
 
 class _SearchResultScreenState extends State<SearchResultScreen> {
   late TextEditingController searchController;
+  late Map<String, ClothBase> resClothes;
 
   @override
   void initState() {
-    super.initState();
+    filterClothesByGenderInInit();
     searchController = TextEditingController();
     searchController.text = widget.searchText;
+    super.initState();
   }
 
   @override
@@ -62,11 +66,14 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   List<DocumentSnapshot<Object?>> dc = snapshot.data!.docs;
                   List<String> favoriteIds = dc.map((doc) => doc.id).toList();
 
-                  Map<String, ClothBase> resClothes = filterClothesByName(
-                    GlobalVar.listAllCloth,
+                  if (filterProvider.chosenSortIndex == 0) {
+                    sortPopular(resClothes);
+                  }
+
+                  resClothes = filterClothesByName(
+                    resClothes,
                     searchText: widget.searchText,
                   );
-
                   resClothes = filterClothesByBrand(resClothes,
                       brand: filterProvider.chosenBrandIndex);
                   resClothes = filterClothesByGender(resClothes,
@@ -281,56 +288,41 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
     }
   }
 
+  void filterClothesByGenderInInit() async {
+    resClothes = await filterClothesInPriceRange(GlobalVar.listAllCloth,
+        minValue: widget.priceRange.start, maxValue: widget.priceRange.end);
+  }
+
   Future<Map<String, ClothBase>> filterClothesInPriceRange(
-      Map<String, ClothBase> clothes,
-      {required RangeValues priceRange}) async {
-    final Map<String, ClothBase> filteredClothes = {};
+    Map<String, ClothBase> clothes, {
+    required double minValue,
+    required double maxValue,
+  }) async {
+    Map<String, ClothBase> filteredClothes = {};
 
     for (var entry in clothes.entries) {
-      final clothItems = await entry.value.clothItems;
-      if (clothItems.any((item) =>
-          item.price >= priceRange.start && item.price <= priceRange.end)) {
-        filteredClothes[entry.key] = entry.value;
+      ClothBase clothBase = entry.value;
+      List<ClothItem> items = await clothBase.clothItems;
+
+      if (items.isNotEmpty &&
+          items.first.price >= minValue &&
+          items.first.price <= maxValue) {
+        filteredClothes[entry.key] = clothBase;
       }
     }
+
+    filteredClothes = await sortClothesByPrice(filteredClothes);
 
     return filteredClothes;
   }
 
-  // Map<String, ClothBase> filterClothesInPriceRange(
-  //     Map<String, ClothBase> clothes,
-  //     {required RangeValues priceRange}) {
-  //   List<Map<String, dynamic>> data = [];
-  //   List<String> validID = [];
-
-  //   for (var entry in clothes.entries) {
-  //     final clothBaseID = entry.value.id;
-  //     validID.add(entry.value.id);
-  //     FirebaseFirestore.instance
-  //         .collection('Cloth')
-  //         .doc(clothBaseID)
-  //         .collection('ClothItem')
-  //         .get()
-  //         .then((QuerySnapshot querySnapshot) {
-  //       List<DocumentSnapshot<Object?>> dc = querySnapshot.docs;
-  //       data.add(dc[0].data() as Map<String, dynamic>);
-  //     });
-  //   }
-  //   print(data);
-
-  //   for (int i = 0; i < data.length; ++i) {
-  //     if (double.parse(data[i]['price']) < priceRange.start &&
-  //         double.parse(data[i]['price']) > priceRange.end) {
-  //       data.removeAt(i);
-  //       validID.removeAt(i);
-  //       --i;
-  //     }
-  //   }
-
-  //   return Map.fromEntries(
-  //     clothes.entries.where((entry) => validID.contains(entry.value.id)),
-  //   );
-  // }
+  void sortPopular(Map<String, ClothBase> clothes) {
+    List<ClothBase> clothList = clothes.values.toList();
+    clothList.sort((a, b) => b.review.compareTo(a.review));
+    clothes
+      ..clear()
+      ..addEntries(clothList.map((cloth) => MapEntry(cloth.id, cloth)));
+  }
 
   Map<String, ClothBase> filterClothesByReviews(
     Map<String, ClothBase> clothes, {
@@ -341,4 +333,37 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           .where((entry) => entry.value.review >= double.parse(minReview)),
     );
   }
+
+  Future<Map<String, ClothBase>> sortClothesByPrice(
+      Map<String, ClothBase> clothes) async {
+    // Create a list of tuples with map entries and their corresponding prices
+    List<Tuple<MapEntry<String, ClothBase>, double>> clothList = [];
+
+    for (var entry in clothes.entries) {
+      ClothBase clothBase = entry.value;
+      List<ClothItem> items = await clothBase.clothItems;
+
+      if (items.isNotEmpty) {
+        // Add a tuple of entry and its first item's price
+        double price = items.first.price;
+        clothList.add(Tuple(entry, price));
+      }
+    }
+
+    // Sort the list by price in ascending order
+    clothList.sort((a, b) => a.item2.compareTo(b.item2));
+
+    // Create a new sorted map
+    Map<String, ClothBase> sortedClothes = {
+      for (var tuple in clothList) tuple.item1.key: tuple.item1.value
+    };
+
+    return sortedClothes;
+  }
+}
+
+class Tuple<T1, T2> {
+  final T1 item1;
+  final T2 item2;
+  Tuple(this.item1, this.item2);
 }
