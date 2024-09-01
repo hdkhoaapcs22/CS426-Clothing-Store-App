@@ -131,6 +131,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         const SizedBox(width: 1),
                                         IconButton(
                                           onPressed: () {
+                                            Navigator.pop(context);
                                             pickImageFromGallery(
                                                 filterProvider.priceRange);
                                           },
@@ -144,6 +145,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             padding: EdgeInsets.all(14)),
                                         IconButton(
                                           onPressed: () {
+                                            Navigator.pop(context);
                                             pickImageFromCamera(
                                                 filterProvider.priceRange);
                                           },
