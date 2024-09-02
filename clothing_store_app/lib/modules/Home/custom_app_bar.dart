@@ -39,7 +39,7 @@ class CustomAppBar extends StatelessWidget {
                       ),
                       const SizedBox(width: 5,),
                       Text(
-                        'Please select a location',
+                        AppLocalizations(context).of("select_location"),
                         style: TextStyles(context)
                             .getLabelLargeStyle(false)
                             .copyWith(fontSize: 14),

@@ -1,10 +1,7 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../utils/text_styles.dart';
-import '../../utils/themes.dart';
 import '../../widgets/common_button.dart';
 
 class BannerContent extends StatelessWidget {
@@ -46,7 +43,7 @@ class BannerContent extends StatelessWidget {
                     title,
                     style: TextStyles(context)
                         .getHeaderStyle(false)
-                        .copyWith(fontSize: 16),
+                        .copyWith(fontSize: 16, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 5,
@@ -54,7 +51,7 @@ class BannerContent extends StatelessWidget {
                   Text(
                     description,
                     style: TextStyles(context).getDescriptionStyle().copyWith(
-                        fontSize: 12, color: AppTheme.primaryTextColor),
+                        fontSize: 12, color: Colors.black),
                   ),
                   const SizedBox(
                     height: 10,
@@ -67,9 +64,9 @@ class BannerContent extends StatelessWidget {
                           .copyWith(fontSize: 12),
                     ),
                     radius: 10,
-                    width: size.width / 4,
+                    width: size.width / 4 + 6,
                     height: size.height / 25,
-                    backgroundColor: AppTheme.brownButtonColor,
+                    backgroundColor: const Color.fromARGB(255, 112, 79, 56),
                     onTap: () {},
                   )
                 ],

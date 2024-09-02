@@ -10,7 +10,7 @@ class CommonButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final String? buttonText;
   final Widget? buttonTextWidget;
-  final Color? textColor, backgroundColor;
+  final Color? textColor, backgroundColor, bordeColor;
   bool isClickable;
   final double radius;
   double height, width, fontSize;
@@ -25,6 +25,7 @@ class CommonButton extends StatelessWidget {
     this.buttonTextWidget,
     this.textColor = Colors.white,
     this.backgroundColor = const Color.fromRGBO(88, 57, 39, 1),
+    this.bordeColor = const Color.fromRGBO(88, 57, 39, 1),
     this.isClickable = true,
     this.radius = 20.0,
     this.height = 57,
@@ -46,6 +47,9 @@ class CommonButton extends StatelessWidget {
           width: width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
+            border: Border.all(
+              color: bordeColor ?? Theme.of(context).primaryColor
+            ),
             color: backgroundColor ?? Theme.of(context).primaryColor,
           ),
           child: isVisibility
@@ -59,7 +63,7 @@ class CommonButton extends StatelessWidget {
                         buttonText != null
                             ? AppLocalizations(context).of(buttonText!)
                             : "",
-                        style: TextStyles(context).getRegularStyle().copyWith(
+                        style: TextStyles(context).getLabelLargeStyle(false).copyWith(
                               color: textColor,
                               fontSize: fontSize,
                             ),

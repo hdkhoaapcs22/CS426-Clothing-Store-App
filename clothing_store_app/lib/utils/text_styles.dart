@@ -77,7 +77,8 @@ class TextStyles {
       Theme.of(context).textTheme.bodyLarge!.copyWith(
         color: isBrown? AppTheme.brownColor : AppTheme.secondaryTextColor,
         fontWeight: FontWeight.w500,
-        decoration: isUnderlined? TextDecoration.underline : null
+        decoration: isUnderlined? TextDecoration.underline : null,
+        decorationColor: isBrown? AppTheme.brownColor : AppTheme.secondaryTextColor
       )
     );
   }
