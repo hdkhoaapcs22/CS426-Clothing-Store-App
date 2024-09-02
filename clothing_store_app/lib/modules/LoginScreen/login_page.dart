@@ -83,8 +83,8 @@ class _LoginPageState extends State<LoginPage> {
                       NavigationServices(context).pushForgotPassPage();
                     },
                     style: TextButton.styleFrom(
-                      //overlayColor: Colors.transparent,
-                    ),
+                        //overlayColor: Colors.transparent,
+                        ),
                     child: Text(
                       AppLocalizations(context).of("forget_pass"),
                       style: const TextStyle(
@@ -152,8 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                       widget.onTap();
                     },
                     style: TextButton.styleFrom(
-                     // overlayColor: Colors.transparent,
-                    ),
+                        // overlayColor: Colors.transparent,
+                        ),
                     child: Text(
                       AppLocalizations(context).of("sign_up"),
                       style: TextStyles(context)
