@@ -154,25 +154,4 @@ class _ChattingScreenState extends State<ChattingScreen>
       _isLoading = isLoading;
     });
   }
-
-  void _showError(String message) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-              title: const Text("Error"),
-              scrollable: true,
-              content: SingleChildScrollView(
-                child: Text(message),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Ok"),
-                )
-              ]);
-        });
-  }
 }
