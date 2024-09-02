@@ -32,13 +32,4 @@ class SearchHistoryService extends UserService {
         .orderBy(FieldPath.documentId)
         .snapshots();
   }
-
-  Stream<QuerySnapshot<Map<String, dynamic>>> getSearchResultStream(
-      {required String id}) {
-    return userCollection
-        .doc(uid)
-        .collection("SearchHistory")
-        .orderBy(FieldPath.documentId)
-        .snapshots();
-  }
 }

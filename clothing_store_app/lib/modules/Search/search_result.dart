@@ -218,7 +218,12 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
               future: clothBase.clothItems,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: Text('Loading'));
+                  return AlertDialog(
+                      backgroundColor: Colors.transparent,
+                      content: Lottie.asset(
+                        Localfiles.loading,
+                        width: MediaQuery.of(context).size.width * 0.2,
+                      ));
                 } else if (snapshot.hasError) {
                   return const Center(child: Text('Error loading product'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {

@@ -16,10 +16,10 @@ class ClothingStoreApp extends StatefulWidget {
   const ClothingStoreApp({super.key});
 
   @override
-  ClothingStoreAppState createState() => ClothingStoreAppState();
+  _ClothingStoreAppState createState() => _ClothingStoreAppState();
 }
 
-class ClothingStoreAppState extends State<ClothingStoreApp> {
+class _ClothingStoreAppState extends State<ClothingStoreApp> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(builder: (_, provider, child) {

@@ -5,6 +5,7 @@ import 'package:clothing_store_app/services/database/search_history.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/utils/themes.dart';
+import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:clothing_store_app/widgets/common_detailed_app_bar.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -65,6 +66,16 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         Expanded(
                           child: TextField(
+                            onEditingComplete: () {
+                              SearchHistoryService().addHistory(
+                                  hisID: DateTime.now()
+                                      .millisecondsSinceEpoch
+                                      .toString(),
+                                  content: searchController.text);
+                              NavigationServices(context).gotoResultScreen(
+                                  searchController.text,
+                                  filterProvider.priceRange);
+                            },
                             controller: searchController,
                             cursorColor: AppTheme.brownColor,
                             decoration: InputDecoration(
@@ -119,46 +130,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         const Padding(padding: EdgeInsets.all(4)),
                         TapEffect(
                           onClick: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    backgroundColor: Colors.white,
-                                    content: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const SizedBox(width: 1),
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            pickImageFromGallery(
-                                                filterProvider.priceRange);
-                                          },
-                                          icon: const Icon(
-                                              Iconsax.document_upload),
-                                          color: const Color.fromRGBO(
-                                              88, 57, 39, 1),
-                                          iconSize: 70,
-                                        ),
-                                        const Padding(
-                                            padding: EdgeInsets.all(14)),
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            pickImageFromCamera(
-                                                filterProvider.priceRange);
-                                          },
-                                          icon: const Icon(Iconsax.camera),
-                                          color: const Color.fromRGBO(
-                                              88, 57, 39, 1),
-                                          iconSize: 70,
-                                        ),
-                                        const SizedBox(width: 1),
-                                      ],
-                                    ),
-                                  );
-                                });
+                            showAnimatedImagePickerDialog(
+                                filterProvider.priceRange);
                           },
                           child: CircleAvatar(
                             backgroundColor: AppTheme.brownButtonColor,
@@ -226,10 +199,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                       children: [
                                         TextButton(
                                           onPressed: () {
-                                            setState(() {
-                                              searchController.text =
-                                                  data[index]['content'];
-                                            });
+                                            searchController.text =
+                                                data[index]['content'];
                                             SearchHistoryService().addHistory(
                                                 hisID: DateTime.now()
                                                     .millisecondsSinceEpoch
@@ -308,14 +279,102 @@ class _SearchScreenState extends State<SearchScreen> {
       imageMean: 127.5,
       imageStd: 127.5,
     );
-    setState(() {
-      _recognitions = recognitions;
-      searchController.text = _recognitions[0]["label"];
-    });
+
+    _recognitions = recognitions;
+    searchController.text = _recognitions[0]["label"];
+
     SearchHistoryService().addHistory(
         hisID: DateTime.now().millisecondsSinceEpoch.toString(),
         content: searchController.text);
     NavigationServices(context)
         .gotoResultScreen(searchController.text, priceRange);
+  }
+
+  Future<void> showAnimatedImagePickerDialog(RangeValues priceRange) {
+    final size = MediaQuery.of(context).size;
+    return showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel: '',
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (content, animation1, animation2) {
+          return ScaleTransition(
+            scale: Tween<double>(begin: 0.5, end: 1.0).animate(animation1),
+            child: FadeTransition(
+                opacity:
+                    Tween<double>(begin: 0.5, end: 1.0).animate(animation1),
+                child: AlertDialog(
+                  title: Center(
+                    child: Text(
+                      'Upload your picture',
+                      style: TextStyles(context)
+                          .getButtonTextStyle()
+                          .copyWith(color: AppTheme.primaryTextColor),
+                    ),
+                  ),
+                  content: SizedBox(
+                    height: size.height / 7,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CommonButton(
+                            onTap: () async {
+                              Navigator.pop(context);
+                              pickImageFromGallery(priceRange);
+                            },
+                            backgroundColor: AppTheme.brownButtonColor,
+                            radius: 30,
+                            height: size.height / 18,
+                            buttonTextWidget: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  AppLocalizations(context).of("from_library"),
+                                  style: TextStyles(context)
+                                      .getLabelLargeStyle(false)
+                                      .copyWith(
+                                          color: AppTheme.backgroundColor,
+                                          fontWeight: FontWeight.w500),
+                                ),
+                                const Padding(padding: EdgeInsets.all(8)),
+                                const Icon(
+                                  Iconsax.gallery_add,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            )),
+                        CommonButton(
+                            onTap: () async {
+                              Navigator.pop(context);
+                              pickImageFromCamera(priceRange);
+                            },
+                            radius: 30,
+                            height: size.height / 18,
+                            backgroundColor: AppTheme.brownButtonColor,
+                            buttonTextWidget: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(AppLocalizations(context).of("take_photo"),
+                                    style: TextStyles(context)
+                                        .getLabelLargeStyle(false)
+                                        .copyWith(
+                                            color: AppTheme.backgroundColor,
+                                            fontWeight: FontWeight.w500)),
+                                const Padding(padding: EdgeInsets.all(8)),
+                                const Icon(
+                                  Iconsax.camera,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ))
+                      ],
+                    ),
+                  ),
+                )),
+          );
+        },
+        transitionBuilder: (context, a1, a2, widget) {
+          return widget;
+        });
   }
 }
