@@ -21,9 +21,7 @@ class MessageWidget extends StatelessWidget {
         Flexible(
           child: Container(
             decoration: BoxDecoration(
-              color: isFromUser
-                  ? AppTheme.userMessageColor
-                  : AppTheme.aiMessageColor,
+              color: isFromUser ? AppTheme.brownButtonColor : Colors.white,
               borderRadius: BorderRadius.circular(16.0),
             ),
             padding: const EdgeInsets.symmetric(
@@ -35,10 +33,15 @@ class MessageWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   if (message.isNotEmpty)
                     MarkdownBody(
                       data: message,
+                      styleSheet: MarkdownStyleSheet(
+                        p: TextStyle(
+                          color: isFromUser ? Colors.white : Colors.black,
+                           fontSize: 16.0, 
+                        ),
+                      ),
                     ),
                 ],
               ),

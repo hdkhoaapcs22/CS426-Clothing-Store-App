@@ -67,14 +67,14 @@ class AuthService {
           idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       UserCredential result = await _auth.signInWithCredential(credential);
       User? user = result.user;
-      if (user!=null){
+      if (user != null) {
         if (result.additionalUserInfo!.isNewUser) {
           await Dialogs(context).showAnimatedDialog(
-          title: AppLocalizations(context).of("sign_up_with_google"),
-          content: AppLocalizations(context).of("sign_up_with_google_successfully"));
+              title: AppLocalizations(context).of("sign_up_with_google"),
+              content: AppLocalizations(context)
+                  .of("sign_up_with_google_successfully"));
           NavigationServices(context).pushCompleteProfileScreen();
-        }
-        else {
+        } else {
           NavigationServices(context).gotoBottomTapScreen();
         }
       }
@@ -138,7 +138,7 @@ class AuthService {
         throw Exception("Account deletion failed.");
       }
     } on FirebaseAuthException catch (e) {
-      await Dialogs(context).showAlertDialog(content: e.toString());
+      await Dialogs(context).showErrorDialog(message: e.toString());
     }
   }
 }

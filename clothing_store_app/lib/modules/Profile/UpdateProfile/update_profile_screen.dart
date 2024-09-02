@@ -24,7 +24,8 @@ class UpdateProfileScreen extends StatefulWidget {
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
 
-class _UpdateProfileScreenState extends State<UpdateProfileScreen> with TickerProviderStateMixin {
+class _UpdateProfileScreenState extends State<UpdateProfileScreen>
+    with TickerProviderStateMixin {
   final UserInformationService userInformation = UserInformationService();
   @override
   Widget build(BuildContext context) {
@@ -46,8 +47,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> with TickerPr
               title: AppLocalizations(context).of("email"),
               content: widget.email,
               onClick: () async {
-                Dialogs(context)
-                    .showAlertDialog(content: AppLocalizations(context).of("cannot_change_email_address"));
+                Dialogs(context).showErrorDialog(
+                    message: AppLocalizations(context)
+                        .of("cannot_change_email_address"));
               },
             ),
             UpdateProfileWidget(
@@ -119,14 +121,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> with TickerPr
   }
 
   Future<void> handleUpdateProfile() async {
-    try {      
+    try {
       await UserInformationService().updateUserInformation(
           name: widget.username, phone: widget.phoneNumber);
-      
+
       await Dialogs(context).showAnimatedDialog(
-        title: AppLocalizations(context).of("update_profile"), 
-        content: AppLocalizations(context).of("update_profile_successfully")
-      );
+          title: AppLocalizations(context).of("update_profile"),
+          content: AppLocalizations(context).of("update_profile_successfully"));
       Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

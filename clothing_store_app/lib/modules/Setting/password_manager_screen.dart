@@ -18,7 +18,9 @@ class PassWordManagerScreen extends StatefulWidget {
 }
 
 class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
-  late TextEditingController oldPassController, newPassController, confirmPassController;
+  late TextEditingController oldPassController,
+      newPassController,
+      confirmPassController;
   late String oldPasswordError, newPasswordError, confirmPasswordError;
 
   @override
@@ -58,7 +60,8 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
             ),
             SizedBox(height: size.height / 16),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: labelAndTextField(
                   context: context,
                   label: "current_password",
@@ -69,30 +72,32 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
                   selectedIconData: Iconsax.eye,
                   isObscured: true),
             ),
-            const SizedBox(height: 16,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: labelAndTextField(
-                        context: context,
-                        label: "new_password",
-                        hintText: '********',
-                        controller: newPassController,
-                        errorText: newPasswordError,
-                        suffixIconData: Iconsax.eye_slash,
-                        selectedIconData: Iconsax.eye,
-                        isObscured: true),
+            const SizedBox(
+              height: 16,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: labelAndTextField(
-                        context: context,
-                        label: "confirm_new_password",
-                        hintText: '********',
-                        controller: confirmPassController,
-                        errorText: confirmPasswordError,
-                        suffixIconData: Iconsax.eye_slash,
-                        selectedIconData: Iconsax.eye,
-                        isObscured: true),
+                  context: context,
+                  label: "new_password",
+                  hintText: '********',
+                  controller: newPassController,
+                  errorText: newPasswordError,
+                  suffixIconData: Iconsax.eye_slash,
+                  selectedIconData: Iconsax.eye,
+                  isObscured: true),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: labelAndTextField(
+                  context: context,
+                  label: "confirm_new_password",
+                  hintText: '********',
+                  controller: confirmPassController,
+                  errorText: confirmPasswordError,
+                  suffixIconData: Iconsax.eye_slash,
+                  selectedIconData: Iconsax.eye,
+                  isObscured: true),
             ),
           ],
         ),
@@ -120,9 +125,10 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
             child: CommonButton(
               onTap: () {
                 handleChangePassword();
-              },    
+              },
               buttonText: 'change_password',
-              radius: 40,),
+              radius: 40,
+            ),
           ),
         ),
       ),
@@ -167,7 +173,8 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
           email: user!.email!, password: oldPassController.text);
 
       await user.reauthenticateWithCredential(credential);
-      await AuthService().updateUserPassword(newPassword: newPassController.text);
+      await AuthService()
+          .updateUserPassword(newPassword: newPassController.text);
 
       await Dialogs(context).showAnimatedDialog(
         title: AppLocalizations(context).of("password_manager"),
@@ -181,20 +188,17 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
         setState(() {
           oldPasswordError = 'Old password is incorrect';
         });
-      }  
-      else if (e.code == 'weak-password') {
+      } else if (e.code == 'weak-password') {
         setState(() {
           newPasswordError = 'New password is too weak';
         });
-      }
-      else if (e.code == 'invalid-credential'){
+      } else if (e.code == 'invalid-credential') {
         setState(() {
           oldPasswordError = 'Invalid password';
         });
-      }
-      else {
+      } else {
         await Dialogs(context)
-            .showAlertDialog(content: e.message ?? 'An error occurred');
+            .showErrorDialog(message: e.message ?? 'An error occurred');
       }
     }
   }
@@ -204,5 +208,4 @@ class _PassWordManagerScreenState extends State<PassWordManagerScreen> {
     newPassController.clear();
     confirmPassController.clear();
   }
-
 }
