@@ -46,15 +46,38 @@ class AuthService {
   }
 
   //sign in with google
-  Future<String?> signInWithGoogle() async {
+  Future<String?> signInWithGoogle(BuildContext context) async {
     try {
       await GoogleSignIn().signOut();
       final googleUser = await GoogleSignIn().signIn();
-      final googleAuth = await googleUser?.authentication;
+
+      if (googleUser == null) {
+        print("Google sign-in was canceled.");
+        return null;
+      }
+
+      final googleAuth = await googleUser.authentication;
+
+      if (googleAuth.idToken == null && googleAuth.accessToken == null) {
+        print("Failed to get ID token or access token from Google.");
+        return null;
+      }
+
       final credential = GoogleAuthProvider.credential(
-          idToken: googleAuth?.idToken, accessToken: googleAuth?.accessToken);
+          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
       UserCredential result = await _auth.signInWithCredential(credential);
       User? user = result.user;
+      if (user!=null){
+        if (result.additionalUserInfo!.isNewUser) {
+          await Dialogs(context).showAnimatedDialog(
+          title: AppLocalizations(context).of("sign_up_with_google"),
+          content: AppLocalizations(context).of("sign_up_with_google_successfully"));
+          NavigationServices(context).pushCompleteProfileScreen();
+        }
+        else {
+          NavigationServices(context).gotoBottomTapScreen();
+        }
+      }
       return user?.uid;
     } catch (e) {
       throw e;

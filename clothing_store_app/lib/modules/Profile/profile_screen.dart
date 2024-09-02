@@ -48,6 +48,14 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
     'invite_friends',
     'log_out'
   ];
+
+  @override
+  void initState(){
+    Future.delayed(Duration.zero, () {
+      Provider.of<PickImageProvider>(context, listen: false).reset();
+    });
+    super.initState();
+  }
   
 
   @override
@@ -90,8 +98,10 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                     children: [
                       Consumer<PickImageProvider>(
                           builder: (context, pickImageProvider, _) {
-                        if (pickImageProvider.selectedImage.isNotEmpty) {
-                          uploadImageAndReturnAvatar(pickImageProvider);
+                        if (pickImageProvider.selectedImage.isNotEmpty && !pickImageProvider.isUploaded) {
+                          uploadImageAndReturnAvatar(pickImageProvider).then((_){
+                            pickImageProvider.updateUploadedPic();
+                          });
                           return CircleAvatar(
                               radius: 60,
                               backgroundImage: FileImage(
@@ -104,6 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                                 backgroundImage:
                                     AssetImage(Localfiles.defaultAvatar));
                           } else {
+                            print('Get image from firebase');
                             return CircleAvatar(
                                 radius: 60,
                                 backgroundColor: Colors.white,
@@ -175,11 +186,6 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
     await FirebaseFirestore.instance.collection('User').doc(uid).update({
       'imageUrl': imageUrl,
     });
-
-    setState(() {
-      image = imageUrl;
-    });
-    
   } catch (e) {
     print('Failed to upload image: $e');
   }

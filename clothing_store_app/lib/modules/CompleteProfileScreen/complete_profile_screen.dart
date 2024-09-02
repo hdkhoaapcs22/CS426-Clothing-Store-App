@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/scheduler.dart';
 import '../../languages/appLocalizations.dart';
 import '../../providers/set_image_provider.dart';
 import '../../services/database/user_information.dart';
@@ -20,15 +21,35 @@ import '../../widgets/common_button.dart';
 import '../../widgets/common_dialogs.dart';
 
 // ignore: must_be_immutable
-class CompleteProfileScreen extends StatelessWidget {
+class CompleteProfileScreen extends StatefulWidget {
   Uint8List? image;
-  String phoneNumber = '';
+
   CompleteProfileScreen({super.key, this.image});
+
+  @override
+  State<CompleteProfileScreen> createState() => _CompleteProfileScreenState();
+}
+
+class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
+  String phoneNumber = '';
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () {
+      Provider.of<PickImageProvider>(context, listen: false).reset();
+      Provider.of<CompleteProfileNotifier>(context, listen: false).reset();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<CompleteProfileNotifier>(
       builder: (context, profileProvider, _) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Provider.of<PickImageProvider>(context, listen: false).reset();
+        });
         return Scaffold(
           backgroundColor: AppTheme.backgroundColor,
           body: SafeArea(
@@ -42,6 +63,12 @@ class CompleteProfileScreen extends StatelessWidget {
                       topPadding: 0.0,
                       iconData: Iconsax.arrow_left,
                       onBackClick: () {
+                        UserInformationService().setUserInformation(
+                          name: profileProvider.nameController.text.trim(),
+                          phone: phoneNumber,
+                          fileImageName: uid,
+                          image: widget.image,
+                        );
                         Navigator.pop(context);
                       },
                       iconSize: 20,
@@ -72,7 +99,7 @@ class CompleteProfileScreen extends StatelessWidget {
                     children: [
                       Consumer<PickImageProvider>(
                         builder: (context, pickImageProvider, _) {
-                          image = pickImageProvider.selectedImageBytes;
+                          widget.image = pickImageProvider.selectedImageBytes;
                           if (pickImageProvider.selectedImage.isEmpty) {
                             return const CircleAvatar(
                                 radius: 60,
@@ -275,12 +302,11 @@ class CompleteProfileScreen extends StatelessWidget {
                       onTap: () async {
                         if (profileProvider.validateFields(context)) {
                           Dialogs(context).showLoadingDialog();
-                          String uid = FirebaseAuth.instance.currentUser!.uid;
                           UserInformationService().setUserInformation(
                             name: profileProvider.nameController.text.trim(),
                             phone: phoneNumber,
                             fileImageName: uid,
-                            image: image,
+                            image: widget.image,
                           );
                           await Future.delayed(
                               const Duration(milliseconds: 2000));
@@ -288,7 +314,8 @@ class CompleteProfileScreen extends StatelessWidget {
                           await Dialogs(context).showAnimatedDialog(
                               title: AppLocalizations(context)
                                   .of("complete_your_profile"),
-                              content: 'Successfully complete your profile!');
+                              content: AppLocalizations(context)
+                                  .of("complete_profile_successfully"));
                           //MOVE TO LOCATION PAGE
                           NavigationServices(context).pushAndRemoveUntilLoginScreen();
                         }

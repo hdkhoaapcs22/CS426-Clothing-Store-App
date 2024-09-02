@@ -1,6 +1,4 @@
 import 'package:clothing_store_app/modules/Profile/UpdateProfile/update_profile_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -45,21 +43,21 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> with TickerPr
               backgroundColor: AppTheme.backgroundColor,
             ),
             UpdateProfileWidget(
-              title: 'Email',
+              title: AppLocalizations(context).of("email"),
               content: widget.email,
               onClick: () async {
                 Dialogs(context)
-                    .showAlertDialog(content: 'Cannot change email address');
+                    .showAlertDialog(content: AppLocalizations(context).of("cannot_change_email_address"));
               },
             ),
             UpdateProfileWidget(
-              title: 'Username',
+              title: AppLocalizations(context).of("username"),
               content: widget.username,
               onClick: () async {
                 Dialogs(context).showAnimatedDialogWithInputField(
                     context: context,
-                    title: 'Update Username',
-                    hintText: 'Change your name?',
+                    title: AppLocalizations(context).of("update_username"),
+                    hintText: AppLocalizations(context).of("change_username"),
                     onSave: (value) {
                       setState(() {
                         widget.username = value;
@@ -68,12 +66,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> with TickerPr
               },
             ),
             UpdateProfileWidget(
-              title: 'Phone Number',
+              title: AppLocalizations(context).of("phoneNumber"),
               content: widget.phoneNumber,
               onClick: () {
                 Dialogs(context).showAnimatedDialogWithPhoneField(
                   context: context,
-                  title: 'Enter Phone Number',
+                  title: AppLocalizations(context).of("update_phone_number"),
                   hintText: AppLocalizations(context).of("enterPhoneNumber"),
                   onChanged: (phone) {},
                   onSave: (value) {
@@ -121,11 +119,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> with TickerPr
   }
 
   Future<void> handleUpdateProfile() async {
-    try {
-      String uid = FirebaseAuth.instance.currentUser!.uid;
-      
+    try {      
       await UserInformationService().updateUserInformation(
-          name: widget.username, phone: widget.phoneNumber, fileImageName: uid);
+          name: widget.username, phone: widget.phoneNumber);
       
       await Dialogs(context).showAnimatedDialog(
         title: AppLocalizations(context).of("update_profile"), 

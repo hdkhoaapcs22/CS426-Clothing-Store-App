@@ -53,6 +53,12 @@ class CompleteProfileNotifier extends ChangeNotifier {
     return _nameError.isEmpty && _phoneError.isEmpty && _genderError.isEmpty;
   }
 
+  void reset(){
+    setName('');
+    setPhone('');
+    setSelectedGender(-1);
+  }
+
   @override
   void dispose() {
     nameController.dispose();

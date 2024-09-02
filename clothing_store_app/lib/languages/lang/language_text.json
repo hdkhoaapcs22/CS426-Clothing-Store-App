@@ -768,5 +768,45 @@
         "text_id": "other_setting",
         "en": "Other Setting",
         "fr": "Autre Cadre"
+    },
+    {
+        "text_id": "sign_up_with_google",
+        "en": "Sign up with Google",
+        "fr": "S'inscrire avec Google"
+    },
+    {
+        "text_id": "sign_up_with_google_successfully",
+        "en": "Registered successfully with Google",
+        "fr": "Enregistrement réussi auprès de Google"
+    },
+    {
+        "text_id": "complete_profile_successfully",
+        "en": "Complete your profile successfully!",
+        "fr": "Complétez votre profil avec succès!"
+    },
+    {
+        "text_id": "update_username",
+        "en": "Update Username",
+        "fr": "Mise à jour du nom d'utilisateur"
+    },
+    {
+        "text_id": "update_phone_number",
+        "en": "Update Phone Number",
+        "fr": "Mise à jour du numéro de téléphone"
+    },
+    {
+        "text_id": "change_username",
+        "en": "Change your name?",
+        "fr": "Changer de nom?"
+    },
+    {
+        "text_id": "username",
+        "en": "Username",
+        "fr": "Nom d'utilisateur"
+    },
+    {
+        "text_id": "cannot_change_email_address",
+        "en": "Cannot change email address!",
+        "fr": "Impossible de modifier l'adresse électronique!"
     }
 ]

@@ -258,7 +258,7 @@ Future<void> showAnimatedDialogWithPhoneField({
                     .copyWith(color: AppTheme.brownButtonColor, fontSize: 16),
               ),
               content: SizedBox(
-                height: 100,
+                height: 50,
                 child: IntlPhoneField(
                   controller: _controller,
                   initialCountryCode: 'VN',
