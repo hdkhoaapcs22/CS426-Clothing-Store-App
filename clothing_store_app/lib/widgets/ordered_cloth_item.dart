@@ -2,12 +2,13 @@
 import 'package:clothing_store_app/services/database/active_order.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 
 import '../languages/appLocalizations.dart';
 import '../utils/localfiles.dart';
 import '../utils/text_styles.dart';
-import 'common_app_bar_view.dart';
+import 'common_detailed_app_bar.dart';
 
 // ignore: must_be_immutable
 class DetailClothItem extends StatelessWidget {
@@ -35,27 +36,14 @@ class DetailClothItem extends StatelessWidget {
                     top: AppBar().preferredSize.height, left: 5, right: 5),
                 child: Column(
                   children: [
-                    Row(children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 5),
-                        child: CommonAppBarView(
-                          topPadding: 0,
-                          iconData: Icons.arrow_back,
-                          onBackClick: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 48),
-                        child: Text(
-                          AppLocalizations(context).of("detail_order"),
-                          style: TextStyles(context).getBoldStyle().copyWith(
-                                fontSize: 28,
-                              ),
-                        ),
-                      ),
-                    ]),
+                    CommonDetailedAppBarView(
+                      title: AppLocalizations(context).of("detail_order"),
+                      prefixIconData: Iconsax.arrow_left,
+                      titleSize: 25,
+                      onPrefixIconClick: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: orderedItems.length,

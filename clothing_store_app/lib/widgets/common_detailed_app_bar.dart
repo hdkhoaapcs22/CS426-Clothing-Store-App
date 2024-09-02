@@ -13,6 +13,7 @@ class CommonDetailedAppBarView extends StatelessWidget {
   final Color? iconColor;
   final Color backgroundColor;
   final int iconSize;
+  final double titleSize;
   const CommonDetailedAppBarView({
     super.key,
     this.topPadding,
@@ -24,6 +25,7 @@ class CommonDetailedAppBarView extends StatelessWidget {
     this.iconColor,
     this.iconSize = 25,
     this.backgroundColor = Colors.white,
+    this.titleSize = 16,
   });
 
   @override
@@ -40,25 +42,25 @@ class CommonDetailedAppBarView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppBarButton(
-                  onClick: onPrefixIconClick, 
-                  backgroundColor: backgroundColor, 
-                  iconData: prefixIconData, 
-                  iconColor: iconColor, 
-                  iconSize: iconSize
-                ),
+                    onClick: onPrefixIconClick,
+                    backgroundColor: backgroundColor,
+                    iconData: prefixIconData,
+                    iconColor: iconColor,
+                    iconSize: iconSize),
                 Text(
                   title,
-                  style: TextStyles(context).getLabelLargeStyle(false).copyWith(
-                      fontSize: 16
-                  ),
+                  style: TextStyles(context)
+                      .getLabelLargeStyle(false)
+                      .copyWith(fontSize: titleSize),
                 ),
-                suffixIconData != null ? AppBarButton(
-                  onClick: onSuffixIconClick, 
-                  backgroundColor: backgroundColor, 
-                  iconData: suffixIconData!, 
-                  iconColor: iconColor, 
-                  iconSize: iconSize
-                ) : const SizedBox(width: 65),
+                suffixIconData != null
+                    ? AppBarButton(
+                        onClick: onSuffixIconClick,
+                        backgroundColor: backgroundColor,
+                        iconData: suffixIconData!,
+                        iconColor: iconColor,
+                        iconSize: iconSize)
+                    : const SizedBox(width: 65),
               ],
             ),
           ),
@@ -106,11 +108,7 @@ class AppBarButton extends StatelessWidget {
             ],
           ),
           child: Center(
-            child: Icon(
-              iconData,
-              color: iconColor,
-              size: iconSize.toDouble()
-            ),
+            child: Icon(iconData, color: iconColor, size: iconSize.toDouble()),
           ),
         ),
       ),
