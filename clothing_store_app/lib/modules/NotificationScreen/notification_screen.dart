@@ -1,5 +1,5 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:flutter/material.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/class/notification_info.dart';
@@ -47,10 +47,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 notifications[i].setId = i;
               }
 
-              // int nonReadCount = notifications
-              //     .where((notification) => !notification.isRead)
-              //     .length;
-
               List<NotificationInfo> todayNotifications = notifications
                   .where((notification) =>
                       notification.time.year == now.year &&
@@ -92,8 +88,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       title: AppLocalizations(context).of("today"),
                       onMarkAllAsRead: () => _markAllAsRead(todayNotifications),
                     ),
-                    ...todayNotifications
+                    ...todayNotifications.map((notification) =>
+                        _buildNotificationTile(
+                            notification: notification,
+                            context: context,
+                            icon: notification.icon,
+                            title: notification.title,
+                            time: _calculateTimeDifference(
+                                notification.time, now),
+                            description: notification.description,
+                            isRead: notification.isRead)),
+                    _buildSectionHeader(
+                      context: context,
+                      title: AppLocalizations(context).of("yesterday"),
+                      onMarkAllAsRead: () =>
+                          _markAllAsRead(yesterdayNotifications),
+                    ),
+                    ...yesterdayNotifications
                         .map((notification) => _buildNotificationTile(
+                              notification: notification,
                               context: context,
                               icon: notification.icon,
                               title: notification.title,
@@ -101,24 +114,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   notification.time, now),
                               description: notification.description,
                               isRead: notification.isRead,
-                              onTap: () => _markAsRead(notification),
                             )),
-                    _buildSectionHeader(
-                      context: context,
-                      title: AppLocalizations(context).of("yesterday"),
-                      onMarkAllAsRead: () =>
-                          _markAllAsRead(yesterdayNotifications),
-                    ),
-                    ...yesterdayNotifications.map((notification) =>
-                        _buildNotificationTile(
-                            context: context,
-                            icon: notification.icon,
-                            title: notification.title,
-                            time: _calculateTimeDifference(
-                                notification.time, now),
-                            description: notification.description,
-                            isRead: notification.isRead,
-                            onTap: () => _markAsRead(notification))),
                     _buildSectionHeader(
                         context: context,
                         title: AppLocalizations(context).of("a_week_ago"),
@@ -126,6 +122,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             _markAllAsRead(aWeekAgoNotifications)),
                     ...aWeekAgoNotifications
                         .map((notification) => _buildNotificationTile(
+                              notification: notification,
                               context: context,
                               icon: notification.icon,
                               title: notification.title,
@@ -133,24 +130,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   notification.time, now),
                               description: notification.description,
                               isRead: notification.isRead,
-                              onTap: () => _markAsRead(notification),
                             )),
                     _buildSectionHeader(
                         context: context,
                         title: AppLocalizations(context).of("a_month_ago"),
                         onMarkAllAsRead: () =>
                             _markAllAsRead(aMonthAgoNotifications)),
-                    ...aMonthAgoNotifications
-                        .map((notification) => _buildNotificationTile(
-                              context: context,
-                              icon: notification.icon,
-                              title: notification.title,
-                              time: _calculateTimeDifference(
-                                  notification.time, now),
-                              description: notification.description,
-                              isRead: notification.isRead,
-                              onTap: () => _markAsRead(notification),
-                            )),
+                    ...aMonthAgoNotifications.map((notification) =>
+                        _buildNotificationTile(
+                            notification: notification,
+                            context: context,
+                            icon: notification.icon,
+                            title: notification.title,
+                            time: _calculateTimeDifference(
+                                notification.time, now),
+                            description: notification.description,
+                            isRead: notification.isRead)),
                   ],
                 ),
               );
@@ -194,16 +189,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   Widget _buildNotificationTile({
+    required NotificationInfo notification,
     required BuildContext context,
     required IconData icon,
     required String title,
     required String time,
     required String description,
     required bool isRead,
-    required VoidCallback onTap,
   }) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        _markAsRead(notification);
+        _handleFriendRequestNotificationTap(notification);
+      },
       child: Container(
         color: isRead ? Colors.white : Colors.grey[200],
         padding: MediaQuery.of(context).size.width > 360
@@ -254,20 +252,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  void _markAsRead(NotificationInfo notification) {
-    UserInformationService().deleteNotification(notification.toMap());
+  void _markAsRead(NotificationInfo notification) async {
+    await UserInformationService().deleteNotification(notification.toMap());
     notification.isRead = true;
-    UserInformationService()
+    await UserInformationService()
         .addNotificationWithPos(notification.toMap(), notification.id!);
   }
 
   void _markAllAsRead(List<NotificationInfo> notificationsToMark) {
-    notificationsToMark.forEach((notification) {
-      UserInformationService().deleteNotification(notification.toMap());
-      notification.isRead = true;
-      UserInformationService()
-          .addNotificationWithPos(notification.toMap(), notification.id!);
-    });
+    for (int i = 0; i < notificationsToMark.length; i++) {
+      _markAsRead(notificationsToMark[i]);
+    }
   }
 
   String _calculateTimeDifference(DateTime notificationTime, DateTime now) {
@@ -280,6 +275,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
       return '${difference.inMinutes}m';
     } else {
       return AppLocalizations(context).of("just_now");
+    }
+  }
+
+  void _handleFriendRequestNotificationTap(NotificationInfo notification) {
+    if (notification.title == "Friend Request") {
+      NavigationServices(context).pushFriendRequestScreen(notification.userId!);
     }
   }
 }

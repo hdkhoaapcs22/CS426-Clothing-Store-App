@@ -8,6 +8,8 @@ import 'package:clothing_store_app/modules/Search/filter.dart';
 import 'package:clothing_store_app/modules/Search/search_result.dart';
 import 'package:clothing_store_app/modules/Search/search_screen.dart';
 import 'package:clothing_store_app/modules/NotificationScreen/notification_screen.dart';
+import 'package:clothing_store_app/modules/InviteFriendsScreen/invite_friends_screen.dart';
+import 'package:clothing_store_app/modules/FriendRequestScreen/friend_request_screen.dart';
 import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
 import 'package:clothing_store_app/modules/ForgotScreen/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
@@ -111,4 +113,12 @@ class NavigationServices {
     return _pushMaterialPageRoute(const NotificationScreen());
   }
   
+
+  Future<dynamic> pushInviteFriendsScreen() async {
+    return _pushMaterialPageRoute(const InviteFriendsScreen());
+  }
+
+  Future<dynamic> pushFriendRequestScreen(String userID) async {
+    return _pushMaterialPageRoute(FriendRequestScreen(userID: userID));
+  }
 }

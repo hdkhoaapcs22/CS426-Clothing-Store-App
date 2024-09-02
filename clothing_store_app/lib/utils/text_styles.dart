@@ -174,4 +174,10 @@ class TextStyles {
           color: isSelected ? Colors.white : Colors.black,
         );
   }
+
+  TextStyle getTextFieldHintStyle() {
+    return Theme.of(context).textTheme.bodyLarge!.copyWith(
+          color: AppTheme.secondaryTextColor,
+        );
+  }
 }

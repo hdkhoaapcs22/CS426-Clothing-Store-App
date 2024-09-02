@@ -17,6 +17,12 @@ class Localfiles {
   static const String loading = '${baseJsonUrl}loading_lottie.json';
   static const String googleIcon = '${baseImageUrl}google_icon.png';
   static const String facebookIcon = '${baseImageUrl}facebook_icon.png';
+  static const String twitterIcon = '${baseImageUrl}twitter_icon.png';
+  static const String whatsAppIcon = '${baseImageUrl}whatsapp_icon.png';
+  static const String websiteIcon = '${baseImageUrl}website_icon.png';
+  static const String customerServiceIcon =
+      '${baseImageUrl}customer_service_icon.png';
+  static const String instagramIcon = '${baseImageUrl}instagram_icon.png';
   static const String leftArrow = '${baseImageUrl}left_arrow.png';
 
   static const String homeImage1 = '${baseImageUrl}homeImage1.jpg';

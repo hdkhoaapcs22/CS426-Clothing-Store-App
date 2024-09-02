@@ -1040,6 +1040,51 @@
         "fr": "Inviter"
     },
     {
+        "text_id": "invited",
+        "en": "Invited",
+        "fr": "Invité"
+    },
+    {
+        "text_id": "friend_request_descript",
+        "en": "You have received a friend request.",
+        "fr": "Vous avez reçu une demande d'ami."
+    },
+    {
+        "text_id": "invite_success",
+        "en": "Invitation sent successfully!",
+        "fr": "Invitation envoyée avec succès!"
+    },
+    {
+        "text_id": "friend_request",
+        "en": "Friend Request",
+        "fr": "Demande D'ami"
+    },
+    {
+        "text_id": "accept",
+        "en": "Accept",
+        "fr": "Accepter"
+    },
+    {
+        "text_id": "deny",
+        "en": "Deny",
+        "fr": "Refuser"
+    },
+    {
+        "text_id": "please_select_your_location",
+        "en": "Please select your location",
+        "fr": "Veuillez sélectionner votre emplacement"
+    },
+    {
+        "text_id": "accept_friend_request",
+        "en": "Accept Friend Request",
+        "fr": "Accepter La Demande D'ami"
+    },
+    {
+        "text_id": "deny_friend_request",
+        "en": "Deny Friend Request",
+        "fr": "Refuser La Demande D'ami"
+    },
+    {
         "text_id": "notification",
         "en": "Notification",
         "fr": "Notification"

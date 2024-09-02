@@ -18,6 +18,7 @@ class CommonTextField extends StatefulWidget {
   final String hintText;
   final double radius;
   bool isObscureText;
+  final ValueChanged<String>? onChanged;
 
   CommonTextField({
     super.key,
@@ -36,6 +37,7 @@ class CommonTextField extends StatefulWidget {
     this.cursorColor,
     this.radius = 32,
     this.isObscureText = false,
+    this.onChanged,
   });
 
   @override
@@ -114,6 +116,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
                 ),
               ),
             ),
+            onChanged: widget.onChanged,
           ),
           if (widget.errorText != null && widget.errorText!.isNotEmpty)
             Padding(

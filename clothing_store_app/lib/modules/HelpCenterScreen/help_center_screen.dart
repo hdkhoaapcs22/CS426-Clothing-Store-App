@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/class/expanded_item.dart';
+import 'package:clothing_store_app/widgets/common_textfield.dart';
+import 'package:clothing_store_app/utils/localfiles.dart';
 
 class HelpCenterScreen extends StatefulWidget {
   @override
@@ -86,7 +88,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations(context).of('help_center')),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -99,15 +101,14 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
               padding: MediaQuery.of(context).size.width > 360
                   ? const EdgeInsets.symmetric(horizontal: 16.0)
                   : const EdgeInsets.symmetric(horizontal: 8.0),
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: AppLocalizations(context).of('search'),
-                  prefixIcon: Icon(Icons.search, color: Colors.brown),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
+              child: CommonTextField(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                textFieldPadding: const EdgeInsets.symmetric(vertical: 8.0),
+                focusColor: Colors.brown,
+                hintTextStyle: TextStyles(context).getTextFieldHintStyle(),
+                textEditingController: _searchController,
+                prefixIconData: Icons.search,
+                hintText: AppLocalizations(context).of('search'),
                 onChanged: (value) {
                   setState(() {
                     _searchTerm = value;
@@ -181,8 +182,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                     context: context,
                   ),
                   MediaQuery.of(context).size.width > 360
-                      ? SizedBox(width: 8.0)
-                      : SizedBox(width: 4.0),
+                      ? const SizedBox(width: 8.0)
+                      : const SizedBox(width: 4.0),
                   _buildCategoryButton(
                     category: AppLocalizations(context).of("general"),
                     selectedCategory: _selectedCategory,
@@ -195,8 +196,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                     context: context,
                   ),
                   MediaQuery.of(context).size.width > 360
-                      ? SizedBox(width: 8.0)
-                      : SizedBox(width: 4.0),
+                      ? const SizedBox(width: 8.0)
+                      : const SizedBox(width: 4.0),
                   _buildCategoryButton(
                     category: AppLocalizations(context).of("account"),
                     selectedCategory: _selectedCategory,
@@ -209,8 +210,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                     context: context,
                   ),
                   MediaQuery.of(context).size.width > 360
-                      ? SizedBox(width: 8.0)
-                      : SizedBox(width: 4.0),
+                      ? const SizedBox(width: 8.0)
+                      : const SizedBox(width: 4.0),
                   _buildCategoryButton(
                     category: AppLocalizations(context).of("notification"),
                     selectedCategory: _selectedCategory,
@@ -226,8 +227,8 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
               ),
             ),
             MediaQuery.of(context).size.width > 360
-                ? SizedBox(height: 16.0)
-                : SizedBox(height: 8.0),
+                ? const SizedBox(height: 16.0)
+                : const SizedBox(height: 8.0),
             Padding(
               padding: MediaQuery.of(context).size.width > 360
                   ? const EdgeInsets.symmetric(horizontal: 16.0)
@@ -263,7 +264,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                         },
                         body: Column(
                           children: [
-                            Divider(color: Colors.grey),
+                            const Divider(color: Colors.grey),
                             Padding(
                               padding: MediaQuery.of(context).size.width > 360
                                   ? const EdgeInsets.all(8.0)
@@ -292,32 +293,32 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
     final List<Map<String, dynamic>> contactMethods = [
       {
         'title': AppLocalizations(context).of('customer_service'),
-        'icon': Icons.headset,
+        'icon': Localfiles.customerServiceIcon,
         'contact': '123-456'
       },
       {
         'title': AppLocalizations(context).of('whats_app'),
-        'icon': Icons.wechat_sharp,
+        'icon': Localfiles.whatsAppIcon,
         'contact': '(480) 555-0103'
       },
       {
         'title': AppLocalizations(context).of('website'),
-        'icon': Icons.language,
+        'icon': Localfiles.websiteIcon,
         'contact': 'www.example.com'
       },
       {
         'title': AppLocalizations(context).of('facebook'),
-        'icon': Icons.facebook,
+        'icon': Localfiles.facebookIcon,
         'contact': 'www.facebook.com'
       },
       {
         'title': AppLocalizations(context).of('twitter'),
-        'icon': Icons.transfer_within_a_station_rounded,
+        'icon': Localfiles.twitterIcon,
         'contact': 'www.twitter.com'
       },
       {
         'title': AppLocalizations(context).of('instagram'),
-        'icon': Icons.camera_alt,
+        'icon': Localfiles.instagramIcon,
         'contact': 'www.instagram.com'
       },
     ];
@@ -342,16 +343,15 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
               child: Column(
                 children: [
                   ExpansionTile(
-                    leading: Icon(contactMethods[index]['icon'],
-                        color: Colors.brown),
+                    leading: Image.asset(contactMethods[index]['icon']),
                     title: Text(contactMethods[index]['title']),
                     children: [
-                      Divider(color: Colors.grey),
+                      const Divider(color: Colors.grey),
                       if (contactMethods[index]['contact'] != null)
                         ListTile(
                           title: Text(contactMethods[index]['contact']),
-                          leading:
-                              Icon(Icons.circle, size: 10, color: Colors.brown),
+                          leading: const Icon(Icons.circle,
+                              size: 10, color: Colors.brown),
                         ),
                     ],
                   ),

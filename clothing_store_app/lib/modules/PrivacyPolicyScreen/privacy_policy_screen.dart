@@ -25,51 +25,37 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 AppLocalizations(context).of("privacy_policy"),
                 style: TextStyles(context).getPrivacyPolicyTextStyle(),
               ),
-              MediaQuery.of(context).size.width > 360
-                  ? SizedBox(height: 8)
-                  : SizedBox(height: 4),
+              _buildSizedBox1(context),
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                 style: TextStyles(context).getPrivacyPolicyTextStyle2(),
               ),
-              MediaQuery.of(context).size.width > 360
-                  ? SizedBox(height: 16)
-                  : SizedBox(height: 8),
+              _buildSizedBox2(context),
               Text(
                 AppLocalizations(context).of("terms_and_condition"),
                 style: TextStyles(context).getPrivacyPolicyTextStyle(),
               ),
-              MediaQuery.of(context).size.width > 360
-                  ? SizedBox(height: 8)
-                  : SizedBox(height: 4),
+              _buildSizedBox1(context),
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                 style: TextStyles(context).getPrivacyPolicyTextStyle2(),
               ),
-              MediaQuery.of(context).size.width > 360
-                  ? SizedBox(height: 8)
-                  : SizedBox(height: 4),
+              _buildSizedBox1(context),
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                 style: TextStyles(context).getPrivacyPolicyTextStyle2(),
               ),
-              MediaQuery.of(context).size.width > 360
-                  ? SizedBox(height: 8)
-                  : SizedBox(height: 4),
+              _buildSizedBox1(context),
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                 style: TextStyles(context).getPrivacyPolicyTextStyle2(),
               ),
-              MediaQuery.of(context).size.width > 360
-                  ? SizedBox(height: 8)
-                  : SizedBox(height: 4),
+              _buildSizedBox1(context),
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                 style: TextStyles(context).getPrivacyPolicyTextStyle2(),
               ),
-              MediaQuery.of(context).size.width > 360
-                  ? SizedBox(height: 8)
-                  : SizedBox(height: 4),
+              _buildSizedBox1(context),
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                 style: TextStyles(context).getPrivacyPolicyTextStyle2(),
@@ -79,5 +65,17 @@ class PrivacyPolicyScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildSizedBox1(BuildContext context) {
+    return MediaQuery.of(context).size.width > 360
+        ? SizedBox(height: 8)
+        : SizedBox(height: 4);
+  }
+
+  Widget _buildSizedBox2(BuildContext context) {
+    return MediaQuery.of(context).size.width > 360
+        ? SizedBox(height: 16)
+        : SizedBox(height: 8);
   }
 }
