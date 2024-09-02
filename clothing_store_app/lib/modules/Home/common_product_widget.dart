@@ -2,7 +2,6 @@ import 'package:clothing_store_app/class/cloth_item.dart';
 import 'package:clothing_store_app/modules/ProductDetails/product_details_screen.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../services/database/cloth_database.dart';
@@ -16,13 +15,12 @@ class ProductCard extends StatefulWidget {
   late bool isFavorite;
   final ClothBase cloth;
 
-  ProductCard({
-    super.key,
-    required this.image,
-    required this.price,
-    required this.cloth,
-    this.isFavorite = false
-  });
+  ProductCard(
+      {super.key,
+      required this.image,
+      required this.price,
+      required this.cloth,
+      this.isFavorite = false});
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -31,7 +29,7 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   void initState() {
-    super.initState();  
+    super.initState();
   }
 
   @override
@@ -39,8 +37,7 @@ class _ProductCardState extends State<ProductCard> {
     final size = MediaQuery.of(context).size;
     return TapEffect(
       onClick: () async {
-        ClothService clothService =
-            ClothService(FirebaseFirestore.instance.collection('Cloth'));
+        ClothService clothService = ClothService();
         List<ClothItem> allItems =
             await clothService.getClothItems(id: widget.cloth.id);
         Navigator.push(
@@ -78,7 +75,8 @@ class _ProductCardState extends State<ProductCard> {
                       onClick: () {
                         setState(() {
                           widget.isFavorite = !widget.isFavorite;
-                          FavoriteClothService favoriteList = FavoriteClothService();
+                          FavoriteClothService favoriteList =
+                              FavoriteClothService();
                           if (widget.isFavorite) {
                             favoriteList.addFavoriteCloth(
                                 clothItemID: widget.cloth.id);
@@ -91,8 +89,10 @@ class _ProductCardState extends State<ProductCard> {
                       child: CircleAvatar(
                         backgroundColor:
                             const Color.fromARGB(200, 247, 238, 211),
-                        child: Icon(widget.isFavorite ? Iconsax.heart5 : Iconsax.heart,
-                            color: AppTheme.brownButtonColor, size: 20),
+                        child: Icon(
+                            widget.isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                            color: AppTheme.brownButtonColor,
+                            size: 20),
                       ),
                     ))
               ],

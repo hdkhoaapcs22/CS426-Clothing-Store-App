@@ -4,8 +4,15 @@ import '../../class/cloth_item.dart';
 import '../../global/global_var.dart';
 
 class ClothService {
-  CollectionReference<Map<String, dynamic>> collection;
-  ClothService(this.collection);
+  CollectionReference<Map<String, dynamic>> collection =  FirebaseFirestore.instance.collection("Cloth");
+
+   static final ClothService _singleton = ClothService._internal();
+  
+  factory ClothService() {
+    return _singleton;
+  }
+  
+  ClothService._internal();
 
   Future<void> getAllClothes() async {
     QuerySnapshot<Map<String, dynamic>> value = await collection.get();

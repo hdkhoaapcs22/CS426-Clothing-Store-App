@@ -56,6 +56,9 @@ dependencies:
     flutter_image_slideshow: ^0.1.6
     readmore: ^3.0.0
     intl: ^0.18.1
+    google_generative_ai: ^0.4.3
+    flutter_markdown: ^0.7.2
+    font_awesome_flutter: ^10.6.0
 
 dependency_overrides:
     intl: any

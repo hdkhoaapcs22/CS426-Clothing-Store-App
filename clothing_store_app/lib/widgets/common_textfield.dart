@@ -77,8 +77,8 @@ class _CommonTextFieldState extends State<CommonTextField> {
             obscureText: widget.isObscureText,
             obscuringCharacter: '*',
             autocorrect: false,
+            cursorColor: const Color.fromARGB(255, 112, 79, 56),
             controller: widget.textEditingController,
-            cursorColor: AppTheme.brownButtonColor,
             decoration: InputDecoration(
               contentPadding: widget.contentPadding,
               hintText: widget.hintText,

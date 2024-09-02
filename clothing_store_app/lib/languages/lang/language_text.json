@@ -863,6 +863,26 @@
         "text_id": "detail_order",
         "en": "Detail Order",
         "fr": "Détail de la commande"
+    },
+    {
+        "text_id": "enter_your_prompt",
+        "en": "Enter your prompt...",
+        "fr": "Entrez votre invite..."
+    },
+    {
+        "text_id": "chat_with_ai",
+        "en": "Chat with AI",
+        "fr": "Discuter avec l'IA"
+    },
+    {
+        "text_id": "start_chat",
+        "en": "Start Chat",
+        "fr": "Commencer la discussion"
+    },
+    {
+        "text_id": "send",
+        "en": "Send",
+        "fr": "Envoyer"
     }
     
 ]
