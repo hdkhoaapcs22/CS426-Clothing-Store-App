@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             children: [
                               const CustomAppBar(),
                               const SizedBox(
-                                height: 20,
+                                height: 16,
                               ),
                               searchAndSetting(context),
                               const SizedBox(
