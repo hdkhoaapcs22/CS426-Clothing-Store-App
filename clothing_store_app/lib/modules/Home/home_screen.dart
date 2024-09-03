@@ -231,18 +231,30 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
     CustomCircleButton(
       imagePath: Localfiles.tshirtIcon,
       title: AppLocalizations(context).of("tshirt"),
+      onClick: () {
+        NavigationServices(context).pushCategoryScreen("tshirt");
+      },
     ),
     CustomCircleButton(
       imagePath: Localfiles.pantIcon,
       title: AppLocalizations(context).of("pant"),
+      onClick: () {
+        NavigationServices(context).pushCategoryScreen("pant");
+      },
     ),
     CustomCircleButton(
       imagePath: Localfiles.dressIcon,
       title: AppLocalizations(context).of("dress"),
+      onClick: () {
+        NavigationServices(context).pushCategoryScreen("dress");
+      },
     ),
     CustomCircleButton(
       imagePath: Localfiles.jacketIcon,
       title: AppLocalizations(context).of("jacket"),
+      onClick: () {
+        NavigationServices(context).pushCategoryScreen("jacket");
+      },
     ),
   ];
 }

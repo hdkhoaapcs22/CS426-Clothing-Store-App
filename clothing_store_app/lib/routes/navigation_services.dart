@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/modules/CategoryScreen/category_screen.dart';
 import 'package:clothing_store_app/modules/CompleteProfileScreen/complete_profile_screen.dart';
 import 'package:clothing_store_app/modules/LoginOrSignUpScreen/login_or_signup_screen.dart';
 import 'package:clothing_store_app/modules/PrivacyPolicyScreen/privacy_policy_screen.dart';
@@ -75,6 +76,10 @@ class NavigationServices {
 
   Future<dynamic> pushPaymentMethodScreen() async {
     return _pushMaterialPageRoute(const PaymentMethodScreen());
+  }
+
+  Future<dynamic> pushCategoryScreen(String type) async {
+    return _pushMaterialPageRoute(CategoryScreen(categoryType: type,));
   }
 
   Future<dynamic> pushAndRemoveUntilLoginScreen() async {
