@@ -100,9 +100,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             physics: const NeverScrollableScrollPhysics(),
                             children: [
                               const CustomAppBar(),
-                              const SizedBox(
-                                height: 16,
-                              ),
                               searchAndSetting(context),
                               const SizedBox(
                                 height: 20,
@@ -131,14 +128,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               .getHeaderStyle(false)
                                               .copyWith(fontSize: 16),
                                         ),
-                                        // TapEffect(
-                                        //     onClick: () {},
-                                        //     child: Text(
-                                        //       AppLocalizations(context).of("see_all"),
-                                        //       style: TextStyles(context)
-                                        //           .getDescriptionStyle()
-                                        //           .copyWith(fontSize: 14),
-                                        //     ))
                                       ],
                                     ),
                                     const SizedBox(

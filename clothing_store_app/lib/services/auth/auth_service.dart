@@ -80,7 +80,8 @@ class AuthService {
       }
       return user?.uid;
     } catch (e) {
-      throw e;
+      print('Error: $e');
+      rethrow;
     }
   }
 

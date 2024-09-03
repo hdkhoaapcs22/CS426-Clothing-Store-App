@@ -156,7 +156,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             SearchHistoryService().removeAllHistory();
                           },
                           style: TextButton.styleFrom(
-                            overlayColor: Colors.transparent,
+                            //overlayColor: Colors.transparent,
                           ),
                           child: Text(
                             AppLocalizations(context).of("clear_all"),
@@ -212,7 +212,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     filterProvider.priceRange);
                                           },
                                           style: TextButton.styleFrom(
-                                            overlayColor: Colors.transparent,
+                                            //overlayColor: Colors.transparent,
                                           ),
                                           child: Text(
                                             data[index]['content'],

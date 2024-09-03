@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 Widget signInMethod(String imageLink, BuildContext context) {
   return TapEffect(
-    onClick: () {
+    onClick: () async {
       if (imageLink == Localfiles.googleIcon) {
-        AuthService().signInWithGoogle(context);
+        await AuthService().signInWithGoogle(context);
       }
     },
     child: CircleAvatar(
