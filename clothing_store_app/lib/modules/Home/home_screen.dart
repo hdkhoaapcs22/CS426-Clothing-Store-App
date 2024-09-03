@@ -126,19 +126,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Categories',
+                                          AppLocalizations(context).of("categories"),
                                           style: TextStyles(context)
                                               .getHeaderStyle(false)
                                               .copyWith(fontSize: 16),
                                         ),
-                                        TapEffect(
-                                            onClick: () {},
-                                            child: Text(
-                                              'See all',
-                                              style: TextStyles(context)
-                                                  .getDescriptionStyle()
-                                                  .copyWith(fontSize: 14),
-                                            ))
+                                        // TapEffect(
+                                        //     onClick: () {},
+                                        //     child: Text(
+                                        //       AppLocalizations(context).of("see_all"),
+                                        //       style: TextStyles(context)
+                                        //           .getDescriptionStyle()
+                                        //           .copyWith(fontSize: 14),
+                                        //     ))
                                       ],
                                     ),
                                     const SizedBox(
