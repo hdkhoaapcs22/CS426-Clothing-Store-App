@@ -82,7 +82,6 @@ class _CommonTextFieldState extends State<CommonTextField> {
             cursorColor: widget.cursorColor,
             obscuringCharacter: '*',
             autocorrect: false,
-            cursorColor: const Color.fromARGB(255, 112, 79, 56),
             controller: widget.textEditingController,
             decoration: InputDecoration(
               contentPadding: widget.contentPadding,

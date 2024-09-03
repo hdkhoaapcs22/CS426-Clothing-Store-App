@@ -60,10 +60,7 @@ dependencies:
     flutter_markdown: ^0.7.2
     font_awesome_flutter: ^10.6.0
     tflite_flutter: ^0.10.4
-    image: ^4.2.0
-    flutter_tflite: ^1.0.1
-    tflite_flutter: ^0.10.4
-    image: ^4.2.0
+    image: ^3.3.0
     flutter_tflite: ^1.0.1
 
 
