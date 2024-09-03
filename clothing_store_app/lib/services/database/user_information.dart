@@ -73,10 +73,6 @@ class UserInformationService extends UserService {
 
   Future addNotificationWithPos(
       Map<String, dynamic> notification, int pos) async {
-    await userCollection.doc(uid).update({
-      'notifications': FieldValue.arrayRemove([notification]),
-    });
-
     DocumentSnapshot<Map<String, dynamic>> userData =
         await userCollection.doc(uid).get();
 
@@ -99,6 +95,15 @@ class UserInformationService extends UserService {
     return await userCollection.doc(userID).update({
       'friendRequests': FieldValue.arrayUnion([uid]),
     });
+  }
+
+  Future<bool> isInFriendRequest(String userID) async {
+    DocumentSnapshot<Map<String, dynamic>> userData =
+        await userCollection.doc(uid).get();
+
+    List<dynamic> friendRequests = List.from(userData['friendRequests']);
+
+    return friendRequests.contains(userID);
   }
 
   Future acceptFriendRequest(String userID) async {

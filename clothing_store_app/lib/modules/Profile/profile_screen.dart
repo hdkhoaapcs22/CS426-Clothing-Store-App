@@ -208,11 +208,17 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
           NavigationServices(context).pushSettingScreen();
         };
       case 4:
-        return () {};
+        return () {
+          NavigationServices(context).pushHelpCenterScreen();
+        };
       case 5:
-        return () {};
+        return () {
+          NavigationServices(context).pushPrivacyPolicyScreen();
+        };
       case 6:
-        return () {};
+        return () {
+          NavigationServices(context).pushInviteFriendsScreen();
+        };
       case 7:
         return () async {
           await logOutBottomSheet(context);

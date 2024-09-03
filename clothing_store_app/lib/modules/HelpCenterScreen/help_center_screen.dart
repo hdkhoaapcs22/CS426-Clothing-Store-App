@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/class/expanded_item.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
+import 'package:clothing_store_app/widgets/common_detailed_app_bar.dart';
+import 'package:clothing_store_app/utils/themes.dart';
 
 class HelpCenterScreen extends StatefulWidget {
+  const HelpCenterScreen({Key? key}) : super(key: key);
+
   @override
   _HelpCenterScreenState createState() => _HelpCenterScreenState();
 }
@@ -20,45 +25,38 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
     return [
       ExpandedItem(
         headerValue: AppLocalizations(context).of('question01'),
-        expandedValue:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        category: 'General',
+        expandedValue: AppLocalizations(context).of('answer01'),
+        category: AppLocalizations(context).of("general"),
       ),
       ExpandedItem(
         headerValue: AppLocalizations(context).of('question02'),
-        expandedValue:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        category: 'General',
+        expandedValue: AppLocalizations(context).of('answer02'),
+        category: AppLocalizations(context).of("general"),
       ),
       ExpandedItem(
         headerValue: AppLocalizations(context).of('question03'),
-        expandedValue:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        category: 'Account',
+        expandedValue: AppLocalizations(context).of('answer03'),
+        category: AppLocalizations(context).of("account"),
       ),
       ExpandedItem(
         headerValue: AppLocalizations(context).of('question04'),
-        expandedValue:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        category: 'Notification',
+        expandedValue: AppLocalizations(context).of('answer04'),
+        category: AppLocalizations(context).of("notification"),
       ),
       ExpandedItem(
         headerValue: AppLocalizations(context).of('question05'),
-        expandedValue:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        category: 'General',
+        expandedValue: AppLocalizations(context).of('answer05'),
+        category: AppLocalizations(context).of("general"),
       ),
       ExpandedItem(
         headerValue: AppLocalizations(context).of('question06'),
-        expandedValue:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        category: 'Account',
+        expandedValue: AppLocalizations(context).of('answer06'),
+        category: AppLocalizations(context).of("account"),
       ),
       ExpandedItem(
         headerValue: AppLocalizations(context).of('question07'),
-        expandedValue:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        category: 'General',
+        expandedValue: AppLocalizations(context).of('answer07'),
+        category: AppLocalizations(context).of("general"),
       ),
     ];
   }
@@ -85,63 +83,80 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations(context).of('help_center')),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 48, 24, 10),
         child: Column(
-          children: <Widget>[
-            Padding(
-              padding: MediaQuery.of(context).size.width > 360
-                  ? const EdgeInsets.symmetric(horizontal: 16.0)
-                  : const EdgeInsets.symmetric(horizontal: 8.0),
-              child: CommonTextField(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-                textFieldPadding: const EdgeInsets.symmetric(vertical: 8.0),
-                focusColor: Colors.brown,
-                hintTextStyle: TextStyles(context).getTextFieldHintStyle(),
-                textEditingController: _searchController,
-                prefixIconData: Icons.search,
-                hintText: AppLocalizations(context).of('search'),
-                onChanged: (value) {
-                  setState(() {
-                    _searchTerm = value;
-                  });
-                },
-              ),
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CommonDetailedAppBarView(
+              title: AppLocalizations(context).of("help_center"),
+              prefixIconData: Iconsax.arrow_left,
+              onPrefixIconClick: () {
+                Navigator.pop(context);
+              },
+              iconColor: AppTheme.primaryTextColor,
+              backgroundColor: AppTheme.backgroundColor,
             ),
-            DefaultTabController(
-              length: 2,
-              child: Column(
-                children: <Widget>[
-                  TabBar(
-                    indicatorColor: Colors.brown,
-                    indicatorWeight: 6.0,
-                    labelColor: Colors.brown,
-                    unselectedLabelColor: Colors.grey,
-                    labelStyle: TextStyles(context).getTabTextStyle(),
-                    unselectedLabelStyle: TextStyles(context).getTabTextStyle(),
-                    tabs: [
-                      Tab(text: AppLocalizations(context).of('faq')),
-                      Tab(text: AppLocalizations(context).of('contact_us')),
-                    ],
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height - 200,
-                    child: TabBarView(
-                      children: [
-                        _buildFaqList(),
-                        _buildContactUsList(),
-                      ],
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: MediaQuery.of(context).size.width > 360
+                          ? const EdgeInsets.symmetric(horizontal: 16.0)
+                          : const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: CommonTextField(
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 16.0),
+                        textFieldPadding:
+                            const EdgeInsets.symmetric(vertical: 8.0),
+                        focusColor: Colors.brown,
+                        hintTextStyle:
+                            TextStyles(context).getTextFieldHintStyle(),
+                        textEditingController: _searchController,
+                        prefixIconData: Icons.search,
+                        hintText: AppLocalizations(context).of('search'),
+                        onChanged: (value) {
+                          setState(() {
+                            _searchTerm = value;
+                          });
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                    DefaultTabController(
+                      length: 2,
+                      child: Column(
+                        children: <Widget>[
+                          TabBar(
+                            indicatorColor: Colors.brown,
+                            indicatorWeight: 6.0,
+                            labelColor: Colors.brown,
+                            unselectedLabelColor: Colors.grey,
+                            labelStyle: TextStyles(context).getTabTextStyle(),
+                            unselectedLabelStyle:
+                                TextStyles(context).getTabTextStyle(),
+                            tabs: [
+                              Tab(text: AppLocalizations(context).of('faq')),
+                              Tab(
+                                  text: AppLocalizations(context)
+                                      .of('contact_us')),
+                            ],
+                          ),
+                          Container(
+                            height: MediaQuery.of(context).size.height - 200,
+                            child: TabBarView(
+                              children: [
+                                _buildFaqList(),
+                                _buildContactUsList(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -258,7 +273,9 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                                 ? const EdgeInsets.all(8.0)
                                 : const EdgeInsets.all(4.0),
                             child: ListTile(
-                              title: Text(item.headerValue),
+                              title: Text(item.headerValue,
+                                  style:
+                                      TextStyles(context).getFAQHeaderStyle()),
                             ),
                           );
                         },
@@ -308,7 +325,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
       },
       {
         'title': AppLocalizations(context).of('facebook'),
-        'icon': Localfiles.facebookIcon,
+        'icon': Localfiles.facebookIcon2,
         'contact': 'www.facebook.com'
       },
       {
@@ -343,7 +360,11 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
               child: Column(
                 children: [
                   ExpansionTile(
-                    leading: Image.asset(contactMethods[index]['icon']),
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          AssetImage(contactMethods[index]['icon']),
+                      radius: 20,
+                    ),
                     title: Text(contactMethods[index]['title']),
                     children: [
                       const Divider(color: Colors.grey),

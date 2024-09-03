@@ -1,6 +1,8 @@
 import 'package:clothing_store_app/modules/CompleteProfileScreen/complete_profile_screen.dart';
 import 'package:clothing_store_app/modules/LoginOrSignUpScreen/login_or_signup_screen.dart';
+import 'package:clothing_store_app/modules/PrivacyPolicyScreen/privacy_policy_screen.dart';
 import 'package:clothing_store_app/modules/Profile/PaymentMethod/payment_method_screen.dart';
+import 'package:clothing_store_app/modules/HelpCenterScreen/help_center_screen.dart';
 import 'package:clothing_store_app/modules/Setting/password_manager_screen.dart';
 import 'package:clothing_store_app/modules/Setting/setting_screen.dart';
 import 'package:clothing_store_app/modules/Profile/UpdateProfile/update_profile_screen.dart';
@@ -120,5 +122,13 @@ class NavigationServices {
 
   Future<dynamic> pushFriendRequestScreen(String userID) async {
     return _pushMaterialPageRoute(FriendRequestScreen(userID: userID));
+  }
+
+  Future<dynamic> pushHelpCenterScreen() async {
+    return _pushMaterialPageRoute(const HelpCenterScreen());
+  }
+
+  Future<dynamic> pushPrivacyPolicyScreen() async {
+    return _pushMaterialPageRoute(const PrivacyPolicyScreen());
   }
 }

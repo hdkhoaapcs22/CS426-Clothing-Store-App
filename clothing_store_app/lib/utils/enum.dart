@@ -22,6 +22,14 @@ enum ThemeModeType {
   light,
 }
 
+enum NotificationType {
+  orderShipped,
+  friendRequest,
+  flashSaleAlert,
+  productReviewRequest,
+  newPaypalAdded,
+}
+
 enum LanguageType { en, fr } // english, france
 
 enum PopupTextType { no, ad, ch }

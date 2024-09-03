@@ -116,33 +116,35 @@ class Dialogs {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CommonButton(
-                            onTap: () async {
-                              final pickImageProvider =
-                                  Provider.of<PickImageProvider>(context,
-                                      listen: false);
-                              await pickImageProvider.pickImageFromGallery();
-                            },
-                            backgroundColor: AppTheme.brownButtonColor,
-                            radius: 30,
-                            height: size.height / 18,
-                            icon: Iconsax.gallery_add,
-                            buttonText: "from_library",
-                            fontSize: 16,
-                            textColor: AppTheme.backgroundColor,),
+                          onTap: () async {
+                            final pickImageProvider =
+                                Provider.of<PickImageProvider>(context,
+                                    listen: false);
+                            await pickImageProvider.pickImageFromGallery();
+                          },
+                          backgroundColor: AppTheme.brownButtonColor,
+                          radius: 30,
+                          height: size.height / 18,
+                          icon: Iconsax.gallery_add,
+                          buttonText: "from_library",
+                          fontSize: 16,
+                          textColor: AppTheme.backgroundColor,
+                        ),
                         CommonButton(
-                            onTap: () async {
-                              final pickImageProvider =
-                                  Provider.of<PickImageProvider>(context,
-                                      listen: false);
-                              await pickImageProvider.takePhoto();
-                            },
-                            radius: 30,
-                            height: size.height / 18,
-                            backgroundColor: AppTheme.brownButtonColor,
-                            icon: Iconsax.camera,
-                            buttonText: "take_photo",
-                            fontSize: 16,
-                            textColor: AppTheme.backgroundColor,)
+                          onTap: () async {
+                            final pickImageProvider =
+                                Provider.of<PickImageProvider>(context,
+                                    listen: false);
+                            await pickImageProvider.takePhoto();
+                          },
+                          radius: 30,
+                          height: size.height / 18,
+                          backgroundColor: AppTheme.brownButtonColor,
+                          icon: Iconsax.camera,
+                          buttonText: "take_photo",
+                          fontSize: 16,
+                          textColor: AppTheme.backgroundColor,
+                        )
                       ],
                     ),
                   ),
@@ -160,7 +162,6 @@ class Dialogs {
     required String hintText,
     required Function(String) onSave,
   }) {
-
     final TextEditingController _controller = TextEditingController();
 
     return showGeneralDialog(
@@ -190,7 +191,9 @@ class Dialogs {
                   textFieldPadding: EdgeInsets.zero,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   hintText: hintText,
-                  hintTextStyle: TextStyles(context).getDescriptionStyle().copyWith(fontSize: 14),
+                  hintTextStyle: TextStyles(context)
+                      .getDescriptionStyle()
+                      .copyWith(fontSize: 14),
                   focusColor: AppTheme.brownButtonColor,
                 ),
               ),
@@ -199,14 +202,20 @@ class Dialogs {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations(context).of("cancel"), style: TextStyles(context).getLabelLargeStyle(false),),
+                  child: Text(
+                    AppLocalizations(context).of("cancel"),
+                    style: TextStyles(context).getLabelLargeStyle(false),
+                  ),
                 ),
                 TextButton(
                   onPressed: () {
                     onSave(_controller.text);
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations(context).of("save"), style: TextStyles(context).getLabelLargeStyle(false),),
+                  child: Text(
+                    AppLocalizations(context).of("save"),
+                    style: TextStyles(context).getLabelLargeStyle(false),
+                  ),
                 ),
               ],
               shape: OutlineInputBorder(
@@ -220,8 +229,7 @@ class Dialogs {
     );
   }
 
-
-Future<void> showAnimatedDialogWithPhoneField({
+  Future<void> showAnimatedDialogWithPhoneField({
     required BuildContext context,
     required String title,
     required Function(String) onSave,
@@ -319,4 +327,62 @@ Future<void> showAnimatedDialogWithPhoneField({
     );
   }
 
+  Future<void> showAlertDialog({required String content}) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.brownButtonColor,
+                    ),
+                    child: Text(
+                      'Close',
+                      style: TextStyles(context)
+                          .getRegularStyle()
+                          .copyWith(color: AppTheme.backgroundColor),
+                    ))
+              ],
+              contentPadding: const EdgeInsets.all(20.0),
+              content: Text(
+                content,
+                style: TextStyles(context)
+                    .getLabelLargeStyle(false)
+                    .copyWith(color: Colors.black, fontWeight: FontWeight.w400),
+              ),
+            ));
+  }
+
+  Future<void> showAlertDialogWithPop({required String content}) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.brownButtonColor,
+                    ),
+                    child: Text(
+                      'Close',
+                      style: TextStyles(context)
+                          .getRegularStyle()
+                          .copyWith(color: AppTheme.backgroundColor),
+                    ))
+              ],
+              contentPadding: const EdgeInsets.all(20.0),
+              content: Text(
+                content,
+                style: TextStyles(context)
+                    .getLabelLargeStyle(false)
+                    .copyWith(color: Colors.black, fontWeight: FontWeight.w400),
+              ),
+            ));
+  }
 }

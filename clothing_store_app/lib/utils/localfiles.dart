@@ -17,6 +17,8 @@ class Localfiles {
   static const String loading = '${baseJsonUrl}loading_lottie.json';
   static const String googleIcon = '${baseImageUrl}google_icon.png';
   static const String facebookIcon = '${baseImageUrl}facebook_icon.png';
+  static const String facebookIcon2 = '${baseImageUrl}facebook_icon_2.png';
+
   static const String twitterIcon = '${baseImageUrl}twitter_icon.png';
   static const String whatsAppIcon = '${baseImageUrl}whatsapp_icon.png';
   static const String websiteIcon = '${baseImageUrl}website_icon.png';

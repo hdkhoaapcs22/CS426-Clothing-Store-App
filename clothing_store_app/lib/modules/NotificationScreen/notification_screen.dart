@@ -1,11 +1,15 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:clothing_store_app/utils/text_styles.dart';
 import 'package:clothing_store_app/class/notification_info.dart';
 import 'package:clothing_store_app/services/database/user_information.dart';
 import 'package:lottie/lottie.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
+import 'package:clothing_store_app/utils/enum.dart';
+import 'package:clothing_store_app/widgets/common_detailed_app_bar.dart';
+import 'package:clothing_store_app/utils/themes.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -20,143 +24,155 @@ class _NotificationScreenState extends State<NotificationScreen> {
     DateTime now = DateTime.now();
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text(
-          AppLocalizations(context).of("notification"),
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 48, 24, 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CommonDetailedAppBarView(
+              title: AppLocalizations(context).of("notification"),
+              prefixIconData: Iconsax.arrow_left,
+              onPrefixIconClick: () {
+                Navigator.pop(context);
+              },
+              iconColor: AppTheme.primaryTextColor,
+              backgroundColor: AppTheme.backgroundColor,
+            ),
+            Expanded(
+              child: StreamBuilder(
+                  stream: UserInformationService().getUserInfomationStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && snapshot.data!.data() != null) {
+                      var userData = snapshot.data!.data()!;
+                      List<Map<String, dynamic>> notificationMap =
+                          List<Map<String, dynamic>>.from(
+                              userData['notifications']);
+
+                      List<NotificationInfo> notifications = notificationMap
+                          .map((map) => NotificationInfo.fromMap(map))
+                          .toList();
+
+                      for (int i = 0; i < notifications.length; i++) {
+                        notifications[i].setId = i;
+                      }
+
+                      List<NotificationInfo> todayNotifications = notifications
+                          .where((notification) =>
+                              notification.time.year == now.year &&
+                              notification.time.month == now.month &&
+                              notification.time.day == now.day)
+                          .toList();
+
+                      List<NotificationInfo> yesterdayNotifications =
+                          notifications
+                              .where((notification) =>
+                                  notification.time.year == now.year &&
+                                  notification.time.month == now.month &&
+                                  notification.time.day == now.day - 1)
+                              .toList();
+
+                      List<NotificationInfo> aWeekAgoNotifications =
+                          notifications
+                              .where((notification) =>
+                                  notification.time.isAfter(
+                                      now.subtract(Duration(days: 7))) &&
+                                  notification.time.isBefore(
+                                      now.subtract(Duration(days: 2))))
+                              .toList();
+
+                      List<NotificationInfo> aMonthAgoNotifications =
+                          notifications
+                              .where((notification) =>
+                                  notification.time.isAfter(
+                                      now.subtract(Duration(days: 30))) &&
+                                  notification.time.isBefore(
+                                      now.subtract(Duration(days: 8))))
+                              .toList();
+
+                      return Padding(
+                        padding: MediaQuery.of(context).size.width > 360
+                            ? const EdgeInsets.all(16.0)
+                            : const EdgeInsets.all(8.0),
+                        child: ListView(
+                          children: [
+                            _buildSectionHeader(
+                              context: context,
+                              title: AppLocalizations(context).of("today"),
+                              onMarkAllAsRead: () =>
+                                  _markAllAsRead(todayNotifications),
+                            ),
+                            ...todayNotifications.map((notification) =>
+                                _buildNotificationTile(
+                                    notification: notification,
+                                    context: context,
+                                    title: notification.title,
+                                    time: _calculateTimeDifference(
+                                        notification.time, now),
+                                    description: notification.description,
+                                    isRead: notification.isRead)),
+                            _buildSectionHeader(
+                              context: context,
+                              title: AppLocalizations(context).of("yesterday"),
+                              onMarkAllAsRead: () =>
+                                  _markAllAsRead(yesterdayNotifications),
+                            ),
+                            ...yesterdayNotifications
+                                .map((notification) => _buildNotificationTile(
+                                      notification: notification,
+                                      context: context,
+                                      title: notification.title,
+                                      time: _calculateTimeDifference(
+                                          notification.time, now),
+                                      description: notification.description,
+                                      isRead: notification.isRead,
+                                    )),
+                            _buildSectionHeader(
+                                context: context,
+                                title:
+                                    AppLocalizations(context).of("a_week_ago"),
+                                onMarkAllAsRead: () =>
+                                    _markAllAsRead(aWeekAgoNotifications)),
+                            ...aWeekAgoNotifications
+                                .map((notification) => _buildNotificationTile(
+                                      notification: notification,
+                                      context: context,
+                                      title: notification.title,
+                                      time: _calculateTimeDifference(
+                                          notification.time, now),
+                                      description: notification.description,
+                                      isRead: notification.isRead,
+                                    )),
+                            _buildSectionHeader(
+                                context: context,
+                                title:
+                                    AppLocalizations(context).of("a_month_ago"),
+                                onMarkAllAsRead: () =>
+                                    _markAllAsRead(aMonthAgoNotifications)),
+                            ...aMonthAgoNotifications.map((notification) =>
+                                _buildNotificationTile(
+                                    notification: notification,
+                                    context: context,
+                                    title: notification.title,
+                                    time: _calculateTimeDifference(
+                                        notification.time, now),
+                                    description: notification.description,
+                                    isRead: notification.isRead)),
+                          ],
+                        ),
+                      );
+                    }
+                    return AlertDialog(
+                        backgroundColor: Colors.transparent,
+                        content: Lottie.asset(
+                          Localfiles.loading,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                        ));
+                  }),
+            ),
+          ],
         ),
       ),
-      body: StreamBuilder(
-          stream: UserInformationService().getUserInfomationStream(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data!.data() != null) {
-              var userData = snapshot.data!.data()!;
-              List<Map<String, dynamic>> notificationMap =
-                  List<Map<String, dynamic>>.from(userData['notifications']);
-
-              List<NotificationInfo> notifications = notificationMap
-                  .map((map) => NotificationInfo.fromMap(map))
-                  .toList();
-
-              for (int i = 0; i < notifications.length; i++) {
-                notifications[i].setId = i;
-              }
-
-              List<NotificationInfo> todayNotifications = notifications
-                  .where((notification) =>
-                      notification.time.year == now.year &&
-                      notification.time.month == now.month &&
-                      notification.time.day == now.day)
-                  .toList();
-
-              List<NotificationInfo> yesterdayNotifications = notifications
-                  .where((notification) =>
-                      notification.time.year == now.year &&
-                      notification.time.month == now.month &&
-                      notification.time.day == now.day - 1)
-                  .toList();
-
-              List<NotificationInfo> aWeekAgoNotifications = notifications
-                  .where((notification) =>
-                      notification.time
-                          .isAfter(now.subtract(Duration(days: 7))) &&
-                      notification.time
-                          .isBefore(now.subtract(Duration(days: 1))))
-                  .toList();
-
-              List<NotificationInfo> aMonthAgoNotifications = notifications
-                  .where((notification) =>
-                      notification.time
-                          .isAfter(now.subtract(Duration(days: 30))) &&
-                      notification.time
-                          .isBefore(now.subtract(Duration(days: 7))))
-                  .toList();
-
-              return Padding(
-                padding: MediaQuery.of(context).size.width > 360
-                    ? const EdgeInsets.all(16.0)
-                    : const EdgeInsets.all(8.0),
-                child: ListView(
-                  children: [
-                    _buildSectionHeader(
-                      context: context,
-                      title: AppLocalizations(context).of("today"),
-                      onMarkAllAsRead: () => _markAllAsRead(todayNotifications),
-                    ),
-                    ...todayNotifications.map((notification) =>
-                        _buildNotificationTile(
-                            notification: notification,
-                            context: context,
-                            icon: notification.icon,
-                            title: notification.title,
-                            time: _calculateTimeDifference(
-                                notification.time, now),
-                            description: notification.description,
-                            isRead: notification.isRead)),
-                    _buildSectionHeader(
-                      context: context,
-                      title: AppLocalizations(context).of("yesterday"),
-                      onMarkAllAsRead: () =>
-                          _markAllAsRead(yesterdayNotifications),
-                    ),
-                    ...yesterdayNotifications
-                        .map((notification) => _buildNotificationTile(
-                              notification: notification,
-                              context: context,
-                              icon: notification.icon,
-                              title: notification.title,
-                              time: _calculateTimeDifference(
-                                  notification.time, now),
-                              description: notification.description,
-                              isRead: notification.isRead,
-                            )),
-                    _buildSectionHeader(
-                        context: context,
-                        title: AppLocalizations(context).of("a_week_ago"),
-                        onMarkAllAsRead: () =>
-                            _markAllAsRead(aWeekAgoNotifications)),
-                    ...aWeekAgoNotifications
-                        .map((notification) => _buildNotificationTile(
-                              notification: notification,
-                              context: context,
-                              icon: notification.icon,
-                              title: notification.title,
-                              time: _calculateTimeDifference(
-                                  notification.time, now),
-                              description: notification.description,
-                              isRead: notification.isRead,
-                            )),
-                    _buildSectionHeader(
-                        context: context,
-                        title: AppLocalizations(context).of("a_month_ago"),
-                        onMarkAllAsRead: () =>
-                            _markAllAsRead(aMonthAgoNotifications)),
-                    ...aMonthAgoNotifications.map((notification) =>
-                        _buildNotificationTile(
-                            notification: notification,
-                            context: context,
-                            icon: notification.icon,
-                            title: notification.title,
-                            time: _calculateTimeDifference(
-                                notification.time, now),
-                            description: notification.description,
-                            isRead: notification.isRead)),
-                  ],
-                ),
-              );
-            }
-            return AlertDialog(
-                backgroundColor: Colors.transparent,
-                content: Lottie.asset(
-                  Localfiles.loading,
-                  width: MediaQuery.of(context).size.width * 0.2,
-                ));
-          }),
     );
   }
 
@@ -191,7 +207,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget _buildNotificationTile({
     required NotificationInfo notification,
     required BuildContext context,
-    required IconData icon,
     required String title,
     required String time,
     required String description,
@@ -214,7 +229,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
           children: [
             CircleAvatar(
               backgroundColor: Colors.grey[200],
-              child: Icon(icon, color: Colors.brown),
+              child: Icon(_getIconForNotificationType(notification.type),
+                  color: Colors.brown),
             ),
             MediaQuery.of(context).size.width > 360
                 ? const SizedBox(width: 16.0)
@@ -253,16 +269,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   void _markAsRead(NotificationInfo notification) async {
+    if (notification.isRead) return;
     await UserInformationService().deleteNotification(notification.toMap());
+    print(notification.time);
     notification.isRead = true;
     await UserInformationService()
         .addNotificationWithPos(notification.toMap(), notification.id!);
   }
 
   void _markAllAsRead(List<NotificationInfo> notificationsToMark) {
-    for (int i = 0; i < notificationsToMark.length; i++) {
-      _markAsRead(notificationsToMark[i]);
-    }
+    notificationsToMark.forEach((notification) {
+      _markAsRead(notification);
+    });
   }
 
   String _calculateTimeDifference(DateTime notificationTime, DateTime now) {
@@ -279,8 +297,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   void _handleFriendRequestNotificationTap(NotificationInfo notification) {
-    if (notification.title == "Friend Request") {
+    if (notification.type == NotificationType.friendRequest) {
       NavigationServices(context).pushFriendRequestScreen(notification.userId!);
+    }
+  }
+
+  IconData _getIconForNotificationType(NotificationType type) {
+    switch (type) {
+      case NotificationType.orderShipped:
+        return Icons.local_shipping;
+      case NotificationType.friendRequest:
+        return Icons.person_add;
+      case NotificationType.flashSaleAlert:
+        return Icons.flash_on;
+      case NotificationType.productReviewRequest:
+        return Icons.rate_review;
+      case NotificationType.newPaypalAdded:
+        return Icons.payment;
+      default:
+        return Icons.notifications;
     }
   }
 }

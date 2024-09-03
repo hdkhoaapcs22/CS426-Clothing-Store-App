@@ -1,31 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-IconData getIconDataFromCodepoint(int codepoint,
-    {String fontFamily = 'MaterialIcons', String? fontPackage}) {
-  return IconData(
-    codepoint,
-    fontFamily: fontFamily,
-    fontPackage: fontPackage,
-  );
-}
+import 'package:clothing_store_app/utils/enum.dart';
 
 class NotificationInfo {
   int? id;
-  final IconData icon;
   final String title;
   final DateTime time;
   final String description;
   final String? userId; // for friend request
   bool isRead;
+  NotificationType type;
 
   NotificationInfo({
     this.id,
-    required this.icon,
     required this.title,
     required this.time,
     required this.description,
     required this.isRead,
+    required this.type,
     this.userId,
   });
 
@@ -34,30 +25,28 @@ class NotificationInfo {
   }
 
   factory NotificationInfo.fromMap(Map<String, dynamic> map) {
-    final DateFormat dateFormat = DateFormat('dd MMMM yyyy HH:mm');
+    final DateFormat dateFormat = DateFormat('dd MMMM yyyy HH:mm:ss');
     final DateTime parsedDate = dateFormat.parse(map['time']);
 
-    IconData icon = getIconDataFromCodepoint(map['icon']);
-
     return NotificationInfo(
-      icon: icon,
       title: map['title'],
       time: parsedDate,
       description: map['description'],
       userId: map['userId'], // for friend request
       isRead: map['isRead'],
+      type: NotificationType.values[map['type']], // type saved in number
     );
   }
 
   Map<String, dynamic> toMap() {
-    String timeString = DateFormat('dd MMMM yyyy HH:mm').format(time);
+    String timeString = DateFormat('dd MMMM yyyy HH:mm:ss').format(time);
     return {
-      'icon': icon.codePoint,
       'title': title,
       'time': timeString,
       'description': description,
       'userId': userId, // for friend request
       'isRead': isRead,
+      'type': type.index,
     };
   }
 }

@@ -71,14 +71,13 @@ class TextStyles {
 
   TextStyle getInterDescriptionStyle(bool isBrown, bool isUnderlined) {
     return AppTheme.getTextStyle(
-      FontFamilyType.Inter, 
-      Theme.of(context).textTheme.bodyLarge!.copyWith(
-        color: isBrown? AppTheme.brownColor : AppTheme.secondaryTextColor,
-        fontWeight: FontWeight.w500,
-        decoration: isUnderlined? TextDecoration.underline : null,
-        decorationColor: isBrown? AppTheme.brownColor : AppTheme.secondaryTextColor
-      )
-    );
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: isBrown ? AppTheme.brownColor : AppTheme.secondaryTextColor,
+            fontWeight: FontWeight.w500,
+            decoration: isUnderlined ? TextDecoration.underline : null,
+            decorationColor:
+                isBrown ? AppTheme.brownColor : AppTheme.secondaryTextColor));
   }
 
   TextStyle getLabelLargeStyle(bool isGrey) {
@@ -179,5 +178,15 @@ class TextStyles {
     return Theme.of(context).textTheme.bodyLarge!.copyWith(
           color: AppTheme.secondaryTextColor,
         );
+  }
+
+  TextStyle getFAQHeaderStyle() {
+    return AppTheme.getTextStyle(
+        FontFamilyType.Inter,
+        Theme.of(context).textTheme.headlineMedium!.copyWith(
+              color: AppTheme.primaryTextColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ));
   }
 }
