@@ -1,5 +1,6 @@
 import 'package:clothing_store_app/modules/Home/home_screen.dart';
 import 'package:clothing_store_app/modules/MyOrder/my_order.dart';
+import 'package:clothing_store_app/modules/Wishlist/wishlist_page.dart';
 import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -7,7 +8,6 @@ import 'package:provider/provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../utils/enum.dart';
 import '../Chat/introduction_chatting.dart';
-import '../Favorite/favorite_screen.dart';
 import '../Profile/profile_screen.dart';
 import 'custom_bottom_tap.dart';
 
@@ -94,9 +94,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
             TabButtonUI(
               icon: Icons.favorite_border_outlined,
               iconSelected: Icons.favorite,
-              isSelected: bottomBarType == BottomBarType.Favorite,
+              isSelected: bottomBarType == BottomBarType.Wishlist,
               onTap: () {
-                tabClick(BottomBarType.Favorite);
+                tabClick(BottomBarType.Wishlist);
               },
             ),
             TabButtonUI(
@@ -134,17 +134,17 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
             }
           case BottomBarType.Shopping:
             {
-              indexView =
-                  MyOrder(animationController: animationController);
+              indexView = MyOrder(animationController: animationController);
             }
-          case BottomBarType.Favorite:
+          case BottomBarType.Wishlist:
             {
               indexView =
-                  FavoriteScreen(animationController: animationController);
+                  WishlistPage(animationController: animationController);
             }
           case BottomBarType.Chatting:
             {
-              indexView = IntroductionChattingInterface(animationController: animationController);
+              indexView = IntroductionChattingInterface(
+                  animationController: animationController);
             }
           case BottomBarType.Profile:
             {

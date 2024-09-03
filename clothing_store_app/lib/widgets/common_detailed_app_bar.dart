@@ -47,12 +47,7 @@ class CommonDetailedAppBarView extends StatelessWidget {
                     iconData: prefixIconData,
                     iconColor: iconColor,
                     iconSize: iconSize),
-                Text(
-                  title,
-                  style: TextStyles(context)
-                      .getLabelLargeStyle(false)
-                      .copyWith(fontSize: titleSize),
-                ),
+                Text(title, style: TextStyles(context).getTitleStyle()),
                 suffixIconData != null
                     ? AppBarButton(
                         onClick: onSuffixIconClick,

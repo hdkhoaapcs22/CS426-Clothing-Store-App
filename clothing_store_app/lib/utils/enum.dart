@@ -26,6 +26,6 @@ enum LanguageType { en, fr } // english, france
 
 enum PopupTextType { no, ad, ch }
 
-enum BottomBarType { Home, Shopping, Favorite, Chatting, Profile }
+enum BottomBarType { Home, Shopping, Wishlist, Chatting, Profile }
 
 enum HomeTabType { All, Newest, Popular, Man, Woman, Kids }

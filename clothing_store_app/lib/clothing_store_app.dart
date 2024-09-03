@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-
 import 'providers/theme_provider.dart';
 import 'common/common.dart';
 import 'languages/appLocalizations.dart';
@@ -14,6 +13,8 @@ import 'languages/appLocalizations.dart';
 BuildContext? applicationcontext;
 
 class ClothingStoreApp extends StatefulWidget {
+  const ClothingStoreApp({super.key});
+
   @override
   _ClothingStoreAppState createState() => _ClothingStoreAppState();
 }

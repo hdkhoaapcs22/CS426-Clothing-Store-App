@@ -1,0 +1,4 @@
+t-shirt
+shirt
+pant
+jacket

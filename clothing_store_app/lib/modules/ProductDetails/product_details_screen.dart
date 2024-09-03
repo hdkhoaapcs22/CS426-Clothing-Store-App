@@ -21,12 +21,11 @@ class ProductDetailsScreen extends StatefulWidget {
   final ClothBase clothBase;
   final List<ClothItem> clothes;
 
-  ProductDetailsScreen({
-    super.key,
-    required this.isFavorite, 
-    required this.clothBase,
-    required this.clothes
-  });
+  ProductDetailsScreen(
+      {super.key,
+      required this.isFavorite,
+      required this.clothBase,
+      required this.clothes});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -38,7 +37,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int selectedColor = 0;
   late List<String> allSizes;
 
-  String getGender(String key){
+  String getGender(String key) {
     switch (key) {
       case 'M':
         return 'Man';
@@ -72,9 +71,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: Center(
-                    child:
-                      Image(image: NetworkImage(widget.clothes[selectedID].clothImageURL),)
-                  ),
+                      child: Image(
+                    image:
+                        NetworkImage(widget.clothes[selectedID].clothImageURL),
+                  )),
                 ),
                 Positioned(
                   left: 0,
@@ -86,39 +86,44 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       height: 80,
                       child: Center(
                         child: ListView.separated(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return TapEffect(
-                              onClick: () {
-                                setState(() {
-                                  selectedID = index;
-                                  selectedColor = selectedID;
-                                });
-                              },
-                              child: Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                  border: Border.all(
-                                    width: 3,
-                                    color: selectedID == index ? AppTheme.backgroundColor : Colors.transparent
-                                  )
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                  child: Image(
-                                    image: NetworkImage(widget.clothes[index].clothImageURL)
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return TapEffect(
+                                onClick: () {
+                                  setState(() {
+                                    selectedID = index;
+                                    selectedColor = selectedID;
+                                  });
+                                },
+                                child: Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      border: Border.all(
+                                          width: 3,
+                                          color: selectedID == index
+                                              ? AppTheme.backgroundColor
+                                              : Colors.transparent)),
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image(
+                                        image: NetworkImage(widget
+                                            .clothes[index].clothImageURL)),
                                   ),
                                 ),
-                              ),
-                            );
-                          }, 
-                          separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 8.0,), 
-                          itemCount: widget.clothes.length
-                        ),
+                              );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const SizedBox(
+                                      width: 8.0,
+                                    ),
+                            itemCount: widget.clothes.length),
                       ),
                     ),
                   ),
@@ -126,7 +131,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 CommonDetailedAppBarView(
                   title: AppLocalizations(context).of("product_details_title"),
                   prefixIconData: Iconsax.arrow_left,
-                  suffixIconData: widget.isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                  suffixIconData:
+                      widget.isFavorite ? Iconsax.heart5 : Iconsax.heart,
                   iconColor: AppTheme.brownButtonColor,
                   onPrefixIconClick: () {
                     Navigator.pop(context);
@@ -134,11 +140,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   onSuffixIconClick: () {
                     setState(() {
                       widget.isFavorite = !widget.isFavorite;
-                      FavoriteClothService favoriteList = FavoriteClothService();
+                      FavoriteClothService favoriteList =
+                          FavoriteClothService();
                       if (widget.isFavorite) {
-                        favoriteList.addFavoriteCloth(clothItemID: widget.clothBase.id);
+                        favoriteList.addFavoriteCloth(
+                            clothItemID: widget.clothBase.id);
                       } else {
-                        favoriteList.removeFavoriteCloth(clothItemID: widget.clothBase.id);
+                        favoriteList.removeFavoriteCloth(
+                            clothItemID: widget.clothBase.id);
                       }
                     });
                   },
@@ -181,29 +190,52 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 8.0,),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   //------------------  Name of product ----------------------
-                  Text(widget.clothBase.name,  style: TextStyles(context).getLargerHeaderStyle(false),),
-                  const SizedBox(height: 8.0,),
+                  Text(
+                    widget.clothBase.name,
+                    style: TextStyles(context).getLargerHeaderStyle(false),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   //------------------  Product Details ----------------------
-                  Text('Product Details',  style: TextStyles(context).getLabelLargeStyle(false).copyWith(fontSize: 16),),
-                  const SizedBox(height: 8.0,),
+                  Text(
+                    'Product Details',
+                    style: TextStyles(context)
+                        .getLabelLargeStyle(false)
+                        .copyWith(fontSize: 16),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   ReadMoreText(
                     widget.clothBase.description,
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Read more',
                     trimExpandedText: '\tLess',
-                    moreStyle: TextStyles(context).getInterDescriptionStyle(false, false).copyWith(fontSize: 14),
-                    lessStyle: TextStyles(context).getInterDescriptionStyle(false, false).copyWith(fontSize: 14),
+                    moreStyle: TextStyles(context)
+                        .getInterDescriptionStyle(false, false)
+                        .copyWith(fontSize: 14),
+                    lessStyle: TextStyles(context)
+                        .getInterDescriptionStyle(false, false)
+                        .copyWith(fontSize: 14),
                   ),
                   Divider(
                     thickness: 0.5,
                     color: AppTheme.secondaryTextColor,
                   ),
                   //------------------  Select Size ----------------------
-                  Text('Select Size', style: TextStyles(context).getLabelLargeStyle(false).copyWith(fontSize: 16)),
-                  const SizedBox(height: 8.0,),
+                  Text('Select Size',
+                      style: TextStyles(context)
+                          .getLabelLargeStyle(false)
+                          .copyWith(fontSize: 16)),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   SizedBox(
                     height: 40,
                     child: ListView.separated(
@@ -218,18 +250,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               });
                             },
                             child: Container(
-                              height: 50,
-                              width: 55,
-                              decoration: BoxDecoration(
-                                color: selectedSize == index
+                                height: 50,
+                                width: 55,
+                                decoration: BoxDecoration(
+                                  color: selectedSize == index
                                       ? AppTheme.brownButtonColor
                                       : AppTheme.backgroundColor,
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                              ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                ),
                                 child: Center(
-                                  child: Text(
-                                    allSizes[index],
-                                    style: TextStyles(context)
+                                    child: Text(
+                                  allSizes[index],
+                                  style: TextStyles(context)
                                       .getButtonTextStyle()
                                       .copyWith(
                                           color: selectedSize == index
@@ -243,24 +276,27 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             const SizedBox(
                               width: 8.0,
                             ),
-                        itemCount: widget.clothes[selectedColor].sizeWithQuantity.length),
+                        itemCount: widget
+                            .clothes[selectedColor].sizeWithQuantity.length),
                   ),
-                  const SizedBox(height: 8.0,),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   //------------------  Select Color ----------------------
                   RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Select Color: \t',
-                          style: TextStyles(context).getLabelLargeStyle(false).copyWith(fontSize: 16)
-                        ),
-                        TextSpan(
-                          text: widget.clothes[selectedColor].color,
-                          style: TextStyles(context).getDescriptionStyle()
-                        )
-                      ])
+                      text: TextSpan(children: [
+                    TextSpan(
+                        text: 'Select Color: \t',
+                        style: TextStyles(context)
+                            .getLabelLargeStyle(false)
+                            .copyWith(fontSize: 16)),
+                    TextSpan(
+                        text: widget.clothes[selectedColor].color,
+                        style: TextStyles(context).getDescriptionStyle())
+                  ])),
+                  const SizedBox(
+                    height: 8.0,
                   ),
-                  const SizedBox(height: 8.0,),
                   SizedBox(
                     height: 40,
                     child: ListView.separated(
@@ -319,13 +355,25 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Total Price', style: TextStyles(context).getDescriptionStyle().copyWith(fontSize: 14),),
-                    Text('\$ ${widget.clothes[selectedColor].price}', style: TextStyles(context).getDescriptionStyle().copyWith(fontWeight: FontWeight.w500, color: AppTheme.primaryTextColor),)
+                    Text(
+                      'Total Price',
+                      style: TextStyles(context)
+                          .getDescriptionStyle()
+                          .copyWith(fontSize: 14),
+                    ),
+                    Text(
+                      '\$ ${widget.clothes[selectedColor].price}',
+                      style: TextStyles(context).getDescriptionStyle().copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: AppTheme.primaryTextColor),
+                    )
                   ],
                 ),
-                const SizedBox(width: 16.0,),
-                Expanded(child: 
-                CommonButton(
+                const SizedBox(
+                  width: 16.0,
+                ),
+                Expanded(
+                    child: CommonButton(
                   onTap: () {
                     CartService().addItemIntoCart(
                         clothItemID: widget.clothBase.id,
@@ -334,13 +382,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         size: allSizes[selectedSize],
                         price: widget.clothes[selectedColor].price,
                         orderQuantity: 1,
-                        quantity: widget.clothes[selectedColor].sizeWithQuantity[allSizes[selectedSize]]
-                    );
+                        quantity: widget.clothes[selectedColor]
+                            .sizeWithQuantity[allSizes[selectedSize]]);
                     NavigationServices(context).gotoCartScreen();
-                  },    
+                  },
                   buttonText: 'add_to_cart',
                   icon: Iconsax.shopping_bag5,
-                  radius: 40,)),
+                  radius: 40,
+                )),
               ],
             ),
           ),

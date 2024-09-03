@@ -451,8 +451,8 @@
     },
     {
         "text_id": "wishlist_title",
-        "en": "My Wishlist        ",
-        "fr": "My Wishlist        "
+        "en": "My Wishlist",
+        "fr": "My Wishlist"
     },
     {
         "text_id": "product_details_title",
@@ -883,6 +883,50 @@
         "text_id": "send",
         "en": "Send",
         "fr": "Envoyer"
+    },
+    {
+        "text_id": "search",
+        "en": "Search",
+        "fr": "recherche"
+    },
+    {
+        "text_id": "recent",
+        "en": "Recent",
+        "fr": "récente"
+    },
+    {
+        "text_id": "clear_all",
+        "en": "Clear All",
+        "fr": "tout effacer"
+    },
+    {
+        "text_id": "filter",
+        "en": "Filter",
+        "fr": "Filtre"
+    },
+    {
+        "text_id": "brand",
+        "en": "Brands",
+        "fr": "Marques"
+    },
+    {
+        "text_id": "gender",
+        "en": "Gender",
+        "fr": "Genre"
+    },
+    {
+        "text_id": "sort_by",
+        "en": "Sort by",
+        "fr": "Trier par"
+    },
+    {
+        "text_id": "price_range",
+        "en": "Pricing Range",
+        "fr": "Fourchette de prix"
+    },
+    {
+        "text_id": "reviews",
+        "en": "Reviews",
+        "fr": "Avis"
     }
-    
 ]
