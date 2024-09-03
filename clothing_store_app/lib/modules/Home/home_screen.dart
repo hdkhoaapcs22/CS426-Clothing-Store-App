@@ -4,7 +4,6 @@ import 'package:clothing_store_app/modules/Home/custom_circle_button.dart';
 import 'package:clothing_store_app/modules/Home/home_tab.dart';
 import 'package:clothing_store_app/modules/Home/slideshow_content.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
-import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/database/favorite_cloth.dart';
 import 'package:clothing_store_app/widgets/bottom_move_top_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

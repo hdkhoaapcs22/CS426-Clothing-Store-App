@@ -46,7 +46,7 @@ class HomeTab extends StatelessWidget implements PreferredSizeWidget {
                     return Tab(
                       child: Container(
                         width: size.width / 5,
-                        height: 30,
+                        height: 33,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           border: Border.all(
