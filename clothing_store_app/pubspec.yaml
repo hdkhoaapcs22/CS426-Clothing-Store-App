@@ -63,6 +63,7 @@ dependencies:
     image: ^3.3.0
     flutter_tflite: ^1.0.1
     firebase_auth_platform_interface: ^7.4.4
+    flutter_facebook_auth: ^7.1.0
 
 
 

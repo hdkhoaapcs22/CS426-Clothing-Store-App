@@ -1193,5 +1193,15 @@
         "text_id": "friend_request_cancelled",
         "en": "Friend request cancelled because you have already accepted a friend request from this user or the user has cancelled the request.",
         "fr": "Demande d'ami annulée"
+    },
+    {
+        "text_id": "sign_up_with_facebook",
+        "en": "Sign up with Facebook",
+        "fr": "S'inscrire sur Facebook"
+    },
+    {
+        "text_id": "sign_up_with_facebook_successfully",
+        "en": "Registered successfully with Facebook",
+        "fr": "Inscription réussie auprès de Facebook"
     }
 ]

@@ -11,12 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 import '../../class/cloth_item.dart';
 import '../../global/global_var.dart';
 import '../../languages/appLocalizations.dart';
-import '../../providers/home_tab_provider.dart';
 import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
@@ -44,13 +42,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void _handleSelection() {
-    final controller = Provider.of<HomeTabNotifier>(context, listen: false);
-
     if (_tabController.indexIsChanging) {
       setState(() {
         _curId = _tabController.index;
       });
-      controller.setIndex(homeTabs[_curId]);
     }
   }
 

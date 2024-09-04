@@ -23,8 +23,6 @@ class CustomAppBar extends StatefulWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   List<String> addresses = [
     'New York, USA',
-    'Ho Chi Minh, VN',
-    'Ha Noi, VN',
   ];
 
   String _selectedAddress = 'New York, USA';
