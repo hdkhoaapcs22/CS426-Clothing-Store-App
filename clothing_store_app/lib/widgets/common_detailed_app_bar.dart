@@ -5,7 +5,7 @@ import 'tap_effect.dart';
 
 class CommonDetailedAppBarView extends StatelessWidget {
   final double? topPadding;
-  final IconData prefixIconData;
+  final IconData? prefixIconData;
   final IconData? suffixIconData;
   final String title;
   final VoidCallback? onSuffixIconClick;
@@ -18,7 +18,7 @@ class CommonDetailedAppBarView extends StatelessWidget {
     super.key,
     this.topPadding,
     required this.title,
-    required this.prefixIconData,
+    this.prefixIconData,
     this.suffixIconData,
     this.onPrefixIconClick,
     this.onSuffixIconClick,
@@ -41,12 +41,12 @@ class CommonDetailedAppBarView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppBarButton(
+                prefixIconData != null ? AppBarButton(
                     onClick: onPrefixIconClick,
                     backgroundColor: backgroundColor,
-                    iconData: prefixIconData,
+                    iconData: prefixIconData!,
                     iconColor: iconColor,
-                    iconSize: iconSize),
+                    iconSize: iconSize) : const SizedBox(width: 65),
                 Text(title, style: TextStyles(context).getTitleStyle()),
                 suffixIconData != null
                     ? AppBarButton(

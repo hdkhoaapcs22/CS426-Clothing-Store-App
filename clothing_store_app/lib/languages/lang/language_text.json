@@ -535,6 +535,11 @@
         "fr": "Robe"
     },
     {
+        "text_id": "shirt",
+        "en": "Shirt",
+        "fr": "Chemise"
+    },
+    {
         "text_id": "jacket",
         "en": "Jacket",
         "fr": "Veste"

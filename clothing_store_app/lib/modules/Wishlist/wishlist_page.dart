@@ -85,7 +85,7 @@ class _WishlistPageState extends State<WishlistPage> {
               child: Scaffold(
                 backgroundColor: AppTheme.scaffoldBackgroundColor,
                 body: Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 48, 24, 10),
+                    padding: const EdgeInsets.fromLTRB(24, 48, 24, 0),
                     child: Column(
                       children: [
                         Center(

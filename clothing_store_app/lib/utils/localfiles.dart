@@ -38,6 +38,7 @@ class Localfiles {
   static const String jacketIcon = '${baseImageUrl}jacket_icon.png';
   static const String shoesIcon = '${baseImageUrl}shoes_icon.png';
   static const String accessoryIcon = '${baseImageUrl}accessory_icon.png';
+  static const String shirtIcon = '${baseImageUrl}shirt_icon.png';
 
   static const String paypalIcon = '${baseImageUrl}paypal_logo.png';
   static const String appleIcon = '${baseImageUrl}apple_logo.png';
