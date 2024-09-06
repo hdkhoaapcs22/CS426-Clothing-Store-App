@@ -45,7 +45,7 @@ class CommonDetailedAppBarView extends StatelessWidget {
                     onClick: onPrefixIconClick,
                     backgroundColor: backgroundColor,
                     iconData: prefixIconData!,
-                    iconColor: iconColor,
+                    iconColor: Colors.black,
                     iconSize: iconSize) : const SizedBox(width: 65),
                 Text(title, style: TextStyles(context).getTitleStyle()),
                 suffixIconData != null

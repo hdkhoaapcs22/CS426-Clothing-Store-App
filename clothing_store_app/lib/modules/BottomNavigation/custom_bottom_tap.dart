@@ -26,7 +26,7 @@ class TabButtonUI extends StatelessWidget {
           padding: const EdgeInsets.only(top: 8, bottom: 8),
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Colors.transparent,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 3, right: 3),

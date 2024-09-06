@@ -8,9 +8,9 @@ class Localfiles {
   static const String asterisk = '${baseImageUrl}asterisk.png';
 
   //OnBoarding Screen
-  static const String onBoarding1 = '${baseImageUrl}onboarding1.png';
-  static const String onBoarding2 = '${baseImageUrl}onboarding2.png';
-  static const String onBoarding3 = '${baseImageUrl}onboarding3.png';
+  static const String onBoarding1 = '${baseImageUrl}onBoardingImage1.png';
+  static const String onBoarding2 = '${baseImageUrl}onBoardingImage2.png';
+  static const String onBoarding3 = '${baseImageUrl}onBoardingImage3.png';
 
   static const String defaultAvatar = '${baseImageUrl}default_avatar.png';
 

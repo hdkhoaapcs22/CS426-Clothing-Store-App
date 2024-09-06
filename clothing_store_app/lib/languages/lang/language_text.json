@@ -61,23 +61,13 @@
     },
     {
         "text_id": "onBoardingHeader3.1",
-        "en": "Swift ",
-        "fr": "Rapide "
+        "en": "Personal ",
+        "fr": "Assistant D'achat "
     },
     {
         "text_id": "onBoardingHeader3.2",
-        "en": "and ",
-        "fr": "et "
-    },
-    {
-        "text_id": "onBoardingHeader3.3",
-        "en": "Reliable ",
-        "fr": "Fiable"
-    },
-    {
-        "text_id": "onBoardingHeader3.4",
-        "en": "Delivery",
-        "fr": ""
+        "en": "Shopping Assistant",
+        "fr": "Personnel"
     },
     {
         "text_id": "onBoardingHeader1.body",
@@ -91,8 +81,8 @@
     },
     {
         "text_id": "onBoardingHeader3.body",
-        "en": "Standard and Express delivery services are available for most of the countries that we ship to.",
-        "fr": "Les services de livraison standard et express sont disponibles pour la plupart des pays vers lesquels nous expédions des marchandises."
+        "en": "Get instant answers and recommendations from our AI-powered chatbot. Whether you're looking for the latest trends, or outfit ideas, our virtual assistant is here to help you.",
+        "fr": "Obtenez des réponses et des recommandations instantanées grâce à notre chatbot doté d'une intelligence artificielle. Que vous recherchiez les dernières tendances ou des idées de tenues, notre assistant virtuel est là pour vous aider."
     },
     {
         "text_id": "skip",

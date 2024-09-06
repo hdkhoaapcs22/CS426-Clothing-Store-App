@@ -31,27 +31,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
-  int _curId = 0;
 
   @override
   void initState() {
     widget.animationController.forward();
     _tabController = TabController(length: homeTabs.length, vsync: this);
-    _tabController.addListener(_handleSelection);
     super.initState();
-  }
-
-  void _handleSelection() {
-    if (_tabController.indexIsChanging) {
-      setState(() {
-        _curId = _tabController.index;
-      });
-    }
   }
 
   @override
   void dispose() {
-    _tabController.removeListener(_handleSelection);
     _tabController.dispose();
     super.dispose();
   }
@@ -227,10 +216,10 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
       },
     ),
     CustomCircleButton(
-      imagePath: Localfiles.dressIcon,
-      title: AppLocalizations(context).of("dress"),
+      imagePath: Localfiles.shirtIcon,
+      title: AppLocalizations(context).of("shirt"),
       onClick: () {
-        NavigationServices(context).pushCategoryScreen("dress");
+        NavigationServices(context).pushCategoryScreen("shirt");
       },
     ),
     CustomCircleButton(
@@ -239,14 +228,6 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
       onClick: () {
         NavigationServices(context).pushCategoryScreen("jacket");
       },
-    ),
-    CustomCircleButton(
-      imagePath: Localfiles.shoesIcon,
-      title: AppLocalizations(context).of("shoes"),
-    ),
-    CustomCircleButton(
-      imagePath: Localfiles.accessoryIcon,
-      title: AppLocalizations(context).of("accessory"),
     ),
   ];
 }
@@ -311,7 +292,7 @@ Widget searchAndSetting(BuildContext context) {
               color: AppTheme.iconColor,
             ),
           ),
-        )
+        ),
       ],
     ),
   );

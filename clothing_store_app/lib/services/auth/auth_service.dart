@@ -1,6 +1,5 @@
 // import 'package:booking_new_hotel/modules/profile/user.dart';
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:clothing_store_app/routes/routes_name.dart';
 import 'package:clothing_store_app/services/database/user_information.dart';
