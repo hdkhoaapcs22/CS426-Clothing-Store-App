@@ -1,12 +1,17 @@
 import 'package:clothing_store_app/modules/CompleteProfileScreen/complete_profile_screen.dart';
 import 'package:clothing_store_app/modules/LoginOrSignUpScreen/login_or_signup_screen.dart';
+import 'package:clothing_store_app/modules/PrivacyPolicyScreen/privacy_policy_screen.dart';
 import 'package:clothing_store_app/modules/Profile/PaymentMethod/payment_method_screen.dart';
+import 'package:clothing_store_app/modules/HelpCenterScreen/help_center_screen.dart';
 import 'package:clothing_store_app/modules/Setting/password_manager_screen.dart';
 import 'package:clothing_store_app/modules/Setting/setting_screen.dart';
 import 'package:clothing_store_app/modules/Profile/UpdateProfile/update_profile_screen.dart';
 import 'package:clothing_store_app/modules/Search/filter.dart';
 import 'package:clothing_store_app/modules/Search/search_result.dart';
 import 'package:clothing_store_app/modules/Search/search_screen.dart';
+import 'package:clothing_store_app/modules/NotificationScreen/notification_screen.dart';
+import 'package:clothing_store_app/modules/InviteFriendsScreen/invite_friends_screen.dart';
+import 'package:clothing_store_app/modules/FriendRequestScreen/friend_request_screen.dart';
 import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
 import 'package:clothing_store_app/modules/ForgotScreen/forgot_pass_page.dart';
 import 'package:flutter/material.dart';
@@ -104,5 +109,26 @@ class NavigationServices {
 
   void gotoFilterScreen() async {
     return _pushMaterialPageRoute(const FilterScreen());
+  }
+  
+  Future<dynamic> pushNotificationScreen() async {
+    return _pushMaterialPageRoute(const NotificationScreen());
+  }
+  
+
+  Future<dynamic> pushInviteFriendsScreen() async {
+    return _pushMaterialPageRoute(const InviteFriendsScreen());
+  }
+
+  Future<dynamic> pushFriendRequestScreen(String userID) async {
+    return _pushMaterialPageRoute(FriendRequestScreen(userID: userID));
+  }
+
+  Future<dynamic> pushHelpCenterScreen() async {
+    return _pushMaterialPageRoute(const HelpCenterScreen());
+  }
+
+  Future<dynamic> pushPrivacyPolicyScreen() async {
+    return _pushMaterialPageRoute(const PrivacyPolicyScreen());
   }
 }

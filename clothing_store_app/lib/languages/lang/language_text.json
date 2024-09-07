@@ -150,6 +150,11 @@
         "fr": "Les Conditions Générales"
     },
     {
+        "text_id": "terms_and_condition_content",
+        "en": "Welcome to our app. By accessing or using our app, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you should not use our app. You must be at least 12 years old to use our app. You agree to use the app only for lawful purposes and in accordance with these Terms and Conditions. To access certain features of the app, you may need to register an account. You agree to provide accurate and complete information during registration and to keep this information up to date. You agree not to use the app to upload, post, or transmit any content that is unlawful, harmful, or otherwise objectionable. You agree not to interfere with or disrupt the operation of the app. All content and materials on the app, including text, graphics, logos, and software, are the property of us or its licensors and are protected by copyright and other intellectual property laws. You may not reproduce, distribute, or create derivative works from any content on the app without our express written consent. We reserve the right to terminate or suspend your access to the app at any time, without notice, for any reason, including violation of these Terms and Conditions. The app is provided \"as is\" and \"as available\" without warranties of any kind, either express or implied. To the fullest extent permitted by law, shall not be liable for any damages arising out of or in connection with your use of the app. We may update these Terms and Conditions from time to time. We will notify you of any changes by posting the new terms on our app. These Terms and Conditions are governed by and construed in accordance with the laws. If you have any questions or concerns about these Terms and Conditions, please contact us.",
+        "fr": "Bienvenue sur notre application. En accédant ou en utilisant notre application, vous acceptez d'être lié par ces Conditions Générales. Si vous n'êtes pas d'accord avec une partie de ces conditions, vous ne devez pas utiliser notre application. Vous devez avoir au moins 12 ans pour utiliser notre application. Vous acceptez d'utiliser l'application uniquement à des fins légales et conformément à ces Conditions Générales. Pour accéder à certaines fonctionnalités de l'application, vous devrez peut-être créer un compte. Vous acceptez de fournir des informations exactes et complètes lors de l'inscription et de maintenir ces informations à jour. Vous acceptez de ne pas utiliser l'application pour télécharger, publier ou transmettre tout contenu illégal, nuisible ou autrement répréhensible. Vous acceptez de ne pas interférer avec ou perturber le fonctionnement de l'application. Tout le contenu et les matériaux sur l'application, y compris les textes, graphiques, logos et logiciels, sont notre propriété ou celle de nos concédants et sont protégés par les lois sur le droit d'auteur et autres lois sur la propriété intellectuelle. Vous ne pouvez pas reproduire, distribuer ou créer des œuvres dérivées à partir de tout contenu sur l'application sans notre consentement écrit exprès. Nous nous réservons le droit de résilier ou de suspendre votre accès à l'application à tout moment, sans préavis, pour quelque raison que ce soit, y compris la violation de ces Conditions Générales. L'application est fournie \"telle quelle\" et \"selon disponibilité\" sans garanties d'aucune sorte, explicites ou implicites. Dans toute la mesure permise par la loi, nous ne serons pas responsables des dommages résultant de ou en relation avec votre utilisation de l'application. Nous pouvons mettre à jour ces Conditions Générales de temps à autre. Nous vous informerons de tout changement en publiant les nouvelles conditions sur notre application. Ces Conditions Générales sont régies et interprétées conformément aux lois en vigueur. Si vous avez des questions ou des préoccupations concernant ces Conditions Générales, veuillez nous contacter."
+    },
+    {
         "text_id": "signUp",
         "en": "Sign Up",
         "fr": "S'inscrire"
@@ -630,6 +635,151 @@
         "fr": "Politique de confidentialité"
     },
     {
+        "text_id": "privacy_policy_content",
+        "en": "We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and disclose information when you use our app. When you register or use our app, we may collect information such as your name, email address, phone number, and order details. Additionally, we may collect information about how you interact with the app, such as your IP address, device type, and usage patterns. We use your information to process orders, provide customer support, and improve our services. Your contact information may be used to send updates, notifications, and promotional materials. We do not sell or share your personal information with third parties except as necessary to provide our services, comply with legal obligations, or protect our rights. We implement appropriate security measures to protect your information from unauthorized access, alteration, or disclosure. You have the right to access, update, or delete your personal information. If you wish to exercise these rights, please contact us. This Privacy Policy may be updated from time to time. We will notify you of any changes by posting the new policy on our app. If you have any questions or concerns about this Privacy Policy, please contact us.",
+        "fr": "Nous valorisons votre vie privée et nous nous engageons à protéger vos informations personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et divulguons les informations lorsque vous utilisez notre application. Lorsque vous vous inscrivez ou utilisez notre application, nous pouvons collecter des informations telles que votre nom, adresse e-mail, numéro de téléphone et détails de commande. De plus, nous pouvons collecter des informations sur la manière dont vous interagissez avec l'application, telles que votre adresse IP, le type d'appareil et les modèles d'utilisation. Nous utilisons vos informations pour traiter les commandes, fournir un support client et améliorer nos services. Vos coordonnées peuvent être utilisées pour envoyer des mises à jour, des notifications et des documents promotionnels. Nous ne vendons ni ne partageons vos informations personnelles avec des tiers, sauf si nécessaire pour fournir nos services, nous conformer à nos obligations légales ou protéger nos droits. Nous mettons en œuvre des mesures de sécurité appropriées pour protéger vos informations contre tout accès, altération ou divulgation non autorisé. Vous avez le droit d'accéder à vos informations personnelles, de les mettre à jour ou de les supprimer. Si vous souhaitez exercer ces droits, veuillez nous contacter. Cette politique de confidentialité peut être mise à jour de temps à autre. Nous vous informerons de tout changement en publiant la nouvelle politique sur notre application. Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, veuillez nous contacter."
+    },
+    {
+        "text_id": "faq",
+        "en": "FAQ",
+        "fr": "FAQ"
+    },
+    {
+        "text_id": "contact_us",
+        "en": "Contact Us",
+        "fr": "Contactez-nous"
+    },
+    {
+        "text_id": "all",
+        "en": "All",
+        "fr": "Tout"
+    },
+    {
+        "text_id": "services",
+        "en": "Services",
+        "fr": "Services"
+    },
+    {
+        "text_id": "general",
+        "en": "General",
+        "fr": "Général"
+    },
+    {
+        "text_id": "account",
+        "en": "Account",
+        "fr": "Compte"
+    },
+    {
+        "text_id": "question01",
+        "en": "Can I track my order's delivery status?",
+        "fr": "Puis-je suivre le statut de livraison de ma commande?"
+    },
+    {
+        "text_id": "answer01",
+        "en": "Yes, you can track your order's delivery status by going to the 'My Orders' section.",
+        "fr": "Oui, vous pouvez suivre le statut de livraison de votre commande en allant dans la section 'Mes commandes'."
+    },
+    {
+        "text_id": "question02",
+        "en": "Is there a return policy?",
+        "fr": "Y a-t-il une politique de retour?"
+    },
+    {
+        "text_id": "answer02",
+        "en": "Yes, we have a 30-day return policy. You can return the product within 30 days of purchase.",
+        "fr": "Oui, nous avons une politique de retour de 30 jours. Vous pouvez retourner le produit dans les 30 jours suivant l'achat."
+    },
+    {
+        "text_id": "question03",
+        "en": "Can I save my favorite items for later?",
+        "fr": "Puis-je sauvegarder mes articles préférés pour plus tard?"
+    },
+    {
+        "text_id": "answer03",
+        "en": "Yes, you can save your favorite items by adding them to your wishlist.",
+        "fr": "Oui, vous pouvez sauvegarder vos articles préférés en les ajoutant à votre liste de souhaits."
+    },
+    {
+        "text_id": "question04",
+        "en": "Can I share products with my friends?",
+        "fr": "Puis-je partager des produits avec mes amis?"
+    },
+    {
+        "text_id": "answer04",
+        "en": "Yes, you can share products with your friends by using the 'Invite Friends' feature.",
+        "fr": "Oui, vous pouvez partager des produits avec vos amis en utilisant la fonction 'Inviter des amis'."
+    },
+    {
+        "text_id": "question05",
+        "en": "How do I contact customer support?",
+        "fr": "Comment puis-je contacter le service client?"
+    },
+    {
+        "text_id": "answer05",
+        "en": "You can contact customer support by going to the 'Help Center' section and selecting 'Contact Us'.",
+        "fr": "Vous pouvez contacter le service client en allant dans la section 'Centre d'aide' et en sélectionnant 'Contactez-nous'."
+    },
+    {
+        "text_id": "question06",
+        "en": "What payment methods are accepted?",
+        "fr": "Quels modes de paiement sont acceptés?"
+    },
+    {
+        "text_id": "answer06",
+        "en": "We accept all major credit and debit cards, as well as PayPal and other online payment methods.",
+        "fr": "Nous acceptons toutes les principales cartes de crédit et de débit, ainsi que PayPal et d'autres modes de paiement en ligne."
+    },
+    {
+        "text_id": "question07",
+        "en": "How to add review?",
+        "fr": "Comment ajouter un avis?"
+    },
+    {
+        "text_id": "answer07",
+        "en": "You can add a review by going to the product details page and selecting the 'Add Review' option.",
+        "fr": "Vous pouvez ajouter un avis en allant sur la page des détails du produit et en sélectionnant l'option 'Ajouter un avis'."
+    },
+    {
+        "text_id": "customer_service",
+        "en": "Customer Service",
+        "fr": "Service Client"
+    },
+    {
+        "text_id": "whats_app",
+        "en": "WhatsApp",
+        "fr": "WhatsApp"
+    },
+    {
+        "text_id": "website",
+        "en": "Website",
+        "fr": "Site Web"
+    },
+    {
+        "text_id": "facebook",
+        "en": "Facebook",
+        "fr": "Facebook"
+    },
+    {
+        "text_id": "twitter",
+        "en": "Twitter",
+        "fr": "Twitter"
+    },
+    {
+        "text_id": "instagram",
+        "en": "Instagram",
+        "fr": "Instagram"
+    },
+    {
+        "text_id": "privacy_policy",
+        "en": "Privacy Policy",
+        "fr": "Politique de Confidentialité"
+    },
+    {
+        "text_id": "cancelation_policy",
+        "en": "Cancellation Policy",
+        "fr": "Politique D'annulation"
+    },
+    {
         "text_id": "invite_friends",
         "en": "Invite Friends",
         "fr": "Inviter des amis"
@@ -928,5 +1078,120 @@
         "text_id": "reviews",
         "en": "Reviews",
         "fr": "Avis"
+    },
+    {
+        "text_id": "invite",
+        "en": "Invite",
+        "fr": "Inviter"
+    },
+    {
+        "text_id": "invited",
+        "en": "Invited",
+        "fr": "Invité"
+    },
+    {
+        "text_id": "friend_request_descript",
+        "en": "You have received a friend request.",
+        "fr": "Vous avez reçu une demande d'ami."
+    },
+    {
+        "text_id": "invite_success",
+        "en": "Invitation sent successfully!",
+        "fr": "Invitation envoyée avec succès!"
+    },
+    {
+        "text_id": "friend_request",
+        "en": "Friend Request",
+        "fr": "Demande D'ami"
+    },
+    {
+        "text_id": "accept",
+        "en": "Accept",
+        "fr": "Accepter"
+    },
+    {
+        "text_id": "deny",
+        "en": "Deny",
+        "fr": "Refuser"
+    },
+    {
+        "text_id": "please_select_your_location",
+        "en": "Please select your location",
+        "fr": "Veuillez sélectionner votre emplacement"
+    },
+    {
+        "text_id": "accept_friend_request",
+        "en": "Accept Friend Request",
+        "fr": "Accepter La Demande D'ami"
+    },
+    {
+        "text_id": "deny_friend_request",
+        "en": "Deny Friend Request",
+        "fr": "Refuser La Demande D'ami"
+    },
+    {
+        "text_id": "notification",
+        "en": "Notification",
+        "fr": "Notification"
+    },
+    {
+        "text_id": "new",
+        "en": "NEW",
+        "fr": "NOUVEAU"
+    },
+    {
+        "text_id": "today",
+        "en": "TODAY",
+        "fr": "AUJOURD'HUI"
+    },
+    {
+        "text_id": "yesterday",
+        "en": "YESTERDAY",
+        "fr": "HIER"
+    },
+    {
+        "text_id": "a_week_ago",
+        "en": "A WEEK AGO",
+        "fr": "IL Y A UNE SEMAINE"
+    },
+    {
+        "text_id": "a_month_ago",
+        "en": "A MONTH AGO",
+        "fr": "IL Y A UN MOIS"
+    },
+    {
+        "text_id": "just_now",
+        "en": "Just now",
+        "fr": "À l'instant"
+    },
+    {
+        "text_id": "mark_all_as_read",
+        "en": "Mark all as read",
+        "fr": "Tout marquer comme lu"
+    },
+    {
+        "text_id": "order_shipped",
+        "en": "Your order has been shipped",
+        "fr": "Votre commande a été expédiée"
+    },
+    {
+        "text_id": "flash_sale_alert",
+        "en": "Flash sale alert",
+        "fr": "Alerte de vente flash"
+    },
+    {
+        "text_id": "product_review_request",
+        "en": "Product review request",
+        "fr": "Demande d'avis sur le produit"
+    },
+    {
+        "text_id": "new_paypal_added",
+        "en": "New PayPal added",
+        "fr": "Nouveau PayPal ajouté"
+    },
+    {
+        "text_id": "friend_request_cancelled",
+        "en": "Friend request cancelled because you have already accepted a friend request from this user or the user has cancelled the request.",
+        "fr": "Demande d'ami annulée"
     }
 ]
