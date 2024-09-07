@@ -152,7 +152,7 @@ class TextStyles {
         FontFamilyType.Inter,
         Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontSize: 16,
-              color: Colors.black54,
+              color: AppTheme.primaryTextColor,
               fontWeight: FontWeight.normal,
             ));
   }

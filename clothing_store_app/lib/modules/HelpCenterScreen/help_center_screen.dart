@@ -83,9 +83,9 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 48, 24, 10),
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -266,7 +266,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                     children:
                         filteredItems.map<ExpansionPanel>((ExpandedItem item) {
                       return ExpansionPanel(
-                        backgroundColor: Colors.white,
+                        backgroundColor: AppTheme.backgroundColor,
                         headerBuilder: (BuildContext context, bool isExpanded) {
                           return Padding(
                             padding: MediaQuery.of(context).size.width > 360
@@ -353,7 +353,7 @@ class _HelpCenterScreenState extends State<HelpCenterScreen> {
                 : const EdgeInsets.symmetric(vertical: 4.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppTheme.backgroundColor,
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(color: Colors.grey),
               ),

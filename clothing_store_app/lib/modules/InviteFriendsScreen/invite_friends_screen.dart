@@ -13,7 +13,7 @@ import 'package:clothing_store_app/widgets/common_detailed_app_bar.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 
 class InviteFriendsScreen extends StatefulWidget {
-  const InviteFriendsScreen({Key? key}) : super(key: key);
+  const InviteFriendsScreen({super.key});
 
   @override
   _InviteFriendsScreenState createState() => _InviteFriendsScreenState();
@@ -28,7 +28,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 48, 24, 10),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -61,7 +61,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                   List<UserInformation> friends = snapshot.data!;
 
                   if (friends.isEmpty) {
-                    return Center(child: Text('No friends available'));
+                    return const Center(child: Text('No friends available'));
                   }
 
                   return ListView.separated(
@@ -69,9 +69,8 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                     itemCount: friends.length,
                     itemBuilder: (context, index) {
                       ImageProvider<Object> imageProvider;
-                      if (friends[index].imageUrl == null ||
-                          friends[index].imageUrl.isEmpty) {
-                        imageProvider = AssetImage(Localfiles.defaultAvatar)
+                      if (friends[index].imageUrl.isEmpty) {
+                        imageProvider = const AssetImage(Localfiles.defaultAvatar)
                             as ImageProvider<Object>;
                       } else {
                         imageProvider = NetworkImage(friends[index].imageUrl)
@@ -81,6 +80,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                       return ListTile(
                         leading: CircleAvatar(
                           backgroundImage: imageProvider,
+                          backgroundColor: Colors.white,
                         ),
                         title: Text(friends[index].name),
                         subtitle: Text(friends[index].phone),
@@ -89,7 +89,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return Divider(
+                      return const Divider(
                         height: 16.0,
                         indent: 16.0,
                         endIndent: 16.0,
@@ -144,7 +144,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       ),
       child: Text(
         isInvited

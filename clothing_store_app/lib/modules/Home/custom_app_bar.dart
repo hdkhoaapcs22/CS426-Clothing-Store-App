@@ -21,12 +21,6 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  List<String> addresses = [
-    'New York, USA',
-  ];
-
-  String _selectedAddress = 'New York, USA';
-
   @override
   Widget build(BuildContext context) {
     final double tmp = widget.topPadding ?? MediaQuery.of(context).padding.top;
