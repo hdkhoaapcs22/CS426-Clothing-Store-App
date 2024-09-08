@@ -68,28 +68,30 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             notification.time.day == now.day)
                         .toList();
 
-                    List<NotificationInfo> yesterdayNotifications = notifications
-                        .where((notification) =>
-                            notification.time.year == now.year &&
-                            notification.time.month == now.month &&
-                            notification.time.day == now.day - 1)
-                        .toList();
+                    List<NotificationInfo> yesterdayNotifications =
+                        notifications
+                            .where((notification) =>
+                                notification.time.year == now.year &&
+                                notification.time.month == now.month &&
+                                notification.time.day == now.day - 1)
+                            .toList();
 
                     List<NotificationInfo> aWeekAgoNotifications = notifications
                         .where((notification) =>
-                            notification.time.isAfter(
-                                now.subtract(Duration(days: 7))) &&
-                            notification.time.isBefore(
-                                now.subtract(Duration(days: 2))))
+                            notification.time
+                                .isAfter(now.subtract(Duration(days: 7))) &&
+                            notification.time
+                                .isBefore(now.subtract(Duration(days: 2))))
                         .toList();
 
-                    List<NotificationInfo> aMonthAgoNotifications = notifications
-                        .where((notification) =>
-                            notification.time.isAfter(
-                                now.subtract(Duration(days: 30))) &&
-                            notification.time.isBefore(
-                                now.subtract(Duration(days: 8))))
-                        .toList();
+                    List<NotificationInfo> aMonthAgoNotifications =
+                        notifications
+                            .where((notification) =>
+                                notification.time.isAfter(
+                                    now.subtract(Duration(days: 30))) &&
+                                notification.time
+                                    .isBefore(now.subtract(Duration(days: 8))))
+                            .toList();
 
                     bool hasNotifications = todayNotifications.isNotEmpty ||
                         yesterdayNotifications.isNotEmpty ||
@@ -106,7 +108,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 if (todayNotifications.isNotEmpty)
                                   _buildSectionHeader(
                                     context: context,
-                                    title: AppLocalizations(context).of("today"),
+                                    title:
+                                        AppLocalizations(context).of("today"),
                                     onMarkAllAsRead: () =>
                                         _markAllAsRead(todayNotifications),
                                   ),
@@ -122,13 +125,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 if (yesterdayNotifications.isNotEmpty)
                                   _buildSectionHeader(
                                     context: context,
-                                    title: AppLocalizations(context).of("yesterday"),
+                                    title: AppLocalizations(context)
+                                        .of("yesterday"),
                                     onMarkAllAsRead: () =>
                                         _markAllAsRead(yesterdayNotifications),
                                   ),
-                                ...yesterdayNotifications
-                                    .map((notification) =>
-                                        _buildNotificationTile(
+                                ...yesterdayNotifications.map(
+                                    (notification) => _buildNotificationTile(
                                           notification: notification,
                                           context: context,
                                           title: notification.title,
@@ -140,12 +143,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 if (aWeekAgoNotifications.isNotEmpty)
                                   _buildSectionHeader(
                                       context: context,
-                                      title: AppLocalizations(context).of("a_week_ago"),
-                                      onMarkAllAsRead: () =>
-                                          _markAllAsRead(aWeekAgoNotifications)),
-                                ...aWeekAgoNotifications
-                                    .map((notification) =>
-                                        _buildNotificationTile(
+                                      title: AppLocalizations(context)
+                                          .of("a_week_ago"),
+                                      onMarkAllAsRead: () => _markAllAsRead(
+                                          aWeekAgoNotifications)),
+                                ...aWeekAgoNotifications.map(
+                                    (notification) => _buildNotificationTile(
                                           notification: notification,
                                           context: context,
                                           title: notification.title,
@@ -157,9 +160,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 if (aMonthAgoNotifications.isNotEmpty)
                                   _buildSectionHeader(
                                       context: context,
-                                      title: AppLocalizations(context).of("a_month_ago"),
-                                      onMarkAllAsRead: () =>
-                                          _markAllAsRead(aMonthAgoNotifications)),
+                                      title: AppLocalizations(context)
+                                          .of("a_month_ago"),
+                                      onMarkAllAsRead: () => _markAllAsRead(
+                                          aMonthAgoNotifications)),
                                 ...aMonthAgoNotifications.map((notification) =>
                                     _buildNotificationTile(
                                         notification: notification,
@@ -174,7 +178,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           : Center(
                               child: Text(
                                 "You have no notifications",
-                                style: TextStyles(context).getNotificationTextStyle(),
+                                style: TextStyles(context)
+                                    .getNotificationTextStyle(),
                               ),
                             ),
                     );

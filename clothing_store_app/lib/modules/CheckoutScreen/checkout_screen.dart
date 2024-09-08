@@ -99,9 +99,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
         child: CommonButton(
           onTap: () {
-            widget.order.setShippingType = _shippingType;
-            widget.order.setBeginShippingDate = _beginShippingDate;
-            widget.order.setEndShippingDate = _endShippingDate;
             NavigationServices(context).pushPaymentMethodsScreen(widget.order);
           },
           radius: 30.0,
@@ -157,7 +154,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           return const SizedBox.shrink();
         }
 
-        widget.order.setShippingAddress = defaultAddress;
         String name = addressParts[0].trim();
         String phone = addressParts[1].trim();
         String address = addressParts[2].trim();

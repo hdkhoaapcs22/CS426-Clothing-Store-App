@@ -148,8 +148,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
         child: CommonButton(
           onTap: () async {
-            widget.order.setPaymentMethod = _selectedPaymentMethod!;
-
             await CartService().moveItemsToActiveOrder(order: widget.order);
 
             String formattedTime =

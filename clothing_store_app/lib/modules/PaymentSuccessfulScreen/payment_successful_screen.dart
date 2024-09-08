@@ -72,31 +72,16 @@ class PaymentSuccessfulScreen extends StatelessWidget {
         padding: MediaQuery.of(context).size.width > 360
             ? const EdgeInsets.all(32.0)
             : const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CommonButton(
-              onTap: () {},
-              radius: 30.0,
-              backgroundColor: AppTheme.brownButtonColor,
-              buttonTextWidget: Text(
-                AppLocalizations(context).of("view_order"),
-                style: TextStyles(context).getButtonTextStyle(),
-              ),
-            ),
-            MediaQuery.of(context).size.width > 360
-                ? SizedBox(height: 20)
-                : SizedBox(height: 10),
-            CommonButton(
-              onTap: () {},
-              radius: 30.0,
-              backgroundColor: AppTheme.backgroundColor,
-              buttonTextWidget: Text(
-                AppLocalizations(context).of("view_e_receipt"),
-                style: TextStyles(context).getButtonTextStyle2(),
-              ),
-            ),
-          ],
+        child: CommonButton(
+          onTap: () {
+            NavigationServices(context).popToMyOrder();
+          },
+          radius: 30.0,
+          backgroundColor: AppTheme.brownButtonColor,
+          buttonTextWidget: Text(
+            AppLocalizations(context).of("view_order"),
+            style: TextStyles(context).getButtonTextStyle(),
+          ),
         ),
       ),
     );

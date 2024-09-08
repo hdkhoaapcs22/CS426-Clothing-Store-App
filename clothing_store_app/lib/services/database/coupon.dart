@@ -1,13 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CouponService {
-  Future<void> deleteCoupon({required String couponID}) async {
-    await FirebaseFirestore.instance
-        .collection("Coupon")
-        .doc(couponID)
-        .delete();
-  }
-
   Stream<DocumentSnapshot<Map<String, dynamic>>> getCouponStream(
       String couponID) {
     return FirebaseFirestore.instance

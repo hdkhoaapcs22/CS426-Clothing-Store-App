@@ -55,6 +55,19 @@ class CartService extends UserService {
       final clothItemID = doc.id;
 
       batch.delete(userCollection.doc(uid).collection("Cart").doc(clothItemID));
+
+      batch.set(
+        orderDocRef.collection("Order").doc(clothItemID),
+        {
+          'clothItemID': doc['clothItemID'],
+          'name': doc['name'],
+          'imageURL': doc['imageURL'],
+          'size': doc['size'],
+          'price': doc['price'],
+          'orderQuantity': doc['orderQuantity'],
+          'quantity': doc['quantity'],
+        },
+      );
     }
 
     if (order.couponID != null) {
@@ -70,17 +83,7 @@ class CartService extends UserService {
       {
         'orderID': orderID,
         'orderDate': orderDate,
-        'subTotalPrice': order.subTotalPrice,
         'totalPrice': order.totalPrice,
-        'clothesSold': order.clothesSold,
-        'couponID': order.couponID,
-        'discount': order.discount,
-        'deliveryFee': order.deliveryFee,
-        'shippingAddress': order.shippingAddress,
-        'shippingType': order.shippingType,
-        'beginShippingDate': order.beginShippingDate,
-        'endShippingDate': order.endShippingDate,
-        'paymentMethod': order.paymentMethod,
         'totalItems': order.totalItems,
       },
     );

@@ -40,11 +40,12 @@ class NotificationInfo {
 
   Map<String, dynamic> toMap() {
     String timeString = DateFormat('dd MMMM yyyy HH:mm:ss').format(time);
+
     return {
       'title': title,
       'time': timeString,
       'description': description,
-      'userId': userId, // for friend request
+      if (userId != null) 'userId': userId, // for friend request
       'isRead': isRead,
       'type': type.index,
     };

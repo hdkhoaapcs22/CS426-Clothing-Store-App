@@ -13,7 +13,6 @@ import '../../services/database/cart.dart';
 import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
-import '../../widgets/common_app_bar_view.dart';
 import '../../widgets/common_detailed_app_bar.dart';
 import '../CouponScreen/coupon_screen.dart';
 
@@ -391,7 +390,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
 
   void getTotalDiscount(chosenTicket) {
     discount = 0.0;
-    appliedCouponIDs = null;
+    appliedCouponIDs = [];
     List<String> promoCodes = [];
     RegExp regExp = RegExp(r'\d+%?');
     for (int i = 0; i < chosenTicket.length; ++i) {
@@ -438,10 +437,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
 
     NavigationServices(context).pushCheckoutScreen(OrderInfo(
       clothesSold: clothesSold,
-      subTotalPrice: "\$" + subTotalPrice.toString(),
       totalPrice: "\$" + totalPrice.toString(),
-      deliveryFee: "\$" + deliveryFee.toString(),
-      discount: "\$" + discount.toString(),
       couponID: appliedCouponIDs,
       totalItems: orderedItems.length,
     ));

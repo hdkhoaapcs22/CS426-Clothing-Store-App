@@ -13,7 +13,10 @@ import '../Profile/profile_screen.dart';
 import 'custom_bottom_tap.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({super.key});
+  final BottomBarType initialTab;
+
+  const BottomNavigationScreen(
+      {super.key, this.initialTab = BottomBarType.Home});
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
@@ -25,11 +28,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
   late Widget indexView;
   late BottomBarType bottomBarType;
   bool isFirstTime = true;
+
   @override
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    bottomBarType = BottomBarType.Home;
+    bottomBarType = widget.initialTab;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       startLoadingScreen();
     });
@@ -40,9 +44,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
     await Future.delayed(const Duration(milliseconds: 900));
     setState(() {
       isFirstTime = false;
-      indexView = HomeScreen(
-        animationController: animationController,
-      );
+      indexView = getViewForTab(bottomBarType);
       animationController.forward();
     });
   }
@@ -63,6 +65,22 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
                 )
               : indexView),
     );
+  }
+
+  Widget getViewForTab(BottomBarType tabType) {
+    switch (tabType) {
+      case BottomBarType.Home:
+        return HomeScreen(animationController: animationController);
+      case BottomBarType.Shopping:
+        return MyOrder(animationController: animationController);
+      case BottomBarType.Wishlist:
+        return WishlistPage(animationController: animationController);
+      case BottomBarType.Chatting:
+        return IntroductionChattingInterface(
+            animationController: animationController);
+      case BottomBarType.Profile:
+        return ProfileScreen(animationController: animationController);
+    }
   }
 
   getBottomBarUI(BottomBarType bottomBarType) {
@@ -126,34 +144,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
     if (tabType != bottomBarType) {
       bottomBarType = tabType;
       animationController.reverse().then((value) {
-        switch (bottomBarType) {
-          case BottomBarType.Home:
-            {
-              indexView = HomeScreen(
-                animationController: animationController,
-              );
-            }
-          case BottomBarType.Shopping:
-            {
-              indexView = MyOrder(animationController: animationController);
-            }
-          case BottomBarType.Wishlist:
-            {
-              indexView =
-                  WishlistPage(animationController: animationController);
-            }
-          case BottomBarType.Chatting:
-            {
-              indexView = IntroductionChattingInterface(
-                  animationController: animationController);
-            }
-          case BottomBarType.Profile:
-            {
-              indexView =
-                  ProfileScreen(animationController: animationController);
-            }
-        }
-        setState(() {});
+        setState(() {
+          indexView = getViewForTab(tabType);
+        });
       });
     }
   }

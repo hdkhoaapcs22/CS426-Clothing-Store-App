@@ -29,6 +29,7 @@ import '../modules/Cart/my_cart.dart';
 import '../modules/OnBoardingScreen/on_boarding_screen.dart';
 import '../widgets/ordered_cloth_item.dart';
 import '../routes/routes_name.dart';
+import '../../utils/enum.dart';
 
 class NavigationServices {
   final BuildContext context;
@@ -49,6 +50,17 @@ class NavigationServices {
   void popToHomeScreen() {
     Navigator.of(context)
         .popUntil((route) => route.settings.name == RoutesName.homeScreen);
+  }
+
+  void popToMyOrder() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => BottomNavigationScreen(
+          initialTab: BottomBarType.Shopping,
+        ),
+      ),
+      (Route<dynamic> route) => false,
+    );
   }
 
   void popToMyCart() {
@@ -102,7 +114,9 @@ class NavigationServices {
   }
 
   Future<dynamic> pushCategoryScreen(String type) async {
-    return _pushMaterialPageRoute(CategoryScreen(categoryType: type,));
+    return _pushMaterialPageRoute(CategoryScreen(
+      categoryType: type,
+    ));
   }
 
   Future<dynamic> pushAndRemoveUntilLoginScreen() async {
