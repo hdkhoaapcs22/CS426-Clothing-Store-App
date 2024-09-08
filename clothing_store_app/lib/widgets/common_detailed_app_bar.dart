@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 
 import '../utils/text_styles.dart';
+import '../utils/themes.dart';
 import 'tap_effect.dart';
 
 class CommonDetailedAppBarView extends StatelessWidget {
   final double? topPadding;
-  final IconData prefixIconData;
+  final IconData? prefixIconData;
   final IconData? suffixIconData;
   final String title;
   final VoidCallback? onSuffixIconClick;
   final VoidCallback? onPrefixIconClick;
   final Color? iconColor;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final int iconSize;
   final double titleSize;
   const CommonDetailedAppBarView({
     super.key,
     this.topPadding,
     required this.title,
-    required this.prefixIconData,
+    this.prefixIconData,
     this.suffixIconData,
     this.onPrefixIconClick,
     this.onSuffixIconClick,
     this.iconColor,
     this.iconSize = 25,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor,
     this.titleSize = 16,
   });
 
@@ -41,17 +42,17 @@ class CommonDetailedAppBarView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppBarButton(
+                prefixIconData != null ? AppBarButton(
                     onClick: onPrefixIconClick,
-                    backgroundColor: backgroundColor,
-                    iconData: prefixIconData,
-                    iconColor: iconColor,
-                    iconSize: iconSize),
+                    backgroundColor: backgroundColor ?? AppTheme.backgroundColor,
+                    iconData: prefixIconData!,
+                    iconColor: AppTheme.primaryTextColor,
+                    iconSize: iconSize) : const SizedBox(width: 65),
                 Text(title, style: TextStyles(context).getTitleStyle()),
                 suffixIconData != null
                     ? AppBarButton(
                         onClick: onSuffixIconClick,
-                        backgroundColor: backgroundColor,
+                        backgroundColor: backgroundColor ?? AppTheme.backgroundColor,
                         iconData: suffixIconData!,
                         iconColor: iconColor,
                         iconSize: iconSize)

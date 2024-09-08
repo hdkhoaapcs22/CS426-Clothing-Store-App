@@ -24,11 +24,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
     DateTime now = DateTime.now();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 48, 24, 10),
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CommonDetailedAppBarView(
               title: AppLocalizations(context).of("notification"),
@@ -218,13 +218,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
         _handleFriendRequestNotificationTap(notification);
       },
       child: Container(
-        color: isRead ? Colors.white : Colors.grey[200],
         padding: MediaQuery.of(context).size.width > 360
             ? const EdgeInsets.all(16.0)
             : const EdgeInsets.all(8.0),
         margin: MediaQuery.of(context).size.width > 360
             ? const EdgeInsets.symmetric(vertical: 4.0)
             : const EdgeInsets.symmetric(vertical: 2.0),
+        decoration: BoxDecoration(
+          color: isRead ? Colors.white : Colors.grey[200],
+          borderRadius: BorderRadius.circular(20)
+        ),
         child: Row(
           children: [
             CircleAvatar(

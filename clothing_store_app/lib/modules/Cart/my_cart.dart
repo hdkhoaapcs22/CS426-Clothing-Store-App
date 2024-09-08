@@ -3,6 +3,7 @@ import 'package:clothing_store_app/widgets/common_button.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../class/ordered_item.dart';
@@ -11,6 +12,7 @@ import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
 import '../../widgets/common_app_bar_view.dart';
+import '../../widgets/common_detailed_app_bar.dart';
 import '../CouponScreen/coupon_screen.dart';
 
 class MyCart extends StatefulWidget {
@@ -66,30 +68,15 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                 child: getBottomBarUI(),
               ),
               body: Padding(
-                padding: EdgeInsets.only(
-                    top: AppBar().preferredSize.height, left: 5, right: 5),
+                padding: const EdgeInsets.only(left: 5, right: 5),
                 child: Column(children: [
-                  Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 5),
-                      child: CommonAppBarView(
-                        topPadding: 0,
-                        iconData: Icons.arrow_back,
-                        onBackClick: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 80),
-                      child: Text(
-                        AppLocalizations(context).of("my_cart"),
-                        style: TextStyles(context).getBoldStyle().copyWith(
-                              fontSize: 28,
-                            ),
-                      ),
-                    ),
-                  ]),
+                  CommonDetailedAppBarView(
+                    title: AppLocalizations(context).of("my_cart"),
+                    prefixIconData: Iconsax.arrow_left,
+                    onPrefixIconClick: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: orderedItems.length,

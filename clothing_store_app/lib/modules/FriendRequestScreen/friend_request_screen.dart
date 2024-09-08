@@ -22,9 +22,9 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 48, 24, 10),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

@@ -1,7 +1,6 @@
 import 'package:clothing_store_app/providers/choose_coupon_provider.dart';
 import 'package:clothing_store_app/providers/complete_profile_provider.dart';
 import 'package:clothing_store_app/providers/filter_provider.dart';
-import 'package:clothing_store_app/providers/home_tab_provider.dart';
 import 'package:clothing_store_app/providers/set_image_provider.dart';
 import 'package:clothing_store_app/providers/sign_up_provider.dart';
 import 'package:clothing_store_app/providers/theme_provider.dart';
@@ -52,9 +51,6 @@ Widget _setAllProviders() {
       ),
       ChangeNotifierProvider(
         create: (context) => WishlistProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (context) => HomeTabNotifier(),
       ),
       ChangeNotifierProvider(
         create: (context) => FilterProvider(),

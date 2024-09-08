@@ -2,6 +2,7 @@ import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/widgets/common_dialogs.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 import '../../class/gemini.dart';
@@ -60,65 +61,73 @@ class _ChattingScreenState extends State<ChattingScreen>
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          controller: _scrollController,
-          itemCount: _chatSession.history.length,
-          itemBuilder: (context, index) {
-            var content = _chatSession.history.toList()[index];
-            final message = _getMessageFromContent(content);
-            return MessageWidget(
-              isFromUser: content.role == 'user',
-              message: message,
-            );
-          },
-        ),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.1,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.grey[200]!),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Flexible(
-                  flex: 3,
-                  child: Form(
-                      key: _formKey,
-                      child: CommonTextField(
-                        textEditingController: _textController,
-                        contentPadding: const EdgeInsets.all(8.0),
-                        hintText:
-                            AppLocalizations(context).of("enter_your_prompt"),
-                        focusColor: const Color.fromARGB(255, 112, 79, 56),
-                        textFieldPadding: const EdgeInsets.all(8.0),
-                        isObscureText: false,
-                        keyboardType: TextInputType.text,
-                        hintTextStyle:
-                            TextStyles(context).getDescriptionStyle(),
-                      )),
-                ),
-                const SizedBox(width: 8.0),
-                if (!_isLoading) ...[
-                  Expanded(
-                    child: CommonButton(
-                        onTap: () {
-                          _sendChatMessage(_textController.text);
-                        },
-                        radius: 30,
-                        height: 50,
-                        buttonText: "send"),
-                  ),
-                ] else ...[
-                  const CircularProgressIndicator.adaptive(),
-                ]
-              ],
+      body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const AlwaysScrollableScrollPhysics(),
+                controller: _scrollController,
+                itemCount: _chatSession.history.length,
+                itemBuilder: (context, index) {
+                  var content = _chatSession.history.toList()[index];
+                  final message = _getMessageFromContent(content);
+                  return MessageWidget(
+                    isFromUser: content.role == 'user',
+                    message: message,
+                  );
+                },
+              ),
             ),
+            _buildBottomInputField(context),
+          ],
+        ),
+    );
+  }
+
+  Widget _buildBottomInputField(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.1,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(color: Colors.grey[200]!),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Flexible(
+                flex: 3,
+                child: Form(
+                    key: _formKey,
+                    child: CommonTextField(
+                      textEditingController: _textController,
+                      contentPadding: const EdgeInsets.all(8.0),
+                      hintText:
+                          AppLocalizations(context).of("enter_your_prompt"),
+                      focusColor: const Color.fromARGB(255, 112, 79, 56),
+                      textFieldPadding: const EdgeInsets.all(8.0),
+                      isObscureText: false,
+                      keyboardType: TextInputType.text,
+                      hintTextStyle: TextStyles(context).getDescriptionStyle(),
+                    )),
+              ),
+              const SizedBox(width: 8.0),
+              if (!_isLoading) ...[
+                Expanded(
+                  child: CommonButton(
+                      onTap: () {
+                        _sendChatMessage(_textController.text);
+                      },
+                      radius: 30,
+                      height: 50,
+                      buttonText: "send"),
+                ),
+              ] else ...[
+                const CircularProgressIndicator.adaptive(),
+              ]
+            ],
           ),
         ),
       ),

@@ -11,12 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 import '../../class/cloth_item.dart';
 import '../../global/global_var.dart';
 import '../../languages/appLocalizations.dart';
-import '../../providers/home_tab_provider.dart';
 import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
@@ -33,30 +31,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final TabController _tabController;
-  int _curId = 0;
 
   @override
   void initState() {
     widget.animationController.forward();
     _tabController = TabController(length: homeTabs.length, vsync: this);
-    _tabController.addListener(_handleSelection);
     super.initState();
-  }
-
-  void _handleSelection() {
-    final controller = Provider.of<HomeTabNotifier>(context, listen: false);
-
-    if (_tabController.indexIsChanging) {
-      setState(() {
-        _curId = _tabController.index;
-      });
-      controller.setIndex(homeTabs[_curId]);
-    }
   }
 
   @override
   void dispose() {
-    _tabController.removeListener(_handleSelection);
     _tabController.dispose();
     super.dispose();
   }
@@ -100,9 +84,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             physics: const NeverScrollableScrollPhysics(),
                             children: [
                               const CustomAppBar(),
-                              const SizedBox(
-                                height: 20,
-                              ),
                               searchAndSetting(context),
                               const SizedBox(
                                 height: 20,
@@ -126,19 +107,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'Categories',
+                                          AppLocalizations(context).of("categories"),
                                           style: TextStyles(context)
                                               .getHeaderStyle(false)
                                               .copyWith(fontSize: 16),
                                         ),
-                                        TapEffect(
-                                            onClick: () {},
-                                            child: Text(
-                                              'See all',
-                                              style: TextStyles(context)
-                                                  .getDescriptionStyle()
-                                                  .copyWith(fontSize: 14),
-                                            ))
                                       ],
                                     ),
                                     const SizedBox(
@@ -231,18 +204,30 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
     CustomCircleButton(
       imagePath: Localfiles.tshirtIcon,
       title: AppLocalizations(context).of("tshirt"),
+      onClick: () {
+        NavigationServices(context).pushCategoryScreen("tshirt");
+      },
     ),
     CustomCircleButton(
       imagePath: Localfiles.pantIcon,
       title: AppLocalizations(context).of("pant"),
+      onClick: () {
+        NavigationServices(context).pushCategoryScreen("pant");
+      },
     ),
     CustomCircleButton(
-      imagePath: Localfiles.dressIcon,
-      title: AppLocalizations(context).of("dress"),
+      imagePath: Localfiles.shirtIcon,
+      title: AppLocalizations(context).of("shirt"),
+      onClick: () {
+        NavigationServices(context).pushCategoryScreen("shirt");
+      },
     ),
     CustomCircleButton(
       imagePath: Localfiles.jacketIcon,
       title: AppLocalizations(context).of("jacket"),
+      onClick: () {
+        NavigationServices(context).pushCategoryScreen("jacket");
+      },
     ),
   ];
 }
@@ -307,7 +292,7 @@ Widget searchAndSetting(BuildContext context) {
               color: AppTheme.iconColor,
             ),
           ),
-        )
+        ),
       ],
     ),
   );

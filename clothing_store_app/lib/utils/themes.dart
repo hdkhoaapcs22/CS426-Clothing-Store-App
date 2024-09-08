@@ -53,7 +53,7 @@ class AppTheme {
 
   static Color get brownButtonColor => isLightMode
       ? const Color.fromARGB(255, 112, 79, 56)
-      : const Color(0xFFF7F7F7);
+      : const Color.fromARGB(255, 112, 79, 56);
 
   static Color get iconColor =>
       isLightMode ? const Color(0xFFFFFFFF) : const Color(0xFF000000);
@@ -64,7 +64,7 @@ class AppTheme {
 
   static Color get beigeBackgroundColor => isLightMode
       ? const Color.fromARGB(255, 247, 238, 211)
-      : const Color.fromARGB(255, 112, 79, 56);
+      : const Color.fromARGB(255, 247, 238, 211);
 
   static Color get yellowColor => isLightMode
       ? const Color.fromARGB(255, 255, 178, 44)

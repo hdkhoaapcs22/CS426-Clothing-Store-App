@@ -5,6 +5,7 @@ import 'package:clothing_store_app/routes/routes_name.dart';
 import 'package:clothing_store_app/services/database/user_information.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../languages/appLocalizations.dart';
@@ -80,7 +81,8 @@ class AuthService {
       }
       return user?.uid;
     } catch (e) {
-      throw e;
+      print('Error: $e');
+      rethrow;
     }
   }
 
@@ -141,4 +143,45 @@ class AuthService {
       await Dialogs(context).showErrorDialog(message: e.toString());
     }
   }
+
+  Future<String?> signInWithFacebook(BuildContext context) async {
+    try {
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+
+      if (loginResult.status == LoginStatus.success) {
+        final AccessToken accessToken = loginResult.accessToken!;
+        final OAuthCredential credential =
+            FacebookAuthProvider.credential(accessToken.tokenString);
+
+        UserCredential result =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        User? user = result.user;
+
+        if (user != null) {
+          if (result.additionalUserInfo!.isNewUser) {
+            print("SIGN UP FACEBOOK SUCCESSFULLY!");
+            await Dialogs(context).showAnimatedDialog(
+                title: AppLocalizations(context).of("sign_up_with_facebook"),
+                content: AppLocalizations(context)
+                    .of("sign_up_with_facebook_successfully"));
+            NavigationServices(context).pushCompleteProfileScreen();
+          } else {
+            NavigationServices(context).gotoBottomTapScreen();
+          }
+        }
+        return user?.uid;
+      } else {
+        print('Facebook login failed with status: ${loginResult.status}');
+        Navigator.pop(context);
+        return null;
+      }
+    } on FirebaseAuthException catch (e) {
+      print('Firebase Auth Exception: ${e.message}');
+      rethrow;
+    } catch (e) {
+      print('Other Exception: $e');
+      rethrow;
+    }
+  }
+
 }

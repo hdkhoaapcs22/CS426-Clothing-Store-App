@@ -95,14 +95,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       text: AppLocalizations(context).of("onBoardingHeader3.2"),
                       style: TextStyles(context).getLargerHeaderStyle(false),
                     ),
-                    TextSpan(
-                      text: AppLocalizations(context).of("onBoardingHeader3.3"),
-                      style: TextStyles(context).getLargerHeaderStyle(true),
-                    ),
-                    TextSpan(
-                      text: AppLocalizations(context).of("onBoardingHeader3.4"),
-                      style: TextStyles(context).getLargerHeaderStyle(false),
-                    ),
                   ],
                 ),
                 bodyText:

@@ -1,6 +1,7 @@
 import 'package:clothing_store_app/common/helper_funtion.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/modules/ProductDetails/custom_choice_chip.dart';
+import 'package:clothing_store_app/modules/ProductDetails/custom_diagonal_line.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/database/cart.dart';
 import 'package:clothing_store_app/services/database/favorite_cloth.dart';
@@ -33,7 +34,7 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int selectedID = 0;
-  int selectedSize = 0;
+  int selectedSize = -1;
   int selectedColor = 0;
   late List<String> allSizes;
 
@@ -243,33 +244,46 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         scrollDirection: Axis.horizontal,
                         physics: const AlwaysScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
+                          bool isOutOfStock = widget.clothes[selectedColor].sizeWithQuantity[allSizes[index]] == 0;
                           return TapEffect(
                             onClick: () {
-                              setState(() {
-                                selectedSize = index;
-                              });
+                              if (!isOutOfStock) {
+                                setState(() {
+                                  selectedSize = index;
+                                });
+                              }
                             },
-                            child: Container(
-                                height: 50,
-                                width: 55,
-                                decoration: BoxDecoration(
-                                  color: selectedSize == index
-                                      ? AppTheme.brownButtonColor
-                                      : AppTheme.backgroundColor,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                ),
-                                child: Center(
-                                    child: Text(
-                                  allSizes[index],
-                                  style: TextStyles(context)
-                                      .getButtonTextStyle()
-                                      .copyWith(
-                                          color: selectedSize == index
-                                              ? AppTheme.backgroundColor
-                                              : AppTheme.primaryTextColor,
-                                          fontSize: 16),
-                                ))),
+                            child: Stack(
+                              children: [
+                                Container(
+                                    height: 50,
+                                    width: 55,
+                                    decoration: BoxDecoration(
+                                      color: selectedSize == index
+                                          ? AppTheme.brownButtonColor
+                                          : AppTheme.backgroundColor,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      allSizes[index],
+                                      style: TextStyles(context)
+                                          .getButtonTextStyle()
+                                          .copyWith(
+                                              color: isOutOfStock? Colors.grey : selectedSize == index
+                                                  ? AppTheme.backgroundColor
+                                                  : AppTheme.primaryTextColor,
+                                              fontSize: 16),
+                                    ))),
+                                if (isOutOfStock)
+                                  Positioned.fill(
+                                    child: CustomPaint(
+                                      painter: CustomDiagonalLine(),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) =>

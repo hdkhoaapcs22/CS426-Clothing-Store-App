@@ -11,14 +11,19 @@ import '../../utils/localfiles.dart';
 import '../../utils/text_styles.dart';
 import '../../widgets/tap_effect.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatefulWidget {
   final double? topPadding;
 
   const CustomAppBar({super.key, this.topPadding});
 
   @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  @override
   Widget build(BuildContext context) {
-    final double tmp = topPadding ?? MediaQuery.of(context).padding.top;
+    final double tmp = widget.topPadding ?? MediaQuery.of(context).padding.top;
     return Padding(
       padding: EdgeInsets.only(top: tmp),
       child: Padding(
