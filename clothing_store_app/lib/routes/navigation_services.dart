@@ -1,4 +1,6 @@
 import 'package:clothing_store_app/modules/CategoryScreen/category_screen.dart';
+import 'package:clothing_store_app/modules/ChooseShippingScreen/choose_shipping_screen.dart';
+import 'package:clothing_store_app/modules/AddNewShippingAddressScreen/add_new_shipping_address_screen.dart';
 import 'package:clothing_store_app/modules/CompleteProfileScreen/complete_profile_screen.dart';
 import 'package:clothing_store_app/modules/LoginOrSignUpScreen/login_or_signup_screen.dart';
 import 'package:clothing_store_app/modules/PrivacyPolicyScreen/privacy_policy_screen.dart';
@@ -15,11 +17,19 @@ import 'package:clothing_store_app/modules/InviteFriendsScreen/invite_friends_sc
 import 'package:clothing_store_app/modules/FriendRequestScreen/friend_request_screen.dart';
 import 'package:clothing_store_app/modules/WelcomeScreen/welcome_screen.dart';
 import 'package:clothing_store_app/modules/ForgotScreen/forgot_pass_page.dart';
+import 'package:clothing_store_app/modules/PaymentMethodsScreen/payment_methods_screen.dart';
+import 'package:clothing_store_app/modules/AddCardScreen/add_card_screen.dart';
+import 'package:clothing_store_app/modules/ShippingAddressScreen/shipping_address_screen.dart';
+import 'package:clothing_store_app/modules/PaymentSuccessfulScreen/payment_successful_screen.dart';
+import 'package:clothing_store_app/modules/CheckoutScreen/checkout_screen.dart';
+import 'package:clothing_store_app/class/order_info.dart';
 import 'package:flutter/material.dart';
 import '../modules/BottomNavigation/bottom_navigation_screen.dart';
 import '../modules/Cart/my_cart.dart';
 import '../modules/OnBoardingScreen/on_boarding_screen.dart';
 import '../widgets/ordered_cloth_item.dart';
+import '../routes/routes_name.dart';
+import '../../utils/enum.dart';
 
 class NavigationServices {
   final BuildContext context;
@@ -31,6 +41,31 @@ class NavigationServices {
         context,
         MaterialPageRoute(
             builder: (context) => widget, fullscreenDialog: fullscreenDialog));
+  }
+
+  void pop({dynamic result}) {
+    Navigator.pop(context, result);
+  }
+
+  void popToHomeScreen() {
+    Navigator.of(context)
+        .popUntil((route) => route.settings.name == RoutesName.homeScreen);
+  }
+
+  void popToMyOrder() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => BottomNavigationScreen(
+          initialTab: BottomBarType.Shopping,
+        ),
+      ),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  void popToMyCart() {
+    Navigator.of(context)
+        .popUntil((route) => route.settings.name == RoutesName.myCart);
   }
 
   Future<dynamic> pushWelcomeScreen() async {
@@ -79,7 +114,9 @@ class NavigationServices {
   }
 
   Future<dynamic> pushCategoryScreen(String type) async {
-    return _pushMaterialPageRoute(CategoryScreen(categoryType: type,));
+    return _pushMaterialPageRoute(CategoryScreen(
+      categoryType: type,
+    ));
   }
 
   Future<dynamic> pushAndRemoveUntilLoginScreen() async {
@@ -91,12 +128,24 @@ class NavigationServices {
     );
   }
 
-  void gotoBottomTapScreen() async {
-    return _pushMaterialPageRoute(const BottomNavigationScreen());
+  Future<dynamic> gotoBottomTapScreen() async {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BottomNavigationScreen(),
+        settings: const RouteSettings(name: RoutesName.homeScreen),
+      ),
+    );
   }
 
-  void gotoCartScreen() async {
-    return _pushMaterialPageRoute(const MyCart());
+  Future<dynamic> gotoCartScreen() async {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MyCart(),
+        settings: const RouteSettings(name: RoutesName.myCart),
+      ),
+    );
   }
 
   void gotoDetailOrderScreen(String orderID) async {
@@ -115,11 +164,10 @@ class NavigationServices {
   void gotoFilterScreen() async {
     return _pushMaterialPageRoute(const FilterScreen());
   }
-  
+
   Future<dynamic> pushNotificationScreen() async {
     return _pushMaterialPageRoute(const NotificationScreen());
   }
-  
 
   Future<dynamic> pushInviteFriendsScreen() async {
     return _pushMaterialPageRoute(const InviteFriendsScreen());
@@ -135,5 +183,34 @@ class NavigationServices {
 
   Future<dynamic> pushPrivacyPolicyScreen() async {
     return _pushMaterialPageRoute(const PrivacyPolicyScreen());
+  }
+
+  Future<dynamic> pushAddNewShippingAddressScreen() async {
+    return _pushMaterialPageRoute(const AddNewShippingAddressScreen());
+  }
+
+  Future<dynamic> pushPaymentMethodsScreen(OrderInfo order) async {
+    return _pushMaterialPageRoute(PaymentMethodsScreen(order: order));
+  }
+
+  Future<dynamic> pushAddCardScreen() async {
+    return _pushMaterialPageRoute(const AddCardScreen());
+  }
+
+  Future<dynamic> pushShippingAddressScreen() async {
+    return _pushMaterialPageRoute(const ShippingAddressScreen());
+  }
+
+  Future<dynamic> pushChooseShippingScreen(String shippingType) async {
+    return _pushMaterialPageRoute(
+        ChooseShippingScreen(selectedShippingType: shippingType));
+  }
+
+  Future<dynamic> pushPaymentSuccessfulScreen() async {
+    return _pushMaterialPageRoute(const PaymentSuccessfulScreen());
+  }
+
+  Future<dynamic> pushCheckoutScreen(OrderInfo order) async {
+    return _pushMaterialPageRoute(CheckoutScreen(order: order));
   }
 }

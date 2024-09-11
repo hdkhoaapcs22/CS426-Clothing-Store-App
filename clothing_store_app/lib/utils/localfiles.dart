@@ -42,4 +42,7 @@ class Localfiles {
 
   static const String paypalIcon = '${baseImageUrl}paypal_logo.png';
   static const String appleIcon = '${baseImageUrl}apple_logo.png';
+
+  static const String blackBackground = '${baseImageUrl}black_background.png';
+  static const String logo = '${baseImageUrl}logo.png';
 }

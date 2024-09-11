@@ -30,6 +30,12 @@ enum NotificationType {
   newPaypalAdded,
 }
 
+enum ActionType {
+  add,
+  update,
+  delete,
+}
+
 enum LanguageType { en, fr } // english, france
 
 enum PopupTextType { no, ad, ch }

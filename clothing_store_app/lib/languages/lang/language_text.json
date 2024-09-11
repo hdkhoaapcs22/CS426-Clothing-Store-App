@@ -100,6 +100,21 @@
         "fr": "Remplissez vos coordonnées ci-dessous ou inscrivez-vous avec votre compte social."
     },
     {
+        "text_id": "save",
+        "en": "Save",
+        "fr": "Enregistrer"
+    },
+    {
+        "text_id": "cancel",
+        "en": "Cancel",
+        "fr": "Annuler"
+    },
+    {
+        "text_id": "delete",
+        "en": "Delete",
+        "fr": "Supprimer"
+    },
+    {
         "text_id": "name",
         "en": "Name",
         "fr": "Nom"
@@ -805,6 +820,126 @@
         "fr": "Êtes-vous sûr de vouloir vous déconnecter?"
     },
     {
+        "text_id": "phone",
+        "en": "Phone",
+        "fr": "Téléphone"
+    },
+    {
+        "text_id": "phone_number",
+        "en": "Phone Number",
+        "fr": "Numéro de téléphone"
+    },
+    {
+        "text_id": "detail_address",
+        "en": "Detail Address",
+        "fr": "Adresse détaillée"
+    },
+    {
+        "text_id": "select_district",
+        "en": "Select District",
+        "fr": "Sélectionner le district"
+    },
+    {
+        "text_id": "select_province",
+        "en": "Select Province",
+        "fr": "Sélectionner la province"
+    },
+    {
+        "text_id": "select_ward",
+        "en": "Select Ward",
+        "fr": "Sélectionner le quartier"
+    },
+    {
+        "text_id": "add_new_address",
+        "en": "Add new address",
+        "fr": "Ajouter une nouvelle adresse"
+    },
+    {
+        "text_id": "edit_address",
+        "en": "Edit address",
+        "fr": "Modifier l'adresse"
+    },
+    {
+        "text_id": "shipping_information",
+        "en": "Shipping Information",
+        "fr": "Informations de livraison"
+    },
+    {
+        "text_id": "delete_address",
+        "en": "Delete address",
+        "fr": "Supprimer l'adresse"
+    },
+    {
+        "text_id": "please_fill_in_all_fields",
+        "en": "Please fill in all fields",
+        "fr": "Veuillez remplir tous les champs"
+    },
+    {
+        "text_id": "use_current_location",
+        "en": "Use Current Location",
+        "fr": "Utiliser l'emplacement actuel"
+    },
+    {
+        "text_id": "are_you_sure_you_want_to_delete_this_address",
+        "en": "Are you sure you want to delete this address?",
+        "fr": "Êtes-vous sûr de vouloir supprimer cette adresse ?"
+    },
+    {
+        "text_id": "address_added_successfully",
+        "en": "Address added successfully",
+        "fr": "Adresse ajoutée avec succès"
+    },
+    {
+        "text_id": "address_deleted_successfully",
+        "en": "Address deleted successfully",
+        "fr": "Adresse supprimée avec succès"
+    },
+    {
+        "text_id": "no_address_available",
+        "en": "No address available",
+        "fr": "Aucune adresse disponible"
+    },
+    {
+        "text_id": "ok",
+        "en": "OK",
+        "fr": "OK"
+    },
+    {
+        "text_id": "yes",
+        "en": "Yes",
+        "fr": "Oui"
+    },
+    {
+        "text_id": "no",
+        "en": "No",
+        "fr": "Non"
+    },
+    {
+        "text_id": "notification",
+        "en": "Notification",
+        "fr": "Notification"
+    },
+    {
+        "text_id": "no_address_found",
+        "en": "No address found. Do you want to add new address?",
+        "fr": "Aucune adresse trouvée. Voulez-vous ajouter une nouvelle adresse ?"
+    },
+    {
+        "text_id": "my_cart",
+        "en": "My Cart",
+        "fr": "Mon Panier"
+    },
+    {
+        "text_id": "size",
+        "en": "Size",
+        "fr": "Taille"
+    },
+    {
+        "text_id": "remove_from_cart",
+        "en": "Remove from Cart",
+        "fr": "Retirer du panier"
+    },
+    {
         "text_id": "cancel",
         "en": "Cancel",
         "fr": "Annuler"
@@ -998,6 +1133,31 @@
         "text_id": "quantity_item",
         "en": "Quantity of Items",
         "fr": "Quantité d'articles"
+    },
+    {
+        "text_id": "yes_remove",
+        "en": "Yes, Remove",
+        "fr": "Oui, Retirer"
+    },
+    {
+        "text_id": "promo_code",
+        "en": "Promo Code",
+        "fr": "Code Promo"
+    },
+    {
+        "text_id": "sub_total",
+        "en": "Sub Total",
+        "fr": "Sous-total"
+    },
+    {
+        "text_id": "delivery_fee",
+        "en": "Delivery Fee",
+        "fr": "Frais de Livraison"
+    },
+    {
+        "text_id": "discount",
+        "en": "Discount",
+        "fr": "Remise"
     },
     {
         "text_id": "total_price",
@@ -1198,5 +1358,205 @@
         "text_id": "sign_up_with_facebook_successfully",
         "en": "Registered successfully with Facebook",
         "fr": "Inscription réussie auprès de Facebook"
+    },
+    {
+        "text_id": "proceed_to_checkout",
+        "en": "Proceed to Checkout",
+        "fr": "Passer à la caisse"
+    },
+    {
+        "text_id": "checkout",
+        "en": "Checkout",
+        "fr": "Check-out"
+    },
+    {
+        "text_id": "shipping_address",
+        "en": "Shipping Address",
+        "fr": "Adresse de Livraison"
+    },
+    {
+        "text_id": "choose_shipping_type",
+        "en": "Choose Shipping Type",
+        "fr": "Choisissez le Type de Livraison"
+    },
+    {
+        "text_id": "order_list",
+        "en": "Order List",
+        "fr": "Liste de Commandes"
+    },
+    {
+        "text_id": "continue_to_payment",
+        "en": "Continue to Payment",
+        "fr": "Continuer au Paiement"
+    },
+    {
+        "text_id": "add_new_shipping_address",
+        "en": "Add New Shipping Address",
+        "fr": "Ajouter une Nouvelle Adresse de Livraison"
+    },
+    {
+        "text_id": "apply",
+        "en": "Apply",
+        "fr": "Appliquer"
+    },
+    {
+        "text_id": "choose_shipping",
+        "en": "Choose Shipping",
+        "fr": "Choisir la Livraison"
+    },
+    {
+        "text_id": "economy",
+        "en": "Economy",
+        "fr": "Économie"
+    },
+    {
+        "text_id": "regular",
+        "en": "Regular",
+        "fr": "Régulier"
+    },
+    {
+        "text_id": "cargo",
+        "en": "Cargo",
+        "fr": "Cargo"
+    },
+    {
+        "text_id": "friend_house",
+        "en": "Friend's House",
+        "fr": "Chez un Ami"
+    },
+    {
+        "text_id": "apply",
+        "en": "Apply",
+        "fr": "Appliquer"
+    },
+    {
+        "text_id": "payment_methods",
+        "en": "Payment Methods",
+        "fr": "Méthodes de Paiement"
+    },
+    {
+        "text_id": "credit_and_debit_card",
+        "en": "Credit & Debit Card",
+        "fr": "Carte de Crédit et de Débit"
+    },
+    {
+        "text_id": "more_payment_options",
+        "en": "More Payment Options",
+        "fr": "Plus d'Options de Paiement"
+    },
+    {
+        "text_id": "paypal",
+        "en": "Paypal",
+        "fr": "Paypal"
+    },
+    {
+        "text_id": "apple_pay",
+        "en": "Apple Pay",
+        "fr": "Apple Pay"
+    },
+    {
+        "text_id": "google_pay",
+        "en": "Google Pay",
+        "fr": "Google Pay"
+    },
+    {
+        "text_id": "confirm_payment",
+        "en": "Confirm Payment",
+        "fr": "Confirmer le Paiement"
+    },
+    {
+        "text_id": "card_holder_name",
+        "en": "Card Holder Name",
+        "fr": "Nom du Titulaire de la Carte"
+    },
+    {
+        "text_id": "card_number",
+        "en": "Card Number",
+        "fr": "Numéro de Carte"
+    },
+    {
+        "text_id": "expiration_date",
+        "en": "Expiration Date",
+        "fr": "Date d'Expiration"
+    },
+    {
+        "text_id": "cvv",
+        "en": "CVV",
+        "fr": "CVV"
+    },
+    {
+        "text_id": "add_card",
+        "en": "Add Card",
+        "fr": "Ajouter une Carte"
+    },
+    {
+        "text_id": "expiry_date",
+        "en": "Expiry Date",
+        "fr": "Date d'Expiration"
+    },
+    {
+        "text_id": "save_card",
+        "en": "Save Card",
+        "fr": "Enregistrer la Carte"
+    },
+    {
+        "text_id": "payment",
+        "en": "Payment",
+        "fr": "Paiement"
+    },
+    {
+        "text_id": "payment_successful",
+        "en": "Payment Successful",
+        "fr": "Paiement Réussi"
+    },
+    {
+        "text_id": "thank_you_for_your_purchase",
+        "en": "Thank you for your purchase",
+        "fr": "Merci pour votre achat"
+    },
+    {
+        "text_id": "view_order",
+        "en": "View Order",
+        "fr": "Voir la Commande"
+    },
+    {
+        "text_id": "view_e_receipt",
+        "en": "View E-Receipt",
+        "fr": "Voir le Reçu Électronique"
+    },
+    {
+        "text_id": "home",
+        "en": "Home",
+        "fr": "Accueil"
+    },
+    {
+        "text_id": "change",
+        "en": "CHANGE",
+        "fr": "CHANGER"
+    },
+    {
+        "text_id": "close",
+        "en": "Close",
+        "fr": "Fermer"
+    },
+    {
+        "text_id": "please_enter_card_holder_name",
+        "en": "Please enter card holder name",
+        "fr": "Veuillez entrer le nom du titulaire de la carte"
+    },
+    {
+        "text_id": "please_enter_card_number",
+        "en": "Please enter card number",
+        "fr": "Veuillez entrer le numéro de carte"
+    },
+    {
+        "text_id": "please_enter_expiry_date",
+        "en": "Please enter expiry date",
+        "fr": "Veuillez entrer la date d'expiration"
+    },
+    {
+        "text_id": "please_enter_cvv",
+        "en": "Please enter CVV",
+        "fr": "Veuillez entrer le CVV"
     }
 ]
