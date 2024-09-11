@@ -354,6 +354,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
               CommonButton(
                 onTap: proceedToPayment,
                 radius: 30.0,
+                height: MediaQuery.of(context).size.height * 0.06,
                 backgroundColor: AppTheme.brownButtonColor,
                 buttonTextWidget: Text(
                   AppLocalizations(context).of("proceed_to_checkout"),

@@ -35,7 +35,7 @@ class BannerContent extends StatelessWidget {
           ),
           Positioned(
               left: 10,
-              bottom: 35,
+              bottom: 10,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

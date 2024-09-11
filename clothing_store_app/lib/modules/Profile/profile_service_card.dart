@@ -28,7 +28,7 @@ class ProfileServiceCard extends StatelessWidget {
         onClick!();
       },
       child: SizedBox(
-        height: size.height/15,
+        height: size.height / 15,
         child: Column(
           children: [
             Padding(
@@ -50,7 +50,7 @@ class ProfileServiceCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: size.height * 0.01,),
+            SizedBox(height: size.height * 0.005,),
             isLastService ? const SizedBox() : Divider(
               indent: 16,
               endIndent: 16,

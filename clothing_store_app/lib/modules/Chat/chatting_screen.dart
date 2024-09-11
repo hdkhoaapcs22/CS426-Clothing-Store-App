@@ -1,6 +1,7 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/widgets/common_dialogs.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -84,7 +85,7 @@ class _ChattingScreenState extends State<ChattingScreen>
         ),
     );
   }
-
+  
   Widget _buildBottomInputField(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.1,
@@ -103,11 +104,11 @@ class _ChattingScreenState extends State<ChattingScreen>
                     key: _formKey,
                     child: CommonTextField(
                       textEditingController: _textController,
-                      contentPadding: const EdgeInsets.all(8.0),
                       hintText:
                           AppLocalizations(context).of("enter_your_prompt"),
                       focusColor: const Color.fromARGB(255, 112, 79, 56),
-                      textFieldPadding: const EdgeInsets.all(8.0),
+                      cursorColor: const Color.fromARGB(255, 112, 79, 56),
+                      textFieldPadding: const EdgeInsets.only(top: 8),
                       isObscureText: false,
                       keyboardType: TextInputType.text,
                       hintTextStyle: TextStyles(context).getDescriptionStyle(),

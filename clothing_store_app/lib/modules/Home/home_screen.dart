@@ -7,6 +7,7 @@ import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/database/favorite_cloth.dart';
 import 'package:clothing_store_app/widgets/bottom_move_top_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -75,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       SliverAppBar(
                         pinned: true,
                         floating: true,
-                        expandedHeight: size.height / 1.75,
+                        expandedHeight: size.height / 1.9,
                         automaticallyImplyLeading: false,
                         backgroundColor: AppTheme.backgroundColor,
                         flexibleSpace: Padding(
@@ -94,6 +95,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               ),
                               ImageSlideshow(
                                 indicatorColor: AppTheme.brownColor,
+                                height: size.height / 5,
                                 autoPlayInterval: 5000,
                                 isLoop: true,
                                 children: slides,
@@ -116,10 +118,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       ],
                                     ),
                                     SizedBox(
-                                      height: size.height * 0.02,
+                                      height: size.height * 0.01,
                                     ),
                                     SizedBox(
-                                      height: size.height / 10,
+                                      height: size.height / 9,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         itemCount: buttons.length,
@@ -201,10 +203,12 @@ List<BannerContent> _initSlides(BuildContext context) {
 }
 
 List<CustomCircleButton> _initializeButtons(BuildContext context) {
+  final size = MediaQuery.of(context).size;
   return [
     CustomCircleButton(
       imagePath: Localfiles.tshirtIcon,
       title: AppLocalizations(context).of("tshirt"),
+      // radius: size.width / 15,
       onClick: () {
         NavigationServices(context).pushCategoryScreen("tshirt");
       },
@@ -212,6 +216,7 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
     CustomCircleButton(
       imagePath: Localfiles.pantIcon,
       title: AppLocalizations(context).of("pant"),
+      // radius: size.width / 15,
       onClick: () {
         NavigationServices(context).pushCategoryScreen("pant");
       },
@@ -219,6 +224,7 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
     CustomCircleButton(
       imagePath: Localfiles.shirtIcon,
       title: AppLocalizations(context).of("shirt"),
+      // radius: size.width / 15,
       onClick: () {
         NavigationServices(context).pushCategoryScreen("shirt");
       },
@@ -226,6 +232,7 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
     CustomCircleButton(
       imagePath: Localfiles.jacketIcon,
       title: AppLocalizations(context).of("jacket"),
+      // radius: size.width / 15,
       onClick: () {
         NavigationServices(context).pushCategoryScreen("jacket");
       },
