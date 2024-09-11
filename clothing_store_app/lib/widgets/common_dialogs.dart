@@ -341,7 +341,7 @@ class Dialogs {
                       backgroundColor: AppTheme.brownButtonColor,
                     ),
                     child: Text(
-                      'Close',
+                      AppLocalizations(context).of("close"),
                       style: TextStyles(context)
                           .getRegularStyle()
                           .copyWith(color: AppTheme.backgroundColor),

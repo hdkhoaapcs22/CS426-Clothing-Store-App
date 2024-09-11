@@ -35,113 +35,116 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CommonDetailedAppBarView(
-              title: AppLocalizations(context).of("payment_methods"),
-              prefixIconData: Iconsax.arrow_left,
-              onPrefixIconClick: () {
-                Navigator.pop(context);
-              },
-              iconColor: AppTheme.primaryTextColor,
-              backgroundColor: AppTheme.backgroundColor,
-            ),
-            Text(
-              AppLocalizations(context).of('credit_and_debit_card'),
-              style: TextStyles(context)
-                  .getLabelLargeStyle(false)
-                  .copyWith(fontSize: 18, color: AppTheme.brownButtonColor),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            StreamBuilder(
-              stream: UserInformationService().getUserInfomationStream(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return AlertDialog(
-                      backgroundColor: Colors.transparent,
-                      content: Lottie.asset(
-                        Localfiles.loading,
-                        width: MediaQuery.of(context).size.width * 0.2,
-                      ));
-                } else if (!snapshot.hasData || snapshot.data?.data() == null) {
-                  return const Center(child: Text('User data not found'));
-                }
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CommonDetailedAppBarView(
+                title: AppLocalizations(context).of("payment_methods"),
+                prefixIconData: Iconsax.arrow_left,
+                onPrefixIconClick: () {
+                  Navigator.pop(context);
+                },
+                iconColor: AppTheme.primaryTextColor,
+                backgroundColor: AppTheme.backgroundColor,
+              ),
+              Text(
+                AppLocalizations(context).of('credit_and_debit_card'),
+                style: TextStyles(context)
+                    .getLabelLargeStyle(false)
+                    .copyWith(fontSize: 18, color: AppTheme.brownButtonColor),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              StreamBuilder(
+                stream: UserInformationService().getUserInfomationStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return AlertDialog(
+                        backgroundColor: Colors.transparent,
+                        content: Lottie.asset(
+                          Localfiles.loading,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                        ));
+                  } else if (!snapshot.hasData ||
+                      snapshot.data?.data() == null) {
+                    return const Center(child: Text('User data not found'));
+                  }
 
-                var userData = snapshot.data!.data()!;
+                  var userData = snapshot.data!.data()!;
 
-                String? cardNumber = userData['cardNumber'];
+                  String? cardNumber = userData['cardNumber'];
 
-                if (cardNumber == null || cardNumber.isEmpty) {
-                  return _buildPaymentMethodTile(
-                      context: context,
-                      content: AppLocalizations(context).of('add_card'),
-                      value: 'credit_card',
-                      icon: Icons.credit_card,
-                      hasCardNum: true,
-                      onTap: () {
-                        NavigationServices(context).pushAddCardScreen();
-                      });
-                } else {
-                  return Dismissible(
-                    key: Key('credit_card'),
-                    direction: DismissDirection.endToStart,
-                    background: Container(
-                      color: Colors.red,
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                      ),
-                    ),
-                    onDismissed: (direction) {
-                      setState(() {
-                        _selectedPaymentMethod = "paypal";
-                      });
-                      UserInformationService().deleteCardNumber();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Credit card deleted')),
-                      );
-                    },
-                    child: _buildPaymentMethodTile(
+                  if (cardNumber == null || cardNumber.isEmpty) {
+                    return _buildPaymentMethodTile(
                         context: context,
-                        content: cardNumber,
+                        content: AppLocalizations(context).of('add_card'),
+                        value: 'credit_card',
                         icon: Icons.credit_card,
-                        value: 'credit_card'),
-                  );
-                }
-              },
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            Text(
-              AppLocalizations(context).of('more_payment_options'),
-              style: TextStyles(context)
-                  .getLabelLargeStyle(false)
-                  .copyWith(fontSize: 18, color: AppTheme.brownButtonColor),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            _buildPaymentMethodTile(
-              context: context,
-              content: 'Paypal',
-              value: 'paypal',
-              image: Localfiles.paypalIcon,
-            ),
-            _buildPaymentMethodTile(
-              context: context,
-              content: 'Apple Pay',
-              value: 'applePay',
-              image: Localfiles.appleIcon,
-            ),
-            _buildPaymentMethodTile(
-              context: context,
-              content: 'Google Pay',
-              value: 'googlePay',
-              image: Localfiles.googleIcon,
-            ),
-          ],
+                        hasCardNum: true,
+                        onTap: () {
+                          NavigationServices(context).pushAddCardScreen();
+                        });
+                  } else {
+                    return Dismissible(
+                      key: Key('credit_card'),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                      onDismissed: (direction) {
+                        setState(() {
+                          _selectedPaymentMethod = "paypal";
+                        });
+                        UserInformationService().deleteCardNumber();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Credit card deleted')),
+                        );
+                      },
+                      child: _buildPaymentMethodTile(
+                          context: context,
+                          content: cardNumber,
+                          icon: Icons.credit_card,
+                          value: 'credit_card'),
+                    );
+                  }
+                },
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Text(
+                AppLocalizations(context).of('more_payment_options'),
+                style: TextStyles(context)
+                    .getLabelLargeStyle(false)
+                    .copyWith(fontSize: 18, color: AppTheme.brownButtonColor),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              _buildPaymentMethodTile(
+                context: context,
+                content: 'Paypal',
+                value: 'paypal',
+                image: Localfiles.paypalIcon,
+              ),
+              _buildPaymentMethodTile(
+                context: context,
+                content: 'Apple Pay',
+                value: 'applePay',
+                image: Localfiles.appleIcon,
+              ),
+              _buildPaymentMethodTile(
+                context: context,
+                content: 'Google Pay',
+                value: 'googlePay',
+                image: Localfiles.googleIcon,
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(

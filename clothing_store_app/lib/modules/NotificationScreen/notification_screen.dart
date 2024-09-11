@@ -55,6 +55,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
                     List<NotificationInfo> notifications = notificationMap
                         .map((map) => NotificationInfo.fromMap(map))
+                        .toList()
+                        .reversed
                         .toList();
 
                     for (int i = 0; i < notifications.length; i++) {

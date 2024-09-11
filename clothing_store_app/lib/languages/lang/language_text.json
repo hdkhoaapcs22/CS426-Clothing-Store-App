@@ -1533,5 +1533,30 @@
         "text_id": "change",
         "en": "CHANGE",
         "fr": "CHANGER"
+    },
+    {
+        "text_id": "close",
+        "en": "Close",
+        "fr": "Fermer"
+    },
+    {
+        "text_id": "please_enter_card_holder_name",
+        "en": "Please enter card holder name",
+        "fr": "Veuillez entrer le nom du titulaire de la carte"
+    },
+    {
+        "text_id": "please_enter_card_number",
+        "en": "Please enter card number",
+        "fr": "Veuillez entrer le numéro de carte"
+    },
+    {
+        "text_id": "please_enter_expiry_date",
+        "en": "Please enter expiry date",
+        "fr": "Veuillez entrer la date d'expiration"
+    },
+    {
+        "text_id": "please_enter_cvv",
+        "en": "Please enter CVV",
+        "fr": "Veuillez entrer le CVV"
     }
 ]

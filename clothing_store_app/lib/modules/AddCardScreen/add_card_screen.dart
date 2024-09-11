@@ -1,10 +1,12 @@
 import 'package:clothing_store_app/services/database/user_information.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import '../../widgets/common_button.dart';
 import '../../utils/text_styles.dart';
 import '../../utils/themes.dart';
-import 'package:clothing_store_app/widgets/common_app_bar_view.dart';
+import '../../utils/localfiles.dart';
+import '../../widgets/common_detailed_app_bar.dart';
 
 class AddCardScreen extends StatefulWidget {
   const AddCardScreen({Key? key}) : super(key: key);
@@ -35,32 +37,17 @@ class _AddCardScreenState extends State<AddCardScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(
-            top: 16,
-            left: 5,
-            right: 5,
-          ),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  CommonAppBarView(
-                    topPadding: 0,
-                    iconData: Icons.arrow_back,
-                    onBackClick: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        AppLocalizations(context).of('add_card'),
-                        style: TextStyles(context).getTitleStyle(),
-                      ),
-                    ),
-                  ),
-                ],
+              CommonDetailedAppBarView(
+                title: AppLocalizations(context).of("add_card"),
+                prefixIconData: Iconsax.arrow_left,
+                onPrefixIconClick: () {
+                  Navigator.pop(context);
+                },
+                iconColor: AppTheme.primaryTextColor,
+                backgroundColor: AppTheme.backgroundColor,
               ),
               Padding(
                 padding:
@@ -81,7 +68,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                             color: Colors.brown[300],
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
-                              image: AssetImage('assets/images/bg.png'),
+                              image: AssetImage(Localfiles.blackBackground),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -98,7 +85,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                         .getCreditCardTextStyle(),
                                   ),
                                   Image.asset(
-                                    'assets/images/logo.png',
+                                    Localfiles.logo,
                                     width: 50,
                                     height: 50,
                                   ),
@@ -177,7 +164,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter card holder name';
+                            return AppLocalizations(context)
+                                .of('please_enter_card_holder_name');
                           }
                           return null;
                         },
@@ -202,7 +190,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter card number';
+                            return AppLocalizations(context)
+                                .of('please_enter_card_number');
                           }
                           return null;
                         },
@@ -230,7 +219,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter expiry date';
+                                  return AppLocalizations(context)
+                                      .of('please_enter_expiry_date');
                                 }
                                 return null;
                               },
@@ -255,7 +245,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter CVV';
+                                  return AppLocalizations(context)
+                                      .of('please_enter_cvv');
                                 }
                                 return null;
                               },

@@ -13,7 +13,7 @@ import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/common_detailed_app_bar.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  OrderInfo order;
+  final OrderInfo order;
 
   CheckoutScreen({required this.order});
 
@@ -38,7 +38,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,63 +190,61 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  Widget _buildOrderItemList(
-    BuildContext context,
-  ) {
-    return Expanded(
-      child: ListView(
-        children: widget.order.clothesSold.map((item) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  height: MediaQuery.of(context).size.width * 0.15,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image: NetworkImage(item['imageURL']),
-                      fit: BoxFit.cover,
+  Widget _buildOrderItemList(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: widget.order.clothesSold.map((item) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.15,
+                height: MediaQuery.of(context).size.width * 0.15,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(item['imageURL']),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      item['name'],
+                      style: TextStyles(context).getBoldStyle().copyWith(
+                            fontSize: 16,
+                          ),
                     ),
-                  ),
+                    Text(
+                      '${AppLocalizations(context).of("size")}: ${item['size']}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    Text(
+                      '${item['price']}',
+                      style: TextStyles(context).getBoldStyle().copyWith(
+                            fontSize: 16,
+                          ),
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        item['name'],
-                        style: TextStyles(context).getBoldStyle().copyWith(
-                              fontSize: 16,
-                            ),
-                      ),
-                      Text(
-                        '${AppLocalizations(context).of("size")}: ${item['size']}',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      Text(
-                        '\$${item['price']}',
-                        style: TextStyles(context).getBoldStyle().copyWith(
-                              fontSize: 16,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        }).toList(),
-      ),
+            ),
+          ],
+        );
+      }).toList(),
     );
   }
 
