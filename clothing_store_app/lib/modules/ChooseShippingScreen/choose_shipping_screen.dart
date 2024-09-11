@@ -58,10 +58,10 @@ class _ChooseShippingScreenState extends State<ChooseShippingScreen> {
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.05),
                         leading:
-                            Icon(Icons.local_shipping, color: Colors.brown),
+                            const Icon(Icons.local_shipping, color: Colors.brown),
                         title: Text(
                           AppLocalizations(context)
-                              .of(_shippingType[index]['label']! as String),
+                              .of(_shippingType[index]['label']!),
                           style: TextStyles(context).getRegularStyle(),
                         ),
                         subtitle: Text(_shippingType[index]['shippingTime']!),

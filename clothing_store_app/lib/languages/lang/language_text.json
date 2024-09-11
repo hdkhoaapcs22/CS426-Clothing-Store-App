@@ -1345,9 +1345,9 @@
         "fr": "Nouveau PayPal ajouté"
     },
     {
-        "text_id": "friend_request_cancelled",
-        "en": "Friend request cancelled because you have already accepted a friend request from this user or the user has cancelled the request.",
-        "fr": "Demande d'ami annulée"
+        "text_id": "friend_request_finished",
+        "en": "Friend request finished",
+        "fr": "Demande d'ami terminée"
     },
     {
         "text_id": "sign_up_with_facebook",
@@ -1558,5 +1558,15 @@
         "text_id": "please_enter_cvv",
         "en": "Please enter CVV",
         "fr": "Veuillez entrer le CVV"
+    },
+    {
+        "text_id" : "no_notification",
+        "en": "No notification",
+        "fr": "Aucune notification"
+    },
+    {
+        "text_id": "order_shipped_descript",
+        "en": "Your order has been shipped. You can track your order's delivery status by going to the 'My Orders' section.",
+        "fr": "Votre commande a été expédiée. Vous pouvez suivre le statut de livraison de votre commande en allant dans la section 'Mes commandes'."
     }
 ]
