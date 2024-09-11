@@ -60,7 +60,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         .toList();
 
                     for (int i = 0; i < notifications.length; i++) {
-                      notifications[i].setId = i;
+                      notifications[i].setId = notifications.length - i - 1;
                     }
 
                     List<NotificationInfo> todayNotifications = notifications
@@ -179,7 +179,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             )
                           : Center(
                               child: Text(
-                                "You have no notifications",
+                                AppLocalizations(context)
+                                    .of("no_notification"),
                                 style: TextStyles(context)
                                     .getNotificationTextStyle(),
                               ),

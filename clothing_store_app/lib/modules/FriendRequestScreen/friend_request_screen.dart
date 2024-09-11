@@ -8,6 +8,7 @@ import '../../utils/localfiles.dart';
 import '../../utils/themes.dart';
 import 'package:clothing_store_app/widgets/common_detailed_app_bar.dart';
 import 'package:clothing_store_app/widgets/common_dialogs.dart';
+import 'package:clothing_store_app/utils/text_styles.dart';
 
 class FriendRequestScreen extends StatefulWidget {
   final String userID;
@@ -93,7 +94,9 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
                       return Center(
                         child: Text(
                           AppLocalizations(context)
-                              .of("we_are_friends_already"),
+                              .of("friend_request_finished"),
+                              style: TextStyles(context)
+                                    .getNotificationTextStyle(),
                         ),
                       );
                     },
@@ -119,7 +122,7 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       ),
       child: Text(
         AppLocalizations(context).of("accept"),
@@ -144,7 +147,7 @@ class _FriendRequestScreenState extends State<FriendRequestScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       ),
       child: Text(
         AppLocalizations(context).of("deny"),
