@@ -18,7 +18,7 @@ class HomeTab extends StatelessWidget implements PreferredSizeWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: SizedBox(
-          height: 30,
+          height: size.height / 30,
           child: AnimatedBuilder(
             animation: _tabController.animation!,
             builder: (context, child) {
@@ -46,7 +46,7 @@ class HomeTab extends StatelessWidget implements PreferredSizeWidget {
                     return Tab(
                       child: Container(
                         width: size.width / 5,
-                        height: 33,
+                        height: size.height / 30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                           border: Border.all(

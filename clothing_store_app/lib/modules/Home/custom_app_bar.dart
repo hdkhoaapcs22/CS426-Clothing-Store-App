@@ -35,9 +35,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               var userData = snapshot.data!.data()!;
 
               Iterable<dynamic> notificationData =
-                  userData['notifications'] == null
-                      ? []
-                      : userData['notifications'];
+                  userData['notifications'] ?? [];
 
               List<Map<String, dynamic>> notificationMap =
                   List<Map<String, dynamic>>.from(notificationData);
