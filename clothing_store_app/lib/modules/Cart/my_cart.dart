@@ -337,11 +337,11 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                           .copyWith(fontSize: 16),
                     ),
                   )),
-              const SizedBox(height: 13),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               titlePrice(title: "sub_total", price: subTotalPrice),
-              const SizedBox(height: 8),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               titlePrice(title: "delivery_fee", price: deliveryFee),
-              const SizedBox(height: 8),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               titlePrice(title: "discount", price: discount),
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -350,7 +350,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                 ),
               ),
               titlePrice(title: "total_price", price: totalPrice),
-              const SizedBox(height: 12),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               CommonButton(
                 onTap: proceedToPayment,
                 radius: 30.0,

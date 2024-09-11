@@ -363,7 +363,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Row(
               children: [
                 Column(

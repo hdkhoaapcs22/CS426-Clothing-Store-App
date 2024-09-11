@@ -8,6 +8,7 @@ import 'package:clothing_store_app/services/database/favorite_cloth.dart';
 import 'package:clothing_store_app/widgets/bottom_move_top_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       SliverAppBar(
                         pinned: true,
                         floating: true,
-                        expandedHeight: size.height / 2 + 80,
+                        expandedHeight: size.height / 1.75,
                         automaticallyImplyLeading: false,
                         backgroundColor: AppTheme.backgroundColor,
                         flexibleSpace: Padding(
@@ -84,18 +85,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             physics: const NeverScrollableScrollPhysics(),
                             children: [
                               const CustomAppBar(),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
                               searchAndSetting(context),
-                              const SizedBox(
-                                height: 20,
+                              SizedBox(
+                                height: size.height * 0.02,
                               ),
                               ImageSlideshow(
                                 indicatorColor: AppTheme.brownColor,
                                 autoPlayInterval: 5000,
                                 isLoop: true,
                                 children: slides,
-                              ),
-                              const SizedBox(
-                                height: 5,
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -114,11 +115,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 20,
+                                    SizedBox(
+                                      height: size.height * 0.02,
                                     ),
                                     SizedBox(
-                                      height: 90,
+                                      height: size.height / 10,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         itemCount: buttons.length,
@@ -311,7 +312,7 @@ Widget _buildProductGrid(
         crossAxisCount: 2,
         mainAxisSpacing: 0.0,
         crossAxisSpacing: 0.0,
-        mainAxisExtent: size.height / 4 + 10,
+        mainAxisExtent: size.width / 2 + 10,
       ),
       itemBuilder: (context, index) {
         final clothKey = clothes.keys.elementAt(index);

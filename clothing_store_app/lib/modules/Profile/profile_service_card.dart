@@ -50,7 +50,7 @@ class ProfileServiceCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 8.0,),
+            SizedBox(height: size.height * 0.01,),
             isLastService ? const SizedBox() : Divider(
               indent: 16,
               endIndent: 16,

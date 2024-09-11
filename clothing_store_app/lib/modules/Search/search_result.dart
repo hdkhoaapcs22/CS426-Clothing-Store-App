@@ -208,7 +208,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           crossAxisCount: 2,
           mainAxisSpacing: 0.0,
           crossAxisSpacing: 0.0,
-          mainAxisExtent: size.height / 4 + 10,
+          mainAxisExtent: size.width / 2 + 10,
         ),
         itemBuilder: (context, index) {
           final clothKey = clothes.keys.elementAt(index);
