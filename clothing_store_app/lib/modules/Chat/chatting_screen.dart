@@ -85,52 +85,49 @@ class _ChattingScreenState extends State<ChattingScreen>
   }
   
   Widget _buildBottomInputField(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.1,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: Colors.grey[200]!),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: MediaQuery.of(context).size.height * 0.015),
-          child: Row(
-            children: [
-              Flexible(
-                flex: 3,
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.065,
-                  child: Form(
-                      key: _formKey,
-                      child: CommonTextField(
-                        textEditingController: _textController,
-                        hintText:
-                            AppLocalizations(context).of("enter_your_prompt"),
-                        focusColor: const Color.fromARGB(255, 112, 79, 56),
-                        cursorColor: const Color.fromARGB(255, 112, 79, 56),
-                        textFieldPadding: EdgeInsets.zero,
-                        isObscureText: false,
-                        keyboardType: TextInputType.text,
-                        hintTextStyle: TextStyles(context).getDescriptionStyle(),
-                      )),
-                ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: Colors.grey[200]!),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: MediaQuery.of(context).size.height * 0.015),
+        child: Row(
+          children: [
+            Flexible(
+              flex: 3,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.065,
+                child: Form(
+                    key: _formKey,
+                    child: CommonTextField(
+                      textEditingController: _textController,
+                      hintText:
+                          AppLocalizations(context).of("enter_your_prompt"),
+                      focusColor: const Color.fromARGB(255, 112, 79, 56),
+                      cursorColor: const Color.fromARGB(255, 112, 79, 56),
+                      textFieldPadding: EdgeInsets.zero,
+                      isObscureText: false,
+                      keyboardType: TextInputType.text,
+                      hintTextStyle: TextStyles(context).getDescriptionStyle(),
+                    )),
               ),
-              const SizedBox(width: 8.0),
-              if (!_isLoading) ...[
-                Expanded(
-                  child: CommonButton(
-                      onTap: () {
-                        _sendChatMessage(_textController.text);
-                      },
-                      radius: 30,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      buttonText: "send"),
-                ),
-              ] else ...[
-                const CircularProgressIndicator.adaptive(),
-              ]
-            ],
-          ),
+            ),
+            const SizedBox(width: 8.0),
+            if (!_isLoading) ...[
+              Expanded(
+                child: CommonButton(
+                    onTap: () {
+                      _sendChatMessage(_textController.text);
+                    },
+                    radius: 30,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    buttonText: "send"),
+              ),
+            ] else ...[
+              const CircularProgressIndicator.adaptive(),
+            ]
+          ],
         ),
       ),
     );
