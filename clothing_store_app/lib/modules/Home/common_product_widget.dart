@@ -51,7 +51,7 @@ class _ProductCardState extends State<ProductCard> {
       },
       child: Container(
         width: size.width / 2 - 40,
-        height: size.height / 4,
+        height: size.width / 2,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [

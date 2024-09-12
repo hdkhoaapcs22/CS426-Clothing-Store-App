@@ -10,6 +10,7 @@ import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/widgets/bottom_move_top_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -85,7 +86,7 @@ class _WishlistPageState extends State<WishlistPage> {
               child: Scaffold(
                 backgroundColor: AppTheme.scaffoldBackgroundColor,
                 body: Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 48, 24, 0),
+                    padding: const EdgeInsets.fromLTRB(16, 48, 16, 0),
                     child: Column(
                       children: [
                         Center(
@@ -93,7 +94,7 @@ class _WishlistPageState extends State<WishlistPage> {
                               AppLocalizations(context).of("wishlist_title"),
                               style: TextStyles(context).getTitleStyle()),
                         ),
-                        const Padding(padding: EdgeInsets.all(12)),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.06,
                           child: ListView.builder(
@@ -130,11 +131,11 @@ class _WishlistPageState extends State<WishlistPage> {
                             },
                           ),
                         ),
-                        const Padding(padding: EdgeInsets.all(16)),
-                        SizedBox(
-                            height: size.height * 0.7,
-                            child: buildProductGrid(
-                                resClothes, size, favoriteIds)),
+                        SizedBox(height: size.height * 0.01,),
+                        Expanded(
+                          child: buildProductGrid(
+                              resClothes, size, favoriteIds),
+                        ),
                       ],
                     )),
               ),
@@ -154,7 +155,7 @@ class _WishlistPageState extends State<WishlistPage> {
           crossAxisCount: 2,
           mainAxisSpacing: 0.0,
           crossAxisSpacing: 0.0,
-          mainAxisExtent: size.height / 4 + 10,
+          mainAxisExtent: size.width / 2 + 10,
         ),
         itemBuilder: (context, index) {
           final clothKey = clothes.keys.elementAt(index);

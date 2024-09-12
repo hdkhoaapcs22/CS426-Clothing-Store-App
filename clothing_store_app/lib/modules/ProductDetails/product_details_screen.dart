@@ -244,7 +244,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         scrollDirection: Axis.horizontal,
                         physics: const AlwaysScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
-                          bool isOutOfStock = widget.clothes[selectedColor].sizeWithQuantity[allSizes[index]] == 0;
+                          bool isOutOfStock = widget.clothes[selectedColor]
+                                  .sizeWithQuantity[allSizes[index]] ==
+                              0;
                           return TapEffect(
                             onClick: () {
                               if (!isOutOfStock) {
@@ -271,9 +273,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       style: TextStyles(context)
                                           .getButtonTextStyle()
                                           .copyWith(
-                                              color: isOutOfStock? Colors.grey : selectedSize == index
-                                                  ? AppTheme.backgroundColor
-                                                  : AppTheme.primaryTextColor,
+                                              color: isOutOfStock
+                                                  ? Colors.grey
+                                                  : selectedSize == index
+                                                      ? AppTheme.backgroundColor
+                                                      : AppTheme
+                                                          .primaryTextColor,
                                               fontSize: 16),
                                     ))),
                                 if (isOutOfStock)
@@ -362,11 +367,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Column(
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0, left: 16),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -383,29 +388,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  width: 16.0,
-                ),
-                Expanded(
-                    child: CommonButton(
-                  onTap: () {
-                    CartService().addItemIntoCart(
-                        clothItemID: widget.clothBase.id,
-                        name: widget.clothBase.name,
-                        imageURl: widget.clothes[selectedColor].clothImageURL,
-                        size: allSizes[selectedSize],
-                        price: widget.clothes[selectedColor].price,
-                        orderQuantity: 1,
-                        quantity: widget.clothes[selectedColor]
-                            .sizeWithQuantity[allSizes[selectedSize]]);
-                    NavigationServices(context).gotoCartScreen();
-                  },
-                  buttonText: 'add_to_cart',
-                  icon: Iconsax.shopping_bag5,
-                  radius: 40,
-                )),
-              ],
-            ),
+              ),
+              const SizedBox(
+                width: 16.0,
+              ),
+              Expanded(
+                  child: CommonButton(
+                      onTap: () {
+                        CartService().addItemIntoCart(
+                            clothItemID: widget.clothBase.id,
+                            name: widget.clothBase.name,
+                            imageURl:
+                                widget.clothes[selectedColor].clothImageURL,
+                            size: allSizes[selectedSize],
+                            price: widget.clothes[selectedColor].price,
+                            orderQuantity: 1,
+                            quantity: widget.clothes[selectedColor]
+                                .sizeWithQuantity[allSizes[selectedSize]]);
+                        NavigationServices(context).gotoCartScreen();
+                      },
+                      buttonText: 'add_to_cart',
+                      icon: Iconsax.shopping_bag5,
+                      radius: 40,
+                      padding: const EdgeInsets.all(16))),
+            ],
           ),
         ),
       ),

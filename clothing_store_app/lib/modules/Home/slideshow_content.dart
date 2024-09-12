@@ -29,13 +29,13 @@ class BannerContent extends StatelessWidget {
               height: size.height / 5.2,
               child: Image(
                 image: AssetImage(imagePath),
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
               ),
             ),
           ),
           Positioned(
               left: 10,
-              bottom: 35,
+              bottom: 10,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -45,16 +45,16 @@ class BannerContent extends StatelessWidget {
                         .getHeaderStyle(false)
                         .copyWith(fontSize: 16, color: Colors.black),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: size.height * 0.01,
                   ),
                   Text(
                     description,
                     style: TextStyles(context).getDescriptionStyle().copyWith(
                         fontSize: 12, color: Colors.black),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: size.height * 0.01,
                   ),
                   CommonButton(
                     buttonTextWidget: Text(

@@ -304,14 +304,14 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
         side: BorderSide(color: Colors.grey[200]!),
       ),
       child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Align(
                   alignment: Alignment.topRight,
                   child: CommonButton(
-                    padding: const EdgeInsets.only(top: 5, right: 10),
+                    padding: const EdgeInsets.only(top: 0, right: 10),
                     height: MediaQuery.of(context).size.height * 0.05,
                     width: MediaQuery.of(context).size.width * 0.3,
                     onTap: () async {
@@ -337,23 +337,24 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                           .copyWith(fontSize: 16),
                     ),
                   )),
-              const SizedBox(height: 13),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               titlePrice(title: "sub_total", price: subTotalPrice),
-              const SizedBox(height: 8),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               titlePrice(title: "delivery_fee", price: deliveryFee),
-              const SizedBox(height: 8),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               titlePrice(title: "discount", price: discount),
               Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: DottedLine(
                   dashColor: Colors.grey[400]!,
                 ),
               ),
               titlePrice(title: "total_price", price: totalPrice),
-              const SizedBox(height: 12),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               CommonButton(
                 onTap: proceedToPayment,
                 radius: 30.0,
+                height: MediaQuery.of(context).size.height * 0.06,
                 backgroundColor: AppTheme.brownButtonColor,
                 buttonTextWidget: Text(
                   AppLocalizations(context).of("proceed_to_checkout"),

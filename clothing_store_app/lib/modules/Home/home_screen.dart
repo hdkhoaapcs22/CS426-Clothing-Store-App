@@ -7,7 +7,9 @@ import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/database/favorite_cloth.dart';
 import 'package:clothing_store_app/widgets/bottom_move_top_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
@@ -74,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       SliverAppBar(
                         pinned: true,
                         floating: true,
-                        expandedHeight: size.height / 2 + 80,
+                        expandedHeight: size.height / 1.9,
                         automaticallyImplyLeading: false,
                         backgroundColor: AppTheme.backgroundColor,
                         flexibleSpace: Padding(
@@ -84,18 +86,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             physics: const NeverScrollableScrollPhysics(),
                             children: [
                               const CustomAppBar(),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
                               searchAndSetting(context),
-                              const SizedBox(
-                                height: 20,
+                              SizedBox(
+                                height: size.height * 0.02,
                               ),
                               ImageSlideshow(
                                 indicatorColor: AppTheme.brownColor,
+                                height: size.height / 5,
                                 autoPlayInterval: 5000,
                                 isLoop: true,
                                 children: slides,
-                              ),
-                              const SizedBox(
-                                height: 5,
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -114,11 +117,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 20,
+                                    SizedBox(
+                                      height: size.height * 0.01,
                                     ),
                                     SizedBox(
-                                      height: 90,
+                                      height: size.height / 9,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         itemCount: buttons.length,
@@ -200,10 +203,12 @@ List<BannerContent> _initSlides(BuildContext context) {
 }
 
 List<CustomCircleButton> _initializeButtons(BuildContext context) {
+  final size = MediaQuery.of(context).size;
   return [
     CustomCircleButton(
       imagePath: Localfiles.tshirtIcon,
       title: AppLocalizations(context).of("tshirt"),
+      // radius: size.width / 15,
       onClick: () {
         NavigationServices(context).pushCategoryScreen("tshirt");
       },
@@ -211,6 +216,7 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
     CustomCircleButton(
       imagePath: Localfiles.pantIcon,
       title: AppLocalizations(context).of("pant"),
+      // radius: size.width / 15,
       onClick: () {
         NavigationServices(context).pushCategoryScreen("pant");
       },
@@ -218,6 +224,7 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
     CustomCircleButton(
       imagePath: Localfiles.shirtIcon,
       title: AppLocalizations(context).of("shirt"),
+      // radius: size.width / 15,
       onClick: () {
         NavigationServices(context).pushCategoryScreen("shirt");
       },
@@ -225,6 +232,7 @@ List<CustomCircleButton> _initializeButtons(BuildContext context) {
     CustomCircleButton(
       imagePath: Localfiles.jacketIcon,
       title: AppLocalizations(context).of("jacket"),
+      // radius: size.width / 15,
       onClick: () {
         NavigationServices(context).pushCategoryScreen("jacket");
       },
@@ -311,7 +319,7 @@ Widget _buildProductGrid(
         crossAxisCount: 2,
         mainAxisSpacing: 0.0,
         crossAxisSpacing: 0.0,
-        mainAxisExtent: size.height / 4 + 10,
+        mainAxisExtent: size.width / 2 + 10,
       ),
       itemBuilder: (context, index) {
         final clothKey = clothes.keys.elementAt(index);

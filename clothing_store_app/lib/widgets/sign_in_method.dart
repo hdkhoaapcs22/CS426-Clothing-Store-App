@@ -3,7 +3,6 @@ import 'package:clothing_store_app/utils/localfiles.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
 import 'package:flutter/material.dart';
 
-import '../routes/navigation_services.dart';
 
 Widget signInMethod(String imageLink, BuildContext context) {
   return TapEffect(
