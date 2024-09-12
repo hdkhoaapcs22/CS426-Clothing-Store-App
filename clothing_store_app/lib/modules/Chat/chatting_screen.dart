@@ -1,9 +1,7 @@
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/widgets/common_dialogs.dart';
 import 'package:clothing_store_app/widgets/common_textfield.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 import '../../class/gemini.dart';
@@ -95,24 +93,27 @@ class _ChattingScreenState extends State<ChattingScreen>
           side: BorderSide(color: Colors.grey[200]!),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: MediaQuery.of(context).size.height * 0.015),
           child: Row(
             children: [
               Flexible(
                 flex: 3,
-                child: Form(
-                    key: _formKey,
-                    child: CommonTextField(
-                      textEditingController: _textController,
-                      hintText:
-                          AppLocalizations(context).of("enter_your_prompt"),
-                      focusColor: const Color.fromARGB(255, 112, 79, 56),
-                      cursorColor: const Color.fromARGB(255, 112, 79, 56),
-                      textFieldPadding: const EdgeInsets.only(top: 8),
-                      isObscureText: false,
-                      keyboardType: TextInputType.text,
-                      hintTextStyle: TextStyles(context).getDescriptionStyle(),
-                    )),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.065,
+                  child: Form(
+                      key: _formKey,
+                      child: CommonTextField(
+                        textEditingController: _textController,
+                        hintText:
+                            AppLocalizations(context).of("enter_your_prompt"),
+                        focusColor: const Color.fromARGB(255, 112, 79, 56),
+                        cursorColor: const Color.fromARGB(255, 112, 79, 56),
+                        textFieldPadding: EdgeInsets.zero,
+                        isObscureText: false,
+                        keyboardType: TextInputType.text,
+                        hintTextStyle: TextStyles(context).getDescriptionStyle(),
+                      )),
+                ),
               ),
               const SizedBox(width: 8.0),
               if (!_isLoading) ...[
@@ -122,7 +123,7 @@ class _ChattingScreenState extends State<ChattingScreen>
                         _sendChatMessage(_textController.text);
                       },
                       radius: 30,
-                      height: 50,
+                      height: MediaQuery.of(context).size.height * 0.06,
                       buttonText: "send"),
                 ),
               ] else ...[
