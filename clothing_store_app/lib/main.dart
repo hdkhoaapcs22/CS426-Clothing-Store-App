@@ -3,7 +3,6 @@ import 'package:clothing_store_app/providers/complete_profile_provider.dart';
 import 'package:clothing_store_app/providers/filter_provider.dart';
 import 'package:clothing_store_app/providers/set_image_provider.dart';
 import 'package:clothing_store_app/providers/sign_up_provider.dart';
-import 'package:clothing_store_app/common/common.dart';
 import 'package:clothing_store_app/providers/theme_provider.dart';
 import 'package:clothing_store_app/utils/themes.dart';
 import 'package:clothing_store_app/clothing_store_app.dart';

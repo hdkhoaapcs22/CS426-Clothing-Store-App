@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'dart:math';
+import 'dart:typed_data';
+
 import 'package:clothing_store_app/languages/appLocalizations.dart';
 import 'package:clothing_store_app/providers/filter_provider.dart';
 import 'package:clothing_store_app/routes/navigation_services.dart';
@@ -10,11 +14,12 @@ import 'package:clothing_store_app/widgets/common_detailed_app_bar.dart';
 import 'package:clothing_store_app/widgets/tap_effect.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tflite/flutter_tflite.dart';
+import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:image/image.dart' as img;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -26,19 +31,27 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController searchController;
   final picker = ImagePicker();
-  late dynamic _recognitions;
+  late File _image;
+  List<String>? labels;
+  late tfl.Interpreter interpreter;
 
   @override
   void initState() {
     super.initState();
     searchController = TextEditingController();
-    initTFlite();
+    loadModel().then((_) {
+      loadLabels().then((loadedLabels) {
+        setState(() {
+          labels = loadedLabels;
+        });
+      });
+    });
   }
 
   @override
   void dispose() {
     searchController.dispose();
-    Tflite.close();
+    interpreter.close();
     super.dispose();
   }
 
@@ -156,8 +169,8 @@ class _SearchScreenState extends State<SearchScreen> {
                             SearchHistoryService().removeAllHistory();
                           },
                           style: TextButton.styleFrom(
-                            //overlayColor: Colors.transparent,
-                          ),
+                              //overlayColor: Colors.transparent,
+                              ),
                           child: Text(
                             AppLocalizations(context).of("clear_all"),
                             style: const TextStyle(
@@ -212,8 +225,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     filterProvider.priceRange);
                                           },
                                           style: TextButton.styleFrom(
-                                            //overlayColor: Colors.transparent,
-                                          ),
+                                              //overlayColor: Colors.transparent,
+                                              ),
                                           child: Text(
                                             data[index]['content'],
                                             style: const TextStyle(
@@ -247,47 +260,93 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  initTFlite() async {
-    await Tflite.loadModel(
-      model: "assets/model_unquant.tflite",
-      labels: "assets/labels.txt",
-      isAsset: true,
-      numThreads: 1,
-      useGpuDelegate: false,
-    );
+  Future<void> loadModel() async {
+    try {
+      interpreter =
+          await tfl.Interpreter.fromAsset('assets/model_unquant.tflite');
+    } catch (e) {
+      debugPrint('Error loading model: $e');
+    }
+  }
+
+  Future<List<String>> loadLabels() async {
+    final labelsData =
+        await DefaultAssetBundle.of(context).loadString('assets/labels.txt');
+    return labelsData.split('\n');
   }
 
   Future<void> pickImageFromCamera(RangeValues priceRange) async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
-      recognizeImage(pickedFile, priceRange);
+      _setImage(File(pickedFile.path), priceRange);
     }
   }
 
   Future<void> pickImageFromGallery(RangeValues priceRange) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      recognizeImage(pickedFile, priceRange);
+      _setImage(File(pickedFile.path), priceRange);
     }
   }
 
-  Future recognizeImage(XFile image, RangeValues priceRange) async {
-    var recognitions = await Tflite.runModelOnImage(
-      path: image.path,
-      numResults: 1,
-      threshold: 0.05,
-      imageMean: 127.5,
-      imageStd: 127.5,
-    );
+  void _setImage(File image, RangeValues priceRange) {
+    setState(() {
+      _image = image;
+    });
+    runInference(priceRange);
+  }
 
-    _recognitions = recognitions;
-    searchController.text = _recognitions[0]["label"];
+  Future<Uint8List> preprocessImage(File imageFile) async {
+    // Decode the image to an Image object
+    img.Image? originalImage = img.decodeImage(await imageFile.readAsBytes());
 
-    SearchHistoryService().addHistory(
-        hisID: DateTime.now().millisecondsSinceEpoch.toString(),
-        content: searchController.text);
-    NavigationServices(context)
-        .gotoResultScreen(searchController.text, priceRange);
+    // Resize the image to 224x224
+    img.Image resizedImage =
+        img.copyResize(originalImage!, width: 224, height: 224);
+
+    // Ensure the image has 3 channels (RGB)
+    img.Image rgbImage = img.copyResize(resizedImage,
+        width: 224, height: 224, interpolation: img.Interpolation.cubic);
+
+    // Convert to Uint8List in the correct format for TensorFlow Lite (RGB only)
+    Uint8List bytes = Uint8List.fromList(
+        rgbImage.getBytes(format: img.Format.rgb)); // Only keep RGB channels
+
+    return bytes;
+  }
+
+  Future<void> runInference(RangeValues priceRange) async {
+    if (labels == null) {
+      return;
+    }
+
+    try {
+      Uint8List inputBytes = await preprocessImage(_image);
+      var input = inputBytes.buffer.asUint8List().reshape([1, 224, 224, 3]);
+      var outputBuffer = List<double>.filled(1 * 4, 0).reshape([1, 4]);
+
+      interpreter.run(input, outputBuffer);
+
+      // Assuming output is now List<List<int>> after inference
+      List<double> output = outputBuffer[0];
+
+      // Calculate probability
+      double maxScore = output.reduce(max);
+      //probability = (maxScore / 255.0); // Convert to percentage
+
+      // Get the classification result
+      int highestProbIndex = output.indexOf(maxScore);
+      String classificationResult = labels![highestProbIndex];
+
+      searchController.text = classificationResult.trim();
+      SearchHistoryService().addHistory(
+          hisID: DateTime.now().millisecondsSinceEpoch.toString(),
+          content: searchController.text);
+      NavigationServices(context)
+          .gotoResultScreen(searchController.text, priceRange);
+    } catch (e) {
+      debugPrint('Error during inference: $e');
+    }
   }
 
   Future<void> showAnimatedImagePickerDialog(RangeValues priceRange) {

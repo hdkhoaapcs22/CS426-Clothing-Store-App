@@ -50,7 +50,14 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
     return StreamBuilder(
         stream: CartService().getItemInCartStream(),
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return AlertDialog(
+                backgroundColor: Colors.transparent,
+                content: Lottie.asset(
+                  Localfiles.loading,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                ));
+          } else if (snapshot.hasData) {
             orderedItems = snapshot.data!.docs
                 .map((doc) => OrderedItem(
                       clothBaseID: doc['clothItemID'],
@@ -81,6 +88,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                   ),
                   Expanded(
                     child: ListView.builder(
+                      padding: EdgeInsets.zero,
                       itemCount: orderedItems.length,
                       itemBuilder: (context, index) {
                         return activeOrderWidget(index);
@@ -91,12 +99,7 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
               ),
             );
           }
-          return AlertDialog(
-              backgroundColor: Colors.transparent,
-              content: Lottie.asset(
-                Localfiles.loading,
-                width: MediaQuery.of(context).size.width * 0.2,
-              ));
+          return const SizedBox();
         });
   }
 
@@ -287,7 +290,8 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
                   radius: 30.0,
                   buttonTextWidget: Text(
                       AppLocalizations(context).of("yes_remove"),
-                      style: const TextStyle(fontSize: 16)),
+                      style:
+                          const TextStyle(fontSize: 16, color: Colors.white)),
                 ),
               ),
             ],
@@ -344,7 +348,8 @@ class _MyCartState extends State<MyCart> with TickerProviderStateMixin {
               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               titlePrice(title: "discount", price: discount),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: DottedLine(
                   dashColor: Colors.grey[400]!,
                 ),
