@@ -106,6 +106,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           : const EdgeInsets.all(8.0),
                       child: hasNotifications
                           ? ListView(
+                              padding: EdgeInsets.zero,
                               children: [
                                 if (todayNotifications.isNotEmpty)
                                   _buildSectionHeader(
@@ -179,8 +180,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             )
                           : Center(
                               child: Text(
-                                AppLocalizations(context)
-                                    .of("no_notification"),
+                                AppLocalizations(context).of("no_notification"),
                                 style: TextStyles(context)
                                     .getNotificationTextStyle(),
                               ),

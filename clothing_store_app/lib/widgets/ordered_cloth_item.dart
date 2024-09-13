@@ -32,8 +32,7 @@ class DetailClothItem extends StatelessWidget {
 
             return Scaffold(
               body: Padding(
-                padding: EdgeInsets.only(
-                    top: AppBar().preferredSize.height, left: 5, right: 5),
+                padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
                 child: Column(
                   children: [
                     CommonDetailedAppBarView(
@@ -46,6 +45,7 @@ class DetailClothItem extends StatelessWidget {
                     ),
                     Expanded(
                       child: ListView.builder(
+                        padding: EdgeInsets.zero,
                         itemCount: orderedItems.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(

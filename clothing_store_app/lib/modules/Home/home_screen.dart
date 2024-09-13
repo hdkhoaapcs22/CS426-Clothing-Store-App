@@ -7,9 +7,7 @@ import 'package:clothing_store_app/routes/navigation_services.dart';
 import 'package:clothing_store_app/services/database/favorite_cloth.dart';
 import 'package:clothing_store_app/widgets/bottom_move_top_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
@@ -110,7 +108,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          AppLocalizations(context).of("categories"),
+                                          AppLocalizations(context)
+                                              .of("categories"),
                                           style: TextStyles(context)
                                               .getHeaderStyle(false)
                                               .copyWith(fontSize: 16),
@@ -203,7 +202,6 @@ List<BannerContent> _initSlides(BuildContext context) {
 }
 
 List<CustomCircleButton> _initializeButtons(BuildContext context) {
-  final size = MediaQuery.of(context).size;
   return [
     CustomCircleButton(
       imagePath: Localfiles.tshirtIcon,
