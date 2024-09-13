@@ -175,8 +175,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                                     SearchHistoryService().removeAllHistory();
                                   },
                                   style: TextButton.styleFrom(
-                                    //overlayColor: Colors.transparent,
-                                  ),
+                                      //overlayColor: Colors.transparent,
+                                      ),
                                   child: Text("${resClothes.length} founds",
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -186,11 +186,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                               ],
                             ),
                             const Padding(padding: EdgeInsets.all(8)),
-                            SizedBox(
-                              height: size.height * 0.6,
-                              child: buildProductGrid(resClothes,
-                                  MediaQuery.of(context).size, favoriteIds),
-                            ),
+                            buildProductGrid(resClothes,
+                                MediaQuery.of(context).size, favoriteIds),
                           ]));
                 }),
           );
