@@ -11,7 +11,6 @@ class AppLocalizations {
 
   AppLocalizations(this.context);
 
-  // call this method only firstTime when open app You can see splash_screen.dart
   Future<void> load() async {
     final List<Map<String, String>> allTexts = [];
 
@@ -43,43 +42,14 @@ class AppLocalizations {
         String newtext = '';
         final index = common.globalTexts!
             .indexWhere((element) => element['text_id'] == textId);
-        if (index != -1) {
-          newtext = common.globalTexts![index]
-                  [languageType.toString().split(".")[1]] ??
-              '';
-          if (newtext != '') return newtext;
-        }
-        return '#Text is Empty#';
-      } else {
-        return '#Language is Empty#';
+        newtext = common.globalTexts![index]
+                [languageType.toString().split(".")[1]] ??
+            '';
+        if (newtext != '') return newtext;
       }
-    } else {
-      return '#LanguageCode Not Match#';
     }
+    return '#LanguageCode Not Match#';
   }
-
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
 
   getBoldStyle() {}
-}
-
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
-  const _AppLocalizationsDelegate();
-
-  @override
-  bool isSupported(Locale locale) {
-    return ['en', 'fr'].contains(locale.languageCode);
-  }
-
-  @override
-  Future<AppLocalizations> load(Locale locale) async {
-    AppLocalizations localization = AppLocalizations(applicationcontext!);
-    await localization.load();
-    return localization;
-  }
-
-  @override
-  bool shouldReload(LocalizationsDelegate<AppLocalizations> old) => false;
 }

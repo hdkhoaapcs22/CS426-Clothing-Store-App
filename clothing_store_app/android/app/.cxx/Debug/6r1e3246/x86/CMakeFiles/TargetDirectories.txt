@@ -1,0 +1,2 @@
+D:/S3 - Y2/Mobile/CS426-Clothing-Store-App/clothing_store_app/android/app/.cxx/Debug/6r1e3246/x86/CMakeFiles/edit_cache.dir
+D:/S3 - Y2/Mobile/CS426-Clothing-Store-App/clothing_store_app/android/app/.cxx/Debug/6r1e3246/x86/CMakeFiles/rebuild_cache.dir

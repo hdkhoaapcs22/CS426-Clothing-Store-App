@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 
 import 'providers/wishlist_provider.dart';
 import 'services/database/cloth_database.dart';
-import 'services/database/gemini_api.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +28,6 @@ void main() async {
 
 Widget _setAllProviders() {
   ClothService().getAllClothes();
-  GeminiApiService().getInformationOfGemini();
   return MultiProvider(
     providers: [
       ChangeNotifierProvider(

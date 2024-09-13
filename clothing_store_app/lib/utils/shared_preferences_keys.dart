@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import '../clothing_store_app.dart';
 import 'enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +14,7 @@ class SharedPreferencesKeys {
   }
 
   Future<ThemeModeType> getThemeMode() async {
-    int? index = await _getIntData(key: 'ThemeModeType');
+    int? index = await _getIntData(key: 'ThemeType');
     if (index != null) {
       return ThemeModeType.values[index];
     } else {
@@ -54,20 +53,12 @@ class SharedPreferencesKeys {
   }
 
   Future<LanguageType> getLanguageType() async {
-    int? index = await _getIntData(key: 'Languagetype');
+    int? index = await _getIntData(key: 'LanguagetType');
     if (index != null) {
       return LanguageType.values[index];
     } else {
       if (applicationcontext != null) {
         LanguageType type = LanguageType.en;
-        final Locale myLocale = Localizations.localeOf(applicationcontext!);
-        if (myLocale.languageCode != '' && myLocale.languageCode.length == 2) {
-          for (var item in LanguageType.values.toList()) {
-            if (myLocale.languageCode == item.toString().split(".")[1]) {
-              type = item;
-            }
-          }
-        }
         return type;
       } else {
         return LanguageType.en; // Default we set english
